@@ -12,6 +12,24 @@ Complete skill documentation including:
 - Expected outputs and examples
 - Quality standards and best practices
 
+### [Complete Guide](COMPLETE-GUIDE.md)
+Comprehensive user-facing guide covering:
+- How the skill works internally
+- What's inside the skill
+- Usage patterns and examples
+- Design references and exemplars
+- Troubleshooting and customization
+- Philosophy and success indicators
+
+### [Quick Reference](QUICK-REFERENCE.md)
+One-page condensed reference for quick lookup:
+- Core process overview
+- Usage patterns
+- Built-in exemplars
+- Output-specific tips
+- Troubleshooting
+- Quick commands
+
 ## Reference Documentation
 
 Detailed reference materials for internal skill execution:
@@ -124,6 +142,8 @@ Real-world examples demonstrating:
 design-director/
 ├── README.md                          # Main skill documentation
 ├── INDEX.md                           # This file - complete navigation
+├── COMPLETE-GUIDE.md                  # Comprehensive user guide
+├── QUICK-REFERENCE.md                 # One-page quick reference
 ├── references/                        # Reference documentation (5 files)
 │   ├── design-philosophy.md          # Core principles and decision framework
 │   ├── interrogation-checklist.md    # Evaluation criteria and quality gates
@@ -160,9 +180,21 @@ design-director/
 
 ## Getting Started
 
-1. **Read** [Main Skill Guide](README.md) for complete overview
-2. **Review** [Examples](examples/README.md) for real transformations
-3. **Reference** individual documentation as needed
-4. **Invoke** skill with your functional output + context
+### For Quick Start
+1. **Read** [Quick Reference](QUICK-REFERENCE.md) - One-page overview
+2. **Start using** - Just ask for visual outputs
+3. **Iterate** - Request changes as needed
 
-The skill handles all reference materials internally - users don't need to read them unless learning design thinking.
+### For Comprehensive Understanding
+1. **Read** [Complete Guide](COMPLETE-GUIDE.md) - Full user guide
+2. **Review** [Examples](examples/README.md) - Real transformations
+3. **Study** [Main Documentation](README.md) - Technical details
+4. **Explore** reference materials as needed
+
+### For Developers/Customizers
+1. **Read** [Main Skill Guide](README.md) - Technical documentation
+2. **Study** reference files in [references/](references/)
+3. **Review** [Elevation Protocol](references/elevation-protocol.md)
+4. **Understand** [Design Philosophy](references/design-philosophy.md)
+
+The skill handles all reference materials internally - users don't need to read them unless learning design thinking or customizing the skill.

@@ -100,6 +100,8 @@ claude-usecases/
 - Context-appropriate design matching (audience, purpose, medium)
 
 **Quick Links:**
+- [Quick Reference](skills/design-director/QUICK-REFERENCE.md) ⭐ Start here
+- [Complete Guide](skills/design-director/COMPLETE-GUIDE.md)
 - [Skill Documentation](skills/design-director/README.md)
 - [File Index](skills/design-director/INDEX.md)
 - [Examples](skills/design-director/examples/)
