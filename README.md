@@ -17,6 +17,7 @@ claude-usecases/
 ├── skills/
 │   ├── 360-use-cases/          # 360-specific workflow skills
 │   ├── vianeo-persona-builder/ # Vianeo persona generation & validation
+│   ├── design-director/        # Design elevation & visual polish
 │   └── templates/              # Templates for creating new skills
 ├── docs/                       # Documentation and guides
 ├── examples/                   # Example implementations
@@ -79,6 +80,45 @@ claude-usecases/
   - **Standalone HTML** (Easiest) - Zero dependencies, just open in browser
   - **Portable JSX** - Single-file React component for quick deployment
   - **Modular TypeScript** - Production-ready component architecture
+
+---
+
+### Design & Visual Excellence
+
+#### Design Director
+**Location:** `skills/design-director/`
+**Category:** Design & Visual Excellence
+**Purpose:** Transform functional outputs into professionally polished, design-elevated work through systematic application of contemporary design best practices
+
+**Key Features:**
+- Elevates 5 output types: presentations, spreadsheets, HTML/web, reports, dashboards
+- Follows 6-phase systematic elevation protocol
+- References 7 design exemplars: Stripe, Linear, Apple, Notion, Bauhaus, Swiss Design, Brutalism
+- Applies 40+ specific design techniques across typography, color, layout, hierarchy
+- Ensures hand-crafted appearance (not template-based)
+- WCAG AA accessibility compliance by default
+- Context-appropriate design matching (audience, purpose, medium)
+
+**Quick Links:**
+- [Skill Documentation](skills/design-director/README.md)
+- [File Index](skills/design-director/INDEX.md)
+- [Examples](skills/design-director/examples/)
+- [Design Philosophy](skills/design-director/references/design-philosophy.md)
+- [Technique Catalog](skills/design-director/references/technique-catalog.md)
+
+**When to Use:**
+- Elevating functional outputs to professional design quality
+- Creating polished dashboards, presentations, and reports
+- Building web interfaces that match contemporary standards
+- Ensuring visual consistency across deliverables
+- Making data-heavy outputs scannable and beautiful
+
+**Reference Documentation:**
+- **Design Philosophy** - Core principles and decision framework
+- **Interrogation Checklist** - Comprehensive evaluation criteria
+- **Technique Catalog** - 40+ specific design techniques
+- **Design Exemplars** - Patterns from Stripe, Linear, Apple, and more
+- **Elevation Protocol** - Complete 6-phase systematic process
 
 ---
 
