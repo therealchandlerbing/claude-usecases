@@ -1,0 +1,57 @@
+{
+  "name": "vianeo-persona-interactive-dashboard",
+  "version": "1.0.0",
+  "description": "Interactive dashboard for exploring Vianeo persona data with four-layer structure and evidence tracking",
+  "main": "src/VianeoPersonaExplorer.tsx",
+  "types": "src/types.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "keywords": [
+    "vianeo",
+    "persona",
+    "dashboard",
+    "visualization",
+    "react",
+    "typescript",
+    "stakeholder",
+    "validation"
+  ],
+  "author": "360 Innovation Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/therealchandlerbing/claude-usecases",
+    "directory": "skills/vianeo-persona-builder/powerups/interactive-dashboard"
+  },
+  "bugs": {
+    "url": "https://github.com/therealchandlerbing/claude-usecases/issues"
+  },
+  "homepage": "https://github.com/therealchandlerbing/claude-usecases/tree/main/skills/vianeo-persona-builder/powerups/interactive-dashboard#readme",
+  "files": [
+    "src",
+    "examples",
+    "README.md",
+    "INTEGRATION.md"
+  ]
+}
