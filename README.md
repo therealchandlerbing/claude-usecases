@@ -15,11 +15,12 @@ This repository contains:
 ```
 claude-usecases/
 ├── skills/
-│   ├── 360-use-cases/     # 360-specific workflow skills
-│   └── templates/          # Templates for creating new skills
-├── docs/                   # Documentation and guides
-├── examples/               # Example implementations
-└── README.md              # This file
+│   ├── 360-use-cases/          # 360-specific workflow skills
+│   ├── vianeo-persona-builder/ # Vianeo persona generation & validation
+│   └── templates/              # Templates for creating new skills
+├── docs/                       # Documentation and guides
+├── examples/                   # Example implementations
+└── README.md                  # This file
 ```
 
 ## Quick Start
@@ -43,10 +44,39 @@ claude-usecases/
 
 ## Available Skills
 
+### Research & Validation
+
+#### Vianeo Persona Builder
+**Location:** `skills/vianeo-persona-builder/`
+**Category:** Research & Validation
+**Purpose:** Generate validated stakeholder personas from research data and behavioral patterns following the Vianeo framework
+
+**Key Features:**
+- Analyzes interview transcripts, surveys, and behavioral data
+- Enforces Vianeo four-layer persona structure
+- Tracks validation evidence and provides scoring guidance
+- Generates dual outputs: strategic version + platform-ready version
+- Supports 4 persona types: partners, innovators, stakeholders, beneficiaries
+- Predicts Vianeo Desirability scores (1-5 scale)
+
+**Quick Links:**
+- [Skill Documentation](skills/vianeo-persona-builder/README.md)
+- [File Index](skills/vianeo-persona-builder/INDEX.md)
+- [Examples](skills/vianeo-persona-builder/examples/)
+- [Scoring Rubric](skills/vianeo-persona-builder/references/vianeo-scoring-rubric.md)
+
+**When to Use:**
+- Building personas for technology validation projects
+- Documenting stakeholder needs for partnership development
+- Preparing Desirability dimension documentation for Vianeo submissions
+- Validating assumed needs against actual behavioral data
+
+---
+
 ### 360 Use Cases
 Skills customized for 360 workflows are located in `skills/360-use-cases/`
 
-*Skills will be listed here as they are added*
+*Additional 360 skills will be listed here as they are added*
 
 ## Documentation
 
