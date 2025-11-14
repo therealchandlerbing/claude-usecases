@@ -58,18 +58,27 @@ claude-usecases/
 - Generates dual outputs: strategic version + platform-ready version
 - Supports 4 persona types: partners, innovators, stakeholders, beneficiaries
 - Predicts Vianeo Desirability scores (1-5 scale)
+- **NEW:** Interactive Dashboard v2.0 with three deployment options
 
 **Quick Links:**
 - [Skill Documentation](skills/vianeo-persona-builder/README.md)
 - [File Index](skills/vianeo-persona-builder/INDEX.md)
 - [Examples](skills/vianeo-persona-builder/examples/)
 - [Scoring Rubric](skills/vianeo-persona-builder/references/vianeo-scoring-rubric.md)
+- [Interactive Dashboard](skills/vianeo-persona-builder/powerups/interactive-dashboard/README.md) ⭐ NEW
 
 **When to Use:**
 - Building personas for technology validation projects
 - Documenting stakeholder needs for partnership development
 - Preparing Desirability dimension documentation for Vianeo submissions
 - Validating assumed needs against actual behavioral data
+- Creating interactive presentations for stakeholders
+
+**Optional Powerups:**
+- **Interactive Dashboard v2.0** - Explore personas through a beautiful web interface with three implementation options:
+  - **Standalone HTML** (Easiest) - Zero dependencies, just open in browser
+  - **Portable JSX** - Single-file React component for quick deployment
+  - **Modular TypeScript** - Production-ready component architecture
 
 ---
 

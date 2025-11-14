@@ -9,8 +9,9 @@
 
 The Vianeo Persona Interactive Dashboard is an optional powerup for the Vianeo Persona Builder skill. It provides a beautiful, interactive React-based interface for exploring validated stakeholder personas with their complete four-layer structure, evidence tracking, and validation status.
 
-Available in two implementations:
-- **Portable Single-File Version** (NEW) - Self-contained component with embedded data, perfect for quick deployment and sharing
+Available in three implementations:
+- **Standalone HTML** (EASIEST) - Complete single-file HTML with zero dependencies, just open in a browser
+- **Portable Single-File JSX** (NEW) - Self-contained React component with embedded data, perfect for quick deployment
 - **Modular TypeScript Version** - Full component architecture for production applications
 
 ### Key Features
@@ -35,10 +36,17 @@ Available in two implementations:
 - Build a persistent persona resource that can be updated over time
 - Show validation methodology with granular field-level indicators
 
-**Choose the Portable Version when:**
+**Choose the Standalone HTML Version when:**
+- You want the absolute easiest deployment (just open in browser)
+- You need to share via email or file sharing
+- You have zero web development infrastructure
+- You want a completely offline solution
+- You're creating a quick demo or presentation
+
+**Choose the Portable JSX Version when:**
 - You need quick deployment without complex build setup
-- You want to embed personas on a simple webpage
-- You're sharing personas as a standalone demo
+- You want to embed personas on a simple webpage with React
+- You're sharing personas as a standalone React demo
 - You don't need external data loading or dynamic updates
 
 **Choose the Modular Version when:**
@@ -54,7 +62,59 @@ Available in two implementations:
 
 ## Installation & Quick Start
 
-### Option 1: Portable Single-File Version (Recommended for Quick Start)
+### Option 0: Standalone HTML (Easiest - No Dependencies!)
+
+**Perfect for:** Absolute beginners, quick sharing, email attachments, offline use
+
+**Prerequisites:**
+- A web browser (that's it!)
+
+**Steps:**
+
+1. **Get the file:**
+   ```bash
+   # Navigate to the standalone HTML example
+   cd examples/standalone-html/
+   ```
+
+2. **Open it:**
+   - **Double-click** `index.html` to open in your default browser
+   - **OR** Right-click → "Open with" → Choose your browser
+   - **OR** Drag and drop the file into a browser window
+
+3. **That's it!**
+   The dashboard is now running. You can:
+   - Click personas to explore their details
+   - Navigate through the 4 layers
+   - View evidence quotes and research gaps
+   - Share the file via email, USB, network drive, etc.
+
+**Customizing Data:**
+
+All data is embedded directly in the HTML file. To customize:
+
+1. Open `index.html` in a text editor
+2. Find the `personas` object (around line 448)
+3. Find the `layerContent` object (around line 511)
+4. Edit the data directly in JavaScript format
+5. Save and reload in browser
+
+See `examples/standalone-html/README.md` for detailed customization instructions.
+
+**Benefits:**
+- ✅ Zero dependencies (except Google Fonts via CDN)
+- ✅ Works completely offline (except fonts)
+- ✅ Single file - easy to share
+- ✅ No build tools, npm, or React knowledge required
+- ✅ ~40KB file size with 4 complete personas
+- ✅ Pure vanilla JavaScript
+
+**When to upgrade:**
+If you need dynamic data loading, TypeScript support, or component reusability, consider the Portable JSX or Modular versions below.
+
+---
+
+### Option 1: Portable Single-File JSX Version (For React Users)
 
 **Perfect for:** Quick deployment, standalone demos, simple integration
 
@@ -647,9 +707,32 @@ export default function PersonasPage({ data }) {
 
 ## File Structure
 
-### Portable Version
+### Standalone HTML Version
 
-The portable version consists of a single self-contained file:
+The standalone HTML version is a complete single-file implementation:
+
+```
+index.html                           # Complete standalone file
+└── Contains:
+    ├── HTML structure
+    ├── Embedded CSS styles (<style> tag)
+    ├── Embedded JavaScript (<script> tag)
+    ├── Persona data (personas object)
+    ├── Layer content (layerContent object)
+    ├── Vanilla JS rendering functions
+    ├── State management
+    └── Event handlers
+```
+
+**File size:** ~40KB with 4 complete personas
+**Dependencies:** Google Fonts (via CDN, optional)
+**To use:** Just open the file in a browser and customize embedded data
+
+Located at: `examples/standalone-html/index.html`
+
+### Portable JSX Version
+
+The portable JSX version consists of a single self-contained React component:
 
 ```
 VianeoPersonaExplorer.jsx            # Complete standalone component
@@ -767,8 +850,11 @@ interactive-dashboard/
 
 See `examples/` directory for:
 
-- **portable-version/** - Single-file portable implementations
-  - `VianeoPersonaExplorer.jsx` - Complete standalone component with sample data
+- **standalone-html/** - Pure HTML/CSS/JavaScript implementation (zero dependencies)
+  - `index.html` - Complete single-file dashboard with 4 sample personas
+  - `README.md` - Detailed customization and deployment guide
+- **portable-version/** - Single-file React component implementations
+  - `VianeoPersonaExplorer.jsx` - Complete standalone React component with sample data
 - **sample-data.json** - Complete data example with 3 personas (partner, innovator, stakeholder)
 - **usage-example.tsx** - Multiple usage patterns and integration examples
 
@@ -866,7 +952,8 @@ For issues, questions, or feature requests:
 ### v2.0.0 (2025-11-14) - Major Update
 
 **New Features:**
-- ✨ **Portable Single-File Version** - Zero-dependency standalone component with embedded data
+- ✨ **Standalone HTML Version** - Pure vanilla JavaScript implementation, zero dependencies, just open in browser
+- ✨ **Portable Single-File JSX Version** - Self-contained React component with embedded data
 - ✨ **Field-Level Validation Tracking** - Granular validation markers on individual fields and sections
 - ✨ **Enhanced Validation Badges** - Three-tier system (✓ Validated, ◐ Partial, ⚠ Inferred) with icons
 - ✨ **Improved Evidence Display** - Better quote formatting and source attribution
@@ -881,7 +968,8 @@ For issues, questions, or feature requests:
 - 📈 Comprehensive troubleshooting guide
 
 **Technical Changes:**
-- Dual implementation approach (portable + modular)
+- Triple implementation approach (standalone HTML + portable JSX + modular TypeScript)
+- Pure vanilla JavaScript version with zero framework dependencies
 - Inline styling for maximum portability
 - Updated data structure to support field-level validation
 - Enhanced type definitions for TypeScript version
