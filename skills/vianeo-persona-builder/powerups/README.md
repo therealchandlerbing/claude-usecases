@@ -13,34 +13,59 @@ Powerups are optional enhancements that complement the core Vianeo Persona Build
 
 ## Available Powerups
 
-### Interactive Dashboard
+### Interactive Dashboard v2.0
 
 **Location:** `interactive-dashboard/`
-**Status:** ✅ Available
-**Version:** 1.0.0
+**Status:** ✅ Production Ready
+**Version:** 2.0.0
 
-An interactive React-based dashboard for exploring Vianeo persona data with beautiful UI, evidence tracking, and validation indicators.
+An interactive web-based dashboard for exploring Vianeo persona data with beautiful UI, evidence tracking, and validation indicators. Now available in three implementation options to suit any deployment scenario.
 
-**Key Features:**
+**Three Implementation Options:**
+
+1. **Standalone HTML (Easiest)** - Zero dependencies, ~40KB file, just open in browser
+2. **Portable JSX** - Single-file React component with embedded data
+3. **Modular TypeScript** - Production component architecture with type safety
+
+**Key Features (v2.0):**
+- ⭐ **NEW:** Standalone HTML version with zero dependencies
+- ⭐ **NEW:** Field-level validation tracking (✓ Validated, ◐ Partial, ⚠ Inferred)
+- ⭐ **NEW:** Quality scores and interview counts displayed
+- ⭐ **NEW:** Layer 4 research gaps visualization
 - Interactive navigation through personas and layers
-- Visual validation status indicators
-- Evidence quotes and source attribution
-- Responsive, accessible design
-- TypeScript support
+- Evidence quotes with source attribution
+- Responsive, accessible design (WCAG 2.1 AA)
+- Easy customization and branding
 
 **When to Use:**
 - Presenting personas to stakeholders
+- Email attachments and offline sharing
 - Team collaboration and exploration
 - Building a persona reference library
 - Demonstrating validation depth
+- Client deliverables
 
 **Quick Start:**
+
+**Option 1 - Standalone HTML (No dependencies):**
+```bash
+cd interactive-dashboard/examples/standalone-html/
+# Just double-click index.html to open in browser
+```
+
+**Option 2 - Portable JSX (React component):**
+```bash
+# Copy the single file to your project
+cp examples/portable-version/VianeoPersonaExplorer.jsx your-project/
+```
+
+**Option 3 - Modular TypeScript (Production):**
 ```bash
 cd interactive-dashboard
 npm install
 ```
 
-See [Interactive Dashboard README](interactive-dashboard/README.md) for full documentation.
+See [Interactive Dashboard v2.0 README](interactive-dashboard/README.md) for full documentation, customization guide, and deployment options.
 
 ---
 
@@ -147,7 +172,8 @@ For powerup-related questions:
 
 | Powerup | Persona Builder Version | Status |
 |---------|------------------------|--------|
-| Interactive Dashboard 1.0 | 1.0+ | ✅ Compatible |
+| Interactive Dashboard 2.0 | 1.0+ | ✅ Compatible |
+| Interactive Dashboard 1.0 | 1.0+ | ⚠️ Deprecated (use v2.0) |
 
 ---
 
