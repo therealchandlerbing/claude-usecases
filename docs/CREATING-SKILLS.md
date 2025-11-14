@@ -58,6 +58,8 @@ cp skills/templates/skill-template.md skills/360-use-cases/your-skill-name.md
 
 Organize skills by category to make them easy to find:
 
+- **vianeo-persona-builder/** - Research & validation (Vianeo personas, stakeholder analysis)
+- **design-director/** - Design & visual excellence (design elevation, polish)
 - **360-use-cases/** - Skills specific to 360 workflows
 - **general/** - General-purpose skills
 - **analysis/** - Data analysis and research skills
