@@ -16,9 +16,18 @@ vianeo-persona-builder/
 ├── examples/                           # Sample personas
 │   ├── partner-persona-example.md      # High-quality validated partner persona
 │   └── innovator-persona-inferred-example.md  # Inferred innovator persona
-└── references/                         # Supporting documentation
-    ├── vianeo-scoring-rubric.md        # Detailed scoring criteria (1-5 scale)
-    └── interview-question-templates.md # Research question guides
+├── references/                         # Supporting documentation
+│   ├── vianeo-scoring-rubric.md        # Detailed scoring criteria (1-5 scale)
+│   └── interview-question-templates.md # Research question guides
+└── powerups/                           # Optional add-ons and extensions
+    ├── README.md                       # Powerups overview
+    └── interactive-dashboard/          # Interactive visualization dashboard
+        ├── README.md                   # Dashboard documentation
+        ├── INTEGRATION.md              # Integration guide
+        ├── package.json                # Dependencies
+        ├── src/                        # Source code
+        ├── examples/                   # Usage examples
+        └── dist/                       # Build output (generated)
 ```
 
 ---
@@ -374,7 +383,14 @@ Use this to:
 4. Test with actual data
 5. Document changes in version history
 
+**Available Powerups:**
+- ✅ **Interactive Dashboard** (v1.0) - React-based interactive persona explorer with evidence tracking
+- 🔄 **Persona Comparison Tool** (Planned) - Side-by-side persona analysis
+- 🔄 **Export to Figma** (Planned) - Design collaboration integration
+- 🔄 **Journey Mapping** (Planned) - Customer journey overlay
+
 **Future Enhancements Planned:**
+- Automated markdown-to-JSON conversion for dashboard
 - Integration with additional 360 methodologies
 - Visual journey mapping in outputs
 - Comparative analysis across persona sets

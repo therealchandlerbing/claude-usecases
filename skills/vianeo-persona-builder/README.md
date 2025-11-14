@@ -145,9 +145,10 @@ Each output includes:
 - "I found additional research, incorporate these insights"
 
 **Request Additional Outputs:**
-- "Create an interactive artifact for these personas" (for presentation/collaboration)
+- "I want to use the Interactive Dashboard powerup to visualize these personas"
 - "Generate a comparison matrix across personas"
 - "Map these to our Innovation Compass dimensions"
+- "How do I convert this output for the Interactive Dashboard?"
 
 ### Step 7: Deploy Personas
 
@@ -164,10 +165,11 @@ Each output includes:
 - Update as understanding improves
 
 **For Stakeholder Presentation:**
-- Request interactive artifact if needed
-- Use visual comparisons for clarity
-- Emphasize evidence-backed insights
-- Show validation methodology
+- Use the Interactive Dashboard powerup for engaging presentations
+- Convert persona output to dashboard JSON format
+- Share the dashboard link or embed in your site
+- Emphasize evidence-backed insights with interactive quotes
+- Show validation methodology with clear status indicators
 
 ## Expected Outputs
 
@@ -221,20 +223,25 @@ Each output includes:
 - Validation status badges
 - Format compliance checks
 
-### Output 3: Interactive Artifact (Optional - Must Be Requested)
+### Output 3: Interactive Dashboard (Optional Powerup)
 
-**When to Request:**
+**When to Use:**
 - After standard outputs reviewed
-- For sharing/presenting personas
-- For collaborative exploration
+- For sharing/presenting personas to stakeholders
+- For collaborative exploration and team alignment
+- Building a persistent persona reference library
 
 **Features:**
-- Toggle between personas
-- View evidence sources
-- Filter by validation status
-- Export selected personas
-- Compare persona attributes
-- View quote context
+- Beautiful, interactive React-based interface
+- Toggle between personas with smooth navigation
+- View evidence sources and validation status
+- Four-layer structure exploration
+- Responsive design for all devices
+- TypeScript support with full type safety
+- WCAG 2.1 AA accessible
+
+**How to Use:**
+See the [Interactive Dashboard Powerup](powerups/interactive-dashboard/README.md) for installation and integration instructions.
 
 ## Persona Types Supported
 
@@ -580,6 +587,16 @@ Generate inferred beneficiary personas to guide our interview strategy."
 2. Reference personas in decision-making
 3. Validate with actual stakeholder interactions
 4. Track how personas evolve over time
+
+## Optional Powerups
+
+### Interactive Dashboard
+A beautiful React-based dashboard for exploring persona data interactively.
+
+**Location:** `powerups/interactive-dashboard/`
+**Features:** Interactive navigation, evidence tracking, validation indicators, TypeScript support
+
+See [Powerups Directory](powerups/README.md) for all available powerups and extensions.
 
 ## Related Skills
 
