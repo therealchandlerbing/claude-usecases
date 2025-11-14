@@ -59,6 +59,12 @@ When creating a skill, make sure you include:
 
 ## Common Skill Types
 
+### Research & Validation
+Analyze data and generate validated personas or insights (e.g., Vianeo Persona Builder)
+
+### Design & Visual Excellence
+Transform functional outputs into professionally polished work (e.g., Design Director)
+
 ### Process Documentation
 Documents a repeatable business or technical process
 
@@ -102,13 +108,15 @@ Reference multiple skills in sequence for complex workflows:
 ```
 claude-usecases/
 ├── skills/
-│   ├── 360-use-cases/      ← Your 360 skills go here
-│   └── templates/           ← Start here for new skills
+│   ├── vianeo-persona-builder/ ← Research & validation personas
+│   ├── design-director/        ← Design elevation & polish
+│   ├── 360-use-cases/          ← Your 360 skills go here
+│   └── templates/              ← Start here for new skills
 ├── docs/
-│   ├── CREATING-SKILLS.md   ← Detailed guide
-│   └── QUICK-REFERENCE.md   ← You are here
-├── examples/                ← See working examples
-└── README.md               ← Project overview
+│   ├── CREATING-SKILLS.md      ← Detailed guide
+│   └── QUICK-REFERENCE.md      ← You are here
+├── examples/                   ← See working examples
+└── README.md                  ← Project overview
 ```
 
 ## Need Help?
