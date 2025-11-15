@@ -145,6 +145,8 @@ claude-usecases/
 **Quick Links:**
 - [Skill Documentation](skills/intelligence-extractor/README.md)
 - [Template Selection Guide](skills/intelligence-extractor/templates/00-template-selection-guide.md) ⭐ Start here
+- [Cross-Linking Architecture](skills/intelligence-extractor/references/cross-linking-architecture.md) ⭐ NEW
+- [Intelligence Schemas](skills/intelligence-extractor/references/intelligence-schemas.md) ⭐ NEW
 - [File Index](skills/intelligence-extractor/INDEX.md)
 - [Live Dashboard](intelligence-dashboard/README.md)
 - [Dashboard Deployment Guide](intelligence-dashboard/DEPLOYMENT_GUIDE.md)
@@ -170,6 +172,13 @@ claude-usecases/
 8. **International Partner** - Cross-cultural meetings
 9. **Conference Networking** - Brief networking interactions
 10. **Crisis Problem-Solving** - Emergency, conflict resolution
+
+**Intelligence System Architecture:** ⭐ NEW
+- **Three-Layer Integration** - Partnership (HOW), Funding (RESOURCES), and Stakeholder (WHO) Intelligence work together as an interconnected ecosystem
+- **Cross-Linking Mechanisms** - Task relationships, shared custom fields, and naming conventions enable portfolio views
+- **Information Flow Patterns** - Structured workflows for discovery cascades and relationship evolution
+- **Dashboard Views** - Cross-system queries for relationship health monitoring and strategic opportunity spotting
+- See [Cross-Linking Architecture](skills/intelligence-extractor/references/cross-linking-architecture.md) for complete implementation guide
 
 **Live Dashboard Features:**
 - Real-time metrics tracking (extractions, completeness, ratings)
@@ -277,6 +286,16 @@ The best way to get started is to:
 
 ## Recent Additions
 
+### Intelligence System Cross-Linking Architecture (November 2025) ⭐ NEW
+Comprehensive architecture for integrating the three intelligence systems:
+- **Three-layer model**: Partnership (HOW), Funding (RESOURCES), Stakeholder (WHO) Intelligence
+- **Technical linking mechanisms**: Task relationships, shared custom fields, naming conventions
+- **Information flow patterns**: Discovery cascades, reverse cascades, relationship evolution
+- **Workflow integration**: Meeting prep, grant applications, quarterly portfolio reviews
+- **Dashboard views**: Cross-system queries for ecosystem views and relationship health monitoring
+- **Implementation roadmap**: 3-month plan from foundation to pattern recognition
+- See [Cross-Linking Architecture](skills/intelligence-extractor/references/cross-linking-architecture.md) and [Intelligence Schemas](skills/intelligence-extractor/references/intelligence-schemas.md)
+
 ### Partnership Intelligence Dashboard (November 2025) ⭐ NEW
 Strategic partnership navigation dashboard with intelligence from 40+ historical partnerships:
 - 4 partner type profiles (JV, Brazil Tech, US Corp/VC, Foundations)
@@ -297,5 +316,5 @@ Complete intelligence extraction and quality monitoring system with:
 
 ## Version
 
-Current Version: 1.1.0
-Last Updated: 2025-01-15 
+Current Version: 1.2.0
+Last Updated: 2025-11-15 
