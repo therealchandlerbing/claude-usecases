@@ -1,0 +1,414 @@
+{
+  "workspace": {
+    "asana_workspace_gid": "1210382795871981",
+    "asana_workspace_name": "360socialventures.com",
+    "gmail_user": "chandler@360social.org",
+    "time_zone": "America/Los_Angeles"
+  },
+
+  "priority_projects": {
+    "description": "Projects to always scan for newsletter content",
+    "projects": [
+      {
+        "name": "Weekly Meeting Tracker",
+        "category": "operations",
+        "priority": "high",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "Partnership Development",
+        "category": "partnerships",
+        "priority": "high",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "SpacePlan Joint Venture",
+        "category": "partnerships",
+        "priority": "high",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "GenIP Integration",
+        "category": "partnerships",
+        "priority": "high",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "CNEN Partnership",
+        "category": "partnerships",
+        "priority": "high",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "Client Engagements",
+        "category": "programs",
+        "priority": "medium",
+        "search_method": "typeahead"
+      },
+      {
+        "name": "Board",
+        "category": "operations",
+        "priority": "high",
+        "search_method": "partial_match",
+        "note": "Search for any project with 'Board' in name"
+      }
+    ]
+  },
+
+  "key_partners": {
+    "description": "Partner organizations to monitor in Gmail and Drive",
+    "partners": [
+      {
+        "name": "SpacePlan",
+        "domain": "spaceplan.com",
+        "category": "partnerships",
+        "importance": "critical"
+      },
+      {
+        "name": "GenIP",
+        "domain": "genip.com",
+        "category": "partnerships",
+        "importance": "critical"
+      },
+      {
+        "name": "ScienceLink",
+        "domain": "sciencelink.org",
+        "category": "partnerships",
+        "importance": "high"
+      },
+      {
+        "name": "NanoBioPlus",
+        "domain": "nanobioplus.com",
+        "category": "partnerships",
+        "importance": "high"
+      },
+      {
+        "name": "CNEN",
+        "domain": "cnen.gov.br",
+        "category": "partnerships",
+        "importance": "high"
+      },
+      {
+        "name": "Carnegie Mellon",
+        "domain": "cmu.edu",
+        "category": "partnerships",
+        "importance": "medium"
+      },
+      {
+        "name": "Life Science Washington",
+        "domain": "lifesciencewa.org",
+        "category": "partnerships",
+        "importance": "medium"
+      }
+    ]
+  },
+
+  "asana_queries": {
+    "completed_tasks": {
+      "description": "Tasks completed during newsletter period",
+      "tool": "asana_search_tasks",
+      "base_params": {
+        "workspace": "{workspace_gid}",
+        "completed": true,
+        "completed_on_after": "{start_date}",
+        "completed_on_before": "{end_date}",
+        "opt_fields": "name,notes,completed_at,assignee,custom_fields,projects,tags"
+      },
+      "additional_filters": {
+        "projects_any": "{project_gids_csv}",
+        "sort_by": "completed_at",
+        "sort_ascending": false
+      }
+    },
+    "modified_tasks": {
+      "description": "Tasks modified during newsletter period (active work)",
+      "tool": "asana_search_tasks",
+      "base_params": {
+        "workspace": "{workspace_gid}",
+        "modified_on_after": "{start_date}",
+        "modified_on_before": "{end_date}",
+        "opt_fields": "name,notes,due_date,assignee,custom_fields,projects,tags,completed"
+      },
+      "additional_filters": {
+        "projects_any": "{project_gids_csv}",
+        "sort_by": "modified_at",
+        "sort_ascending": false
+      }
+    },
+    "project_sections": {
+      "description": "Get all sections from a project for organization",
+      "tool": "asana_get_project_sections",
+      "base_params": {
+        "project_id": "{project_gid}"
+      }
+    },
+    "project_details": {
+      "description": "Get full project information",
+      "tool": "asana_get_project",
+      "base_params": {
+        "project_id": "{project_gid}",
+        "opt_fields": "name,owner,members,custom_fields,notes,due_date,current_status"
+      }
+    },
+    "project_task_counts": {
+      "description": "Quick metrics for project health",
+      "tool": "asana_get_project_task_counts",
+      "base_params": {
+        "project_id": "{project_gid}"
+      }
+    }
+  },
+
+  "gmail_queries": {
+    "partnership_communications": {
+      "description": "Emails from key partner organizations",
+      "tool": "search_gmail_messages",
+      "query_template": "from:({partner_domains}) after:{start_date_gmail} before:{end_date_gmail}",
+      "partner_domains_csv": "spaceplan.com OR genip.com OR sciencelink.org OR nanobioplus.com OR cnen.gov.br OR cmu.edu OR lifesciencewa.org",
+      "follow_up": "read_gmail_thread for each result"
+    },
+    "sent_strategic": {
+      "description": "Outbound strategic communications",
+      "tool": "search_gmail_messages",
+      "query_template": "from:me ({keywords}) after:{start_date_gmail} before:{end_date_gmail}",
+      "keywords": "partnership OR agreement OR proposal OR contract OR MOU OR deliverable OR impact OR report"
+    },
+    "impact_feedback": {
+      "description": "Client testimonials and impact reports",
+      "tool": "search_gmail_messages",
+      "query_template": "({keywords}) after:{start_date_gmail} before:{end_date_gmail}",
+      "keywords": "testimonial OR feedback OR impact OR outcome OR thank OR success OR results"
+    },
+    "board_related": {
+      "description": "Board-related communications",
+      "tool": "search_gmail_messages",
+      "query_template": "(board OR director OR governance) after:{start_date_gmail} before:{end_date_gmail}"
+    }
+  },
+
+  "drive_queries": {
+    "recent_strategic_docs": {
+      "description": "Recently modified strategic documents",
+      "tool": "google_drive_search",
+      "api_query_template": "modifiedTime > '{start_date_rfc3339}' and (name contains 'partnership' or name contains 'agreement' or name contains 'report' or name contains 'deliverable' or name contains 'impact' or name contains 'board')",
+      "semantic_query": "partnership agreements reports deliverables impact metrics board updates strategic planning",
+      "order_by": "modifiedTime desc",
+      "page_size": 20
+    },
+    "partner_documents": {
+      "description": "Documents related to specific partners",
+      "tool": "google_drive_search",
+      "api_query_template": "modifiedTime > '{start_date_rfc3339}' and fullText contains '{partner_name}'",
+      "semantic_query_template": "{partner_name} partnership updates agreements deliverables",
+      "iterate_partners": true
+    },
+    "impact_metrics": {
+      "description": "Impact measurement and outcomes documentation",
+      "tool": "google_drive_search",
+      "api_query_template": "modifiedTime > '{start_date_rfc3339}' and (name contains 'impact' or name contains 'metrics' or name contains 'outcomes' or name contains 'social')",
+      "semantic_query": "social impact metrics community outcomes systems change measurement evaluation",
+      "order_by": "modifiedTime desc"
+    },
+    "financial_docs": {
+      "description": "Financial and sustainability reports",
+      "tool": "google_drive_search",
+      "api_query_template": "modifiedTime > '{start_date_rfc3339}' and (name contains 'financial' or name contains 'revenue' or name contains 'budget' or name contains 'forecast')",
+      "semantic_query": "financial revenue budget forecast sustainability runway",
+      "order_by": "modifiedTime desc"
+    }
+  },
+
+  "section_mapping": {
+    "description": "Map data categories to newsletter sections",
+    "mappings": {
+      "partnerships": {
+        "section_name": "Partnerships & Ecosystem",
+        "desk_attribution": "Partnership desk",
+        "asana_sources": ["Partnership Development", "SpacePlan Joint Venture", "GenIP Integration", "CNEN Partnership"],
+        "gmail_keywords": ["partnership", "agreement", "MOU", "alliance", "collaboration"],
+        "drive_keywords": ["partnership", "agreement", "alliance"]
+      },
+      "programs": {
+        "section_name": "Programs & Innovation",
+        "desk_attribution": "Innovation desk",
+        "asana_sources": ["Client Engagements", "Technology Assessment", "Innovation Portfolio"],
+        "gmail_keywords": ["deliverable", "assessment", "evaluation", "project", "client"],
+        "drive_keywords": ["deliverable", "report", "assessment", "methodology"]
+      },
+      "impact": {
+        "section_name": "Impact & Outcomes",
+        "desk_attribution": "Impact desk",
+        "asana_sources": ["Impact Tracking", "Community Outcomes"],
+        "gmail_keywords": ["impact", "outcomes", "testimonial", "feedback", "success", "results"],
+        "drive_keywords": ["impact", "metrics", "outcomes", "social", "community"]
+      },
+      "operations": {
+        "section_name": "Operations & Capacity",
+        "desk_attribution": "Operations desk",
+        "asana_sources": ["Weekly Meeting Tracker", "Team Capacity", "Infrastructure"],
+        "gmail_keywords": ["team", "hiring", "capacity", "infrastructure", "financial"],
+        "drive_keywords": ["financial", "budget", "team", "hiring", "capacity"]
+      }
+    }
+  },
+
+  "metric_calculations": {
+    "description": "How to calculate key metrics from data sources",
+    "metrics": [
+      {
+        "name": "partnership_pipeline_count",
+        "source": "asana",
+        "method": "Count tasks in Partnership Development project by custom field 'Stage'",
+        "categories": ["Discovery", "Scoping", "Active", "Renewal"]
+      },
+      {
+        "name": "project_regional_distribution",
+        "source": "asana",
+        "method": "Count tasks/projects by tags or names containing region identifiers",
+        "categories": ["North America", "Latin America", "Europe", "Asia-Pacific", "Other"],
+        "keywords": {
+          "North America": ["US", "USA", "United States", "Seattle", "Washington", "Canada"],
+          "Latin America": ["Brazil", "São Paulo", "Sao Paulo", "Latin America", "LATAM", "Argentina", "Chile"],
+          "Europe": ["UK", "Europe", "EU", "Germany", "France"],
+          "Asia-Pacific": ["China", "Australia", "Japan", "APAC", "Asia"],
+          "Other": ["catch-all for unmatched"]
+        }
+      },
+      {
+        "name": "tasks_completed",
+        "source": "asana",
+        "method": "Count all tasks with completed=true in date range"
+      },
+      {
+        "name": "tasks_modified",
+        "source": "asana",
+        "method": "Count all tasks modified in date range"
+      },
+      {
+        "name": "partnership_communications",
+        "source": "gmail",
+        "method": "Count email threads from partner domains"
+      },
+      {
+        "name": "impact_mentions",
+        "source": "drive + gmail",
+        "method": "Count documents/emails mentioning impact metrics"
+      }
+    ]
+  },
+
+  "chart_data_sources": {
+    "description": "Mapping of charts to their data sources",
+    "charts": [
+      {
+        "chart_id": "pipelineChart",
+        "chart_type": "bar",
+        "title": "Partnership Pipeline Distribution",
+        "data_source": "asana",
+        "calculation": "Count Partnership Development tasks by Stage custom field",
+        "labels": ["Discovery", "Scoping", "Active", "Renewal"],
+        "fallback": "If no custom field, manually categorize by task name or section"
+      },
+      {
+        "chart_id": "regionChart",
+        "chart_type": "pie",
+        "title": "Project Distribution by Region",
+        "data_source": "asana",
+        "calculation": "Categorize all active tasks by region keywords in name/tags",
+        "labels": ["North America", "Latin America", "Europe", "Asia-Pacific", "Other"]
+      },
+      {
+        "chart_id": "impactChart",
+        "chart_type": "line",
+        "title": "Impact Metrics Trend",
+        "data_source": "drive + gmail",
+        "calculation": "Extract impact numbers from documents over time",
+        "labels": ["Month -3", "Month -2", "Month -1", "Current"],
+        "fallback": "If insufficient historical data, use quarterly or show single period"
+      },
+      {
+        "chart_id": "revenueChart",
+        "chart_type": "line",
+        "title": "Revenue & Sustainability Trajectory",
+        "data_source": "drive",
+        "calculation": "Extract financial data from budget/finance documents",
+        "labels": ["Q-2", "Q-1", "Current", "Projected"],
+        "fallback": "If unavailable, use contract values or omit chart"
+      }
+    ]
+  },
+
+  "significance_scoring": {
+    "description": "Rules for scoring content significance (0-100)",
+    "rules": [
+      {
+        "score_range": [95, 100],
+        "category": "Partnership announcements/signatures",
+        "keywords": ["signed", "executed", "announced", "formalized", "launched"],
+        "indicators": ["New partnership", "Major agreement", "Strategic alliance", "Joint venture"]
+      },
+      {
+        "score_range": [85, 95],
+        "category": "Project completions with impact",
+        "keywords": ["completed", "delivered", "finished", "achieved"],
+        "indicators": ["Client deliverable", "Impact metrics", "Systems change", "Portfolio validation"]
+      },
+      {
+        "score_range": [80, 90],
+        "category": "International expansion",
+        "keywords": ["Brazil", "international", "cross-border", "global"],
+        "indicators": ["New market entry", "International partnership", "Global ecosystem"]
+      },
+      {
+        "score_range": [75, 85],
+        "category": "Strategic milestones",
+        "keywords": ["team", "board", "capability", "process"],
+        "indicators": ["Team expansion", "Board decision", "New capability", "Process improvement"]
+      },
+      {
+        "score_range": [60, 75],
+        "category": "Pipeline progress",
+        "keywords": ["LOI", "scoping", "advancing", "negotiation"],
+        "indicators": ["Deal progress", "Pipeline advancement", "Renewal secured"]
+      },
+      {
+        "score_range": [50, 70],
+        "category": "Program updates",
+        "keywords": ["milestone", "meeting", "deliverable", "application"],
+        "indicators": ["Milestone hit", "Client engagement", "Methodology used"]
+      },
+      {
+        "score_range": [40, 60],
+        "category": "Operations updates",
+        "keywords": ["process", "infrastructure", "capacity", "financial"],
+        "indicators": ["Process improvement", "Infrastructure upgrade", "Financial milestone"]
+      },
+      {
+        "score_range": [20, 40],
+        "category": "Routine updates",
+        "keywords": ["regular", "scheduled", "ongoing", "administrative"],
+        "indicators": ["Routine completion", "Scheduled meeting", "Admin task"]
+      }
+    ]
+  },
+
+  "date_formats": {
+    "description": "Date format requirements for different tools",
+    "formats": {
+      "asana_date": "YYYY-MM-DD",
+      "asana_datetime": "YYYY-MM-DDTHH:MM:SSZ",
+      "gmail_date": "YYYY/MM/DD",
+      "drive_rfc3339": "YYYY-MM-DDTHH:MM:SSZ",
+      "display_date": "Month DD, YYYY",
+      "display_range": "Month DD-DD, YYYY"
+    },
+    "examples": {
+      "asana_date": "2025-11-04",
+      "asana_datetime": "2025-11-04T00:00:00Z",
+      "gmail_date": "2025/11/04",
+      "drive_rfc3339": "2025-11-04T00:00:00Z",
+      "display_date": "November 4, 2025",
+      "display_range": "November 4-10, 2025"
+    }
+  }
+}
