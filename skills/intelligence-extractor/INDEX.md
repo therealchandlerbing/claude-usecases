@@ -41,11 +41,12 @@ Complete index of all files in the Intelligence Extractor skill.
 
 ## Reference Documentation
 
-| File | Purpose |
-|------|---------|
-| [intelligence-schemas.md](references/intelligence-schemas.md) | JSON schemas for all intelligence types |
-| [quality-framework.md](references/quality-framework.md) | Quality assessment and scoring framework |
-| [cultural-intelligence.md](references/cultural-intelligence.md) | Cross-cultural communication patterns and guidance |
+| File | Purpose | New? |
+|------|---------|------|
+| [intelligence-schemas.md](references/intelligence-schemas.md) | JSON schemas for all intelligence types | ⭐ NEW |
+| [cross-linking-architecture.md](references/cross-linking-architecture.md) | How the three intelligence systems interconnect | ⭐ NEW |
+| [quality-framework.md](references/quality-framework.md) | Quality assessment and scoring framework | |
+| [cultural-intelligence.md](references/cultural-intelligence.md) | Cross-cultural communication patterns and guidance | |
 
 ## Examples
 
@@ -96,9 +97,10 @@ Complete index of all files in the Intelligence Extractor skill.
 
 ### For Developers
 1. [Intelligence Schemas](references/intelligence-schemas.md) - JSON output formats
-2. [Dashboard Source Code](../../intelligence-dashboard/src/) - Frontend implementation
-3. [Supabase Functions](../../intelligence-dashboard/supabase-schema.sql) - Backend queries
-4. [TypeScript Types](../../intelligence-dashboard/src/types/database.ts) - Type definitions
+2. [Cross-Linking Architecture](references/cross-linking-architecture.md) - System integration patterns
+3. [Dashboard Source Code](../../intelligence-dashboard/src/) - Frontend implementation
+4. [Supabase Functions](../../intelligence-dashboard/supabase-schema.sql) - Backend queries
+5. [TypeScript Types](../../intelligence-dashboard/src/types/database.ts) - Type definitions
 
 ## File Organization
 
@@ -122,6 +124,7 @@ intelligence-extractor/
 │
 ├── references/                        # Reference documentation
 │   ├── intelligence-schemas.md        # JSON schemas
+│   ├── cross-linking-architecture.md  # Three-system integration
 │   ├── quality-framework.md           # Quality metrics
 │   └── cultural-intelligence.md       # Cross-cultural guidance
 │
@@ -133,11 +136,12 @@ intelligence-extractor/
 
 ## Version Information
 
-- **Current Version:** 1.0.0
-- **Last Updated:** 2025-01-15
+- **Current Version:** 1.1.0
+- **Last Updated:** 2025-11-15
 - **Templates:** 10 specialized templates
+- **Intelligence Systems:** 3 interconnected types (Partnership, Funding, Stakeholder)
 - **Dashboard:** Next.js 14 + Supabase + Vercel
-- **Integration:** Zapier + Claude API
+- **Integration:** Zapier + Claude API + Asana cross-linking
 
 ## External Dependencies
 
@@ -159,5 +163,7 @@ intelligence-extractor/
 **Quick Links:**
 - [Main README](README.md)
 - [Template Selection](templates/00-template-selection-guide.md)
+- [Cross-Linking Architecture](references/cross-linking-architecture.md) ⭐ NEW
+- [Intelligence Schemas](references/intelligence-schemas.md) ⭐ NEW
 - [Live Dashboard](../../intelligence-dashboard/README.md)
 - [Deployment Guide](../../intelligence-dashboard/DEPLOYMENT_GUIDE.md)
