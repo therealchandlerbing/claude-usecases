@@ -1,11 +1,25 @@
 # Templates Directory
 
-This directory contains the newsletter template and configuration files.
+This directory contains the executive brief template, newsletter template, and configuration files.
 
 ## Files
 
+### executive-brief-template.html (Primary)
+Production-ready executive intelligence dashboard with:
+- **Audience:** Leadership team, board members, investors
+- **Content:** Confidential intelligence, financial data, HR updates, strategic decisions
+- **Structure:** Executive Snapshot, Partnerships, Operations, Strategy & Finance, Timeline
+- **Features:** Interactive timeline toggle, collapsible sections, Chart.js visualizations
+- **Documentation:** See `/executive-brief-docs/` for complete production guide
+
+### newsletter-template.html (Secondary)
+General stakeholder newsletter template with:
+- **Audience:** General stakeholders, partners, public-facing
+- **Content:** High-level updates, shareable insights, impact stories
+- **Structure:** Similar to executive brief but with public-appropriate content
+
 ### data-sources.json
-Complete configuration for newsletter generation including:
+Complete configuration for brief/newsletter generation including:
 - Workspace settings (Asana GID, Gmail user, timezone)
 - Priority projects list
 - Key partner organizations
