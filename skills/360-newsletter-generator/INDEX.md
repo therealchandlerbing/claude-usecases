@@ -9,6 +9,15 @@ Complete index of all files in the 360 Newsletter Generator skill.
 | [README.md](README.md) | Main documentation and overview | ✅ YES |
 | [INDEX.md](INDEX.md) | This file - complete file listing | For reference |
 
+## Executive Brief Documentation (Primary Use Case)
+
+| File | Purpose |
+|------|---------|
+| [executive-brief-docs/README.md](executive-brief-docs/README.md) | Executive Brief documentation overview |
+| [executive-brief-docs/DOCUMENTATION-INDEX.md](executive-brief-docs/DOCUMENTATION-INDEX.md) | Complete package documentation index |
+| [executive-brief-docs/SKILL.md](executive-brief-docs/SKILL.md) | Weekly production guide for creating briefs |
+| [executive-brief-docs/360-impact-brief-weekly-template.md](executive-brief-docs/360-impact-brief-weekly-template.md) | Weekly content template |
+
 ## Reference Documentation
 
 | File | Purpose |
@@ -22,10 +31,11 @@ Complete index of all files in the 360 Newsletter Generator skill.
 
 ## Templates
 
-| File | Purpose |
-|------|---------|
-| [newsletter-template.html](templates/newsletter-template.html) | Complete HTML template with sidebar navigation, sections, and Chart.js integration |
-| [data-sources.json](templates/data-sources.json) | Configuration file for priority projects, partners, search queries, and metrics |
+| File | Purpose | Priority |
+|------|---------|----------|
+| [executive-brief-template.html](templates/executive-brief-template.html) | **Executive Brief template** - Confidential intelligence dashboard | **Primary** |
+| [newsletter-template.html](templates/newsletter-template.html) | General newsletter template - Public/stakeholder updates | Secondary |
+| [data-sources.json](templates/data-sources.json) | Configuration file for priority projects, partners, search queries, and metrics | - |
 
 ## Examples
 
