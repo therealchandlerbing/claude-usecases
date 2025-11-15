@@ -300,6 +300,64 @@ claude-usecases/
 
 ---
 
+### Process Documentation & Workflow Visualization
+
+#### Workflow Process Generator
+**Location:** `skills/workflow-process-generator/`
+**Category:** Process Documentation & Workflow Visualization
+**Purpose:** Transform 360's operational workflows from implicit tribal knowledge into explicit, shareable visual documentation through automated extraction from Asana, Google Drive, and Gmail
+
+**Key Features:**
+- 5 workflow categories (Partnership, Client, Assessment, Ecosystem, Internal)
+- 3 quality levels (Quick Sketch, Standard, Executive Presentation)
+- Multi-source data extraction (Asana, Drive, Gmail)
+- Professional Mermaid diagrams + interactive HTML visualizations
+- 360 brand color palette and design standards
+- Apple-level quality output for board presentations
+- Automated workflow extraction and visualization generation
+- Multi-language support (Portuguese, Spanish for international partnerships)
+
+**Quick Links:**
+- [Skill Documentation](skills/workflow-process-generator/README.md) ⭐ Start here
+- [File Index](skills/workflow-process-generator/INDEX.md)
+- [Data Extraction Guide](skills/workflow-process-generator/references/data-extraction-guide.md)
+- [Mermaid Generation Standards](skills/workflow-process-generator/references/mermaid-generation-standards.md)
+- [Examples](skills/workflow-process-generator/examples/)
+
+**When to Use:**
+- Visualizing operational workflows for team onboarding
+- Creating process documentation for partnerships or client engagements
+- Preparing board-ready workflow presentations
+- Making processes delegation-ready and shareable
+- Documenting implicit workflows from communication patterns
+- Optimizing bottlenecks through workflow analysis
+- Creating multi-language workflow documentation for international partnerships
+
+**Five Workflow Categories:**
+1. **Partnership Development** (2-12 months) - Relationship building through formalization
+2. **Client Engagement** (1-6 months) - Inquiry through delivery with service tiers
+3. **Innovation Assessment** (2-8 weeks) - Evaluation using Vianeo or 360 Compass
+4. **Ecosystem Mapping** (3-12 weeks) - Stakeholder analysis and value network mapping
+5. **Internal Operations** (varies) - Planning, execution, review, optimization
+
+**Output Formats:**
+- **Quick Sketch** (15-30 min) - Mermaid flowchart for internal discussion
+- **Standard Documentation** (45-90 min) - Mermaid + comprehensive markdown for team onboarding
+- **Executive Presentation** (2-4 hours) - Interactive HTML for board meetings and partner documentation
+
+**Data Sources:**
+- **Asana:** Project templates, task sequences, custom fields, dependencies
+- **Google Drive:** Process documentation, SOPs, partnership agreements
+- **Gmail:** Communication patterns, handoffs, implicit workflows
+
+**Visual Standards:**
+- 360 brand color palette (sage green, terracotta, plum, red, gray)
+- Four diagram types: Flowchart, Gantt, Sequence, Sankey
+- Professional typography and spacing
+- Board-meeting quality presentations
+
+---
+
 ### 360 Use Cases
 Skills customized for 360 workflows are located in `skills/360-use-cases/`
 
@@ -340,6 +398,19 @@ The best way to get started is to:
 [Add your license information here]
 
 ## Recent Additions
+
+### Workflow Process Generator (November 2025) ⭐ NEW
+Professional workflow documentation and visualization system that transforms tribal knowledge into shareable process flows:
+- **5 workflow categories**: Partnership Development, Client Engagement, Innovation Assessment, Ecosystem Mapping, Internal Operations
+- **3 quality levels**: Quick Sketch (15-30 min), Standard (45-90 min), Executive Presentation (2-4 hours)
+- **Multi-source extraction**: Automated data pull from Asana, Google Drive, and Gmail
+- **Professional visualizations**: Mermaid diagrams + interactive HTML with 360 brand standards
+- **Apple-level quality**: Board-meeting ready presentations with professional design
+- **Data-driven insights**: Bottleneck identification, optimization recommendations, conversion metrics
+- **Multi-language support**: Portuguese and Spanish for international partnerships
+- **4 diagram types**: Flowchart (decision-heavy), Gantt (timeline), Sequence (multi-stakeholder), Sankey (volume flows)
+- **Comprehensive documentation**: Data extraction guides, visual standards, templates, and examples
+- See [Workflow Process Generator](skills/workflow-process-generator/README.md) for complete documentation
 
 ### 360 Executive Brief + Newsletter Generator (November 2025) ⭐ NEW
 Professional executive briefing and newsletter system with dual output formats:
@@ -384,5 +455,5 @@ Complete intelligence extraction and quality monitoring system with:
 
 ## Version
 
-Current Version: 1.2.0
+Current Version: 1.3.0
 Last Updated: 2025-11-15 
