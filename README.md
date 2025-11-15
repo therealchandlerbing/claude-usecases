@@ -243,10 +243,64 @@ claude-usecases/
 
 ---
 
+### Executive Communication & Strategic Briefing
+
+#### 360 Newsletter Generator
+**Location:** `skills/360-newsletter-generator/`
+**Category:** Executive Communication & Strategic Briefing
+**Purpose:** Generate professional newsletters and executive briefs synthesizing updates from Asana, Gmail, and Google Drive into interactive dashboards
+
+**Key Features:**
+- Two output formats: General Newsletter (shareable) + Executive Brief (confidential)
+- Multi-source data integration (Asana 70%, Gmail 20%, Drive 10%)
+- Automatic significance scoring and lead story selection
+- Modern executive dashboard design with fixed sidebar navigation
+- Interactive Chart.js visualizations (4+ charts per report)
+- Print-friendly PDF export
+- Content analysis and prioritization framework
+- Quality assurance and tone consistency checks
+
+**Quick Links:**
+- [Skill Documentation](skills/360-newsletter-generator/README.md) ⭐ Start here
+- [Data Collection Guide](skills/360-newsletter-generator/references/data-collection-guide.md)
+- [Content Analysis Framework](skills/360-newsletter-generator/references/content-analysis-framework.md)
+- [Writing Style Guide](skills/360-newsletter-generator/references/writing-style-guide.md)
+- [Chart Specifications](skills/360-newsletter-generator/references/chart-specifications.md)
+
+**When to Use:**
+- Generating weekly/monthly newsletters for stakeholders and partners
+- Creating board updates and investor briefings
+- Producing executive intelligence dashboards with confidential data
+- Synthesizing comprehensive organizational updates
+- Preparing pre-meeting briefings with talking points
+
+**Two Use Cases:**
+1. **360 Newsletter** - Public/stakeholder-appropriate content with high-level updates and impact stories
+2. **360 Executive Brief** - Confidential intelligence including financials, HR updates, investment data, and strategic decisions
+
+**Newsletter Structure:**
+- Executive Summary with 3-4 key highlight cards
+- Partnerships & Ecosystem section
+- Programs & Innovation updates
+- Impact & Outcomes metrics
+- Operations & Capacity information
+- Strategic Horizon planning
+
+**Visual Components:**
+- Color-coded sections (partnerships blue, operations green, strategy orange)
+- Metric cards with trend indicators
+- Status badges (CRITICAL, ACTION REQUIRED, MONITORING)
+- Interactive charts (doughnut, bar, radar, line)
+
+**Data Sources:**
+- **Asana:** Project progress, task velocity, milestone tracking
+- **Gmail:** Partnership communications, client interactions
+- **Google Drive:** Reports, deliverables, impact documentation
+
+---
+
 ### 360 Use Cases
 Skills customized for 360 workflows are located in `skills/360-use-cases/`
-
-*Additional 360 skills will be listed here as they are added*
 
 ## Documentation
 
@@ -285,6 +339,18 @@ The best way to get started is to:
 [Add your license information here]
 
 ## Recent Additions
+
+### 360 Newsletter Generator + Executive Brief (November 2025) ⭐ NEW
+Professional newsletter and executive briefing system with dual output formats:
+- **Two use cases**: General Newsletter (shareable) + Executive Brief (confidential intelligence)
+- **Multi-source integration**: Asana (70%), Gmail (20%), Google Drive (10%)
+- **Automatic intelligence**: Significance scoring, lead story selection, content prioritization
+- **Professional design**: Modern dashboard aesthetic with fixed sidebar navigation
+- **Interactive visualizations**: 4+ Chart.js charts per report (doughnut, bar, radar, line)
+- **Quality framework**: Content analysis, tone consistency, formatting validation
+- **Newsletter sections**: Executive Summary, Partnerships, Programs, Impact, Operations, Strategic Horizon
+- **Executive Brief template**: Confidential financial data, HR updates, investment intelligence, strategic decisions
+- See [360 Newsletter Generator](skills/360-newsletter-generator/README.md) for complete documentation
 
 ### Intelligence System Cross-Linking Architecture (November 2025) ⭐ NEW
 Comprehensive architecture for integrating the three intelligence systems:

@@ -7,6 +7,24 @@
 
 The 360 Newsletter Generator automatically creates sophisticated, publication-style newsletters by aggregating data from multiple sources and presenting strategic updates in a dense but readable format inspired by British newspaper design, with interactive data visualizations showing trends and metrics.
 
+## Two Output Formats
+
+This skill supports two distinct use cases with the same visual style but different content sensitivity:
+
+### 1. **360 Newsletter** (Primary Use Case)
+- **Audience:** General stakeholders, partners, public-facing
+- **Content:** High-level updates, shareable insights, impact stories
+- **Sensitivity:** Public or stakeholder-appropriate information
+- **Template:** `newsletter-template.html`
+
+### 2. **360 Executive Brief** (Secondary Use Case)
+- **Audience:** Leadership team, board members, investors
+- **Content:** Confidential intelligence, financial data, HR updates, strategic decisions
+- **Sensitivity:** Executive-level confidential information
+- **Template:** `executive-brief-template.html`
+
+**Key Difference:** Both use the identical professional dashboard design, navigation structure, and interactive components. The distinction is purely content-based - newsletters contain shareable information while executive briefs include confidential operational, financial, and strategic intelligence.
+
 ## Key Features
 
 ### Multi-Source Data Integration
@@ -35,12 +53,20 @@ The 360 Newsletter Generator automatically creates sophisticated, publication-st
 
 ## When to Use
 
+### For General Newsletter (Public/Stakeholder)
 Trigger this skill when the user requests:
 - "Generate newsletter" or "create newsletter"
 - "Weekly digest", "monthly update", or "company summary"
 - "What happened this week/month"
+- Any comprehensive summary of 360 activities for external sharing
+
+### For Executive Brief (Confidential)
+Trigger this skill when the user requests:
+- "Generate executive brief" or "create executive brief"
 - "Create board update" or "prep investor update"
-- Any comprehensive summary of 360 activities
+- "Weekly leadership brief" or "confidential update"
+- "Executive intelligence dashboard"
+- Comprehensive summaries that include confidential data (financials, HR, investments)
 
 ## Quick Start
 
@@ -385,7 +411,8 @@ Generate November brief for board meeting, include financial metrics
 │   ├── troubleshooting-guide.md        # Common issues and solutions
 │   └── workflow-examples.md            # Step-by-step workflow examples
 ├── templates/
-│   ├── newsletter-template.html        # Complete HTML template
+│   ├── newsletter-template.html        # General newsletter template (shareable)
+│   ├── executive-brief-template.html   # Executive brief template (confidential)
 │   └── data-sources.json               # Configuration for data sources
 └── examples/
     ├── weekly-newsletter-example.html  # Sample weekly output
@@ -414,7 +441,22 @@ Result: Board-ready newsletter with 6-8 charts, financial metrics,
         strategic horizon section emphasized
 ```
 
-### Example 3: Partnership-Focused Update
+### Example 3: Executive Brief (Confidential)
+
+```
+User: Generate executive brief for this week
+Assistant: Generating 360 Executive Brief for November 15-22, 2025...
+[Collects confidential data: financials, HR updates, strategic decisions]
+Result: Executive dashboard with confidential intelligence including:
+        - Team hiring and compensation details
+        - Revenue projections and financial metrics
+        - Investment information
+        - HR and operational decisions
+        - Strategic risk assessment
+        - Board governance items
+```
+
+### Example 4: Partnership-Focused Update
 
 ```
 User: Newsletter for SpacePlan partnership only, last 30 days
