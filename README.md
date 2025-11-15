@@ -15,13 +15,15 @@ This repository contains:
 ```
 claude-usecases/
 ├── skills/
-│   ├── 360-use-cases/          # 360-specific workflow skills
-│   ├── vianeo-persona-builder/ # Vianeo persona generation & validation
-│   ├── design-director/        # Design elevation & visual polish
-│   └── templates/              # Templates for creating new skills
-├── docs/                       # Documentation and guides
-├── examples/                   # Example implementations
-└── README.md                  # This file
+│   ├── 360-use-cases/           # 360-specific workflow skills
+│   ├── intelligence-extractor/  # Intelligence extraction & quality monitoring
+│   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
+│   ├── design-director/         # Design elevation & visual polish
+│   └── templates/               # Templates for creating new skills
+├── intelligence-dashboard/      # Live quality monitoring dashboard
+├── docs/                        # Documentation and guides
+├── examples/                    # Example implementations
+└── README.md                   # This file
 ```
 
 ## Quick Start
@@ -124,6 +126,70 @@ claude-usecases/
 
 ---
 
+### Data Intelligence & Quality Monitoring
+
+#### Intelligence Extractor
+**Location:** `skills/intelligence-extractor/`
+**Category:** Data Intelligence & Quality Monitoring
+**Purpose:** Extract structured partnership, funding, and stakeholder intelligence from meeting transcripts with real-time quality monitoring
+
+**Key Features:**
+- 10 meeting-type specific prompt templates
+- Live web dashboard for quality monitoring
+- Automated completeness scoring and quality tracking
+- Template performance analytics
+- Real-time updates via Supabase + Vercel
+- Zapier integration for automation
+- Cultural intelligence capture for cross-cultural contexts
+
+**Quick Links:**
+- [Skill Documentation](skills/intelligence-extractor/README.md)
+- [Template Selection Guide](skills/intelligence-extractor/templates/00-template-selection-guide.md) ⭐ Start here
+- [File Index](skills/intelligence-extractor/INDEX.md)
+- [Live Dashboard](intelligence-dashboard/README.md)
+- [Dashboard Deployment Guide](intelligence-dashboard/DEPLOYMENT_GUIDE.md)
+- [Dashboard Overview](INTELLIGENCE_DASHBOARD_SUMMARY.md)
+
+**When to Use:**
+- Extracting intelligence from partnership meetings
+- Capturing funder relationship and application intelligence
+- Profiling stakeholders and board members
+- Monitoring extraction quality and template performance
+- Cross-cultural meeting intelligence
+- Community stakeholder engagement documentation
+- Crisis or problem-solving meeting analysis
+
+**Template Types:**
+1. **Partnership New** - First meeting with potential partner
+2. **Partnership Existing** - Follow-up with established partner
+3. **Funder Initial** - First contact with funding source
+4. **Funder Application** - Grant discussion, LOI feedback
+5. **Board Governance** - Board meetings, governance sessions
+6. **Client Sprint** - Working sessions, strategic planning
+7. **Community Stakeholder** - Grassroots leaders, community orgs
+8. **International Partner** - Cross-cultural meetings
+9. **Conference Networking** - Brief networking interactions
+10. **Crisis Problem-Solving** - Emergency, conflict resolution
+
+**Live Dashboard Features:**
+- Real-time metrics tracking (extractions, completeness, ratings)
+- 30-day quality trend visualization
+- Template performance comparison
+- Recent activity feed with live updates
+- Automated quality flags and alerts
+- Free hosting on Vercel + Supabase
+
+**Technology Stack:**
+- **Extraction**: Claude API + Zapier automation
+- **Database**: Supabase (PostgreSQL with real-time subscriptions)
+- **Dashboard**: Next.js 14 + TypeScript + Tailwind CSS
+- **Hosting**: Vercel (auto-deploy from GitHub)
+- **Charts**: Recharts for data visualization
+
+**Cost:** Free tier available (Supabase 500MB + Vercel 100GB bandwidth)
+
+---
+
 ### 360 Use Cases
 Skills customized for 360 workflows are located in `skills/360-use-cases/`
 
@@ -165,7 +231,18 @@ The best way to get started is to:
 
 [Add your license information here]
 
+## Recent Additions
+
+### Intelligence Extractor + Live Dashboard (January 2025)
+Complete intelligence extraction and quality monitoring system with:
+- 10 specialized extraction templates for different meeting types
+- Professional web dashboard with real-time updates
+- Automated quality tracking and analytics
+- Template performance monitoring
+- 15-minute deployment to production
+- See [INTELLIGENCE_DASHBOARD_SUMMARY.md](INTELLIGENCE_DASHBOARD_SUMMARY.md) for complete overview
+
 ## Version
 
-Current Version: 1.0.0
-Last Updated: 2025-11-14 
+Current Version: 1.1.0
+Last Updated: 2025-01-15 
