@@ -286,7 +286,7 @@ Strategic partnership navigation dashboard with intelligence from 40+ historical
 - Built with modern React/TypeScript, integrated at `/partnership` route
 - See [PARTNERSHIP_DASHBOARD_SUMMARY.md](PARTNERSHIP_DASHBOARD_SUMMARY.md) for complete overview
 
-### Intelligence Extractor + Live Dashboard (January 2025)
+### Intelligence Extractor + Live Dashboard (November 2025)
 Complete intelligence extraction and quality monitoring system with:
 - 10 specialized extraction templates for different meeting types
 - Professional web dashboard with real-time updates
