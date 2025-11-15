@@ -1,0 +1,549 @@
+{
+  "metadata": {
+    "skill_name": "Executive Intelligence Dashboard",
+    "version": "1.0.0",
+    "organization": "360 Social Impact Studios",
+    "last_updated": "2025-11-15",
+    "description": "Configuration reference for data sources, query patterns, and significance scoring used in executive brief generation."
+  },
+
+  "data_sources": {
+    "asana": {
+      "workspace": {
+        "name": "360socialventures.com",
+        "gid": "dynamic",
+        "discovery_method": "asana_list_workspaces"
+      },
+      "primary_queries": [
+        {
+          "name": "project_discovery",
+          "tool": "asana_typeahead_search",
+          "parameters": {
+            "resource_type": "project",
+            "query": "",
+            "workspace_gid": "from_workspace_discovery"
+          },
+          "purpose": "Find all relevant projects quickly using Asana's relevance ranking"
+        },
+        {
+          "name": "project_details",
+          "tool": "asana_get_project",
+          "parameters": {
+            "project_id": "from_project_discovery",
+            "opt_fields": "name,notes,owner,members,custom_fields,current_status_update,due_date,created_at,modified_at"
+          },
+          "purpose": "Get comprehensive project information including status and custom fields"
+        },
+        {
+          "name": "recent_completions",
+          "tool": "asana_search_tasks",
+          "parameters": {
+            "workspace": "from_workspace_discovery",
+            "completed_on_after": "7_days_ago",
+            "sort_by": "completed_at",
+            "sort_ascending": false,
+            "limit": 50
+          },
+          "purpose": "Identify accomplishments and completed milestones from the past week"
+        },
+        {
+          "name": "upcoming_priorities",
+          "tool": "asana_search_tasks",
+          "parameters": {
+            "workspace": "from_workspace_discovery",
+            "completed": false,
+            "due_on_before": "14_days_from_now",
+            "sort_by": "due_on",
+            "limit": 50
+          },
+          "purpose": "Surface high-priority upcoming tasks and deadlines"
+        },
+        {
+          "name": "project_status_updates",
+          "tool": "asana_get_project_statuses",
+          "parameters": {
+            "project_gid": "from_project_discovery",
+            "limit": 5
+          },
+          "purpose": "Get recent status communications (green/yellow/red + text)"
+        }
+      ],
+      "custom_fields": {
+        "priority": {
+          "values": ["Critical", "High", "Medium", "Low"],
+          "usage": "Task and project prioritization"
+        },
+        "revenue_impact": {
+          "values": ["Direct", "Pipeline", "Indirect", "None"],
+          "usage": "Revenue opportunity identification"
+        },
+        "partnership_type": {
+          "values": ["Strategic", "Client", "Development", "Internal"],
+          "usage": "Partnership categorization"
+        }
+      },
+      "key_projects": [
+        "CNEN Partnership",
+        "GenIP Integration",
+        "NanoBioPlus Market Entry",
+        "Limis Strategic Advisory",
+        "BIG NCP Program",
+        "Space Innovation Studios Merger",
+        "Team Development"
+      ]
+    },
+
+    "gmail": {
+      "primary_queries": [
+        {
+          "name": "partnership_communications",
+          "tool": "search_gmail_messages",
+          "parameters": {
+            "q": "from:@partnerdomain.com OR to:@partnerdomain.com newer_than:14d"
+          },
+          "purpose": "Find email exchanges with specific partners",
+          "note": "Replace @partnerdomain.com with actual partner domain"
+        },
+        {
+          "name": "strategic_keywords",
+          "tool": "search_gmail_messages",
+          "parameters": {
+            "q": "subject:(partnership OR agreement OR proposal OR contract) newer_than:7d"
+          },
+          "purpose": "Identify strategic discussions via subject line keywords"
+        },
+        {
+          "name": "executive_communications",
+          "tool": "search_gmail_messages",
+          "parameters": {
+            "q": "from:(board OR investor OR CEO) newer_than:7d"
+          },
+          "purpose": "Find leadership and governance communications"
+        },
+        {
+          "name": "client_engagement",
+          "tool": "search_gmail_messages",
+          "parameters": {
+            "q": "subject:(meeting OR discussion OR deliverable OR milestone) newer_than:14d"
+          },
+          "purpose": "Track client engagement activities and deliverables"
+        },
+        {
+          "name": "thread_context",
+          "tool": "read_gmail_thread",
+          "parameters": {
+            "thread_id": "from_search_results",
+            "include_full_messages": true
+          },
+          "purpose": "Get complete conversation history for significant threads"
+        }
+      ],
+      "search_operators": {
+        "time_based": [
+          "newer_than:7d",
+          "after:2025/11/08",
+          "before:2025/11/15"
+        ],
+        "sender_recipient": [
+          "from:@domain.com",
+          "to:user@email.com",
+          "from:@domain1.com OR to:@domain2.com"
+        ],
+        "content": [
+          "subject:(keyword1 OR keyword2)",
+          "fullText contains 'exact phrase'",
+          "has:attachment"
+        ],
+        "status": [
+          "is:unread",
+          "is:important",
+          "is:starred"
+        ],
+        "exclusions": [
+          "-from:noreply@",
+          "-from:calendar",
+          "-from:notifications"
+        ]
+      },
+      "partner_domains": [
+        "@cnen.gov.br",
+        "@genip.io",
+        "@nanobioplus.com.br",
+        "@limis.ai",
+        "@bigncp.org.br"
+      ]
+    },
+
+    "google_drive": {
+      "primary_queries": [
+        {
+          "name": "recent_strategic_documents",
+          "tool": "google_drive_search",
+          "parameters": {
+            "api_query": "modifiedTime > '7 days ago'",
+            "semantic_query": "strategic plan roadmap partnership board",
+            "page_size": 10
+          },
+          "purpose": "Find recently modified strategic planning documents"
+        },
+        {
+          "name": "partnership_documents",
+          "tool": "google_drive_search",
+          "parameters": {
+            "api_query": "name contains 'PARTNER_NAME'",
+            "semantic_query": "partnership agreement contract proposal",
+            "page_size": 5
+          },
+          "purpose": "Find documents related to specific partnerships"
+        },
+        {
+          "name": "board_materials",
+          "tool": "google_drive_search",
+          "parameters": {
+            "api_query": "mimeType = 'application/vnd.google-apps.presentation'",
+            "semantic_query": "board presentation governance meeting",
+            "page_size": 5
+          },
+          "purpose": "Find board presentation materials"
+        },
+        {
+          "name": "financial_documents",
+          "tool": "google_drive_search",
+          "parameters": {
+            "semantic_query": "budget financial forecast revenue pipeline",
+            "api_query": "modifiedTime > '30 days ago'",
+            "page_size": 10
+          },
+          "purpose": "Find financial planning and analysis documents"
+        },
+        {
+          "name": "document_retrieval",
+          "tool": "google_drive_fetch",
+          "parameters": {
+            "document_ids": ["from_search_results"]
+          },
+          "purpose": "Retrieve full document contents for detailed analysis"
+        }
+      ],
+      "mime_types": {
+        "google_docs": "application/vnd.google-apps.document",
+        "google_sheets": "application/vnd.google-apps.spreadsheet",
+        "google_slides": "application/vnd.google-apps.presentation",
+        "pdf": "application/pdf",
+        "folder": "application/vnd.google-apps.folder"
+      },
+      "semantic_keywords": [
+        "strategic plan",
+        "partnership agreement",
+        "board presentation",
+        "financial forecast",
+        "roadmap",
+        "proposal",
+        "contract",
+        "budget",
+        "market analysis"
+      ]
+    }
+  },
+
+  "significance_scoring": {
+    "algorithm": {
+      "total_points": 10,
+      "dimensions": [
+        {
+          "name": "strategic_impact",
+          "max_points": 4,
+          "criteria": {
+            "4": "Changes organizational direction or opens new markets",
+            "3": "Enables significant new capability or major expansion",
+            "2": "Expands existing initiative or strengthens position",
+            "1": "Incremental progress on established priorities",
+            "0": "Routine activity with minimal strategic impact"
+          }
+        },
+        {
+          "name": "revenue_implications",
+          "max_points": 3,
+          "criteria": {
+            "3": "Direct revenue this quarter or >$100K pipeline",
+            "2": "Pipeline opportunity $50K-$100K",
+            "1": "Pipeline opportunity <$50K or indirect revenue",
+            "0": "No revenue impact"
+          }
+        },
+        {
+          "name": "decision_urgency",
+          "max_points": 2,
+          "criteria": {
+            "2": "Decision required this week (board approval, contract signing)",
+            "1": "Decision required this month",
+            "0": "No immediate decision required"
+          }
+        },
+        {
+          "name": "stakeholder_visibility",
+          "max_points": 1,
+          "criteria": {
+            "1": "Board, investor, or major partner interest",
+            "0": "Internal only"
+          }
+        }
+      ]
+    },
+    "thresholds": {
+      "lead_story": {
+        "min_score": 8,
+        "placement": "Top of section with comprehensive coverage",
+        "content_depth": "300-500 words with full strategic context"
+      },
+      "featured_coverage": {
+        "min_score": 5,
+        "max_score": 7,
+        "placement": "Full content card in appropriate section",
+        "content_depth": "200-300 words with context"
+      },
+      "standard_mention": {
+        "min_score": 3,
+        "max_score": 4,
+        "placement": "Brief mention or grouped with similar items",
+        "content_depth": "100-150 words or bullet point"
+      },
+      "omit": {
+        "max_score": 2,
+        "placement": "Excluded unless space permits",
+        "content_depth": "N/A"
+      }
+    },
+    "examples": [
+      {
+        "item": "New partnership LOI signed with major institution",
+        "strategic_impact": 4,
+        "revenue_implications": 3,
+        "decision_urgency": 2,
+        "stakeholder_visibility": 1,
+        "total_score": 10,
+        "classification": "Lead Story"
+      },
+      {
+        "item": "Team member transitioning, replacement decision required",
+        "strategic_impact": 3,
+        "revenue_implications": 2,
+        "decision_urgency": 2,
+        "stakeholder_visibility": 1,
+        "total_score": 8,
+        "classification": "Lead Story"
+      },
+      {
+        "item": "Partnership project milestone completed on schedule",
+        "strategic_impact": 2,
+        "revenue_implications": 2,
+        "decision_urgency": 0,
+        "stakeholder_visibility": 1,
+        "total_score": 5,
+        "classification": "Featured Coverage"
+      },
+      {
+        "item": "Regular client check-in meeting held",
+        "strategic_impact": 1,
+        "revenue_implications": 1,
+        "decision_urgency": 0,
+        "stakeholder_visibility": 0,
+        "total_score": 2,
+        "classification": "Omit (unless part of larger client story)"
+      }
+    ]
+  },
+
+  "content_architecture": {
+    "sections": [
+      {
+        "id": "executive_summary",
+        "title": "Executive Summary",
+        "color": "blue",
+        "word_count": "180-240 total (3 cards × 60-80 words)",
+        "components": [
+          "Strategic Inflection Point card",
+          "Partnership Momentum card",
+          "Team Evolution card"
+        ],
+        "purpose": "60-second strategic overview for busy executives"
+      },
+      {
+        "id": "partnerships",
+        "title": "Partnerships & Business Development",
+        "color": "purple",
+        "word_count": "800-1500 total",
+        "components": [
+          "Lead story (300-500 words)",
+          "Strategic partnerships (2-4 cards, 200-300 words each)",
+          "Active client work (grouped or individual, 150-200 words)",
+          "Service development (150-250 words)",
+          "Chart: Service package market fit",
+          "Action items (3-5 tasks)"
+        ],
+        "purpose": "Comprehensive partnership portfolio with strategic context"
+      },
+      {
+        "id": "operations",
+        "title": "Operations & Team",
+        "color": "green",
+        "word_count": "600-1200 total",
+        "components": [
+          "Metrics cards (4 key metrics)",
+          "Team restructuring (250-400 words)",
+          "Candidate analysis (300-500 words)",
+          "Merger integration (200-300 words)",
+          "Chart: Team capacity radar",
+          "Action items (3-5 tasks)"
+        ],
+        "purpose": "Team capacity, organizational changes, operational efficiency"
+      },
+      {
+        "id": "strategy",
+        "title": "Strategy & Governance",
+        "color": "amber",
+        "word_count": "700-1400 total",
+        "components": [
+          "Board meeting prep (300-500 words)",
+          "Strategic planning (250-400 words)",
+          "Financial position (200-350 words)",
+          "Decision frameworks (250-400 words)",
+          "Action items (3-5 tasks)"
+        ],
+        "purpose": "Board-level issues, financial position, major decisions"
+      },
+      {
+        "id": "timeline",
+        "title": "Critical Week Ahead",
+        "color": "neutral",
+        "word_count": "200-400 total",
+        "components": [
+          "Day-by-day breakdown (5-7 days or date ranges)",
+          "Event listings with times",
+          "Meeting types identified"
+        ],
+        "purpose": "Week-ahead visibility for critical meetings and milestones"
+      }
+    ]
+  },
+
+  "design_system": {
+    "colors": {
+      "primary": "#0066CC",
+      "partnerships": "#6B46C1",
+      "operations": "#047857",
+      "strategy": "#D97706",
+      "critical": "#DC2626",
+      "warning": "#F59E0B",
+      "success": "#10B981",
+      "info": "#3B82F6"
+    },
+    "typography": {
+      "font_family": "Inter",
+      "scales": {
+        "page_title": "24px / 700 weight",
+        "section_header": "24px / 700 weight",
+        "card_title": "16px / 700 weight",
+        "body_text": "14px / 400 weight",
+        "metric_value": "32px / 800 weight",
+        "label": "12px / 600 weight / uppercase"
+      }
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "2xl": "48px",
+      "3xl": "64px"
+    },
+    "charts": {
+      "service_packages": {
+        "type": "horizontal_bar",
+        "library": "Chart.js",
+        "data_points": ["Venture IQ", "Intelligence Audit", "Innovation Compass"],
+        "colors": ["primary", "partnerships", "operations"]
+      },
+      "team_capacity": {
+        "type": "radar",
+        "library": "Chart.js",
+        "dimensions": ["Corp BD", "AI/Tech", "Multilingual", "Strategic", "Financial", "Agritech"],
+        "datasets": ["Current Team", "With New Hires"]
+      }
+    }
+  },
+
+  "quality_assurance": {
+    "data_completeness": [
+      "All major partnerships represented with current status",
+      "Team composition accurately reflects reality",
+      "Financial position clearly stated if relevant",
+      "Upcoming milestones and deadlines captured",
+      "Action items have owners and due dates"
+    ],
+    "content_quality": [
+      "Executive summary provides true strategic insights (not generic)",
+      "Lead stories have depth and context (not just headlines)",
+      "All significant developments explained with 'why it matters'",
+      "Decision frameworks clearly present options and tradeoffs",
+      "Tone is confident yet acknowledges constraints"
+    ],
+    "technical_excellence": [
+      "All HTML validates (no broken tags or structure)",
+      "Charts render properly with accurate data",
+      "Navigation works smoothly with proper highlighting",
+      "Responsive design tested conceptually",
+      "Accessibility features implemented (skip link, ARIA, semantic HTML)"
+    ],
+    "visual_polish": [
+      "Consistent spacing throughout",
+      "Proper color coding by section",
+      "Typography hierarchy clear and readable",
+      "No orphaned headers or awkward breaks",
+      "Professional appearance suitable for board presentation"
+    ],
+    "strategic_value": [
+      "Brief enables decision-making (not just information sharing)",
+      "Critical issues properly elevated and explained",
+      "Executive can understand strategic position in 5 minutes",
+      "Clear what actions are needed and by whom",
+      "Stakeholders can use this for board/investor communications"
+    ]
+  },
+
+  "maintenance": {
+    "weekly_review": [
+      "Which data sources provided the most valuable insights",
+      "What information was missing or hard to find",
+      "Whether the prioritization felt accurate",
+      "Any visual or structural improvements needed"
+    ],
+    "monthly_calibration": [
+      "Partnership list is current (add new, archive inactive)",
+      "Team capacity metrics reflect actual composition",
+      "Service package data is updated",
+      "Strategic priorities align with organizational direction"
+    ],
+    "quarterly_evolution": [
+      "New visualizations for emerging strategic priorities",
+      "Additional data sources as integrations expand",
+      "Content sections for new focus areas",
+      "Design refinements based on stakeholder feedback"
+    ]
+  },
+
+  "version_history": {
+    "1.0.0": {
+      "date": "2025-11-15",
+      "changes": [
+        "Initial release",
+        "Production-quality design system",
+        "Comprehensive data collection from Asana, Gmail, Google Drive",
+        "Interactive Chart.js visualizations",
+        "WCAG AA accessibility compliance",
+        "Responsive design with print optimization"
+      ]
+    }
+  }
+}
