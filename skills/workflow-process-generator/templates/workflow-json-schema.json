@@ -1,0 +1,315 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "360 Workflow Schema",
+  "description": "Standardized data structure for workflow documentation",
+  "type": "object",
+  "required": ["workflow_name", "workflow_type", "phases"],
+  "properties": {
+    "workflow_name": {
+      "type": "string",
+      "description": "Descriptive name of the workflow",
+      "examples": ["GenIP Partnership Development", "Client Engagement", "Innovation Assessment"]
+    },
+    "workflow_type": {
+      "type": "string",
+      "enum": ["partnership_development", "client_engagement", "innovation_assessment", "ecosystem_mapping", "internal_operations"],
+      "description": "Category of workflow"
+    },
+    "total_duration": {
+      "type": "string",
+      "description": "End-to-end timeline (range acceptable)",
+      "examples": ["6-8 months", "2-4 weeks", "Ongoing"]
+    },
+    "total_phases": {
+      "type": "integer",
+      "description": "Count of major phases",
+      "minimum": 1
+    },
+    "success_rate": {
+      "type": "string",
+      "description": "Overall success metric",
+      "examples": ["35% from inquiry to formalized partnership", "42% conversion"]
+    },
+    "data_sources": {
+      "type": "array",
+      "description": "Where workflow data came from",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "enum": ["asana", "google_drive", "gmail", "user_input"]
+          },
+          "source_details": {
+            "type": "string",
+            "description": "Specific project, document, or thread",
+            "examples": ["Partnership Development Template (Asana)", "GenIP Partnership Agreement (Drive)"]
+          },
+          "data_quality": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Confidence level in data accuracy"
+          }
+        }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "description": "Ordered list of workflow phases",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "duration", "owner"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique phase identifier",
+            "examples": ["phase1", "phase2", "intake"]
+          },
+          "name": {
+            "type": "string",
+            "description": "Clear, action-oriented phase name",
+            "examples": ["Initial Contact", "Relationship Building", "Legal Review"]
+          },
+          "description": {
+            "type": "string",
+            "description": "1-2 sentence phase overview"
+          },
+          "duration": {
+            "type": "string",
+            "description": "Time estimate or range",
+            "examples": ["1-2 weeks", "4-8 weeks", "Ongoing"]
+          },
+          "owner": {
+            "type": "string",
+            "description": "Role or team responsible",
+            "examples": ["Business Development", "Partnership Lead", "Legal Teams"]
+          },
+          "team_size": {
+            "type": "string",
+            "description": "Number of people involved",
+            "examples": ["1-2 people", "3-5 people", "Joint working group"]
+          },
+          "activities": {
+            "type": "array",
+            "description": "Specific actions within phase",
+            "items": {
+              "type": "string"
+            },
+            "examples": [
+              ["Research organization", "Alignment call", "Document assessment"]
+            ]
+          },
+          "inputs": {
+            "type": "array",
+            "description": "Prerequisites to start this phase",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "description": "Deliverables produced",
+            "items": {
+              "type": "string"
+            }
+          },
+          "success_criteria": {
+            "type": "array",
+            "description": "How to know phase is complete",
+            "items": {
+              "type": "string"
+            }
+          },
+          "decision_point": {
+            "type": "object",
+            "description": "Decision made at end of or during this phase",
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "Decision to be made",
+                "examples": ["Pursue partnership?", "Terms acceptable?"]
+              },
+              "options": {
+                "type": "array",
+                "description": "Available choices",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "criteria": {
+                "type": "string",
+                "description": "How to decide",
+                "examples": ["Mission alignment + capability fit + resource availability"]
+              },
+              "historical_data": {
+                "type": "string",
+                "description": "Past patterns",
+                "examples": ["60% proceed, 40% decline"]
+              },
+              "owner": {
+                "type": "string",
+                "description": "Who makes final decision"
+              }
+            }
+          },
+          "next_phases": {
+            "type": "array",
+            "description": "Possible next phases based on decision",
+            "items": {
+              "type": "string"
+            }
+          },
+          "volume_distribution": {
+            "type": "object",
+            "description": "Percentage or count for each next phase option",
+            "additionalProperties": {
+              "type": "number"
+            },
+            "examples": [
+              {"continue": 60, "pass": 40}
+            ]
+          },
+          "common_issues": {
+            "type": "array",
+            "description": "Known challenges or failure modes",
+            "items": {
+              "type": "string"
+            }
+          },
+          "geographic_variations": {
+            "type": "object",
+            "description": "Differences by geography",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "examples": [
+              {"Brazil": "+2-4 weeks for relationship building"}
+            ]
+          }
+        }
+      }
+    },
+    "overall_metrics": {
+      "type": "object",
+      "description": "Workflow-level success metrics and insights",
+      "properties": {
+        "success_rate": {
+          "type": "string",
+          "examples": ["85% of partnerships that reach scoping proceed to formalization"]
+        },
+        "average_duration": {
+          "type": "string",
+          "examples": ["7 months from initial contact to operational"]
+        },
+        "common_exits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            ["Phase 1: Mission misalignment (40% of exits)", "Phase 4: Terms disagreement (30% of exits)"]
+          ]
+        },
+        "bottlenecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string"
+              },
+              "delay": {
+                "type": "string"
+              },
+              "cause": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "optimization_opportunities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "visualization_notes": {
+      "type": "object",
+      "description": "Guidance for diagram generation",
+      "properties": {
+        "recommended_diagram_type": {
+          "type": "string",
+          "enum": ["flowchart", "gantt", "sequence", "sankey"],
+          "description": "Best diagram type for this workflow"
+        },
+        "color_coding": {
+          "type": "object",
+          "description": "360 brand colors to use",
+          "properties": {
+            "primary_path": {
+              "type": "string",
+              "const": "#6b8c7f"
+            },
+            "alternative_path": {
+              "type": "string",
+              "const": "#d89b71"
+            },
+            "enhanced_path": {
+              "type": "string",
+              "const": "#9b8a9d"
+            },
+            "exit_paths": {
+              "type": "string",
+              "const": "#c74444"
+            }
+          }
+        },
+        "emphasis_areas": {
+          "type": "array",
+          "description": "What to highlight in visualization",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "string",
+      "description": "Version number (semantic versioning)",
+      "examples": ["v1.0", "v1.1"]
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When workflow was first documented"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Most recent update"
+    },
+    "change_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
