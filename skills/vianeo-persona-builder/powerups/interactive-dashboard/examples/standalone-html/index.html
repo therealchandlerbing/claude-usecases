@@ -392,6 +392,198 @@
     .hidden {
       display: none;
     }
+
+    /* ========================================
+       MOBILE OPTIMIZATIONS
+       ======================================== */
+
+    /* Tablets and smaller (max-width: 768px) */
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .header h1 {
+        font-size: 32px;
+      }
+
+      .header-description {
+        font-size: 14px;
+      }
+
+      .persona-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .layer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+      }
+
+      .detail-title {
+        font-size: 28px;
+      }
+
+      .layer-content h3 {
+        font-size: 20px;
+      }
+
+      .quote-footer {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .persona-detail {
+        padding: 24px;
+      }
+    }
+
+    /* Mobile devices (max-width: 480px) */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 12px;
+      }
+
+      .header {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+      }
+
+      .header-subtitle {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+
+      .header-description {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .persona-card {
+        padding: 20px;
+      }
+
+      .persona-title {
+        font-size: 18px;
+      }
+
+      .persona-subtitle {
+        font-size: 13px;
+      }
+
+      .persona-stats {
+        gap: 12px;
+      }
+
+      .stat-value {
+        font-size: 20px;
+      }
+
+      .persona-detail {
+        padding: 20px;
+      }
+
+      .detail-title {
+        font-size: 24px;
+      }
+
+      .detail-evidence {
+        font-size: 14px;
+      }
+
+      .layer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .layer-card {
+        padding: 16px;
+      }
+
+      .layer-content h3 {
+        font-size: 18px;
+      }
+
+      .field {
+        padding: 16px;
+      }
+
+      .field-label {
+        font-size: 12px;
+      }
+
+      .field-content {
+        font-size: 14px;
+      }
+
+      .section-item {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+
+      .content-block {
+        padding: 16px;
+      }
+
+      .content-text {
+        font-size: 13px;
+      }
+
+      .gaps-block {
+        padding: 14px 16px;
+      }
+
+      .gap-item {
+        font-size: 12px;
+      }
+
+      .quote {
+        padding: 16px;
+      }
+
+      .quote-text {
+        font-size: 13px;
+      }
+
+      .quote-footer {
+        font-size: 11px;
+      }
+    }
+
+    /* Very small devices (max-width: 360px) */
+    @media (max-width: 360px) {
+      .container {
+        padding: 16px 8px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .persona-card {
+        padding: 16px;
+      }
+
+      .persona-detail {
+        padding: 16px;
+      }
+
+      .badge-container {
+        gap: 6px;
+      }
+
+      .badge,
+      .validation-badge {
+        font-size: 9px;
+        padding: 3px 6px;
+      }
+    }
   </style>
 </head>
 <body>

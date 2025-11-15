@@ -456,10 +456,114 @@ export default function VianeoPersonaExplorer() {
       minHeight: '100vh',
       color: '#1a1a1a'
     }}>
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <style>{`
+        /* Mobile Optimizations for Vianeo Persona Explorer */
+
+        /* Tablets and smaller (max-width: 768px) */
+        @media (max-width: 768px) {
+          .vianeo-container {
+            padding: 24px 16px !important;
+          }
+
+          .vianeo-header h1 {
+            font-size: 32px !important;
+          }
+
+          .vianeo-header-description {
+            font-size: 14px !important;
+          }
+
+          .vianeo-persona-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+
+          .vianeo-layer-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+            gap: 12px !important;
+          }
+
+          .vianeo-persona-detail {
+            padding: 24px !important;
+          }
+
+          .vianeo-quote-footer {
+            flex-direction: column !important;
+            gap: 8px !important;
+            align-items: flex-start !important;
+          }
+        }
+
+        /* Mobile devices (max-width: 480px) */
+        @media (max-width: 480px) {
+          .vianeo-container {
+            padding: 20px 12px !important;
+          }
+
+          .vianeo-header {
+            margin-bottom: 32px !important;
+            padding-bottom: 24px !important;
+          }
+
+          .vianeo-header h1 {
+            font-size: 28px !important;
+          }
+
+          .vianeo-header-description {
+            font-size: 14px !important;
+          }
+
+          .vianeo-persona-card {
+            padding: 20px !important;
+          }
+
+          .vianeo-persona-detail {
+            padding: 20px !important;
+          }
+
+          .vianeo-layer-grid {
+            grid-template-columns: 1fr !important;
+          }
+
+          .vianeo-layer-card {
+            padding: 16px !important;
+          }
+
+          .vianeo-field,
+          .vianeo-content-block,
+          .vianeo-quote {
+            padding: 16px !important;
+          }
+
+          .vianeo-section-item {
+            padding: 10px 14px !important;
+          }
+
+          .vianeo-gaps-block {
+            padding: 14px 16px !important;
+          }
+        }
+
+        /* Very small devices (max-width: 360px) */
+        @media (max-width: 360px) {
+          .vianeo-container {
+            padding: 16px 8px !important;
+          }
+
+          .vianeo-header h1 {
+            font-size: 24px !important;
+          }
+
+          .vianeo-persona-card,
+          .vianeo-persona-detail {
+            padding: 16px !important;
+          }
+        }
+      `}</style>
+      <div className="vianeo-container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
         {/* Header */}
-        <header style={{
+        <header className="vianeo-header" style={{
           textAlign: 'center',
           marginBottom: '48px',
           paddingBottom: '32px',
@@ -482,7 +586,7 @@ export default function VianeoPersonaExplorer() {
             color: '#292524'
           }}>Stakeholder Persona Explorer</h1>
 
-          <p style={{
+          <p className="vianeo-header-description" style={{
             fontSize: '16px',
             color: '#57534e',
             maxWidth: '700px',
@@ -495,7 +599,7 @@ export default function VianeoPersonaExplorer() {
         </header>
 
         {/* Persona Cards */}
-        <div style={{
+        <div className="vianeo-persona-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '20px',
@@ -509,6 +613,7 @@ export default function VianeoPersonaExplorer() {
             return (
               <div
                 key={id}
+                className="vianeo-persona-card"
                 onClick={() => {
                   setActivePersona(id);
                   setActiveLayer(null);
@@ -610,7 +715,7 @@ export default function VianeoPersonaExplorer() {
 
         {/* Active Persona Detail */}
         {activePersona && personas[activePersona] && (
-          <div style={{
+          <div className="vianeo-persona-detail" style={{
             background: '#ffffff',
             border: `2px solid ${personaTypeColors[personas[activePersona].type].border}`,
             borderRadius: '8px',
@@ -641,7 +746,7 @@ export default function VianeoPersonaExplorer() {
               fontWeight: '600'
             }}>Vianeo Four-Layer Structure</div>
 
-            <div style={{
+            <div className="vianeo-layer-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '14px',
@@ -654,6 +759,7 @@ export default function VianeoPersonaExplorer() {
                 return (
                   <div
                     key={layer.id}
+                    className="vianeo-layer-card"
                     onClick={() => setActiveLayer(layer.id)}
                     style={{
                       background: isActiveLayer ? colors.accent : '#fafaf9',
@@ -699,7 +805,7 @@ export default function VianeoPersonaExplorer() {
 
                 {/* Fields (for Layers 1 & 2) */}
                 {layerContent[activeLayer].fields && layerContent[activeLayer].fields.map((field, idx) => (
-                  <div key={idx} style={{
+                  <div key={idx} className="vianeo-field" style={{
                     background: '#fafaf9',
                     border: '1px solid #e7e5e4',
                     padding: '18px 20px',
@@ -788,7 +894,7 @@ export default function VianeoPersonaExplorer() {
                       )}
                     </div>
                     {section.items.map((item, itemIdx) => (
-                      <div key={itemIdx} style={{
+                      <div key={itemIdx} className="vianeo-section-item" style={{
                         background: '#ffffff',
                         padding: '12px 16px',
                         marginBottom: '8px',
@@ -804,7 +910,7 @@ export default function VianeoPersonaExplorer() {
 
                 {/* Content (for Layer 4) */}
                 {layerContent[activeLayer].content && (
-                  <div style={{
+                  <div className="vianeo-content-block" style={{
                     background: '#fafaf9',
                     border: '1px solid #e7e5e4',
                     padding: '20px',
@@ -851,7 +957,7 @@ export default function VianeoPersonaExplorer() {
 
                 {/* Gaps (for Layer 4) */}
                 {layerContent[activeLayer].gaps && (
-                  <div style={{
+                  <div className="vianeo-gaps-block" style={{
                     background: '#fef3c7',
                     border: '1px solid #fde68a',
                     borderLeft: '4px solid #d97706',
@@ -891,7 +997,7 @@ export default function VianeoPersonaExplorer() {
                     }}>Supporting Evidence</div>
 
                     {layerContent[activeLayer].quotes.map((quote, idx) => (
-                      <div key={idx} style={{
+                      <div key={idx} className="vianeo-quote" style={{
                         background: '#ffffff',
                         border: '1px solid #e7e5e4',
                         padding: '18px 20px',
@@ -905,7 +1011,7 @@ export default function VianeoPersonaExplorer() {
                           marginBottom: '12px'
                         }}>"{quote.text}"</div>
 
-                        <div style={{
+                        <div className="vianeo-quote-footer" style={{
                           display: 'flex',
                           justifyContent: 'space-between',
                           fontSize: '12px'
