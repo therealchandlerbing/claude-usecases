@@ -49,49 +49,6 @@ claude-usecases/
 
 ### Research & Validation
 
-#### Vianeo Business Validation Framework
-**Location:** `skills/vianeo-validation-framework/`
-**Category:** Research & Validation
-**Purpose:** Comprehensive business validation toolkit for conducting validation sprints using the Vianeo platform and methodology
-
-**Key Features:**
-- Two complementary assessment instruments (40-question diagnostic + 29-question market maturity)
-- Vianeo 5-dimension framework alignment (Legitimacy, Desirability, Acceptability, Feasibility, Viability)
-- Platform character limits reference with writing strategies
-- Sprint execution guide with common pitfalls and solutions
-- Needs Qualification Matrix prioritization tool
-- Evidence-based scoring guidance and quality standards
-
-**Quick Links:**
-- [Framework Documentation](skills/vianeo-validation-framework/README.md) ⭐ Start here
-- [File Index](skills/vianeo-validation-framework/INDEX.md)
-- [40-Question Diagnostic Scan](skills/vianeo-validation-framework/references/40-question-diagnostic-scan.md)
-- [29-Question Market Maturity Assessment](skills/vianeo-validation-framework/references/29-question-market-maturity-assessment.md)
-- [Platform Character Limits](skills/vianeo-validation-framework/references/platform-character-limits.md)
-- [Sprint Execution Guide](skills/vianeo-validation-framework/references/sprint-execution-guide.md)
-- [Needs Qualification Matrix](skills/vianeo-validation-framework/tools/needs-qualification-matrix.md)
-
-**When to Use:**
-- Preparing comprehensive Vianeo platform submissions
-- Conducting systematic business validation sprints
-- Assessing project maturity and market readiness
-- Identifying validation gaps across 5 Vianeo dimensions
-- Prioritizing customer needs and target segments
-- Training teams on validation quality standards
-
-**Framework Components:**
-1. **Assessment Instruments:** 40-question diagnostic (internal maturity) + 29-question assessment (market validation)
-2. **Platform Specifications:** Complete character limit reference for all Vianeo fields
-3. **Execution Guidance:** Common pitfalls and tested solutions for validation work
-4. **Analysis Tools:** Needs Qualification Matrix for systematic prioritization
-
-**Vianeo Submission Targets:**
-- **Competitive:** All dimensions ≥ 3.0, overall ≥ 3.5
-- **Strong:** All dimensions ≥ 3.5, overall ≥ 4.0
-- **Exceptional:** All dimensions ≥ 4.0, overall ≥ 4.5
-
----
-
 #### Vianeo Persona Builder
 **Location:** `skills/vianeo-persona-builder/`
 **Category:** Research & Validation
@@ -383,18 +340,6 @@ The best way to get started is to:
 [Add your license information here]
 
 ## Recent Additions
-
-### Vianeo Business Validation Framework (November 2025) ⭐ NEW
-Comprehensive business validation toolkit for Vianeo platform submissions:
-- **Dual assessment instruments**: 40-question diagnostic (internal maturity) + 29-question market assessment (5-dimension validation)
-- **Vianeo 5-dimension framework**: Complete alignment with Legitimacy, Desirability, Acceptability, Feasibility, Viability
-- **Platform specifications**: Character limits reference for all Vianeo fields with writing strategies
-- **Sprint execution guide**: Common pitfalls and tested solutions based on real validation work
-- **Needs Qualification Matrix**: Systematic prioritization tool (importance × satisfaction evaluation)
-- **Evidence-based scoring**: Detailed guidance for scores 1-5 with validation thresholds
-- **Submission targets**: Competitive (≥3.5), Strong (≥4.0), Exceptional (≥4.5) scoring benchmarks
-- **Integration ready**: Works with Vianeo Persona Builder and Intelligence Extractor
-- See [Vianeo Validation Framework](skills/vianeo-validation-framework/README.md) for complete documentation
 
 ### 360 Executive Brief + Newsletter Generator (November 2025) ⭐ NEW
 Professional executive briefing and newsletter system with dual output formats:
