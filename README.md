@@ -298,6 +298,111 @@ claude-usecases/
 - **Gmail:** Partnership communications, client interactions
 - **Google Drive:** Reports, deliverables, impact documentation
 
+#### Executive Intelligence Dashboard
+**Location:** `.claude/skills/executive-intelligence-dashboard/`
+**Category:** Executive Communication & Strategic Briefing
+**Purpose:** Generate sophisticated, executive-grade weekly intelligence briefs by synthesizing data from Asana, Gmail, and Google Drive into production-quality HTML dashboards suitable for board presentations and strategic decision-making
+
+**Key Features:**
+- Multi-source data synthesis with intelligent prioritization (significance scoring 1-10 scale)
+- Production-quality HTML with Chart.js visualizations and interactive navigation
+- WCAG AA accessible design with professional polish matching enterprise SaaS standards
+- Strategic context for every development ("why it matters" not just "what happened")
+- Decision support frameworks with options and tradeoffs
+- 15-25 minute generation time for comprehensive brief
+- Self-contained HTML file (100-150KB) with embedded CSS/JavaScript
+- Responsive design (desktop/tablet/mobile) with print optimization
+
+**Quick Links:**
+- [Skill Documentation](.claude/skills/executive-intelligence-dashboard/SKILL.md) - Complete operational specification
+- [README](.claude/skills/executive-intelligence-dashboard/README.md) ⭐ Start here
+- [Quick Start Guide](.claude/skills/executive-intelligence-dashboard/QUICK-START.md)
+- [Implementation Summary](.claude/skills/executive-intelligence-dashboard/IMPLEMENTATION-SUMMARY.md)
+- [Query Guide](.claude/skills/executive-intelligence-dashboard/QUERY-GUIDE.md)
+- [Workflow Example](.claude/skills/executive-intelligence-dashboard/WORKFLOW-EXAMPLE.md)
+- [Deliverable Summary](.claude/skills/executive-intelligence-dashboard/DELIVERABLE-SUMMARY.md)
+- [Production Template](.claude/skills/executive-intelligence-dashboard/templates/production-final.html)
+
+**When to Use:**
+- Generating weekly 360 Impact Brief for board meetings
+- Creating strategic updates for stakeholder communications
+- Preparing comprehensive partnership or operations reports
+- Synthesizing operational data into executive summaries
+- Board meeting preparation with decision support frameworks
+- Quarterly reviews and strategic planning sessions
+
+**Brief Structure:**
+- **Executive Summary** (Blue Banner): 3 strategic insights (60-80 words each) - Inflection points, partnership momentum, team evolution
+- **Partnerships & Business Development** (Purple Section): Lead stories, strategic partnerships, active client work, service development, market fit charts, action items
+- **Operations & Team** (Green Section): Team restructuring, capacity analysis, merger/acquisition activity, team capacity radar chart, operational action items
+- **Strategy & Governance** (Amber Section): Board meeting prep, strategic planning, financial position, decision frameworks, strategic action items
+- **Critical Week Timeline**: Day-by-day breakdown of meetings, deliverables, and milestones
+
+**Visualizations:**
+- Service package market fit analysis (horizontal bar chart)
+- Team capacity enhancement (radar chart showing current vs. projected)
+- Partnership portfolio distribution
+- Custom charts based on available data
+
+**Design System:**
+- **Color Palette**: Primary Blue (#0066CC), Purple (#6B46C1), Green (#047857), Amber (#D97706)
+- **Typography**: Inter font family with systematic scale (14px body, 16px cards, 24px headers, 32px metrics)
+- **Spacing**: Consistent 8px-based scale for professional visual rhythm
+- **Components**: Reusable patterns for content cards, action items, metrics, charts, timelines
+
+**Significance Scoring Algorithm:**
+- **Strategic Impact** (0-4 pts): Changes organizational direction, opens new markets
+- **Revenue Implications** (0-3 pts): Direct revenue or pipeline opportunities
+- **Decision Urgency** (0-2 pts): Leadership action required this week/month
+- **Stakeholder Visibility** (0-1 pt): Board/investor interest level
+- **8-10 pts**: Lead stories with comprehensive coverage (300-500 words)
+- **5-7 pts**: Featured coverage with full cards (200-300 words)
+- **3-4 pts**: Standard mentions (100-150 words)
+
+**Data Collection Process:**
+1. **Asana Workspace** (6 min): Projects, tasks completed this week, upcoming milestones, status updates, custom fields
+2. **Gmail Communications** (3 min): Partnership discussions, client engagement, board correspondence
+3. **Google Drive Documents** (2 min): Strategic plans, partnership proposals, board materials, financial docs
+4. **Data Synthesis** (2 min): Cross-reference sources, identify gaps, validate completeness
+5. **Analysis & Prioritization** (3 min): Apply significance scoring, categorize by section, identify lead stories
+6. **Content Generation** (6 min): Write executive summary, develop sections with strategic context
+7. **Visual Rendering** (3 min): Generate HTML with charts, apply design system, add interactivity
+8. **Quality Assurance** (2 min): Validate data completeness, content quality, technical excellence
+
+**Quality Metrics:**
+- ✅ Executive understands strategic position in 5 minutes
+- ✅ Clear what decisions need to be made and by whom
+- ✅ Board member could present key points from this brief
+- ✅ Every section has specific next steps with owners and deadlines
+- ✅ Visual quality suitable for external distribution
+
+**Output Deliverable:**
+- **File**: `360-impact-brief-[YYYY-MM-DD].html`
+- **Format**: Self-contained HTML with embedded CSS/JavaScript
+- **Browser**: Modern browsers (Chrome, Firefox, Safari, Edge)
+- **Print**: Professional print layout for board distribution
+- **Accessibility**: WCAG AA compliant with semantic HTML, ARIA attributes, keyboard navigation
+- **Performance**: Loads in 1-2 seconds with CDN resources (Chart.js, Font Awesome, Inter font)
+
+**Technology Stack:**
+- HTML5/CSS3/JavaScript (no build process)
+- Chart.js 4.4.0 for visualizations
+- Font Awesome 6.4.0 for icons
+- Inter font from Google Fonts
+- Intersection Observer for navigation
+- Preconnect hints for performance
+
+**Example Usage:**
+```
+Generate this week's 360 Impact Brief
+```
+```
+Generate an executive brief covering November 10-17, 2025
+```
+```
+Generate a partnership-focused executive brief for the board meeting
+```
+
 ---
 
 ### Process Documentation & Workflow Visualization
@@ -399,6 +504,21 @@ The best way to get started is to:
 
 ## Recent Additions
 
+### Executive Intelligence Dashboard (November 2025) ⭐ NEW
+Sophisticated executive-grade weekly intelligence brief system with production-quality HTML dashboards:
+- **Multi-source synthesis**: Asana (projects, tasks, status), Gmail (partnerships, communications), Google Drive (strategic docs)
+- **Intelligent prioritization**: Significance scoring (1-10 scale) based on strategic impact, revenue, urgency, and visibility
+- **Production HTML output**: Self-contained 100-150KB file with Chart.js visualizations and interactive navigation
+- **4-section structure**: Executive Summary (3 strategic insights), Partnerships (purple), Operations (green), Strategy (amber)
+- **Decision support**: Every development includes "why it matters," options, tradeoffs, and action items with owners
+- **Professional polish**: WCAG AA accessible, enterprise SaaS quality, responsive design, print-optimized
+- **15-25 minute generation**: Comprehensive brief suitable for board presentations and stakeholder communications
+- **Strategic intelligence**: Not just status reporting—enables executive decision-making with context-rich analysis
+- **Visualizations**: Service package market fit (bar chart), team capacity enhancement (radar chart)
+- **Quality metrics**: Executive understands position in 5 min, clear decisions, board-ready presentation
+- **Comprehensive docs**: SKILL.md (operational spec), QUICK-START.md, IMPLEMENTATION-SUMMARY.md, QUERY-GUIDE.md, WORKFLOW-EXAMPLE.md
+- See [Executive Intelligence Dashboard](.claude/skills/executive-intelligence-dashboard/README.md) for complete documentation
+
 ### Workflow Process Generator (November 2025) ⭐ NEW
 Professional workflow documentation and visualization system that transforms tribal knowledge into shareable process flows:
 - **5 workflow categories**: Partnership Development, Client Engagement, Innovation Assessment, Ecosystem Mapping, Internal Operations
@@ -455,5 +575,5 @@ Complete intelligence extraction and quality monitoring system with:
 
 ## Version
 
-Current Version: 1.3.0
+Current Version: 1.4.0
 Last Updated: 2025-11-15 
