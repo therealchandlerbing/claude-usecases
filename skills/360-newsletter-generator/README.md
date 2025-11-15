@@ -11,19 +11,19 @@ The 360 Newsletter Generator automatically creates sophisticated, publication-st
 
 This skill supports two distinct use cases with the same visual style but different content sensitivity:
 
-### 1. **360 Newsletter** (Primary Use Case)
-- **Audience:** General stakeholders, partners, public-facing
-- **Content:** High-level updates, shareable insights, impact stories
-- **Sensitivity:** Public or stakeholder-appropriate information
-- **Template:** `newsletter-template.html`
-
-### 2. **360 Executive Brief** (Secondary Use Case)
+### 1. **360 Executive Brief** (Primary Use Case)
 - **Audience:** Leadership team, board members, investors
 - **Content:** Confidential intelligence, financial data, HR updates, strategic decisions
 - **Sensitivity:** Executive-level confidential information
 - **Template:** `executive-brief-template.html`
 
-**Key Difference:** Both use the identical professional dashboard design, navigation structure, and interactive components. The distinction is purely content-based - newsletters contain shareable information while executive briefs include confidential operational, financial, and strategic intelligence.
+### 2. **360 Newsletter** (Secondary Use Case)
+- **Audience:** General stakeholders, partners, public-facing
+- **Content:** High-level updates, shareable insights, impact stories
+- **Sensitivity:** Public or stakeholder-appropriate information
+- **Template:** `newsletter-template.html`
+
+**Key Difference:** Both use the identical professional dashboard design, navigation structure, and interactive components. The distinction is purely content-based - executive briefs include confidential operational, financial, and strategic intelligence while newsletters contain shareable information.
 
 ## Key Features
 
@@ -53,20 +53,20 @@ This skill supports two distinct use cases with the same visual style but differ
 
 ## When to Use
 
-### For General Newsletter (Public/Stakeholder)
-Trigger this skill when the user requests:
-- "Generate newsletter" or "create newsletter"
-- "Weekly digest", "monthly update", or "company summary"
-- "What happened this week/month"
-- Any comprehensive summary of 360 activities for external sharing
-
-### For Executive Brief (Confidential)
+### For Executive Brief (Confidential) - Primary
 Trigger this skill when the user requests:
 - "Generate executive brief" or "create executive brief"
 - "Create board update" or "prep investor update"
 - "Weekly leadership brief" or "confidential update"
 - "Executive intelligence dashboard"
 - Comprehensive summaries that include confidential data (financials, HR, investments)
+
+### For General Newsletter (Public/Stakeholder) - Secondary
+Trigger this skill when the user requests:
+- "Generate newsletter" or "create newsletter"
+- "Weekly digest", "monthly update", or "company summary"
+- "What happened this week/month"
+- Any comprehensive summary of 360 activities for external sharing
 
 ## Quick Start
 

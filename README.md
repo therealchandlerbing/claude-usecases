@@ -245,13 +245,13 @@ claude-usecases/
 
 ### Executive Communication & Strategic Briefing
 
-#### 360 Newsletter Generator
+#### 360 Executive Brief / Newsletter Generator
 **Location:** `skills/360-newsletter-generator/`
 **Category:** Executive Communication & Strategic Briefing
-**Purpose:** Generate professional newsletters and executive briefs synthesizing updates from Asana, Gmail, and Google Drive into interactive dashboards
+**Purpose:** Generate executive intelligence briefs and stakeholder newsletters synthesizing updates from Asana, Gmail, and Google Drive into interactive dashboards
 
 **Key Features:**
-- Two output formats: General Newsletter (shareable) + Executive Brief (confidential)
+- Two output formats: Executive Brief (primary - confidential) + General Newsletter (secondary - shareable)
 - Multi-source data integration (Asana 70%, Gmail 20%, Drive 10%)
 - Automatic significance scoring and lead story selection
 - Modern executive dashboard design with fixed sidebar navigation
@@ -268,15 +268,16 @@ claude-usecases/
 - [Chart Specifications](skills/360-newsletter-generator/references/chart-specifications.md)
 
 **When to Use:**
-- Generating weekly/monthly newsletters for stakeholders and partners
-- Creating board updates and investor briefings
+- Creating board updates and investor briefings (primary use case)
 - Producing executive intelligence dashboards with confidential data
-- Synthesizing comprehensive organizational updates
+- Generating leadership briefs with financial and operational metrics
+- Synthesizing comprehensive organizational updates for executives
+- Generating weekly/monthly newsletters for stakeholders and partners (secondary use case)
 - Preparing pre-meeting briefings with talking points
 
 **Two Use Cases:**
-1. **360 Newsletter** - Public/stakeholder-appropriate content with high-level updates and impact stories
-2. **360 Executive Brief** - Confidential intelligence including financials, HR updates, investment data, and strategic decisions
+1. **360 Executive Brief** (Primary) - Confidential intelligence including financials, HR updates, investment data, and strategic decisions
+2. **360 Newsletter** (Secondary) - Public/stakeholder-appropriate content with high-level updates and impact stories
 
 **Newsletter Structure:**
 - Executive Summary with 3-4 key highlight cards
@@ -340,16 +341,17 @@ The best way to get started is to:
 
 ## Recent Additions
 
-### 360 Newsletter Generator + Executive Brief (November 2025) ⭐ NEW
-Professional newsletter and executive briefing system with dual output formats:
-- **Two use cases**: General Newsletter (shareable) + Executive Brief (confidential intelligence)
+### 360 Executive Brief + Newsletter Generator (November 2025) ⭐ NEW
+Professional executive briefing and newsletter system with dual output formats:
+- **Primary use case**: Executive Brief (confidential intelligence) - Financials, HR, strategic decisions, board updates
+- **Secondary use case**: General Newsletter (shareable) - High-level updates, impact stories, stakeholder communications
 - **Multi-source integration**: Asana (70%), Gmail (20%), Google Drive (10%)
 - **Automatic intelligence**: Significance scoring, lead story selection, content prioritization
 - **Professional design**: Modern dashboard aesthetic with fixed sidebar navigation
 - **Interactive visualizations**: 4+ Chart.js charts per report (doughnut, bar, radar, line)
 - **Quality framework**: Content analysis, tone consistency, formatting validation
-- **Newsletter sections**: Executive Summary, Partnerships, Programs, Impact, Operations, Strategic Horizon
-- **Executive Brief template**: Confidential financial data, HR updates, investment intelligence, strategic decisions
+- **Executive Brief sections**: Executive Snapshot, Partnerships, Operations, Strategy & Finance, Timeline
+- **Comprehensive documentation**: Weekly production guide, content template, governance rules
 - See [360 Newsletter Generator](skills/360-newsletter-generator/README.md) for complete documentation
 
 ### Intelligence System Cross-Linking Architecture (November 2025) ⭐ NEW
