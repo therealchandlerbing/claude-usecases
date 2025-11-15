@@ -188,6 +188,50 @@ claude-usecases/
 
 **Cost:** Free tier available (Supabase 500MB + Vercel 100GB bandwidth)
 
+#### Partnership Intelligence Dashboard
+**Location:** `intelligence-dashboard/src/components/partnership/` ⭐ NEW
+**Category:** Strategic Intelligence & Decision Support
+**Purpose:** Professional dashboard for navigating partnership conversations with data-driven intelligence from 40+ historical partnerships
+
+**Key Features:**
+- 4 partner type profiles: JV Partners, Brazil Tech Transfer, US Corporate/VC, Foundations
+- Success patterns and timelines based on real partnership data (25-60% success rates, 4-11 month timelines)
+- Value alignment and cultural communication strategies
+- Qualification questions organized by decision criteria
+- Common hesitations with proven response frameworks
+- Walk-away signals to identify poor partnership fit
+- Comparison view across all partner types with strategic recommendations
+- Professional design with smooth animations and visual hierarchy
+
+**Quick Links:**
+- [Component Documentation](intelligence-dashboard/src/components/partnership/README.md)
+- [Live Demo Route](intelligence-dashboard/src/app/partnership/page.tsx)
+- Access at `/partnership` when running the intelligence dashboard
+
+**When to Use:**
+- Preparing for partnership conversations and qualifying potential partners
+- Training team members on partnership patterns and decision criteria
+- Understanding decision-making timelines by partner type
+- Navigating cultural differences in partnership approaches (Brazil vs US)
+- Building confidence in objection handling and hesitation responses
+- Making data-driven decisions about which partnerships to pursue
+
+**Design Highlights:**
+- Modular TypeScript component architecture with 8 specialized components
+- Tailwind CSS with custom animations and gradient backgrounds
+- Responsive design optimized for all screen sizes
+- Smooth transitions (200-300ms) and hover states throughout
+- Color-coded success indicators (green ≥50%, yellow ≥30%, orange <30%)
+- Progressive disclosure through tabbed interface
+- Professional polish matching contemporary design standards
+
+**Intelligence Captured:**
+- 63 total partnerships explored across 4 partner types
+- Historical success rates: Brazil (60%), Foundations (28%), US Corp (27%), JV (25%)
+- Average timelines: US Corp (4.2 mo), Brazil (6.8 mo), Foundation (8.5 mo), JV (11.5 mo)
+- 40+ qualification questions, 30+ hesitation responses, 24 walk-away signals
+- Partner-specific patterns, cultural insights, and strategic framing guidance
+
 ---
 
 ### 360 Use Cases
@@ -232,6 +276,15 @@ The best way to get started is to:
 [Add your license information here]
 
 ## Recent Additions
+
+### Partnership Intelligence Dashboard (November 2025) ⭐ NEW
+Strategic partnership navigation dashboard with intelligence from 40+ historical partnerships:
+- 4 partner type profiles (JV, Brazil Tech, US Corp/VC, Foundations)
+- 35% overall success rate with 7.8 month average timeline
+- 40+ qualification questions, 30+ hesitation responses, 24 walk-away signals
+- Professional design with interactive components and comparison view
+- Built with modern React/TypeScript, integrated at `/partnership` route
+- See [PARTNERSHIP_DASHBOARD_SUMMARY.md](PARTNERSHIP_DASHBOARD_SUMMARY.md) for complete overview
 
 ### Intelligence Extractor + Live Dashboard (January 2025)
 Complete intelligence extraction and quality monitoring system with:

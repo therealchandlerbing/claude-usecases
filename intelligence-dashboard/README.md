@@ -2,7 +2,26 @@
 
 Real-time web dashboard for monitoring and analyzing partnership, funding, and stakeholder intelligence extraction quality.
 
-## Features
+## Available Dashboards
+
+### 1. Extraction Quality Dashboard (Main - `/`)
+Real-time monitoring of intelligence extraction quality across all meeting types.
+
+### 2. Partnership Intelligence Dashboard (NEW - `/partnership`) ⭐
+Strategic partnership navigation dashboard with intelligence from 40+ historical partnerships.
+
+**Features:**
+- 4 partner type profiles with success patterns and timelines
+- Qualification questions and objection handling frameworks
+- Walk-away signals and value alignment strategies
+- Comparison view across all partner types
+- Professional design with interactive components
+
+[See Partnership Dashboard Documentation](src/components/partnership/README.md)
+
+---
+
+## Extraction Quality Dashboard Features
 
 - **Real-time Updates**: Dashboard updates live as new extractions are processed
 - **Quality Metrics**: Track completeness, user ratings, and flags across all extractions
@@ -183,14 +202,28 @@ intelligence-dashboard/
 ├── src/
 │   ├── app/                      # Next.js app directory
 │   │   ├── layout.tsx            # Root layout
-│   │   ├── page.tsx              # Main dashboard page
-│   │   └── globals.css           # Global styles
+│   │   ├── page.tsx              # Main dashboard page (extraction quality)
+│   │   ├── partnership/          # Partnership intelligence dashboard
+│   │   │   └── page.tsx          # Partnership dashboard route
+│   │   └── globals.css           # Global styles + custom animations
 │   ├── components/
-│   │   ├── dashboard/            # Dashboard-specific components
+│   │   ├── dashboard/            # Extraction quality dashboard components
 │   │   │   ├── MetricsCards.tsx
 │   │   │   ├── QualityTrend.tsx
 │   │   │   ├── TemplatePerformance.tsx
 │   │   │   └── RecentExtractions.tsx
+│   │   ├── partnership/          # Partnership intelligence components ⭐ NEW
+│   │   │   ├── PartnershipDashboard.tsx
+│   │   │   ├── PartnerTypeSelector.tsx
+│   │   │   ├── OverviewMetrics.tsx
+│   │   │   ├── PatternDetection.tsx
+│   │   │   ├── TabbedContent.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── ComparisonView.tsx
+│   │   │   ├── data/
+│   │   │   │   └── partnerTypes.ts
+│   │   │   ├── index.ts
+│   │   │   └── README.md
 │   │   └── ui/                   # Reusable UI components
 │   ├── lib/
 │   │   └── supabase.ts           # Supabase client setup
