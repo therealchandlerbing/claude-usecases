@@ -33,6 +33,15 @@ The Intelligence Extractor is a comprehensive system for capturing, structuring,
 - Real-time updates via subscriptions
 - Asana integration for intelligence tasks
 
+### Cross-Linking Architecture
+- **Three-System Integration** - Partnership, Funding, and Stakeholder Intelligence work together as an interconnected ecosystem
+- **Task Relationships** - Explicit links between related intelligence items in Asana
+- **Shared Custom Fields** - Consistent fields across all systems for portfolio views
+- **Information Flow Patterns** - Structured workflows for discovery cascades and updates
+- **Dashboard Views** - Cross-system intelligence queries and portfolio management
+
+See [Cross-Linking Architecture](references/cross-linking-architecture.md) for complete implementation guide.
+
 ## Quick Start
 
 ### 1. Choose the Right Template
@@ -87,6 +96,7 @@ intelligence-extractor/
 │   └── 10-crisis-problem-solving.md   # Crisis/conflict meetings
 ├── references/
 │   ├── intelligence-schemas.md        # JSON schemas for outputs
+│   ├── cross-linking-architecture.md  # How the three systems interconnect
 │   ├── quality-framework.md           # Quality assessment framework
 │   └── cultural-intelligence.md       # Cross-cultural guidance
 └── examples/
@@ -265,6 +275,17 @@ Information about individual people:
 - Power and influence
 - Relationship dynamics
 
+### How They Work Together
+
+**Stakeholders are the connective tissue.** Every partnership and funding opportunity involves specific people. Understanding those people (Stakeholder Intelligence) makes you more effective at both partnership development and fundraising.
+
+The three intelligence systems work together as an interconnected ecosystem:
+- **Stakeholder Intelligence (WHO layer)** informs both Partnership and Funding Intelligence
+- **Partnership Intelligence (HOW layer)** and **Funding Intelligence (RESOURCES layer)** inform each other
+- Cross-linking enables portfolio views, relationship health monitoring, and strategic opportunity spotting
+
+For complete implementation details, see [Cross-Linking Architecture](references/cross-linking-architecture.md).
+
 ## Quality Framework
 
 The system includes built-in quality monitoring:
@@ -434,6 +455,13 @@ See [Cultural Intelligence Guide](references/cultural-intelligence.md)
 
 ## Version History
 
+- **v1.1** (2025-11-15) - Cross-Linking Architecture Integration
+  - Comprehensive cross-linking architecture documentation
+  - Intelligence schemas for all three intelligence types
+  - Integration patterns and workflow examples
+  - Dashboard views for cross-system intelligence
+  - Implementation roadmap and success metrics
+
 - **v1.0** (2025-01-15) - Initial release with 10 templates and live dashboard
   - 10 meeting-type specific templates
   - Real-time quality dashboard
@@ -451,4 +479,6 @@ See [Cultural Intelligence Guide](references/cultural-intelligence.md)
 - [Complete File Index](INDEX.md)
 - [Live Dashboard](../../intelligence-dashboard/README.md)
 - [Deployment Guide](../../intelligence-dashboard/DEPLOYMENT_GUIDE.md)
+- [Cross-Linking Architecture](references/cross-linking-architecture.md) ⭐ NEW
+- [Intelligence Schemas](references/intelligence-schemas.md) ⭐ NEW
 - [Quality Framework](references/quality-framework.md)
