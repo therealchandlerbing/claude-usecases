@@ -463,6 +463,121 @@ Generate a partnership-focused executive brief for the board meeting
 
 ---
 
+### Project Management & Executive Intelligence
+
+#### 360 Executive Project Tracker
+**Location:** `.claude/skills/360-executive-project-tracker/`
+**Category:** Project Management & Executive Intelligence
+**Purpose:** Build professionally designed, multi-source project status trackers that consolidate information from Gmail, Google Calendar, Google Drive, and Asana into Excel dashboards and interactive HTML visualizations with automated updates, intelligent blocker detection, and category-based organization
+
+**Key Features:**
+- **Multi-source data collection** - Gmail, Google Calendar, Google Drive (2 folders), Asana
+- **16-column XLSX schema** - Enhanced with Category and Source Details fields
+- **Interactive HTML dashboards** - Executive-ready visualization with filters and search
+- **Auto-categorization** - 6 preset workstream categories with keyword-based assignment
+- **Export automation** - One-command XLSX → HTML sync
+- **Dual-mode operation** - On-demand snapshots or recurring automated updates
+- **Blocker tracking** - Visual alerts for tasks blocked 3+ days (warning) or 7+ days (critical)
+- **Manual override protection** - Preserves human edits during automated updates
+
+**Quick Links:**
+- [Skill Documentation](.claude/skills/360-executive-project-tracker/skill.md) - Quick reference skill file
+- [README](.claude/skills/360-executive-project-tracker/docs/README.md) ⭐ Start here
+- [Quick Start Guide](.claude/skills/360-executive-project-tracker/docs/QUICK_START.md)
+- [Deliverables Summary](.claude/skills/360-executive-project-tracker/docs/DELIVERABLES_SUMMARY.md)
+- [Complete Integration Guide](.claude/skills/360-executive-project-tracker/docs/COMPLETE_INTEGRATION_GUIDE.md)
+- [Integration Mapping](.claude/skills/360-executive-project-tracker/docs/INTEGRATION_MAPPING.md)
+- [Skill Alignment Analysis](.claude/skills/360-executive-project-tracker/docs/SKILL_ALIGNMENT_ANALYSIS.md)
+
+**When to Use:**
+- Creating comprehensive project status trackers or dashboards
+- Consolidating status from multiple sources (email, calendar, documents, Asana)
+- Generating automated project tracking systems
+- Building executive dashboards for project visibility
+- Tracking blockers and escalation systems
+- Monitoring team workload and capacity
+- Creating weekly status reporting automation
+- Tracking multi-project portfolios
+- Generating interactive HTML dashboards for stakeholder sharing
+
+**Workflow Categories:**
+1. **Partnership & Legal** - Contracts, agreements, joint ventures
+2. **Technical & Product** - API integration, development, testing
+3. **Pilot & Implementation** - Deployments, rollouts, clinic pilots
+4. **Business Development** - Proposals, pricing, client engagement
+5. **Operations** - Internal processes, workflow optimization
+6. **Strategy & Planning** - Roadmaps, assessments, vision work
+
+**System Architecture:**
+```
+Data Sources → Collection Engine → XLSX Tracker → Export Script → HTML Dashboard
+(4 sources)   (parse/dedupe)     (16 columns)   (auto-sync)    (interactive viz)
+```
+
+**XLSX Tracker (Source of Truth):**
+- Professional 16-column structure with formulas and validation
+- Conditional formatting for visual status recognition
+- Dashboard sheet with real-time metrics and KPIs
+- Manual editing capability with override protection
+- Category-based workstream organization
+- Blocker alerts (orange >3 days, red >7 days)
+
+**HTML Dashboard (Executive Presentation):**
+- Interactive filtering by status, priority, owner, category
+- Real-time search across all fields
+- Visual indicators (progress bars, status badges, blocker severity)
+- Responsive mobile-friendly design
+- Shareable read-only view for stakeholders
+- Client-side calculations (no server required)
+
+**Integration Scripts:**
+- `tracker_orchestrator.py` - Main controller coordinating collection
+- `data_collector.py` - Data extraction and parsing engine
+- `tool_integrator.py` - API integrations (Gmail, Calendar, Drive, Asana)
+- `project_tracker_builder.py` - Excel template builder with formatting
+- `xlsx_enhancer.py` - Adds Category and Source Details columns (NEW v1.2.0)
+- `xlsx_to_html_export.py` - Exports XLSX data to HTML dashboard (NEW v1.2.0)
+
+**Data Sources Configured:**
+- **Gmail:** Status updates, blocker mentions, task assignments
+- **Google Calendar:** Meeting notes, action items, follow-ups
+- **Google Drive:** 2 folders ("A - Processed Meeting Deliverables" + "Fathom meeting deliverables")
+- **Asana:** "🎯 Chandler's Command Center" project (ID: 1211488271541302)
+
+**Quick Start (3 Steps):**
+```python
+# 1. Collect data from sources
+from tracker_orchestrator import TrackerOrchestrator
+orchestrator = TrackerOrchestrator(mode='on_demand')
+xlsx_path = orchestrator.run(days_back=7)
+
+# 2. Enhance schema (one-time)
+from xlsx_enhancer import enhance_xlsx_schema
+enhanced = enhance_xlsx_schema(xlsx_path)
+
+# 3. Export to dashboard
+from xlsx_to_html_export import export_xlsx_to_html
+dashboard = export_xlsx_to_html(enhanced, 'template.html', 'output.html')
+```
+
+**Expected Business Impact:**
+- **Efficiency:** 3-5 hours saved per week on status compilation
+- **Visibility:** >90% of projects with current status, >95% tasks with clear owners
+- **Blocker Management:** Average blocker age <5 days (target)
+- **Team Adoption:** >80% of team regularly viewing tracker
+- **Executive Reporting:** One-click dashboard generation for stakeholder sharing
+
+**Example Use Cases:**
+- **Board Meeting Prep:** Full 7-day collection → manual review in Excel → polished HTML dashboard for board
+- **Weekly Team Status:** Daily automated collection → team reviews XLSX → export to HTML for stakeholders
+- **Blocker Escalation:** Filter dashboard for critical blockers (7+ days) → review details → track resolution
+- **Portfolio Management:** Collect across all projects → category filters for strategic view → resource allocation
+
+**Version:** 1.2.0 (Enhanced schema with HTML dashboard integration)
+**Updated:** November 2025
+
+---
+
 ### Legal Intelligence & Risk Management
 
 #### Contract Redlining Tool
