@@ -239,6 +239,30 @@ For questions or issues:
 ✅ Blocker detection and alerts
 ✅ Export automation (XLSX → HTML)
 
+## Templates & Sample Files
+
+### HTML Dashboard Template
+
+The interactive HTML dashboard template is located in `../templates/360_project_tracker_template.html`. This template is used by `xlsx_to_html_export.py` to generate executive-ready dashboards from your XLSX data.
+
+### Sample Excel Files
+
+Sample Excel files are **not stored in the repository** to keep the package lightweight. Instead, generate sample files using:
+
+```python
+from tracker_orchestrator import TrackerOrchestrator
+
+# Generate tracker with sample data
+orchestrator = TrackerOrchestrator(mode='on_demand')
+xlsx_path = orchestrator.run(days_back=7, create_new=True, use_sample_data=True)
+```
+
+This will create:
+- `360_project_tracker.xlsx` - Original 14-column version with sample tasks
+- Can be enhanced to 16 columns with `xlsx_enhancer.py`
+
+For more details, see **DELIVERABLES_SUMMARY.md** and **INTEGRATION_SUMMARY.md**.
+
 ---
 
 **Maintained by:** 360 Social Impact Studios
