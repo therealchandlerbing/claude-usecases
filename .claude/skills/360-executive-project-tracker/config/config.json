@@ -1,0 +1,205 @@
+{
+  "system": {
+    "name": "360 Project Status Tracker",
+    "version": "1.2.0",
+    "default_mode": "on_demand"
+  },
+
+  "data_collection": {
+    "days_back": 7,
+    "sources": {
+      "gmail": {
+        "enabled": true,
+        "search_queries": [
+          "status update",
+          "weekly update",
+          "blocker",
+          "blocked",
+          "working on",
+          "completed",
+          "finished"
+        ]
+      },
+      "calendar": {
+        "enabled": true,
+        "calendar_id": "primary",
+        "extract_from": ["description", "notes", "summary"]
+      },
+      "drive": {
+        "enabled": true,
+        "folders": [
+          {
+            "name": "A - Processed Meeting Deliverables",
+            "description": "Main processed meeting deliverables folder"
+          },
+          {
+            "name": "Fathom meeting deliverables",
+            "folder_id": "1P8gGXnNvCjvejFosFqTE7qjDVS3uOrmL",
+            "description": "Fathom AI-generated meeting deliverables"
+          }
+        ],
+        "file_types": ["application/vnd.google-apps.document"]
+      },
+      "asana": {
+        "enabled": true,
+        "projects": [
+          {
+            "name": "🎯 Chandler's Command Center",
+            "project_id": "1211488271541302",
+            "description": "Main command center board"
+          }
+        ],
+        "extract_from": ["name", "notes", "description"],
+        "include_completed": false,
+        "include_subtasks": true
+      }
+    }
+  },
+
+  "team": {
+    "members": [
+      "Chandler Lewis",
+      "Team Member",
+      "Unassigned"
+    ],
+    "default_owner": "Unassigned"
+  },
+
+  "projects": {
+    "keywords": [
+      "SpacePlan",
+      "GenIP",
+      "CNEN",
+      "NanoBioPlus",
+      "ScienceLink",
+      "360 Space Innovation Studios"
+    ],
+    "focus_on_keywords": true
+  },
+
+  "classification": {
+    "status": {
+      "blocked": ["blocked", "blocker", "waiting on", "stuck", "dependency"],
+      "done": ["done", "completed", "finished", "shipped", "closed"],
+      "in_progress": ["working", "in progress", "ongoing", "current", "active"],
+      "not_started": ["not started", "todo", "planned", "upcoming"]
+    },
+
+    "priority": {
+      "critical": ["critical", "urgent", "asap", "emergency", "p0", "blocker"],
+      "high": ["high", "important", "p1", "high priority"],
+      "medium": ["medium", "p2", "normal"],
+      "low": ["low", "nice to have", "p3", "low priority", "optional"]
+    },
+
+    "categories": {
+      "partnership_legal": ["partnership", "legal", "contract", "agreement", "jv"],
+      "technical_product": ["api", "integration", "development", "technical", "testing"],
+      "pilot_implementation": ["pilot", "deployment", "rollout", "clinic", "implementation"],
+      "business_development": ["proposal", "pricing", "sales", "revenue", "client"],
+      "operations": ["operations", "process", "workflow", "internal"],
+      "strategy_planning": ["strategy", "planning", "roadmap", "vision", "assessment"]
+    },
+
+    "blocker_indicators": [
+      "blocked by",
+      "blocked on",
+      "blocker:",
+      "waiting on",
+      "waiting for",
+      "dependency:",
+      "depends on",
+      "stuck on"
+    ]
+  },
+
+  "tracker_settings": {
+    "output_path": "/mnt/user-data/outputs/360_project_tracker.xlsx",
+    "preserve_manual_edits": true,
+    "update_existing": true,
+    "add_cell_comments": true,
+
+    "visual_settings": {
+      "freeze_panes": true,
+      "conditional_formatting": true,
+      "data_validation": true,
+      "data_bars": true
+    },
+
+    "blocker_alerts": {
+      "warning_days": 3,
+      "critical_days": 7,
+      "highlight_color_warning": "FFB84D",
+      "highlight_color_critical": "FF4444"
+    },
+
+    "status_colors": {
+      "blocked": "FF6B6B",
+      "in_progress": "FFE66D",
+      "done": "4ECDC4",
+      "not_started": "E8E8E8"
+    },
+
+    "priority_colors": {
+      "critical": "FF4444",
+      "high": "FFA07A"
+    }
+  },
+
+  "recurring_mode": {
+    "enabled": false,
+    "schedule": {
+      "frequency": "weekly",
+      "day": "Monday",
+      "time": "09:00",
+      "timezone": "America/Los_Angeles"
+    },
+    "notifications": {
+      "enabled": false,
+      "method": "email",
+      "recipients": [],
+      "include_summary": true
+    },
+    "update_behavior": {
+      "append_only": false,
+      "smart_merge": true,
+      "full_refresh": false
+    }
+  },
+
+  "advanced": {
+    "conflict_resolution": {
+      "enabled": true,
+      "reconcile_across_sources": true,
+      "priority_order": ["most_recent", "most_detailed", "highest_status_priority"],
+      "log_conflicts": true,
+      "add_conflict_notes": true
+    },
+
+    "missing_information": {
+      "track_gaps": true,
+      "explicit_no_update_tasks": true,
+      "flag_missing_workstreams": true,
+      "generate_quality_report": true
+    },
+
+    "deduplication": {
+      "enabled": true,
+      "similarity_threshold": 0.8,
+      "match_on": ["description", "owner"]
+    },
+
+    "task_aging": {
+      "track_history": true,
+      "archive_completed": false,
+      "archive_after_days": 30
+    },
+
+    "data_quality": {
+      "require_owner": false,
+      "require_description": true,
+      "min_description_length": 5,
+      "skip_invalid": true
+    }
+  }
+}
