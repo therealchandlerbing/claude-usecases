@@ -134,6 +134,82 @@ claude-usecases/
 
 ---
 
+### Content Strategy & Multi-Platform Publishing
+
+#### 360 Content Converter
+**Location:** `skills/360-content-converter/`
+**Category:** Content Strategy & Multi-Platform Publishing
+**Purpose:** Transform one piece of content into multiple platform-optimized formats while maintaining brand consistency, strategic coherence, and cultural awareness
+
+**Key Features:**
+- Comprehensive platform coverage: Social media (LinkedIn, Twitter, Instagram), Professional (email, blog, presentations, podcasts), Visual (infographics, carousels), Specialized (press releases, grants)
+- Multi-language support with cultural intelligence (English, Portuguese Brazilian, Spanish Latin American)
+- Strategic platform selection and prioritization based on goals, audience, and resources
+- Brand voice consistency across all platform versions
+- Design-ready specifications for visual content
+- 20+ copy-paste ready prompt templates for common scenarios
+- Comprehensive quality control checklist
+- Platform strategy decision tree
+
+**Quick Links:**
+- [Skill Documentation](skills/360-content-converter/README.md) ⭐ Start here
+- [File Index](skills/360-content-converter/INDEX.md)
+- [Prompt Templates](skills/360-content-converter/references/prompt-templates.md) - 20+ ready-to-use templates
+- [Quality Checklist](skills/360-content-converter/references/quality-checklist.md) - Pre-publish review
+- [Platform Strategy](skills/360-content-converter/references/platform-strategy.md) - Platform selection guide
+- [System Guide](skills/360-content-converter/references/system-guide.md) - Complete documentation
+
+**When to Use:**
+- Repurposing content across multiple platforms (social, email, blog, presentations)
+- Creating platform-specific versions from a single source
+- Adapting content for different audiences (technical vs. general, B2B vs. B2C)
+- Converting content across languages with cultural intelligence
+- Maximizing content reach and efficiency
+- Building cohesive content ecosystems
+
+**Platform Coverage:**
+- **Social Media:** LinkedIn (posts, carousels, articles), Twitter/X (threads, tweets), Instagram (posts, stories, reels), Facebook, YouTube, TikTok
+- **Professional:** Email sequences, blog posts, case studies, whitepapers, presentations, webinars, podcast outlines
+- **Visual:** Infographic outlines with design specs, one-pagers, pitch decks, slide carousels, video storyboards
+- **Specialized:** Press releases, media kits, investor updates, grant narratives, partner communications
+
+**System Components:**
+- **Core Skill (SKILL.md):** Main instruction set for Claude (upload to Projects)
+- **Prompt Template Library:** 20+ templates for basic conversions, multi-language, strategic planning, audience-specific, format-specific, design-ready, testing/optimization
+- **Quality Control Checklist:** Critical issues, platform-specific checks, multi-language verification, design specs, strategic alignment, delegation readiness
+- **Platform Strategy Decision Tree:** Content type pathways, goal-based recommendations, audience considerations, resource capacity, platform synergies, testing optimization
+
+**Strategic Features:**
+- Content-platform fit analysis with prioritization
+- Publishing sequence recommendations
+- Audience adaptation (technical/general, B2B/B2C, stakeholder level)
+- Cultural intelligence for multi-language (not just translation)
+- Resource requirement assessment
+- A/B testing variations
+- Performance optimization
+
+**Multi-Language Excellence:**
+- Portuguese (Brazilian): Warmer, relationship-focused tone; business relationships develop slower
+- Spanish (Latin American): Respect hierarchy, formal address, clear mutual benefits
+- Cultural adaptation (not direct translation): Local examples, culturally appropriate references, platform-specific norms per market
+
+**Example Workflows:**
+- **Simple Conversion (30-60 min):** Blog post → LinkedIn + Twitter + Email versions
+- **Strategic Planning (60-90 min):** Platform analysis → recommendation → optimized content for 3-5 platforms
+- **Multi-Language (90-120 min):** Partnership announcement → English + Portuguese (Brazilian) across email, LinkedIn, blog
+- **Thought Leadership (2-4 hours):** Research report → comprehensive campaign across 5-8 platforms with sequencing
+- **Team Delegation (60 min setup):** Content + specs → delegation-ready outputs for team execution
+
+**Success Metrics:**
+- Content sounds like your brand across all platforms
+- Each platform version feels native (not forced)
+- Strategic coherence across content ecosystem
+- Multi-language versions resonate in target markets
+- Faster than creating each version from scratch
+- Team can execute independently
+
+---
+
 ### Data Intelligence & Quality Monitoring
 
 #### Intelligence Extractor
@@ -737,6 +813,22 @@ The best way to get started is to:
 [Add your license information here]
 
 ## Recent Additions
+
+### 360 Content Converter (November 2025) ⭐ NEW
+Comprehensive content conversion system for transforming content across platforms, languages, and audiences:
+- **Platform coverage**: 15+ platforms including LinkedIn, Twitter, Instagram, email, blog, presentations, podcasts, infographics
+- **Multi-language intelligence**: English, Portuguese (Brazilian), Spanish (Latin American) with cultural adaptation (not just translation)
+- **Strategic platform selection**: Content-platform fit analysis, goal-based recommendations, resource capacity planning
+- **20+ prompt templates**: Ready-to-use templates for basic conversions, multi-language, strategic planning, audience-specific, format-specific, testing
+- **Comprehensive quality system**: Pre-publish checklist covering critical issues, platform-specific checks, multi-language verification, design specs, strategic alignment
+- **Platform strategy decision tree**: Content type pathways, goal-based pathways, audience considerations, synergy mapping
+- **Brand consistency**: Maintains voice across all platforms while adapting tone and format to platform norms
+- **Design-ready outputs**: Complete specifications for visual content (dimensions, colors, typography, layout, accessibility)
+- **Example workflows**: Simple conversion (30-60 min), strategic planning (60-90 min), multi-language (90-120 min), thought leadership campaigns (2-4 hours)
+- **Cultural intelligence**: Portuguese for Brazil (warmer, relationship-focused), Spanish for LATAM (respect hierarchy, formal), culturally appropriate examples and references
+- **Strategic features**: Publishing sequence recommendations, audience adaptation, A/B testing variations, performance optimization
+- **Team delegation**: Delegation-ready outputs with clear specifications, approval workflows, role assignments
+- See [360 Content Converter](skills/360-content-converter/README.md) for complete documentation
 
 ### Contract Redlining Tool (November 2025) ⭐ NEW
 Automated contract review and redlining system that produces attorney-quality analysis:
