@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="[Client tagline - 120-155 characters describing the venture]">
+    <meta name="keywords" content="social impact, [sector], [focus area], 360 studios">
+    <meta name="author" content="360 Social Impact Studios">
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="[Client Name] | Social Impact Venture">
+    <meta property="og:description" content="[Client tagline]">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://[domain].com">
+    <meta property="og:image" content="https://[domain].com/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="[Client Name] | Social Impact Venture">
+    <meta name="twitter:description" content="[Client tagline]">
+    <meta name="twitter:image" content="https://[domain].com/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <title>[Client Name] | Partnership with 360 Social Impact Studios</title>
+
+    <!-- Preconnect to External Domains for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts - Choose from options in design-standards.md -->
+    <!-- Option 1: Classic Editorial (Crimson Pro + Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ========================================
+           CSS CUSTOM PROPERTIES (VARIABLES)
+           ======================================== */
+        :root {
+            /* 360 Brand Colors (Consistent across all portfolios) */
+            --360-sage: #87A878;
+            --360-terracotta: #C97A63;
+            --360-plum: #6B5B95;
+            --360-red: #C85A54;
+            --360-gray: #4A5859;
+
+            /* Client Accent Colors (Customize per portfolio) */
+            /* Choose from sector-positioning.md */
+            --accent-primary: #047857;      /* Example: CleanTech green */
+            --accent-secondary: #0EA5E9;    /* Example: CleanTech blue */
+
+            /* Neutral Base */
+            --bg-primary: #FEFEFE;
+            --bg-secondary: #F8F9FA;
+            --bg-dark: #1A1A1A;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B7280;
+            --text-tertiary: #9CA3AF;
+
+            /* Typography */
+            --font-display: 'Crimson Pro', serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Font Sizes (Modular Scale 1.25) */
+            --text-xs: 0.64rem;     /* 10px */
+            --text-sm: 0.8rem;      /* 13px */
+            --text-base: 1rem;      /* 16px */
+            --text-lg: 1.25rem;     /* 20px */
+            --text-xl: 1.563rem;    /* 25px */
+            --text-2xl: 1.953rem;   /* 31px */
+            --text-3xl: 2.441rem;   /* 39px */
+            --text-4xl: 3.052rem;   /* 49px */
+            --text-5xl: 3.815rem;   /* 61px */
+
+            /* Spacing (8px base) */
+            --space-xs: 0.5rem;     /* 8px */
+            --space-sm: 1rem;       /* 16px */
+            --space-md: 1.5rem;     /* 24px */
+            --space-lg: 2rem;       /* 32px */
+            --space-xl: 3rem;       /* 48px */
+            --space-2xl: 4rem;      /* 64px */
+            --space-3xl: 5rem;      /* 80px */
+            --space-4xl: 6rem;      /* 96px */
+            --space-5xl: 8rem;      /* 128px */
+
+            /* Transitions */
+            --transition-fast: 200ms ease-out;
+            --transition-base: 300ms ease-out;
+            --transition-slow: 400ms ease-out;
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        h1 { font-size: var(--text-4xl); font-weight: 700; }
+        h2 { font-size: var(--text-3xl); }
+        h3 { font-size: var(--text-2xl); }
+        h4 { font-size: var(--text-xl); }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+
+        a:hover {
+            color: color-mix(in srgb, var(--accent-primary) 70%, black);
+        }
+
+        a:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================================
+           LAYOUT UTILITIES
+           ======================================== */
+        .container-wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .container-standard {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .container-narrow {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: var(--space-md) var(--space-lg);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color var(--transition-base);
+        }
+
+        .nav-link:hover {
+            color: var(--360-sage);
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: var(--space-5xl) var(--space-lg);
+            margin-top: 64px; /* Offset for fixed nav */
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero .tagline {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .badge-360 {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: color-mix(in srgb, var(--360-sage) 10%, transparent);
+            color: var(--360-sage);
+            border-radius: 20px;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            margin-bottom: var(--space-md);
+        }
+
+        /* ========================================
+           SECTIONS
+           ======================================== */
+        section {
+            padding: var(--space-3xl) var(--space-lg);
+        }
+
+        section.bg-secondary {
+            background: var(--bg-secondary);
+        }
+
+        /* ========================================
+           COMPONENTS
+           ======================================== */
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-body);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: color-mix(in srgb, var(--accent-primary) 85%, black);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-primary);
+        }
+
+        .card h3 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: var(--space-sm);
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+            color: var(--accent-primary);
+        }
+
+        /* Metric Cards */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: var(--space-lg);
+        }
+
+        .metric-number {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-family: var(--font-display);
+            margin-bottom: var(--space-sm);
+        }
+
+        .metric-label {
+            font-size: var(--text-lg);
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-context {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in:nth-child(1) { transition-delay: 0.1s; }
+        .fade-in:nth-child(2) { transition-delay: 0.2s; }
+        .fade-in:nth-child(3) { transition-delay: 0.3s; }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .site-footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: var(--space-2xl) var(--space-lg);
+            text-align: center;
+        }
+
+        .site-footer a {
+            color: var(--360-sage);
+        }
+
+        .site-footer a:hover {
+            color: var(--360-terracotta);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            :root {
+                --text-5xl: 2.441rem;
+                --text-4xl: 1.953rem;
+                --text-3xl: 1.563rem;
+            }
+
+            .container-wide,
+            .container-standard,
+            .container-narrow {
+                padding: 0 var(--space-md);
+            }
+
+            .site-nav {
+                padding: var(--space-sm) var(--space-md);
+            }
+
+            .nav-links {
+                display: none; /* Implement hamburger menu if needed */
+            }
+
+            .hero {
+                min-height: 60vh;
+                padding: var(--space-3xl) var(--space-md);
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: var(--space-2xl) var(--space-md);
+            }
+
+            .card-grid,
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link" style="position: absolute; top: -40px; left: 0; background: var(--accent-primary); color: white; padding: 8px; z-index: 100;">
+        Skip to main content
+    </a>
+
+    <!-- Navigation -->
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <img src="https://via.placeholder.com/120x32?text=360+Studios" alt="360 Social Impact Studios" class="nav-logo">
+            <ul class="nav-links">
+                <li><a href="#mission" class="nav-link">Mission</a></li>
+                <li><a href="#innovation" class="nav-link">Innovation</a></li>
+                <li><a href="#traction" class="nav-link">Traction</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <span class="badge-360">Partnership with 360 Social Impact Studios</span>
+                    <h1>[Venture Name]</h1>
+                    <p class="tagline">[One-sentence value proposition: what you do + who you serve + key benefit]</p>
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                </div>
+                <div class="hero-visual">
+                    <!-- Replace with client logo or key visual -->
+                    <img src="https://via.placeholder.com/400x400?text=Client+Logo" alt="[Client Name] logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Context -->
+        <section class="mission" id="mission">
+            <div class="container-narrow">
+                <h2 class="fade-in">The Challenge</h2>
+                <p class="fade-in">
+                    [2-3 sentences describing the problem: Who's affected? Scale of issue? Why existing solutions fail?]
+                </p>
+
+                <h2 class="fade-in">Our Approach</h2>
+                <p class="fade-in">
+                    [2-3 sentences explaining the solution: What do you do? How are you different? Key innovation?]
+                </p>
+
+                <h2 class="fade-in">Why It Matters</h2>
+                <p class="fade-in">
+                    [1-2 sentences on systems impact: Broader significance? Long-term vision? Connection to SDGs or sector transformation?]
+                </p>
+            </div>
+        </section>
+
+        <!-- Innovation Snapshot -->
+        <section class="innovation bg-secondary" id="innovation">
+            <div class="container-standard">
+                <h2 class="fade-in">Innovation Snapshot</h2>
+
+                <div class="card-grid">
+                    <div class="card fade-in">
+                        <i class="fas fa-flask card-icon"></i>
+                        <h3>Development Stage</h3>
+                        <p>[Translated from TRL: e.g., "Pilot testing in real-world conditions with paying customers"]</p>
+                        <span class="badge">TRL 6</span>
+                    </div>
+
+                    <div class="card fade-in">
+                        <i class="fas fa-users card-icon"></i>
+                        <h3>Market Validation</h3>
+                        <p>[Customer discovery results, pilot status, early traction]</p>
+                        <span class="badge">Early Traction</span>
+                    </div>
+
+                    <div class="card fade-in">
+                        <i class="fas fa-lightbulb card-icon"></i>
+                        <h3>Unique Approach</h3>
+                        <p>[Competitive advantage, proprietary technology, unique methodology]</p>
+                        <span class="badge">Proprietary Technology</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Traction & Milestones -->
+        <section class="traction" id="traction">
+            <div class="container-standard">
+                <h2 class="fade-in">Impact & Traction</h2>
+
+                <div class="metric-grid">
+                    <div class="metric-card fade-in">
+                        <div class="metric-number">5,200</div>
+                        <div class="metric-label">Families Served</div>
+                        <div class="metric-context">Across 12 rural communities</div>
+                    </div>
+
+                    <div class="metric-card fade-in">
+                        <div class="metric-number">450 MWh</div>
+                        <div class="metric-label">Clean Energy Delivered</div>
+                        <div class="metric-context">Avoiding 180 tons of CO2</div>
+                    </div>
+
+                    <div class="metric-card fade-in">
+                        <div class="metric-number">98%</div>
+                        <div class="metric-label">System Uptime</div>
+                        <div class="metric-context">Industry-leading reliability</div>
+                    </div>
+
+                    <div class="metric-card fade-in">
+                        <div class="metric-number">$250K</div>
+                        <div class="metric-label">Pilot Revenue</div>
+                        <div class="metric-context">First 6 months</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Commercial Pathway -->
+        <section class="commercial bg-secondary">
+            <div class="container-narrow">
+                <h2 class="fade-in">Commercial Pathway</h2>
+
+                <h3 class="fade-in">Business Model</h3>
+                <p class="fade-in">
+                    [How you generate revenue, pricing approach, sustainability strategy]
+                </p>
+
+                <h3 class="fade-in">Path to Scale</h3>
+                <p class="fade-in">
+                    [Distribution strategy, partnerships, growth plan, unit economics]
+                </p>
+
+                <h3 class="fade-in">Current Focus</h3>
+                <p class="fade-in">
+                    [What you're validating now, next milestones, immediate goals]
+                </p>
+            </div>
+        </section>
+
+        <!-- What's Next -->
+        <section class="next-steps" id="contact">
+            <div class="container-standard">
+                <h2 class="fade-in">What's Next</h2>
+
+                <div class="fade-in">
+                    <h3>Immediate Goals (Next 6 Months)</h3>
+                    <ul>
+                        <li>[Specific milestone with timeline]</li>
+                        <li>[Key partnership or pilot]</li>
+                        <li>[Product/technology development goal]</li>
+                    </ul>
+                </div>
+
+                <div class="fade-in">
+                    <h3>Partnership Opportunities</h3>
+                    <p>We're seeking partners who can help with:</p>
+                    <ul>
+                        <li><strong>Distribution:</strong> [Specific need]</li>
+                        <li><strong>Investment:</strong> [Funding details]</li>
+                        <li><strong>Technology:</strong> [Technical partnerships]</li>
+                    </ul>
+                </div>
+
+                <div class="fade-in" style="text-align: center; margin-top: var(--space-xl);">
+                    <h3>Get Involved</h3>
+                    <p>Interested in partnering with us? Let's talk.</p>
+                    <a href="mailto:contact@venture.com" class="btn btn-primary">Contact Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 360 Partnership Context -->
+        <section class="partnership-360 bg-secondary">
+            <div class="container-narrow">
+                <div style="text-align: center; margin-bottom: var(--space-lg);">
+                    <img src="https://via.placeholder.com/150x50?text=360+Studios" alt="360 Social Impact Studios" style="height: 40px; width: auto; margin: 0 auto;">
+                </div>
+
+                <h2 class="fade-in">Partnership with 360 Social Impact Studios</h2>
+
+                <p class="fade-in">
+                    [Client Name] is partnering with 360 Social Impact Studios to [specific support areas]. Through Vianeo business validation sprints, we've [key outcomes achieved together].
+                </p>
+
+                <blockquote class="fade-in" style="border-left: 4px solid var(--360-sage); padding-left: var(--space-lg); margin: var(--space-lg) 0; font-style: italic;">
+                    <p>
+                        "[Quote from founder about 360 partnership value and impact]"
+                    </p>
+                    <cite style="font-style: normal; color: var(--text-secondary);">— [Founder Name], Founder & CEO</cite>
+                </blockquote>
+
+                <p class="fade-in">
+                    <a href="https://360studios.org/partnerships">Learn more about 360's approach to supporting social impact ventures →</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container-standard">
+            <p>
+                <strong>[Venture Name]</strong> | Partnership with <a href="https://360studios.org">360 Social Impact Studios</a>
+            </p>
+            <p style="margin-top: var(--space-md); font-size: var(--text-sm);">
+                Contact: <a href="mailto:contact@venture.com">contact@venture.com</a> |
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a>
+            </p>
+            <p style="margin-top: var(--space-sm); font-size: var(--text-xs); color: var(--text-tertiary);">
+                © 2025 [Venture Name]. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ========================================
+        // INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS
+        // ========================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: Stop observing after animation triggers once
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
+            fadeInObserver.observe(el);
+        });
+
+        // ========================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========================================
+        // ACCESSIBLE SKIP LINK
+        // ========================================
+        const skipLink = document.querySelector('.skip-link');
+        if (skipLink) {
+            skipLink.addEventListener('focus', function() {
+                this.style.top = '0';
+            });
+            skipLink.addEventListener('blur', function() {
+                this.style.top = '-40px';
+            });
+        }
+    </script>
+</body>
+</html>
