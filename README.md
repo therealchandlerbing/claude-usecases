@@ -14,13 +14,21 @@ This repository contains:
 
 ```
 claude-usecases/
-├── skills/
+├── .claude/
+│   └── skills/                  # Managed Claude skills
+│       ├── 360-executive-project-tracker/  # Multi-source project status tracking
+│       ├── contract-redlining-tool/        # Automated contract review & redlining
+│       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
+│       └── intelligence-extractor/         # Partnership & funding intelligence extraction
+├── skills/                      # User-created skills
+│   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills
+│   ├── design-director/         # Design elevation & visual polish
 │   ├── intelligence-extractor/  # Intelligence extraction & quality monitoring
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
-│   ├── design-director/         # Design elevation & visual polish
+│   ├── workflow-process-generator/  # Workflow visualization & process documentation
 │   └── templates/               # Templates for creating new skills
-├── intelligence-dashboard/      # Live quality monitoring dashboard
+├── intelligence-dashboard/      # Live quality monitoring dashboard (Next.js app)
 ├── docs/                        # Documentation and guides
 ├── examples/                    # Example implementations
 └── README.md                   # This file
