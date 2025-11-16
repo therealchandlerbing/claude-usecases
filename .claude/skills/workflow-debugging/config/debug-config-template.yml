@@ -1,0 +1,305 @@
+# 360 Workflow Debugger Configuration Template
+# Copy to debug-config.yml and customize for your environment
+
+# General Settings
+general:
+  organization: "360 Social Impact Studios"
+  environment: "production"  # dev, staging, production
+  timezone: "America/Los_Angeles"
+
+# Debug Behavior
+debug:
+  auto_recovery:
+    enabled: true
+    max_attempts: 3
+    retry_delay_seconds: 30
+    exponential_backoff: true
+
+  error_capture:
+    capture_stack_trace: true
+    capture_variables: true
+    capture_system_state: true
+    sensitive_data_masking: true
+    max_variable_size_kb: 100
+
+  diagnosis:
+    pattern_matching: true
+    similarity_threshold: 0.7
+    check_known_issues: true
+
+# Regional Configuration
+regions:
+  us-west:
+    name: "United States West"
+    timezone: "America/Los_Angeles"
+    language: "en-US"
+    date_format: "MM/DD/YYYY"
+    currency: "USD"
+    encoding: "utf-8"
+    endpoints:
+      api: "https://api-us.360studios.com"
+      debug: "https://debug-us.360studios.com"
+
+  br-south:
+    name: "Brazil South"
+    timezone: "America/Sao_Paulo"
+    language: "pt-BR"
+    date_format: "DD/MM/YYYY"
+    currency: "BRL"
+    encoding: "utf-8"
+    endpoints:
+      api: "https://api-br.360studios.com"
+      debug: "https://debug-br.360studios.com"
+
+  eu-west:
+    name: "Europe West"
+    timezone: "Europe/London"
+    language: "en-GB"
+    date_format: "DD/MM/YYYY"
+    currency: "EUR"
+    encoding: "utf-8"
+    endpoints:
+      api: "https://api-eu.360studios.com"
+      debug: "https://debug-eu.360studios.com"
+
+# Notification Settings
+notifications:
+  slack:
+    enabled: true
+    webhook_url: "${SLACK_WEBHOOK_URL}"
+    channels:
+      critical: "#alerts-critical"
+      error: "#workflow-errors"
+      warning: "#workflow-warnings"
+      recovery: "#workflow-recovery"
+    mention_users:
+      critical: ["@channel"]
+      error: ["@oncall-engineer"]
+    throttle_minutes: 5
+    batch_similar_errors: true
+
+  email:
+    enabled: true
+    smtp_host: "smtp.sendgrid.net"
+    smtp_port: 587
+    from_address: "debug@360studios.com"
+    recipients:
+      critical:
+        - "chandler@360studios.com"
+        - "tech-leads@360studios.com"
+      error:
+        - "dev-team@360studios.com"
+      warning:
+        - "workflow-monitoring@360studios.com"
+
+  asana:
+    enabled: true
+    access_token: "${ASANA_ACCESS_TOKEN}"
+    workspace_id: "${ASANA_WORKSPACE_ID}"
+    projects:
+      debug: "${ASANA_DEBUG_PROJECT_ID}"
+      critical: "${ASANA_CRITICAL_PROJECT_ID}"
+    task_template:
+      add_attachments: true
+      add_followers: true
+      set_due_date: true
+      custom_fields:
+        - field: "Error Type"
+          from: "error_type"
+        - field: "Client"
+          from: "client_name"
+        - field: "Region"
+          from: "region"
+
+  pagerduty:
+    enabled: false  # Enable for critical production issues
+    api_key: "${PAGERDUTY_API_KEY}"
+    service_id: "${PAGERDUTY_SERVICE_ID}"
+
+# Storage Configuration
+storage:
+  logs:
+    local:
+      enabled: true
+      path: "./debug-logs"
+      retention_days: 7
+      max_size_gb: 10
+
+    s3:
+      enabled: false
+      bucket: "360-workflow-debug-logs"
+      region: "us-west-2"
+      prefix: "debug-logs/"
+      retention_days: 90
+
+    google_drive:
+      enabled: false
+      folder_id: "${GOOGLE_DRIVE_DEBUG_FOLDER}"
+
+  database:
+    enabled: false
+    type: "postgresql"
+    connection_string: "${DATABASE_URL}"
+
+  redis:
+    enabled: false
+    host: "localhost"
+    port: 6379
+    password: "${REDIS_PASSWORD}"
+    ttl_seconds: 3600
+
+# Integration Settings
+integrations:
+  vianeo:
+    base_url: "https://api.vianeo.com"
+    api_key: "${VIANEO_API_KEY}"
+    timeout_seconds: 30
+    retry_on_failure: true
+
+  genip:
+    base_url: "https://api.genip.com"
+    api_key: "${GENIP_API_KEY}"
+    timeout_seconds: 45
+    retry_on_failure: true
+
+  google_apis:
+    credentials_path: "${GOOGLE_APPLICATION_CREDENTIALS}"
+    scopes:
+      - "https://www.googleapis.com/auth/drive"
+      - "https://www.googleapis.com/auth/gmail.send"
+
+# Security Settings
+security:
+  authentication:
+    enabled: false
+    provider: "auth0"
+    domain: "${AUTH0_DOMAIN}"
+    client_id: "${AUTH0_CLIENT_ID}"
+    client_secret: "${AUTH0_CLIENT_SECRET}"
+
+  encryption:
+    enabled: false
+    algorithm: "AES-256-GCM"
+    key_path: "${ENCRYPTION_KEY_PATH}"
+
+  data_masking:
+    enabled: true
+    patterns:
+      - name: "Email"
+        regex: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+        replacement: "***@***.***"
+      - name: "API Key"
+        regex: 'api[_-]?key["\s]*[:=]["\s]*(["\'][^"\']+["\']|[^\s]+)'
+        replacement: "api_key=***REDACTED***"
+
+# Performance Settings
+performance:
+  max_parallel_debuggers: 10
+  max_queue_size: 1000
+  worker_threads: 4
+
+  timeouts:
+    api_call: 30
+    database_query: 10
+    notification_send: 5
+    recovery_attempt: 60
+
+  rate_limiting:
+    enabled: true
+    max_requests_per_minute: 100
+    burst_size: 20
+
+  caching:
+    enabled: true
+    ttl_seconds: 300
+    max_entries: 10000
+
+# Monitoring Settings
+monitoring:
+  health_check:
+    enabled: true
+    endpoint: "/health"
+    port: 8080
+
+  metrics:
+    enabled: false
+    provider: "prometheus"
+    endpoint: "/metrics"
+    port: 9090
+
+# Feature Flags
+features:
+  auto_remediation: true
+  workflow_replay: true
+  debug_recording: true
+  client_dashboard: false
+
+# Client-Specific Overrides
+clients:
+  spacePlan:
+    notifications:
+      email:
+        recipients: ["spacePlan-tech@360studios.com"]
+    integrations:
+      custom_api: "https://api.spacePlan.com"
+
+  cnen:
+    regions:
+      preferred: "br-south"
+    security:
+      extra_encryption: true
+
+# Development Overrides
+development:
+  debug:
+    auto_recovery:
+      enabled: false  # Manual recovery only in dev
+  notifications:
+    slack:
+      enabled: false  # No Slack spam in dev
+    email:
+      recipients:
+        all: ["dev@360studios.com"]
+  storage:
+    logs:
+      local:
+        retention_days: 1
+
+# Staging Overrides
+staging:
+  notifications:
+    pagerduty:
+      enabled: false  # No PagerDuty in staging
+  storage:
+    logs:
+      retention_days: 3
+
+# On-Call Schedule
+oncall:
+  schedule:
+    weekday:
+      primary: "eng-us@360studios.com"
+      backup: "eng-lead@360studios.com"
+    weekend:
+      primary: "eng-oncall@360studios.com"
+      backup: "eng-lead@360studios.com"
+    brazil_hours:  # 9am-6pm Brasilia time
+      primary: "eng-br@360studios.com"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "json"  # json, text
+  outputs:
+    - type: "console"
+      level: "INFO"
+    - type: "file"
+      level: "DEBUG"
+      path: "./logs/debug.log"
+      max_size_mb: 100
+      max_files: 10
+
+# Version
+version: "1.0.0"
+last_updated: "2024-11-16"
+config_schema_version: "1.0"
