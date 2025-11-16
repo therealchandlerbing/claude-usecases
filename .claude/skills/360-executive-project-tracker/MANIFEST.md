@@ -8,12 +8,13 @@
 ### 📖 Documentation (Read in This Order)
 
 1. **skill.md** - Quick reference skill definition
-2. **DELIVERABLES_SUMMARY.md** - What's included and how to use it (START HERE)
+2. **docs/DELIVERABLES_SUMMARY.md** - What's included and how to use it (START HERE)
 3. **docs/INTEGRATION_SUMMARY.md** - Executive overview of the system
 4. **docs/COMPLETE_INTEGRATION_GUIDE.md** - Complete step-by-step usage guide
 5. **docs/INTEGRATION_MAPPING.md** - Technical XLSX ↔ HTML field mapping
-6. **docs/README.md** - Technical documentation (original)
-7. **docs/QUICK_START.md** - Basic setup and first run
+6. **docs/SKILL_ALIGNMENT_ANALYSIS.md** - Gap analysis and version tracking
+7. **docs/README.md** - Technical documentation (original)
+8. **docs/QUICK_START.md** - Basic setup and first run
 
 ### 🐍 Core Python Scripts
 
@@ -33,16 +34,16 @@
 
 ### 📊 Templates
 
-- **templates/360_project_tracker_template.html** - Interactive HTML dashboard template
-- **Note:** Excel sample files referenced but not included in repository (generate with scripts)
+- **templates/README.md** - HTML dashboard template documentation and usage guide
+- **Note:** The HTML dashboard template is embedded in `xlsx_to_html_export.py` and does not need to be stored as a separate file. The export script contains the full template and generates dashboards automatically. Excel sample files are also not included in repository (generate with scripts).
 
 ## File Sizes
 
 - Python Scripts: ~92 KB total
-- Documentation: ~88 KB total
+- Documentation: ~120 KB total (8 markdown files)
 - Configuration: ~6 KB
-- HTML Template: ~85 KB
-- **Total Package:** ~271 KB
+- Templates: README.md documenting HTML template integration
+- **Total Package:** ~218 KB (core files, excluding generated outputs)
 
 ## What's New in v1.2.0
 
@@ -84,25 +85,31 @@ After installation, verify package integrity:
 ls -l scripts/*.py config/*.json docs/*.md
 
 # Should see:
-# - 6 Python files
-# - 1 JSON file
-# - 5+ MD files
+# - 6 Python files (tracker_orchestrator, data_collector, tool_integrator, project_tracker_builder, xlsx_enhancer, xlsx_to_html_export)
+# - 1 JSON file (config.json)
+# - 7 MD files in docs/ (README, QUICK_START, DELIVERABLES_SUMMARY, INTEGRATION_SUMMARY, INTEGRATION_MAPPING, COMPLETE_INTEGRATION_GUIDE, SKILL_ALIGNMENT_ANALYSIS)
+# - 2 MD files in root (skill.md, MANIFEST.md)
+# - 1 MD file in templates/ (README.md)
 ```
 
 ## Next Steps
 
 1. Extract this package
-2. Read **DELIVERABLES_SUMMARY.md**
-3. Edit **config/config.json** with your settings
-4. Run Quick Start workflow from **docs/QUICK_START.md**
-5. Generate your first tracker
+2. Read **docs/DELIVERABLES_SUMMARY.md** (start here)
+3. Review **docs/INTEGRATION_SUMMARY.md** for executive overview
+4. Follow **docs/COMPLETE_INTEGRATION_GUIDE.md** for step-by-step workflows
+5. Edit **config/config.json** with your settings
+6. Run Quick Start workflow from **docs/QUICK_START.md**
+7. Generate your first tracker
 
 ## Support
 
 For questions or issues:
-1. Check **docs/COMPLETE_INTEGRATION_GUIDE.md**
-2. Review **docs/INTEGRATION_MAPPING.md**
-3. Consult **skill.md** for triggers and workflows
+1. Start with **docs/COMPLETE_INTEGRATION_GUIDE.md** - comprehensive step-by-step guide
+2. Check **docs/SKILL_ALIGNMENT_ANALYSIS.md** - gap analysis and version tracking
+3. Review **docs/INTEGRATION_MAPPING.md** - technical field mapping reference
+4. Consult **skill.md** for triggers and workflows
+5. See **docs/README.md** for technical architecture details
 
 ---
 

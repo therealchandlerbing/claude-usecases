@@ -2,10 +2,12 @@
 
 ## Location
 
-The HTML dashboard template is located in this directory as:
-- **360_project_tracker_template.html** (78KB)
+The HTML dashboard template can be:
+1. **Generated automatically** by `xlsx_to_html_export.py` (embedded in the script)
+2. **Provided as a standalone file** at `templates/360_project_tracker_template.html` (78KB)
+3. **Customized from the base template** included in the export script
 
-This template is used by `xlsx_to_html_export.py` to generate executive-ready interactive dashboards from your XLSX data.
+**Note:** The actual HTML template file is embedded in `xlsx_to_html_export.py` and does not need to be stored separately. The export script contains the full template and will generate the dashboard automatically.
 
 ## What This Template Provides
 
