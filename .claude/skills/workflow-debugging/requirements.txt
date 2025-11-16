@@ -1,0 +1,68 @@
+# 360 Workflow Debugger - Python Requirements
+# Install with: pip install -r requirements.txt
+
+# Core debugging dependencies
+asyncio-throttle==1.0.2
+python-json-logger==2.0.7
+structlog==23.1.0
+colorlog==6.7.0
+
+# Error tracking and monitoring
+sentry-sdk==1.32.0
+prometheus-client==0.17.1
+
+# Notification integrations
+slack-sdk==3.22.0
+sendgrid==6.10.0
+
+# API clients
+asana==4.0.7
+google-api-python-client==2.97.0
+boto3==1.28.57  # For AWS S3 log storage
+
+# Data handling
+pandas==2.1.1
+pydantic==2.4.2
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Encoding and internationalization
+chardet==5.2.0
+babel==2.12.1
+
+# Testing and development
+pytest==7.4.2
+pytest-asyncio==0.21.1
+pytest-mock==3.11.1
+black==23.9.1
+flake8==6.1.0
+
+# Performance monitoring
+psutil==5.9.5
+
+# Retry and circuit breaker patterns
+tenacity==8.2.3
+
+# Configuration management
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# Web framework for debug dashboard (optional)
+fastapi==0.103.1
+uvicorn==0.23.2
+
+# Database for error history (optional)
+sqlalchemy==2.0.21
+redis==5.0.0
+
+# Cryptography for secure data handling
+cryptography==41.0.4
+pyjwt==2.8.0
+
+# Rate limiting
+ratelimit==2.2.1
+backoff==2.2.1
+
+# Brazil-specific support
+unicodedata2==15.0.0
+ftfy==6.1.1  # Fix text encoding issues
