@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Impact Report | FY 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        /* Colors */
+        --bg-primary: #0a0e1a;
+        --bg-secondary: #151922;
+        --bg-card: #1a1f2e;
+        --bg-card-hover: #1f2433;
+
+        --text-primary: #ffffff;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+
+        --accent-orange: #ff6b35;
+        --accent-orange-muted: #ff8c66;
+
+        --border-subtle: #2a2f3e;
+        --border-card: #30354a;
+
+        /* Typography */
+        --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+        /* Transitions */
+        --transition-fast: 150ms ease;
+        --transition-base: 250ms ease;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== HEADER ===== */
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .logo {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-muted));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .header-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .org-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .report-subtitle {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .export-button, .page-select-wrapper select, .help-button {
+        padding: 0.5rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: 6px;
+        color: var(--text-primary);
+        font-size: 0.875rem;
+        font-family: var(--font-family);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .export-button:hover, .page-select-wrapper select:hover, .help-button:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--accent-orange);
+    }
+
+    .page-select-wrapper {
+        position: relative;
+    }
+
+    .page-select-wrapper select {
+        appearance: none;
+        padding-right: 2rem;
+        min-width: 200px;
+    }
+
+    .page-select-wrapper::after {
+        content: '▼';
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--text-muted);
+        font-size: 0.7rem;
+    }
+
+    .help-button {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem;
+    }
+
+    /* ===== SLIDE AREA ===== */
+
+    .slide-container {
+        background: var(--bg-secondary);
+        border-radius: 16px;
+        border: 1px solid var(--border-subtle);
+        padding: 3rem;
+        min-height: 650px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .slide {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .slide.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ===== SLIDE CONTENT ===== */
+
+    .slide-eyebrow {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent-orange);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .slide-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        line-height: 1.1;
+    }
+
+    .slide-description {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        max-width: 900px;
+    }
+
+    /* ===== THREE COLUMN LAYOUT ===== */
+
+    .three-column {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .column-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: 12px;
+        padding: 2rem 1.75rem;
+    }
+
+    .column-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+    .column-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-primary);
+    }
+
+    .pillar-tag {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.25rem 0.6rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+    }
+
+    .metric-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-value {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .metric-change {
+        font-size: 0.875rem;
+        color: var(--accent-orange);
+        margin-bottom: 1.5rem;
+    }
+
+    /* ===== BULLET LISTS ===== */
+
+    .outcome-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .outcome-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .outcome-bullet {
+        width: 6px;
+        height: 6px;
+        background: var(--accent-orange);
+        border-radius: 50%;
+        margin-top: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .outcome-content h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+    }
+
+    .outcome-content p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+
+    /* ===== TWO COLUMN LAYOUT ===== */
+
+    .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    /* ===== STATS ROW ===== */
+
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .stat-card {
+        background: transparent;
+        padding: 0;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-description {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    /* ===== TAG GRID ===== */
+
+    .tag-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    .tag {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.25rem 0.6rem;
+        border-radius: 12px;
+        margin-left: 0.5rem;
+        font-weight: 600;
+    }
+
+    .status-badge.expanded {
+        background: rgba(34, 197, 94, 0.15);
+        color: #22c55e;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .status-badge.new {
+        background: rgba(56, 189, 248, 0.15);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* ===== FOOTER NAVIGATION ===== */
+
+    .footer-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nav-button {
+        width: 40px;
+        height: 40px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: 8px;
+        color: var(--text-primary);
+        font-size: 1.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-fast);
+    }
+
+    .nav-button:hover:not(:disabled) {
+        background: var(--bg-card-hover);
+        border-color: var(--accent-orange);
+    }
+
+    .nav-button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .page-dots {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--border-card);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .dot.active {
+        background: var(--accent-orange);
+        width: 24px;
+        border-radius: 4px;
+    }
+
+    .page-counter {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+    }
+
+    /* ===== RESPONSIVE ===== */
+
+    @media (max-width: 1200px) {
+        .three-column {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .header {
+            padding: 1rem 2rem;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        .slide-container {
+            padding: 2rem;
+        }
+
+        .slide-title {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .header-right {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .two-column,
+        .stats-row {
+            grid-template-columns: 1fr;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+        }
+    }
+
+    /* ===== PRINT STYLES ===== */
+
+    @media print {
+        @page {
+            size: A4 landscape;
+            margin: 1.5cm;
+        }
+
+        .header,
+        .footer-nav {
+            display: none !important;
+        }
+
+        .slide-container {
+            border: none;
+            padding: 0;
+            min-height: auto;
+        }
+
+        .slide {
+            display: block !important;
+            page-break-after: always;
+        }
+
+        .slide:last-child {
+            page-break-after: auto;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <div class="logo"></div>
+        <div class="header-title-group">
+            <div class="org-name">360 Social Impact Studios</div>
+            <div class="report-subtitle">Executive Impact Report FY 2025</div>
+        </div>
+    </div>
+    <div class="header-right">
+        <button class="export-button" onclick="window.print()">↓ Export PDF</button>
+        <div class="page-select-wrapper">
+            <select id="pageSelect" onchange="goToPage(this.value)">
+                <option value="1">1. Impact Measurement</option>
+                <option value="2">2. Partnership Ecosystem</option>
+                <option value="3">3. Financial Overview</option>
+                <option value="4">4. Program Outcomes</option>
+                <option value="5">5. Strategic Priorities</option>
+                <option value="6">6. Forward Outlook</option>
+            </select>
+        </div>
+        <button class="help-button">?</button>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="slide-container">
+        <!-- Slide 1: Impact Measurement -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-eyebrow">IMPACT MEASUREMENT</div>
+            <h1 class="slide-title">Program outcomes</h1>
+            <p class="slide-description">Lives changed, communities strengthened, and systems shifted across three impact areas.</p>
+
+            <div class="three-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">HEALTH ACCESS</h3>
+                        <span class="pillar-tag">PRIMARY PILLAR</span>
+                    </div>
+                    <div class="metric-label">PATIENTS SERVED</div>
+                    <div class="metric-value">847K</div>
+                    <div class="metric-change">+41% from FY 2024</div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Maternal health</h4>
+                                <p>92% of mothers received prenatal care within recommended windows.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Chronic disease management</h4>
+                                <p>68% reduction in emergency visits for diabetes and hypertension patients.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Telemedicine expansion</h4>
+                                <p>Reached 127 remote communities previously without consistent access.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">ECONOMIC INCLUSION</h3>
+                        <span class="pillar-tag">PRIMARY PILLAR</span>
+                    </div>
+                    <div class="metric-label">LIVELIHOODS IMPROVED</div>
+                    <div class="metric-value">412K</div>
+                    <div class="metric-change">+28% from FY 2024</div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Skills training</h4>
+                                <p>74% of graduates placed in jobs within 90 days of program completion.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Microfinance access</h4>
+                                <p>$8.3M in loans disbursed with 96% repayment rate.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Women entrepreneurs</h4>
+                                <p>Average income increase of 47% for women-led businesses after 12 months.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">EDUCATION</h3>
+                        <span class="pillar-tag">PRIMARY PILLAR</span>
+                    </div>
+                    <div class="metric-label">STUDENTS REACHED</div>
+                    <div class="metric-value">541K</div>
+                    <div class="metric-change">+35% from FY 2024</div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Literacy gains</h4>
+                                <p>Students improved reading levels by 1.8 grades on average.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Digital skills</h4>
+                                <p>42,000 youth trained in coding and digital literacy.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Teacher development</h4>
+                                <p>6,800 educators completed professional development programs.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Partnership Ecosystem -->
+        <div class="slide" data-slide="2">
+            <div class="slide-eyebrow">PARTNERSHIP ECOSYSTEM</div>
+            <h1 class="slide-title">Collaborative impact</h1>
+            <p class="slide-description">Strategic alliances with 142 organizations amplified reach, deepened expertise, and enabled systems-level change.</p>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">ACTIVE PARTNERSHIPS</div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-description">Across 38 countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">NEW IN FY 2025</div>
+                    <div class="stat-value">37</div>
+                    <div class="stat-description">Strategic collaborations launched</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">MULTI-YEAR AGREEMENTS</div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-description">Committed partnerships (63%)</div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">PARTNER CATEGORIES</h3>
+                        <span class="pillar-tag">BY TYPE</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Foundation partners (42)</h4>
+                                <p>Global and regional foundations providing core funding and strategic guidance.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Corporate partners (28)</h4>
+                                <p>Multi-sector companies contributing expertise, technology, and resources.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Government agencies (31)</h4>
+                                <p>National and local governments enabling policy integration and scale.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>NGO collaborators (41)</h4>
+                                <p>Grassroots organizations with deep community presence and expertise.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">FLAGSHIP PARTNERSHIPS</h3>
+                        <span class="pillar-tag">HIGHLIGHTED</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Global Health Alliance <span class="status-badge expanded">✓ EXPANDED</span></h4>
+                                <p>5-year, $12M commitment supporting maternal and child health across 8 countries.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Tech for Good Initiative <span class="status-badge new">✓ NEW</span></h4>
+                                <p>Partnership with 4 major tech companies providing AI tools and cloud infrastructure.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Economic Empowerment Consortium</h4>
+                                <p>Coalition of 12 financial institutions expanding microfinance and entrepreneurship support.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Education Innovation Fund</h4>
+                                <p>Collaborative R&D with 6 universities developing next-gen learning tools.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Financial Overview -->
+        <div class="slide" data-slide="3">
+            <div class="slide-eyebrow">FINANCIAL OVERVIEW</div>
+            <h1 class="slide-title">Capital deployment</h1>
+            <p class="slide-description">Strategic allocation of $42M across programs, geographies, and funding instruments to maximize impact and sustainability.</p>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">TOTAL CAPITAL DEPLOYED</div>
+                    <div class="stat-value">$42M</div>
+                    <div class="stat-description">Across all programs and regions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">COST PER OUTCOME</div>
+                    <div class="stat-value">↓22%</div>
+                    <div class="stat-description">Efficiency improvement vs. FY 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">RUNWAY</div>
+                    <div class="stat-value">24mo</div>
+                    <div class="stat-description">On committed capital</div>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">BY CAPITAL TYPE</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Grants (34%)</h4>
+                                <p>Philanthropic capital for early-stage pilots and community engagement.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Catalytic capital (41%)</h4>
+                                <p>Blended finance supporting ventures on path to sustainability.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Commercial (25%)</h4>
+                                <p>Market-rate investments in proven, scalable solutions.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">BY REGION</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Latin America (36%)</h4>
+                                <p>Brazil hub development, workforce programs, digital health.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Africa (26%)</h4>
+                                <p>Climate resilience, digital public goods, inclusive finance.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>South/Southeast Asia (18%)</h4>
+                                <p>Primary health, skills development, digital platforms.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Global initiatives (20%)</h4>
+                                <p>Cross-regional platforms and North America/Europe partnerships.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">SAFEGUARDS</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Impact criteria</h4>
+                                <p>All investments evaluated against explicit equity standards and community benefit.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Risk sharing</h4>
+                                <p>Blended structures distribute risk proportionally across public, private, and philanthropic partners.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Mission protection</h4>
+                                <p>Board oversight ensures commercial growth doesn't compromise social outcomes.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Program Outcomes Detail -->
+        <div class="slide" data-slide="4">
+            <div class="slide-eyebrow">OUTCOMES AND LEARNING</div>
+            <h1 class="slide-title">Evidence and evaluation</h1>
+            <p class="slide-description">Rigorous measurement and learning frameworks ensure we understand what works, where to adjust, and how to scale effectively.</p>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">CORE PROGRAM LINES</h3>
+                        <span class="pillar-tag">FY 2025 RESULTS</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Health systems innovation</h4>
+                                <p>26 pilots across 9 countries improved continuity of care and data visibility for patients in low-resource settings.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Workforce and skills</h4>
+                                <p>43k learners supported through new digital curricula and applied learning programs for health, climate, and technology roles.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Digital public goods</h4>
+                                <p>12 tools in reuse or adaptation, deployed across partners to reduce duplication of effort.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Climate and resilience</h4>
+                                <p>18 community projects under way with integrated approaches to climate risk, health, and livelihoods in vulnerable regions.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">EVALUATION APPROACH</h3>
+                        <span class="pillar-tag">METHODOLOGY</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Common outcome framework</h4>
+                                <p>Shared indicators and definitions across programs enable more meaningful comparison of impact and resource allocation decisions.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Mixed methods evaluation</h4>
+                                <p>Quantitative data is paired with qualitative insight from communities and partners to avoid purely top-down views and capture nuance.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Learning loops</h4>
+                                <p>Insights from pilots feed into portfolio decisions, venture support, and future program designs on an ongoing basis rather than annual cycles.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>External validation</h4>
+                                <p>Independent evaluators review methodology and findings to ensure rigor and credibility with stakeholders.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Strategic Priorities -->
+        <div class="slide" data-slide="5">
+            <div class="slide-eyebrow">STRATEGIC PRIORITIES</div>
+            <h1 class="slide-title">Next 18 months</h1>
+            <p class="slide-description">Focused investment in deepening existing work rather than broadening footprint, with emphasis on Brazil hub, health-climate intersections, and digital public goods.</p>
+
+            <div class="three-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">BRAZIL AS REGIONAL HUB</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Health systems partnerships</h4>
+                                <p>Establish long-term collaborations with leading hospital networks for AR/AI-enhanced workflows and workforce training.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Academic joint lab</h4>
+                                <p>Formalize innovation management and digital health research partnerships with top universities.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Lusophone Africa bridge</h4>
+                                <p>Use Brazil presence as launch point for Portuguese-speaking African countries with shared language and context.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">HEALTH & CLIMATE</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Coastal communities</h4>
+                                <p>Integrated programs addressing climate resilience, health access, and livelihood security in vulnerable coastal regions.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Rural adaptation</h4>
+                                <p>Support farming communities with climate-smart agriculture, health services, and economic diversification.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Data and early warning</h4>
+                                <p>Deploy digital tools that connect climate data, health surveillance, and community preparedness systems.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">DIGITAL PUBLIC GOODS</h3>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Workforce platforms</h4>
+                                <p>Open-source curricula and certification systems for health, tech, and climate roles that can travel across partners.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Telehealth infrastructure</h4>
+                                <p>Reusable tools for remote diagnosis, patient monitoring, and data interoperability in low-resource contexts.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Data standards</h4>
+                                <p>Support adoption of common data formats and APIs that reduce vendor lock-in and enable ecosystem collaboration.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Forward Outlook -->
+        <div class="slide" data-slide="6">
+            <div class="slide-eyebrow">STRATEGIC OUTLOOK</div>
+            <h1 class="slide-title">What we need from leadership</h1>
+            <p class="slide-description">A small number of board and executive decisions will have disproportionate impact on our next chapter and ability to scale proven models.</p>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">ROADMAP HORIZONS</h3>
+                        <span class="pillar-tag">6 TO 36 MONTHS</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Horizon 1 (Next 6 months)</h4>
+                                <p>Consolidate early wins in Brazil and other anchor geographies, finalize lab and hub structures, and standardize how we measure outcomes across partners.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Horizon 2 (6 to 18 months)</h4>
+                                <p>Scale proven models with priority partners, expand digital public goods, and deepen the connection between climate, health, and livelihoods work.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Horizon 3 (18 to 36 months)</h4>
+                                <p>Position 360 Social Impact Studios as a leading innovation partner across the Global South, with a portfolio of scalable ventures and robust, long-term ecosystem relationships.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-card">
+                    <div class="column-header">
+                        <h3 class="column-title">LEADERSHIP ASKS</h3>
+                        <span class="pillar-tag">CRITICAL DECISIONS</span>
+                    </div>
+
+                    <ul class="outcome-list">
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Confirm investment envelope and risk appetite</h4>
+                                <p>Clarify how much capital, and at what level of risk tolerance, can be deployed to early-stage and blended structures over the next 24 months.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Endorse priority partnerships</h4>
+                                <p>Confirm which 3-5 strategic partnerships are most important to advance, and where CEO/board attention and relationship capital should be focused.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Invest in internal capacity</h4>
+                                <p>Strengthen core team capacity in innovation management, partnership stewardship, and data infrastructure to support 2x growth without compromising quality.</p>
+                            </div>
+                        </li>
+                        <li class="outcome-item">
+                            <div class="outcome-bullet"></div>
+                            <div class="outcome-content">
+                                <h4>Approve Brazil hub investment</h4>
+                                <p>Authorize dedicated resources for establishing permanent presence, hiring local leadership, and building regional partnerships over 18 months.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer Navigation -->
+    <div class="footer-nav">
+        <div class="nav-controls">
+            <button class="nav-button" id="prevBtn" onclick="previousSlide()">‹</button>
+            <div class="page-dots" id="pageDots"></div>
+            <button class="nav-button" id="nextBtn" onclick="nextSlide()">›</button>
+        </div>
+        <div class="page-counter" id="pageCounter">Page 1 of 6</div>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+
+    // Initialize dots
+    function initDots() {
+        const dotsContainer = document.getElementById('pageDots');
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 1 ? ' active' : '');
+            dot.onclick = () => goToPage(i);
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function updateSlide() {
+        // Hide all slides
+        document.querySelectorAll('.slide').forEach(slide => {
+            slide.classList.remove('active');
+        });
+
+        // Show current slide
+        const currentSlideEl = document.querySelector(`[data-slide="${currentSlide}"]`);
+        if (currentSlideEl) {
+            currentSlideEl.classList.add('active');
+        }
+
+        // Update dots
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index + 1 === currentSlide);
+        });
+
+        // Update counter
+        document.getElementById('pageCounter').textContent = `Page ${currentSlide} of ${totalSlides}`;
+
+        // Update select
+        document.getElementById('pageSelect').value = currentSlide;
+
+        // Update buttons
+        document.getElementById('prevBtn').disabled = currentSlide === 1;
+        document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            updateSlide();
+        }
+    }
+
+    function previousSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            updateSlide();
+        }
+    }
+
+    function goToPage(page) {
+        page = parseInt(page);
+        if (page >= 1 && page <= totalSlides) {
+            currentSlide = page;
+            updateSlide();
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') previousSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    // Initialize
+    initDots();
+    updateSlide();
+</script>
+
+</body>
+</html>
