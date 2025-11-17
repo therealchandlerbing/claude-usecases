@@ -309,12 +309,6 @@ claude-usecases/
 - Pipeline health monitoring (weekly reviews, forecasting, conversion tracking)
 - Competitive positioning (research and position against alternatives)
 
-**Performance:**
-- Open rates: 45-65% (vs 20-30% industry average)
-- Response rates: 8-15% (vs 2-5% industry average)
-- 75% reduction in research time, 60% reduction in email writing time
-- 30% reduction in stuck deals, 25% improvement in deal velocity
-
 ---
 
 ### Financial Analysis & Investment Intelligence
