@@ -1,0 +1,231 @@
+# Sales Pipeline Configuration
+# Configure deal stages, thresholds, and pipeline management settings
+
+pipeline:
+  project_name: "Sales Pipeline"
+
+  # Deal Stages
+  stages:
+    - name: "Outreach"
+      duration_threshold_days: 21
+      conversion_probability: 0.10
+      description: "Initial contact sent, awaiting response"
+
+    - name: "Discovery"
+      duration_threshold_days: 14
+      conversion_probability: 0.25
+      description: "Prospect engaged, qualification underway"
+
+    - name: "Proposal"
+      duration_threshold_days: 30
+      conversion_probability: 0.50
+      description: "Proposal submitted, awaiting decision"
+
+    - name: "Negotiation"
+      duration_threshold_days: 21
+      conversion_probability: 0.75
+      description: "Terms being finalized, contracts in review"
+
+    - name: "Closed-Won"
+      conversion_probability: 1.00
+      description: "Deal won, contract signed"
+
+    - name: "Closed-Lost"
+      conversion_probability: 0.00
+      description: "Deal lost or disqualified"
+
+  # Custom Fields Configuration
+  custom_fields:
+    deal_stage:
+      type: "dropdown"
+      required: true
+      options:
+        - "Outreach"
+        - "Discovery"
+        - "Proposal"
+        - "Negotiation"
+        - "Closed-Won"
+        - "Closed-Lost"
+
+    deal_value:
+      type: "number"
+      required: true
+      format: "currency"
+      description: "Estimated annual contract value"
+
+    close_date:
+      type: "date"
+      required: true
+      description: "Expected close date"
+
+    lead_source:
+      type: "dropdown"
+      required: true
+      options:
+        - "Inbound"
+        - "Outbound Cold"
+        - "Referral"
+        - "Partnership"
+        - "Event"
+        - "Content Marketing"
+
+    lead_score:
+      type: "dropdown"
+      required: false
+      options:
+        - "Hot"
+        - "Warm"
+        - "Cold"
+
+    next_action:
+      type: "text"
+      required: true
+      description: "What needs to happen next"
+
+  # Stuck Deal Detection
+  stuck_deal_thresholds:
+    outreach: 21  # days
+    discovery: 14
+    proposal: 30
+    negotiation: 21
+
+  # Pipeline Health Metrics
+  health_metrics:
+    minimum_pipeline_coverage: 3.0  # 3x quota
+    ideal_pipeline_coverage: 4.5    # 4.5x quota
+
+    stage_distribution_targets:
+      discovery: 0.30
+      proposal: 0.30
+      negotiation: 0.30
+      buffer: 0.10
+
+  # Forecast Settings
+  forecast:
+    weighted_pipeline: true
+    stage_weights:
+      outreach: 0.10
+      discovery: 0.25
+      proposal: 0.50
+      negotiation: 0.75
+      closed_won: 1.00
+
+# Email Sequence Configuration
+sequences:
+  cold_outreach:
+    touch_count: 5
+    duration_days: 21
+    cadence:
+      - day: 0
+        email: "insight_introduction"
+      - day: 3
+        email: "case_study"
+      - day: 7
+        email: "direct_ask"
+      - day: 14
+        email: "breakup"
+      - day: 21
+        email: "resource_share"
+
+  warm_followup:
+    touch_count: 3
+    duration_days: 14
+    cadence:
+      - day: 0
+        email: "reference_past"
+      - day: 5
+        email: "proposal"
+      - day: 10
+        email: "timeline_cta"
+
+  stuck_deal:
+    touch_count: 3
+    duration_days: 10
+    cadence:
+      - day: 0
+        email: "check_status"
+      - day: 5
+        email: "new_information"
+      - day: 10
+        email: "alternative_path"
+
+  reactivation:
+    touch_count: 2
+    duration_days: 7
+    cadence:
+      - day: 0
+        email: "whats_changed"
+      - day: 7
+        email: "low_friction_offer"
+
+# Performance Benchmarks
+benchmarks:
+  email_performance:
+    cold_outreach:
+      open_rate_good: 0.45
+      open_rate_average: 0.30
+      response_rate_good: 0.10
+      response_rate_average: 0.05
+      meeting_booking_rate: 0.15
+
+    warm_outreach:
+      open_rate_good: 0.70
+      open_rate_average: 0.50
+      response_rate_good: 0.30
+      response_rate_average: 0.15
+      meeting_booking_rate: 0.40
+
+  pipeline_conversion:
+    outreach_to_discovery: 0.12
+    discovery_to_proposal: 0.35
+    proposal_to_negotiation: 0.55
+    negotiation_to_closed_won: 0.75
+
+  deal_velocity:
+    outreach_days: 18
+    discovery_days: 10
+    proposal_days: 25
+    negotiation_days: 14
+    total_sales_cycle_days: 75
+
+# Notifications and Alerts
+alerts:
+  stuck_deals:
+    enabled: true
+    check_frequency: "daily"
+    notification_method: "asana_comment"
+
+  pipeline_health:
+    enabled: true
+    check_frequency: "weekly"
+    notification_day: "monday"
+
+  response_tracking:
+    enabled: true
+    track_open_rates: true
+    track_click_rates: true
+
+# Integration Settings
+integrations:
+  asana:
+    workspace: "primary"
+    project: "Sales Pipeline"
+    create_subtasks: true
+    add_followers: true
+
+  gmail:
+    search_history_days: 365
+    label_prefix: "Sales/"
+
+  drive:
+    assets_folder: "Sales Assets"
+    subfolder_structure:
+      - "Case Studies"
+      - "Proposals"
+      - "Testimonials"
+      - "Pitch Decks"
+      - "Competitive Analysis"
+
+  calendar:
+    search_history_days: 180
+    event_prefix: "Sales:"
