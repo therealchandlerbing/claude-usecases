@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{organization_name}} - Impact Report {{fiscal_year}} - Executive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Design Tokens */
+        :root {
+            --brand-color: {{brand_color}};
+            --brand-color-dark: {{brand_color_dark}};
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --bg-tertiary: #21262D;
+            --text-primary: #F0F6FC;
+            --text-secondary: #8D96A0;
+            --text-muted: #6E7681;
+            --border-color: #30363D;
+            --accent-teal: #56D4DD;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--brand-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-bottom: 48px;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--brand-color), var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .header-date {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .nav-link.active {
+            color: var(--brand-color);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+            scroll-margin-top: 80px;
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-number {
+            font-size: 14px;
+            color: var(--brand-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* Subsection */
+        .subsection {
+            margin-top: 40px;
+        }
+
+        .subsection-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .metric-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Momentum Items */
+        .momentum-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .momentum-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--brand-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .momentum-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .momentum-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge.success {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+        }
+
+        .badge.info {
+            background: rgba(86, 212, 221, 0.15);
+            color: var(--accent-teal);
+        }
+
+        .momentum-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Regional Cards */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .region-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .region-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .region-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .region-percentage {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--brand-color);
+        }
+
+        .region-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Strategic Priorities */
+        .priorities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .priority-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .priority-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--brand-color);
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .priority-content {
+            flex: 1;
+        }
+
+        .priority-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .priority-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            padding: 16px 20px;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .data-table td {
+            padding: 18px 20px;
+            font-size: 15px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table td:first-child {
+            font-weight: 500;
+        }
+
+        .data-table td:nth-child(2) {
+            font-weight: 700;
+            color: var(--brand-color);
+        }
+
+        .data-table td:nth-child(3) {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Capital Mix Cards */
+        .capital-mix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .capital-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .capital-percentage {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--brand-color);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .capital-category {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .capital-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Safeguards */
+        .safeguards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .safeguard-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .safeguard-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            background: var(--brand-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .safeguard-content {
+            flex: 1;
+        }
+
+        .safeguard-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .safeguard-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Impact Pillars */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .pillar-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .pillar-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .pillar-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .pillar-metric {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pillar-metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .pillar-metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--brand-color);
+            line-height: 1;
+        }
+
+        .pillar-metric-change {
+            font-size: 13px;
+            color: var(--accent-teal);
+            margin-top: 4px;
+        }
+
+        .pillar-outcomes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .outcome-item {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .outcome-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .outcome-description {
+            color: var(--text-secondary);
+        }
+
+        /* Partnership Stats */
+        .partnership-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--brand-color);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .stat-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Partner Categories */
+        .partner-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .partner-category {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .partner-count {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--brand-color);
+            line-height: 1;
+        }
+
+        .partner-info {
+            flex: 1;
+        }
+
+        .partner-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .partner-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Flagship Partnerships */
+        .flagship-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .flagship-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .flagship-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .flagship-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .flagship-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Roadmap */
+        .roadmap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--brand-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .roadmap-horizon {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--brand-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .roadmap-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Leadership Asks */
+        .asks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ask-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .ask-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--brand-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .ask-content {
+            flex: 1;
+        }
+
+        .ask-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .ask-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: #000;
+            }
+
+            .nav-bar {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .header {
+                background: white;
+                border-bottom: 2px solid #333;
+            }
+
+            @page {
+                size: portrait;
+                margin: 0.75in;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content,
+            .nav-content,
+            .main-content {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .header-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .metrics-grid,
+            .pillars-grid,
+            .capital-mix,
+            .partnership-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .regions-grid,
+            .partner-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-content {
+                gap: 12px;
+            }
+
+            .metric-value {
+                font-size: 42px;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--brand-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            z-index: 40;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        @media print {
+            .back-to-top {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">{{report_title}}</h1>
+            <p class="header-subtitle">{{organization_name}}</p>
+            <p class="header-date">{{report_date}}</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-bar" role="navigation" aria-label="Section navigation">
+        <div class="nav-content">
+            <a href="#impact-overview" class="nav-link">Impact Overview</a>
+            <a href="#regional-portfolio" class="nav-link">Regional Portfolio</a>
+            <a href="#financial-performance" class="nav-link">Financial Performance</a>
+            <a href="#program-outcomes" class="nav-link">Program Outcomes</a>
+            <a href="#partnership-ecosystem" class="nav-link">Partnership Ecosystem</a>
+            <a href="#strategic-outlook" class="nav-link">Strategic Outlook</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <!-- SECTION 1: IMPACT OVERVIEW -->
+        <section id="impact-overview" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 1</div>
+                <h2 class="section-title">Impact Overview</h2>
+                <p class="section-subtitle">Our reach and momentum in FY {{fiscal_year}}</p>
+            </div>
+
+            <div class="metrics-grid">
+                {{#each impact_overview.reach_metrics}}
+                <div class="metric-card">
+                    <div class="metric-label">{{label}}</div>
+                    <div class="metric-value">{{value}}</div>
+                    <div class="metric-description">{{description}}</div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Year-Over-Year Momentum</h3>
+                <div class="momentum-list">
+                    {{#each impact_overview.momentum}}
+                    <div class="momentum-item">
+                        <div class="momentum-header">
+                            <div class="momentum-title">{{title}}</div>
+                            {{#if badge}}
+                            <span class="badge {{badge_type}}">{{badge}}</span>
+                            {{/if}}
+                        </div>
+                        <div class="momentum-description">{{description}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: REGIONAL PORTFOLIO -->
+        <section id="regional-portfolio" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 2</div>
+                <h2 class="section-title">Regional Portfolio</h2>
+                <p class="section-subtitle">Geographic allocation and strategic priorities</p>
+            </div>
+
+            <div class="regions-grid">
+                {{#each regional_portfolio.regions}}
+                <div class="region-card">
+                    <div class="region-header">
+                        <div class="region-name">{{name}}</div>
+                        <div class="region-percentage">{{percentage}}</div>
+                    </div>
+                    <div class="region-description">{{description}}</div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Strategic Priorities</h3>
+                <div class="priorities-list">
+                    {{#each regional_portfolio.strategic_priorities}}
+                    <div class="priority-item">
+                        <div class="priority-bullet"></div>
+                        <div class="priority-content">
+                            <div class="priority-title">{{title}}</div>
+                            <div class="priority-description">{{description}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: FINANCIAL PERFORMANCE -->
+        <section id="financial-performance" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 3</div>
+                <h2 class="section-title">Financial Performance</h2>
+                <p class="section-subtitle">Capital mobilization, deployment, and safeguards</p>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                        <th>Commentary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each financial_performance.capital_overview}}
+                    <tr>
+                        <td>{{metric}}</td>
+                        <td>{{value}}</td>
+                        <td>{{commentary}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Capital Mix</h3>
+                <div class="capital-mix">
+                    {{#each financial_performance.capital_mix}}
+                    <div class="capital-card">
+                        <div class="capital-percentage">{{percentage}}</div>
+                        <div class="capital-category">{{category}}</div>
+                        <div class="capital-description">{{description}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Safeguard Principles</h3>
+                <div class="safeguards-list">
+                    {{#each financial_performance.safeguards}}
+                    <div class="safeguard-item">
+                        <div class="safeguard-icon">✓</div>
+                        <div class="safeguard-content">
+                            <div class="safeguard-title">{{title}}</div>
+                            <div class="safeguard-description">{{description}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PROGRAM OUTCOMES -->
+        <section id="program-outcomes" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 4</div>
+                <h2 class="section-title">Program Outcomes</h2>
+                <p class="section-subtitle">Impact across three strategic pillars</p>
+            </div>
+
+            <div class="pillars-grid">
+                {{#each program_outcomes.pillars}}
+                <div class="pillar-card">
+                    <div class="pillar-label">{{label}}</div>
+                    <div class="pillar-name">{{name}}</div>
+                    <div class="pillar-metric">
+                        <div class="pillar-metric-label">{{metric_label}}</div>
+                        <div class="pillar-metric-value">{{metric_value}}</div>
+                        <div class="pillar-metric-change">{{metric_change}}</div>
+                    </div>
+                    <div class="pillar-outcomes">
+                        {{#each outcomes}}
+                        <div class="outcome-item">
+                            <span class="outcome-title">{{title}}:</span>
+                            <span class="outcome-description">{{description}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Evaluation Approach</h3>
+                <div class="priorities-list">
+                    {{#each program_outcomes.evaluation_approach}}
+                    <div class="priority-item">
+                        <div class="priority-bullet"></div>
+                        <div class="priority-content">
+                            <div class="priority-title">{{title}}</div>
+                            <div class="priority-description">{{description}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PARTNERSHIP ECOSYSTEM -->
+        <section id="partnership-ecosystem" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 5</div>
+                <h2 class="section-title">Partnership Ecosystem</h2>
+                <p class="section-subtitle">Collaborations driving scale and impact</p>
+            </div>
+
+            <div class="partnership-stats">
+                {{#each partnerships.statistics}}
+                <div class="stat-card">
+                    <div class="stat-value">{{value}}</div>
+                    <div class="stat-label">{{label}}</div>
+                    <div class="stat-description">{{description}}</div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Partner Categories</h3>
+                <div class="partner-categories">
+                    {{#each partnerships.partner_categories}}
+                    <div class="partner-category">
+                        <div class="partner-count">{{count}}</div>
+                        <div class="partner-info">
+                            <div class="partner-name">{{name}}</div>
+                            <div class="partner-description">{{description}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Flagship Partnerships</h3>
+                <div class="flagship-list">
+                    {{#each partnerships.flagship_partnerships}}
+                    <div class="flagship-item">
+                        <div class="flagship-header">
+                            <div class="flagship-name">{{name}}</div>
+                            {{#if status_badge}}
+                            <span class="badge {{status_type}}">✓ {{status_badge}}</span>
+                            {{/if}}
+                        </div>
+                        <div class="flagship-description">{{description}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: STRATEGIC OUTLOOK -->
+        <section id="strategic-outlook" class="section">
+            <div class="section-header">
+                <div class="section-number">Section 6</div>
+                <h2 class="section-title">Strategic Outlook</h2>
+                <p class="section-subtitle">Roadmap and leadership priorities</p>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Three-Horizon Roadmap</h3>
+                <div class="roadmap-list">
+                    {{#each strategic_outlook.roadmap}}
+                    <div class="roadmap-item">
+                        <div class="roadmap-horizon">{{horizon}}</div>
+                        <div class="roadmap-description">{{description}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Leadership Asks</h3>
+                <div class="asks-list">
+                    {{#each strategic_outlook.leadership_asks}}
+                    <div class="ask-item">
+                        <div class="ask-number">{{add @index 1}}</div>
+                        <div class="ask-content">
+                            <div class="ask-title">{{title}}</div>
+                            <div class="ask-description">{{description}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <script>
+        // Navigation Active State
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        function toggleBackToTop() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', toggleBackToTop);
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
