@@ -293,6 +293,30 @@ claude-usecases/
 
 ---
 
+### Sales & Business Development
+
+#### Sales Automator
+**Location:** `skills/sales-automator/`
+**Purpose:** Intelligent sales automation with relationship intelligence, deal pipeline tracking, and competitive analysis. Transforms basic email automation into a context-aware conversion engine that researches prospects, tracks deals, and generates hyper-personalized outreach grounded in real intelligence.
+
+**Quick Links:** [README](skills/sales-automator/README.md) ⭐ | [Quick Start](skills/sales-automator/docs/QUICK-START.md) | [Installation](skills/sales-automator/docs/INSTALLATION.md) | [Templates](skills/sales-automator/references/REFERENCE.md)
+
+**When to Use:**
+- Cold outreach campaigns (5-touch sequences with research-backed personalization)
+- Warm lead follow-up (re-engage prospects with past conversation context)
+- Stuck deal re-activation (identify and re-engage stalled opportunities)
+- Proposal generation (comprehensive partnership proposals with case studies)
+- Pipeline health monitoring (weekly reviews, forecasting, conversion tracking)
+- Competitive positioning (research and position against alternatives)
+
+**Performance:**
+- Open rates: 45-65% (vs 20-30% industry average)
+- Response rates: 8-15% (vs 2-5% industry average)
+- 75% reduction in research time, 60% reduction in email writing time
+- 30% reduction in stuck deals, 25% improvement in deal velocity
+
+---
+
 ### Financial Analysis & Investment Intelligence
 
 #### Financial Modeling Skills
