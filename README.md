@@ -21,13 +21,16 @@ claude-usecases/
 │       ├── contract-redlining-tool/        # Automated contract review & redlining
 │       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
 │       ├── fda-consultant-agent/           # FDA regulatory consulting
-│       └── intelligence-extractor/         # Partnership & funding intelligence extraction
+│       ├── intelligence-extractor/         # Partnership & funding intelligence extraction
+│       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
-│   ├── 360-use-cases/           # 360-specific workflow skills
+│   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
 │   ├── design-director/         # Design elevation & visual polish
+│   ├── executive-impact-presentation-generator/  # Automated impact report generation
+│   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
 │   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
@@ -124,10 +127,10 @@ claude-usecases/
 ### Data Intelligence & Quality Monitoring
 
 #### Intelligence Extractor
-**Location:** `skills/intelligence-extractor/`
+**Location:** `.claude/skills/intelligence-extractor/`
 **Purpose:** Extract structured partnership, funding, and stakeholder intelligence from meeting transcripts with real-time quality monitoring and live web dashboard.
 
-**Quick Links:** [README](skills/intelligence-extractor/README.md) ⭐ | [Template Selection Guide](skills/intelligence-extractor/templates/00-template-selection-guide.md) | [Cross-Linking Architecture](skills/intelligence-extractor/references/cross-linking-architecture.md) | [Live Dashboard](intelligence-dashboard/README.md)
+**Quick Links:** [README](.claude/skills/intelligence-extractor/README.md) ⭐ | [Skill Spec](.claude/skills/intelligence-extractor/SKILL.md) | [Template Selection Guide](.claude/skills/intelligence-extractor/templates/00-template-selection-guide.md) | [Cross-Linking Architecture](.claude/skills/intelligence-extractor/references/cross-linking-architecture.md) | [Live Dashboard](intelligence-dashboard/README.md)
 
 **When to Use:**
 - Extracting intelligence from partnership, funder, board, or stakeholder meetings
@@ -139,7 +142,7 @@ claude-usecases/
 **Location:** `intelligence-dashboard/src/components/partnership/`
 **Purpose:** Professional dashboard for navigating partnership conversations with data-driven intelligence from 40+ historical partnerships across 4 partner types.
 
-**Quick Links:** [Component Docs](intelligence-dashboard/src/components/partnership/README.md) | [Summary](PARTNERSHIP_DASHBOARD_SUMMARY.md)
+**Quick Links:** [README](intelligence-dashboard/src/components/partnership/README.md) ⭐ | [Summary](PARTNERSHIP_DASHBOARD_SUMMARY.md) | [Dashboard Demo](intelligence-dashboard/README.md)
 
 **When to Use:**
 - Preparing for partnership conversations and qualifying potential partners
@@ -193,14 +196,9 @@ claude-usecases/
 - Professional DOCX formatting with exact 360 typography standards
 - Interactive review process (drafts before finalizing, never ships without approval)
 
-#### Executive Impact Reports
-
-Two approaches for creating professional board presentations and annual impact reports:
-
-##### Option 1: Automated Generation (Recommended)
-**Executive Impact Presentation Generator Skill**
+#### Executive Impact Presentation Generator
 **Location:** `skills/executive-impact-presentation-generator/`
-**Purpose:** Have Claude generate complete impact reports from your structured content input. Produces two formats (Presentation and Executive) from a single content submission.
+**Purpose:** Generate complete impact reports from structured content input. Produces two formats (Presentation and Executive) from a single content submission. For manual template editing, see templates/impact-reports/.
 
 **Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md) | [Quick Reference](skills/executive-impact-presentation-generator/QUICK_REFERENCE.md) | [Content Template](skills/executive-impact-presentation-generator/CONTENT_SCHEMA_TEMPLATE.md)
 
@@ -212,23 +210,7 @@ Two approaches for creating professional board presentations and annual impact r
 
 **Output:** Two HTML files (landscape presentation + portrait executive document)
 
-##### Option 2: Manual Customization
-**Executive Impact Report Templates**
-**Location:** `templates/impact-reports/`
-**Purpose:** Download and manually edit professional HTML templates. Offers complete control over content and design customization.
-
-**Quick Links:** [README](templates/impact-reports/README.md) ⭐ | [Static Template](templates/impact-reports/static/README.md) | [Dynamic Template](templates/impact-reports/dynamic/README.md) | [Component Library](templates/impact-reports/components/README.md)
-
-**When to Use:**
-- Organizations without Claude access
-- Custom layouts beyond the six-section structure
-- Teams that prefer direct HTML/CSS control
-- One-off reports with unique requirements
-
-**Features:**
-- Static Template: Fixed slides (6 slides), PDF-optimized, ~75KB
-- Dynamic Template: Flexible content (cover + 6 slides), web-optimized, ~85KB
-- Zero dependencies, WCAG AA accessible, 50+ reusable components
+**Alternative:** For manual customization without Claude, use the [Executive Impact Report Templates](templates/impact-reports/) with complete HTML/CSS control
 
 ---
 
@@ -284,6 +266,26 @@ Two approaches for creating professional board presentations and annual impact r
 - Meeting intelligence: 45 minutes → 45 seconds
 - Weekly status: 30-45 minutes → 30 seconds
 
+#### Workflow Debugging
+**Location:** `.claude/skills/workflow-debugging/`
+**Purpose:** Systematic debugging toolkit for complex workflow orchestration systems, enabling rapid identification, isolation, and resolution of execution failures across multi-stakeholder projects with automated recovery and cross-region support.
+
+**Quick Links:** [README](.claude/skills/workflow-debugging/README.md) ⭐ | [Skill Spec](.claude/skills/workflow-debugging/SKILL.md) | [Implementation Guide](.claude/skills/workflow-debugging/IMPLEMENTATION-GUIDE.md) | [Quick Start](.claude/skills/workflow-debugging/docs/QUICK-START.md)
+
+**When to Use:**
+- Debugging multi-stage evaluation workflows during technology assessments
+- Troubleshooting cross-system integration failures (Brazil-US partnerships, CNEN-Yale systems)
+- Handling client deliverable automation errors (Vianeo-GenIP integration)
+- Resolving Asana integration issues (webhooks, duplicates, rate limiting)
+- Managing multi-geography workflow errors (timezone, locale, permissions)
+
+**Key Features:**
+- 60-80% reduction in debugging time through systematic isolation
+- Automated recovery from 60% of common error patterns
+- Multi-region support (US, Brazil, Europe) with locale-specific handling
+- Multi-channel notifications (Slack, Asana, Email, PagerDuty)
+- Mean Time to Resolution (MTTR) < 15 minutes
+
 ---
 
 ### Project Management & Executive Intelligence
@@ -334,6 +336,37 @@ Two approaches for creating professional board presentations and annual impact r
 
 ---
 
+### Financial Analysis & Investment Intelligence
+
+#### Financial Modeling Skills
+**Location:** `skills/financial-modeling-skills/`
+**Purpose:** Strategic toolkit transforming financial analysis into systematic intelligence generation with institutional-grade workflows for investment analysis, portfolio management, and impact measurement.
+
+**Quick Links:** [README](skills/financial-modeling-skills/README.md) ⭐ | [Investment Analysis](skills/financial-modeling-skills/investment-analysis/) | [Portfolio Intelligence](skills/financial-modeling-skills/portfolio-intelligence/) | [Impact Modeling](skills/financial-modeling-skills/impact-modeling/) | [File Inventory](skills/financial-modeling-skills/FILE_INVENTORY.md)
+
+**When to Use:**
+- Investment evaluation and multi-scenario financial modeling
+- Portfolio performance analytics and strategic allocation optimization
+- Market opportunity assessment and comparable company analysis
+- Social return on investment (SROI) and impact-weighted accounting
+- Cross-border valuations and international market analysis
+- Technology transfer valuation and IP portfolio assessment
+
+**Key Capabilities:**
+- **Investment Analysis Suite:** Complete IC memos with DCF models, risk assessment, exit strategy evaluation
+- **Portfolio Intelligence:** Cross-portfolio analytics, risk correlation, impact measurement, quarterly reporting
+- **Deal Sourcing Engine:** Market assessment, valuation benchmarking, pipeline prioritization
+- **Impact Modeling:** SROI, blended finance structuring, theory of change financial modeling
+- **Innovation Valuation:** Technology transfer, research commercialization, university spin-out structuring
+
+**Output Formats:**
+- Excel models with working formulas and scenario testing
+- Interactive HTML dashboards with drill-downs
+- Board presentation decks and investment committee memos
+- Partnership term sheets and valuation frameworks
+
+---
+
 ## Documentation
 
 - [Creating Skills Guide](docs/CREATING-SKILLS.md) - Comprehensive guide for creating new skills
@@ -365,5 +398,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 1.9.0
+**Version:** 2.0.0
 **Last Updated:** 2025-11-17
