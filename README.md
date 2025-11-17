@@ -203,7 +203,7 @@ Two approaches for creating professional board presentations and annual impact r
 
 **Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md) | [Quick Reference](skills/executive-impact-presentation-generator/QUICK_REFERENCE.md) | [Content Template](skills/executive-impact-presentation-generator/CONTENT_SCHEMA_TEMPLATE.md)
 
-**Best for:**
+**When to Use:**
 - Quick report generation from structured data
 - Consistent formatting across multiple reports
 - Organizations familiar with Claude workflows
@@ -218,7 +218,7 @@ Two approaches for creating professional board presentations and annual impact r
 
 **Quick Links:** [README](templates/impact-reports/README.md) ⭐ | [Static Template](templates/impact-reports/static/README.md) | [Dynamic Template](templates/impact-reports/dynamic/README.md) | [Component Library](templates/impact-reports/components/README.md)
 
-**Best for:**
+**When to Use:**
 - Organizations without Claude access
 - Custom layouts beyond the six-section structure
 - Teams that prefer direct HTML/CSS control
