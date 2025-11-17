@@ -190,6 +190,17 @@ claude-usecases/
 - Zero dependencies (pure HTML/CSS/JS + Google Fonts)
 - Full keyboard navigation and print-ready PDF export
 - 50+ reusable components in component library
+#### Executive Impact Presentation Generator
+**Location:** `skills/executive-impact-presentation-generator/`
+**Purpose:** Generate professional board-ready impact reports in two optimized formats (Presentation and Executive) from a single content input. Transform organizational impact data into polished, print-ready reports suitable for board meetings and stakeholder communications.
+
+**Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md) | [Quick Reference](skills/executive-impact-presentation-generator/QUICK_REFERENCE.md) | [Content Template](skills/executive-impact-presentation-generator/CONTENT_SCHEMA_TEMPLATE.md)
+
+**When to Use:**
+- Creating board presentations and annual impact reports with dual-format generation
+- Generating both presentation slides (landscape deck) and executive documents (portrait pages) from single input
+- Producing print-ready PDF reports with professional design and brand customization
+- Showcasing organizational performance across six core sections (impact, regional portfolio, financial, outcomes, partnerships, strategic outlook)
 
 ---
 
