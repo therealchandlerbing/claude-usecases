@@ -28,6 +28,7 @@ claude-usecases/
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills
 │   ├── design-director/         # Design elevation & visual polish
+│   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
 ├── templates/                   # Production-ready HTML templates
@@ -244,6 +245,44 @@ Two approaches for creating professional board presentations and annual impact r
 - Preparing board-ready workflow presentations
 - Making processes delegation-ready and identifying bottlenecks
 - Creating multi-language workflow documentation for international partnerships
+
+---
+
+### Workflow Coordination & Orchestration
+
+#### Skill Orchestrator
+**Location:** `skills/skill-orchestrator/`
+**Purpose:** Universal workflow coordinator that intelligently routes requests and coordinates complex multi-skill and multi-agent operations, maintaining context across steps and delivering integrated results.
+
+**Quick Links:** [INDEX (Start Here)](skills/skill-orchestrator/INDEX.md) ⭐ | [README](skills/skill-orchestrator/README.md) | [Skill Logic](skills/skill-orchestrator/SKILL.md) | [Quick Reference](skills/skill-orchestrator/REFERENCE.md) | [Examples](skills/skill-orchestrator/EXAMPLES.md) | [Implementation Guide](skills/skill-orchestrator/IMPLEMENTATION.md)
+
+**When to Use:**
+- Multi-step workflows requiring coordination of multiple skills/agents
+- GitHub agent coordination with payload validation
+- Unclear routing decisions between available capabilities
+- Cross-domain operations (Asana + Gmail + Drive integration)
+- Complex workflows requiring context preservation across steps
+
+**Key Features:**
+- Intelligent routing decision tree (single skill vs. multi-skill vs. agent)
+- 3-phase workflow orchestration (Map → Execute → Aggregate)
+- Agent payload validation and one-shot clarifications
+- Context preservation across workflow steps
+- Graceful error handling with recovery paths
+- Integration with using-superpowers skill for enhanced capability coordination
+
+**Common Workflows:**
+- Board packet generation (Asana + QuickBooks + synthesis + document creation)
+- Client assessments (Drive search + framework application + analysis + deliverable)
+- Meeting intelligence (transcript processing + email drafting + task creation)
+- Weekly status synthesis (multi-project data gathering + formatting)
+- Partnership development (research + strategy + modeling + documentation)
+
+**Time Savings:**
+- Board packets: 2-3 hours → 3 minutes
+- Client assessments: 4-5 hours → 15 minutes
+- Meeting intelligence: 45 minutes → 45 seconds
+- Weekly status: 30-45 minutes → 30 seconds
 
 ---
 
