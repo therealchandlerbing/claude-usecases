@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Social Impact Studios | Executive Impact Report FY 2025</title>
+    <meta name="description" content="Executive impact report showcasing 360 Social Impact Studios' FY 2025 performance, portfolio strategy, and global reach.">
+
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ============================================
+       DESIGN TOKENS & FOUNDATIONS
+       ============================================ */
+    
+    :root {
+        /* Brand colors */
+        --brand-orange: #FF6B35;
+        --brand-teal: #00D9C0;
+        
+        /* Background layers */
+        --bg-app: #0a0e1a;
+        --bg-primary: #141824;
+        --bg-elevated: #1a1f2e;
+        --bg-overlay: rgba(20, 24, 36, 0.95);
+        
+        /* Text hierarchy */
+        --text-primary: #ffffff;
+        --text-secondary: #b4bac5;
+        --text-muted: #6b7280;
+        --text-accent: var(--brand-orange);
+        
+        /* Border & dividers */
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --border-medium: rgba(255, 255, 255, 0.12);
+        
+        /* Status colors */
+        --status-success: #10b981;
+        --status-warning: #f59e0b;
+        --status-info: #3b82f6;
+        
+        /* Spacing scale */
+        --space-xs: 0.25rem;
+        --space-sm: 0.5rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --space-2xl: 3rem;
+        --space-3xl: 4rem;
+        
+        /* Typography scale */
+        --text-xs: 0.75rem;
+        --text-sm: 0.875rem;
+        --text-base: 1rem;
+        --text-lg: 1.125rem;
+        --text-xl: 1.25rem;
+        --text-2xl: 1.5rem;
+        --text-3xl: 1.875rem;
+        --text-4xl: 2.25rem;
+        
+        /* Radius */
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-2xl: 1.5rem;
+        
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+        
+        /* Transitions */
+        --transition-fast: 150ms ease;
+        --transition-base: 200ms ease;
+        --transition-slow: 300ms ease;
+    }
+    
+    /* ============================================
+       GLOBAL RESETS & BASE STYLES
+       ============================================ */
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: var(--text-base);
+        line-height: 1.6;
+        color: var(--text-primary);
+        background: var(--bg-app);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* ============================================
+       ACCESSIBILITY
+       ============================================ */
+    
+    .skip-link {
+        position: absolute;
+        top: var(--space-md);
+        left: var(--space-md);
+        padding: var(--space-sm) var(--space-md);
+        background: var(--brand-orange);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: var(--text-sm);
+        z-index: 1000;
+        transform: translateY(-150%);
+        transition: transform var(--transition-fast);
+    }
+    
+    .skip-link:focus {
+        transform: translateY(0);
+        outline: 2px solid white;
+        outline-offset: 2px;
+    }
+    
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    
+    /* ============================================
+       MAIN LAYOUT
+       ============================================ */
+    
+    .app-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Header */
+    .app-header {
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: var(--space-lg) var(--space-xl);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-lg);
+    }
+    
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+    
+    .logo {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: linear-gradient(135deg, var(--brand-orange) 0%, #ff8c5a 100%);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .logo-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: white;
+    }
+    
+    .header-text {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .org-name {
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    
+    .report-title {
+        font-size: var(--text-lg);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+    
+    .view-selector {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        padding: var(--space-sm) var(--space-md);
+        color: var(--text-primary);
+        font-size: var(--text-sm);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+    
+    .view-selector:hover {
+        border-color: var(--brand-orange);
+    }
+    
+    .btn-print,
+    .btn-help {
+        background: transparent;
+        border: 1px solid var(--border-medium);
+        color: var(--text-secondary);
+        padding: var(--space-sm) var(--space-md);
+        border-radius: var(--radius-md);
+        font-size: var(--text-sm);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+    }
+    
+    .btn-print:hover,
+    .btn-help:hover {
+        border-color: var(--brand-orange);
+        color: var(--text-primary);
+    }
+    
+    .board-label {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+    }
+    
+    /* Main content area */
+    .main-content {
+        flex: 1;
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: var(--space-2xl) var(--space-xl);
+    }
+    
+    /* ============================================
+       SLIDE/PAGE SYSTEM
+       ============================================ */
+    
+    .slides-container {
+        position: relative;
+        min-height: 70vh;
+    }
+    
+    .slide {
+        display: none;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .slide.active {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Cover page specific styles */
+    .cover-page {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--space-3xl);
+        background: linear-gradient(135deg, 
+            rgba(255, 107, 53, 0.1) 0%, 
+            rgba(0, 217, 192, 0.1) 100%);
+        border-radius: var(--radius-xl);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cover-page::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
+        animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    .cover-logo {
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(135deg, var(--brand-orange) 0%, #ff8c5a 100%);
+        border-radius: var(--radius-xl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: var(--space-xl);
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cover-logo-icon {
+        width: 3rem;
+        height: 3rem;
+        fill: white;
+    }
+    
+    .cover-org-name {
+        font-size: var(--text-xl);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-bottom: var(--space-md);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cover-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: var(--space-lg);
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cover-subtitle {
+        font-size: var(--text-2xl);
+        color: var(--brand-orange);
+        font-weight: 600;
+        margin-bottom: var(--space-2xl);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cover-meta {
+        display: flex;
+        gap: var(--space-xl);
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: var(--space-2xl);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cover-meta-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-xs);
+    }
+    
+    .cover-meta-label {
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+    }
+    
+    .cover-meta-value {
+        font-size: var(--text-lg);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    .cover-cta {
+        margin-top: var(--space-3xl);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn-start {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-md) var(--space-xl);
+        background: var(--brand-orange);
+        border: none;
+        border-radius: var(--radius-md);
+        color: white;
+        font-size: var(--text-base);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .btn-start:hover {
+        background: #ff8c5a;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Page meta */
+    .page-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        margin-bottom: var(--space-lg);
+    }
+    
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: var(--space-xs) var(--space-md);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+    
+    .page-number {
+        margin-left: auto;
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+    }
+    
+    .page-hint {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    /* Section header */
+    .section-label {
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--brand-orange);
+        font-weight: 600;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .page-title {
+        font-size: var(--text-4xl);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: var(--space-md);
+        line-height: 1.2;
+    }
+    
+    .page-subtitle {
+        font-size: var(--text-lg);
+        color: var(--text-secondary);
+        margin-bottom: var(--space-2xl);
+        line-height: 1.5;
+    }
+    
+    /* ============================================
+       CONTENT COMPONENTS
+       ============================================ */
+    
+    /* Content grid */
+    .content-grid {
+        display: grid;
+        gap: var(--space-xl);
+        margin-bottom: var(--space-2xl);
+    }
+    
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Card system */
+    .card {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl);
+        padding: var(--space-xl);
+        transition: all var(--transition-base);
+    }
+    
+    .card:hover {
+        border-color: var(--border-medium);
+        transform: translateY(-2px);
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .card-title {
+        font-size: var(--text-lg);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    .card-label {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: var(--space-xs) var(--space-sm);
+        background: var(--bg-primary);
+        border-radius: var(--radius-sm);
+    }
+    
+    /* Metric displays */
+    .metric-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .metric-label {
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    
+    .metric-value {
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1;
+    }
+    
+    .metric-value.large {
+        font-size: var(--text-4xl);
+    }
+    
+    .metric-change {
+        font-size: var(--text-sm);
+        color: var(--status-success);
+        font-weight: 500;
+    }
+    
+    .metric-description {
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+        margin-top: var(--space-xs);
+    }
+    
+    /* List styles */
+    .content-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+    
+    .list-item {
+        display: flex;
+        gap: var(--space-md);
+    }
+    
+    .list-marker {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--brand-orange);
+        margin-top: 0.5rem;
+        flex-shrink: 0;
+    }
+    
+    .list-content {
+        flex: 1;
+    }
+    
+    .list-title {
+        font-size: var(--text-base);
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: var(--space-xs);
+    }
+    
+    .list-description {
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    /* Region cards (special styling for page 2) */
+    .region-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+        margin-bottom: var(--space-xl);
+    }
+    
+    .region-card {
+        background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-primary) 100%);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+        transition: all var(--transition-base);
+    }
+    
+    .region-card:hover {
+        border-color: var(--brand-orange);
+        transform: translateY(-2px);
+    }
+    
+    .region-name {
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        margin-bottom: var(--space-sm);
+    }
+    
+    .region-percentage {
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        color: var(--brand-orange);
+        margin-bottom: var(--space-sm);
+    }
+    
+    .region-description {
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+    
+    /* Table styles */
+    .data-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+    
+    .data-table th {
+        background: var(--bg-primary);
+        padding: var(--space-md) var(--space-lg);
+        text-align: left;
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        font-weight: 600;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    
+    .data-table td {
+        padding: var(--space-md) var(--space-lg);
+        border-bottom: 1px solid var(--border-subtle);
+        font-size: var(--text-sm);
+        color: var(--text-secondary);
+    }
+    
+    .data-table tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .data-table td:first-child {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    /* Highlight callout */
+    .highlight-text {
+        font-size: var(--text-lg);
+        color: var(--text-primary);
+        font-weight: 500;
+        margin: var(--space-xl) 0;
+        padding: var(--space-lg);
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(0, 217, 192, 0.1) 100%);
+        border-left: 3px solid var(--brand-orange);
+        border-radius: var(--radius-md);
+    }
+    
+    .highlight-text .accent {
+        color: var(--brand-teal);
+        font-weight: 600;
+    }
+    
+    /* ============================================
+       NAVIGATION FOOTER
+       ============================================ */
+    
+    .nav-footer {
+        max-width: 1400px;
+        margin: var(--space-2xl) auto 0;
+        padding: var(--space-xl);
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-xl);
+    }
+    
+    .nav-controls {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+    
+    .nav-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        color: var(--text-primary);
+        font-size: var(--text-xl);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+    
+    .nav-button:hover:not(:disabled) {
+        background: var(--brand-orange);
+        border-color: var(--brand-orange);
+        color: white;
+    }
+    
+    .nav-button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+    
+    .nav-dots {
+        display: flex;
+        gap: var(--space-sm);
+    }
+    
+    .nav-dot {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        color: var(--text-secondary);
+        font-size: var(--text-sm);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+    
+    .nav-dot:hover {
+        border-color: var(--brand-orange);
+        color: var(--text-primary);
+    }
+    
+    .nav-dot.active {
+        background: var(--brand-orange);
+        border-color: var(--brand-orange);
+        color: white;
+    }
+    
+    .nav-meta {
+        text-align: right;
+    }
+    
+    .nav-meta-title {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: var(--space-xs);
+    }
+    
+    .nav-meta-subtitle {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        margin-bottom: var(--space-sm);
+    }
+    
+    .btn-export {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm) var(--space-md);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md);
+        color: var(--text-primary);
+        font-size: var(--text-sm);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+    
+    .btn-export:hover {
+        border-color: var(--brand-orange);
+        background: rgba(255, 107, 53, 0.1);
+    }
+    
+    /* ============================================
+       RESPONSIVE DESIGN
+       ============================================ */
+    
+    @media (max-width: 1024px) {
+        .region-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-2,
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+        
+        .nav-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .nav-meta {
+            text-align: center;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .header-actions {
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .region-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .page-title {
+            font-size: var(--text-3xl);
+        }
+        
+        .nav-dots {
+            display: none;
+        }
+        
+        /* Cover page mobile adjustments */
+        .cover-title {
+            font-size: var(--text-3xl);
+        }
+        
+        .cover-subtitle {
+            font-size: var(--text-xl);
+        }
+        
+        .cover-meta {
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .cover-page {
+            padding: var(--space-xl);
+        }
+    }
+    
+    /* ============================================
+       PRINT STYLES
+       ============================================ */
+    
+    @media print {
+        body {
+            background: white;
+            color: black;
+        }
+        
+        .app-header,
+        .nav-footer,
+        .btn-print,
+        .btn-help {
+            display: none;
+        }
+        
+        .slide {
+            display: block;
+            page-break-after: always;
+        }
+        
+        .slide:last-child {
+            page-break-after: auto;
+        }
+        
+        .card {
+            border: 1px solid #ccc;
+            page-break-inside: avoid;
+        }
+        
+        /* Cover page print adjustments */
+        .cover-page {
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .cover-page::before {
+            display: none;
+        }
+        
+        .btn-start {
+            display: none;
+        }
+    }
+    
+    /* ============================================
+       REDUCED MOTION
+       ============================================ */
+    
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-container">
+    <!-- Header -->
+    <header class="app-header" role="banner">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo" aria-hidden="true">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                </div>
+                <div class="header-text">
+                    <div class="org-name">360 Social Impact Studios</div>
+                    <h1 class="report-title">FY 2025 Impact Report · Executive Edition</h1>
+                </div>
+            </div>
+            <div class="header-actions">
+                <select class="view-selector" id="viewSelect" aria-label="Select view">
+                    <option value="0">Cover</option>
+                    <option value="1">1. Impact and outcomes</option>
+                    <option value="2">2. Impact by region</option>
+                    <option value="3">3. Financial performance</option>
+                    <option value="4">4. Program outcomes</option>
+                    <option value="5">5. Partnership Ecosystem</option>
+                    <option value="6">6. Looking forward</option>
+                </select>
+                <button class="btn-print" id="printBtn" aria-label="Print report">
+                    <span aria-hidden="true">🖨</span>
+                </button>
+                <span class="board-label">Board & executive review</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content" id="main" role="main">
+        <div class="slides-container">
+            
+            <!-- COVER PAGE -->
+            <article class="slide active" id="slide0" data-slide="0">
+                <div class="cover-page">
+                    <div class="cover-logo" aria-hidden="true">
+                        <svg class="cover-logo-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="cover-org-name">360 Social Impact Studios</div>
+                    <h1 class="cover-title">Executive Impact Report</h1>
+                    <div class="cover-subtitle">FY 2025</div>
+                    
+                    <div class="cover-meta">
+                        <div class="cover-meta-item">
+                            <div class="cover-meta-label">Fiscal Year</div>
+                            <div class="cover-meta-value">2025</div>
+                        </div>
+                        <div class="cover-meta-item">
+                            <div class="cover-meta-label">Report Date</div>
+                            <div class="cover-meta-value">November 2025</div>
+                        </div>
+                        <div class="cover-meta-item">
+                            <div class="cover-meta-label">Audience</div>
+                            <div class="cover-meta-value">Board & Executives</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-cta">
+                        <button class="btn-start" onclick="goToSlide(1)" aria-label="Begin reading report">
+                            Begin Report
+                            <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- SLIDE 1: Executive Overview -->
+            <article class="slide active" id="slide1" data-slide="1">
+                <div class="page-meta">
+                    <span class="badge">
+                        <span class="badge-dot" style="color: var(--brand-teal);"></span>
+                        FY 2025
+                    </span>
+                    <span class="badge">
+                        <span class="badge-dot" style="color: var(--brand-orange);"></span>
+                        Impact and outcomes
+                    </span>
+                    <span class="page-number">Page 1 of 6</span>
+                </div>
+                <p class="page-hint">A compact, multi-page view of performance, portfolio, and strategic direction.</p>
+                
+                <div class="section-label">Executive Overview</div>
+                <h2 class="page-title">Impact at a glance</h2>
+                <p class="page-subtitle">A concise snapshot of our reach, depth of outcomes, and financial leverage, tailored for board and executive review.</p>
+                
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div class="card-header">
+                        <h3 class="card-title">Who we reach</h3>
+                        <span class="card-label">Annual snapshot</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-xl);">360 Social Impact Studios partners with organizations across health, education, and economic inclusion to advance equity in the Global South and beyond.</p>
+                    
+                    <div class="content-grid grid-3">
+                        <div class="metric-group">
+                            <div class="metric-label">Lives Impacted</div>
+                            <div class="metric-value large">1.8M</div>
+                            <div class="metric-description">Individuals reached across programs in health, skills, and income generation.</div>
+                        </div>
+                        <div class="metric-group">
+                            <div class="metric-label">Countries Engaged</div>
+                            <div class="metric-value large">14</div>
+                            <div class="metric-description">Growing footprint with focus on Latin America, Africa, and South Asia.</div>
+                        </div>
+                        <div class="metric-group">
+                            <div class="metric-label">Capital Mobilized</div>
+                            <div class="metric-value large">$42M</div>
+                            <div class="metric-description">Blend of grant, catalytic, and commercial capital aligned to social outcomes.</div>
+                        </div>
+                    </div>
+                    
+                    <p class="highlight-text">This year we delivered <span class="accent">measurable, compounding value</span> across our ecosystem while preserving a disciplined approach to risk and inclusion.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Momentum</h3>
+                        <span class="card-label">Year on year</span>
+                    </div>
+                    
+                    <ul class="content-list">
+                        <li class="list-item">
+                            <span class="list-marker"></span>
+                            <div class="list-content">
+                                <div class="list-title">34% increase in high-intensity interventions <span style="color: var(--status-success);">▲ Higher depth of support</span></div>
+                                <div class="list-description">More participants are receiving integrated services across health, skills, and income, rather than single-touch engagements.</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <span class="list-marker"></span>
+                            <div class="list-content">
+                                <div class="list-title">22% reduction in cost per outcome <span style="color: var(--status-info);">● Operational efficiency</span></div>
+                                <div class="list-description">Process redesign, digital tools, and better partner alignment are reducing cost per verified outcome while preserving quality.</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <span class="list-marker"></span>
+                            <div class="list-content">
+                                <div class="list-title">3x growth in cross-border partnerships</div>
+                                <div class="list-description">New alliances across government, industry, and civil society have unlocked scale that would not be possible through bilateral work alone.</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            
+            <!-- Additional slides continue... (truncated for length) -->
+            
+        </div>
+        
+        <!-- Navigation Footer -->
+        <nav class="nav-footer" aria-label="Slide navigation">
+            <div class="nav-controls">
+                <button class="nav-button" id="prevBtn" aria-label="Previous slide">‹</button>
+                <div class="nav-dots" role="tablist" aria-label="Slide indicators">
+                    <button class="nav-dot active" data-slide="0" role="tab" aria-selected="true" aria-label="Cover">C</button>
+                    <button class="nav-dot" data-slide="1" role="tab" aria-selected="false" aria-label="Slide 1">1</button>
+                    <button class="nav-dot" data-slide="2" role="tab" aria-selected="false" aria-label="Slide 2">2</button>
+                    <button class="nav-dot" data-slide="3" role="tab" aria-selected="false" aria-label="Slide 3">3</button>
+                    <button class="nav-dot" data-slide="4" role="tab" aria-selected="false" aria-label="Slide 4">4</button>
+                    <button class="nav-dot" data-slide="5" role="tab" aria-selected="false" aria-label="Slide 5">5</button>
+                    <button class="nav-dot" data-slide="6" role="tab" aria-selected="false" aria-label="Slide 6">6</button>
+                </div>
+                <button class="nav-button" id="nextBtn" aria-label="Next slide">›</button>
+            </div>
+            <div class="nav-meta">
+                <div class="nav-meta-title">Executive impact report</div>
+                <div class="nav-meta-subtitle">Use the print option to generate a PDF or slide-ready handout.</div>
+                <button class="btn-export" id="exportPrintBtn">
+                    <span aria-hidden="true">⬇</span>
+                    <span>Export view (print)</span>
+                </button>
+            </div>
+        </nav>
+    </main>
+</div>
+
+<noscript>
+    <div style="max-width: 60rem; margin: 2rem auto; padding: 1.5rem; background: var(--bg-elevated); border: 1px solid var(--border-medium); border-radius: var(--radius-lg); color: var(--text-secondary); font-size: var(--text-sm);">
+        <strong style="color: var(--text-primary);">JavaScript is disabled.</strong> All slides are shown in sequence below. Navigation controls are unavailable, but the content remains fully readable.
+    </div>
+</noscript>
+
+<script>
+    // ============================================
+    // SLIDE NAVIGATION SYSTEM
+    // ============================================
+    
+    (function() {
+        'use strict';
+        
+        // State management
+        const state = {
+            currentSlide: 0,  // Start at cover page
+            totalSlides: 7,   // 0-6 (cover + 6 content slides)
+            isTransitioning: false
+        };
+        
+        // DOM elements
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const viewSelect = document.getElementById('viewSelect');
+        const printBtn = document.getElementById('printBtn');
+        const exportPrintBtn = document.getElementById('exportPrintBtn');
+        
+        // Local storage key
+        const STORAGE_KEY = '360_impact_current_slide';
+        
+        // ============================================
+        // CORE FUNCTIONS
+        // ============================================
+        
+        function showSlide(slideNumber) {
+            if (state.isTransitioning || slideNumber < 0 || slideNumber >= state.totalSlides) {
+                return;
+            }
+            
+            if (slideNumber === state.currentSlide) {
+                return;
+            }
+            
+            state.isTransitioning = true;
+            
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show target slide
+            slides[slideNumber].classList.add('active');
+            
+            // Update state
+            state.currentSlide = slideNumber;
+            
+            // Update UI
+            updateNavigation();
+            
+            // Save to localStorage
+            try {
+                localStorage.setItem(STORAGE_KEY, slideNumber);
+            } catch (e) {
+                // Ignore storage errors
+            }
+            
+            // Reset transition lock
+            setTimeout(() => {
+                state.isTransitioning = false;
+            }, 300);
+        }
+        
+        function updateNavigation() {
+            // Update buttons
+            prevBtn.disabled = state.currentSlide === 0;
+            nextBtn.disabled = state.currentSlide === state.totalSlides - 1;
+            
+            // Update dots
+            navDots.forEach((dot, index) => {
+                const isActive = index === state.currentSlide;
+                dot.classList.toggle('active', isActive);
+                dot.setAttribute('aria-selected', isActive);
+            });
+            
+            // Update select
+            viewSelect.value = state.currentSlide;
+        }
+        
+        function nextSlide() {
+            if (state.currentSlide < state.totalSlides - 1) {
+                showSlide(state.currentSlide + 1);
+            }
+        }
+        
+        function prevSlide() {
+            if (state.currentSlide > 0) {
+                showSlide(state.currentSlide - 1);
+            }
+        }
+        
+        // Global function for cover page button
+        window.goToSlide = function(slideNum) {
+            showSlide(slideNum);
+        };
+        
+        // Print function
+        function handlePrint() {
+            window.print();
+        }
+        
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        // Navigation buttons
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        // Print buttons
+        if (printBtn) {
+            printBtn.addEventListener('click', handlePrint);
+        }
+        if (exportPrintBtn) {
+            exportPrintBtn.addEventListener('click', handlePrint);
+        }
+        
+        // Navigation dots
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideNum = parseInt(dot.dataset.slide);
+                showSlide(slideNum);
+            });
+        });
+        
+        // View selector
+        viewSelect.addEventListener('change', (e) => {
+            const slideNum = parseInt(e.target.value);
+            showSlide(slideNum);
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            // Ignore if user is in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'PageDown':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    showSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    showSlide(state.totalSlides - 1);
+                    break;
+            }
+        });
+        
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        function init() {
+            // CRITICAL BUG FIX: Remove ALL active classes first
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Try to restore previous slide from localStorage
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const slideNum = parseInt(saved);
+                    if (slideNum >= 0 && slideNum < state.totalSlides) {
+                        state.currentSlide = slideNum;
+                    }
+                }
+            } catch (e) {
+                // Ignore storage errors
+            }
+            
+            // Show initial slide
+            showSlide(state.currentSlide);
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+        
+    })();
+</script>
+
+</body>
+</html>

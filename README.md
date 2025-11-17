@@ -29,6 +29,8 @@ claude-usecases/
 │   ├── design-director/         # Design elevation & visual polish
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
+├── templates/                   # Production-ready HTML templates
+│   └── impact-reports/          # Executive impact report templates (static & dynamic)
 ├── intelligence-dashboard/      # Live quality monitoring dashboard (Next.js app)
 ├── docs/                        # Documentation and guides
 └── examples/                    # Example implementations
@@ -169,6 +171,26 @@ claude-usecases/
 - Generating weekly/monthly newsletters for stakeholders and partners
 - Preparing pre-meeting briefings with talking points
 
+#### Executive Impact Report Templates
+**Location:** `templates/impact-reports/`
+**Purpose:** Professional, accessible HTML templates for creating executive-level impact reports with slide-based navigation. Two optimized variants: Static (presentation-focused) and Dynamic (web-focused).
+
+**Quick Links:** [README](templates/impact-reports/README.md) ⭐ | [Static Template](templates/impact-reports/static/README.md) | [Dynamic Template](templates/impact-reports/dynamic/README.md) | [Component Library](templates/impact-reports/components/README.md) | [Implementation Summary](templates/impact-reports/IMPLEMENTATION_SUMMARY.md)
+
+**When to Use:**
+- Creating board presentations and annual impact reports with professional design
+- Building interactive web-based reports with flexible content and scrolling
+- Exporting presentation-ready PDFs (landscape, one slide per page)
+- Showcasing program outcomes, partnerships, and financial performance
+- Need WCAG AA accessible, responsive, zero-dependency templates
+
+**Features:**
+- **Static Template:** Fixed slide sizes (6 slides), PDF-optimized, no scrolling, ~75KB
+- **Dynamic Template:** Flexible content (cover + 6 slides), web-optimized, localStorage, ~85KB
+- Zero dependencies (pure HTML/CSS/JS + Google Fonts)
+- Full keyboard navigation and print-ready PDF export
+- 50+ reusable components in component library
+
 ---
 
 ### Process Documentation & Workflow Visualization
@@ -266,5 +288,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 1.7.0
-**Last Updated:** 2025-11-16
+**Version:** 1.8.0
+**Last Updated:** 2025-11-17
