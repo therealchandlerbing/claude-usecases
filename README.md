@@ -307,6 +307,19 @@ claude-usecases/
 - Social return on investment (SROI) and impact-weighted accounting
 - Technology transfer valuation and IP portfolio assessment
 
+#### IRS Form 990-EZ Preparation
+**Location:** `skills/990-ez-preparation/`
+**Purpose:** Automated nonprofit tax compliance through intelligent data collection, multi-level validation, and complete filing package generation. Reduces preparation time from 40+ hours to under 10 hours.
+
+**Quick Links:** [README](skills/990-ez-preparation/README.md) ⭐ | [Quick Start](skills/990-ez-preparation/docs/QUICK-START.md) | [Skill Spec](skills/990-ez-preparation/SKILL.md)
+
+**When to Use:**
+- Preparing annual IRS Form 990-EZ for small nonprofits (receipts < $200K, assets < $500K)
+- Automated eligibility verification and compliance checking
+- Multi-level validation (mathematical, regulatory, narrative, strategic)
+- Complete filing package generation with Schedules A, B, and O
+- Board-ready presentation with validation reports and pre-filing checklists
+
 ---
 
 ## Documentation

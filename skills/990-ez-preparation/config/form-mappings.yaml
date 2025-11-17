@@ -1,0 +1,622 @@
+# IRS Form 990-EZ Field Mappings
+# Maps data sources to form fields
+# Version 1.0 | November 2025
+
+# ============================================================================
+# FORM 990-EZ PART I: REVENUE, EXPENSES, AND CHANGES IN NET ASSETS
+# ============================================================================
+
+part_i:
+  description: "Revenue, Expenses, and Changes in Net Assets or Fund Balances"
+
+  revenue:
+    line_1:
+      label: "Contributions, gifts, grants, and similar amounts received"
+      data_source: "financial.revenue.contributions"
+      schedules_required:
+        - schedule: "B"
+          condition: "any_single_contribution >= 5000"
+
+    line_2:
+      label: "Program service revenue including government fees and contracts"
+      data_source: "financial.revenue.program_service_revenue"
+      related_to: "part_iii_programs"
+
+    line_3:
+      label: "Membership dues and assessments"
+      data_source: "financial.revenue.membership_dues"
+      default: 0
+
+    line_4:
+      label: "Investment income"
+      data_source: "financial.revenue.investment_income"
+      includes:
+        - "interest"
+        - "dividends"
+        - "capital_gains"  # If not separate line item
+
+    line_5a:
+      label: "Gross amount from sale of assets other than inventory"
+      data_source: "financial.revenue.asset_sales_gross"
+      default: 0
+      related_line: "line_5b"
+
+    line_5b:
+      label: "Less: cost or other basis and sales expenses"
+      data_source: "financial.revenue.asset_sales_basis"
+      default: 0
+      calculation: "line_5c = line_5a - line_5b"
+
+    line_5c:
+      label: "Gain or (loss) from sale of assets other than inventory"
+      calculation: "line_5a - line_5b"
+      can_be_negative: true
+
+    line_6a:
+      label: "Gross income from gaming"
+      data_source: "financial.revenue.gaming_gross"
+      default: 0
+
+    line_6b:
+      label: "Gross income from fundraising events"
+      data_source: "financial.revenue.fundraising_events_gross"
+      default: 0
+      related_line: "line_6c"
+
+    line_6c:
+      label: "Less: direct expenses from gaming and fundraising events"
+      data_source: "financial.revenue.fundraising_direct_expenses"
+      default: 0
+      calculation: "line_6d = line_6a + line_6b - line_6c"
+
+    line_6d:
+      label: "Net income or (loss) from gaming and fundraising events"
+      calculation: "(line_6a + line_6b) - line_6c"
+      can_be_negative: true
+
+    line_7a:
+      label: "Gross sales of inventory, less returns and allowances"
+      data_source: "financial.revenue.inventory_sales_gross"
+      default: 0
+
+    line_7b:
+      label: "Less: cost of goods sold"
+      data_source: "financial.revenue.cost_of_goods_sold"
+      default: 0
+      calculation: "line_7c = line_7a - line_7b"
+
+    line_7c:
+      label: "Gross profit or (loss) from sales of inventory"
+      calculation: "line_7a - line_7b"
+      can_be_negative: true
+
+    line_8:
+      label: "Other revenue (describe in Schedule O)"
+      data_source: "financial.revenue.other"
+      default: 0
+      schedule_o_required: true
+
+    line_9:
+      label: "Total revenue"
+      calculation: "sum(lines_1_through_8)"
+      validation: "must_equal_sum_of_revenue_lines"
+
+  expenses:
+    line_10:
+      label: "Grants and similar amounts paid (list in Schedule O)"
+      data_source: "financial.expenses.grants_paid"
+      default: 0
+      schedule_o_required: true
+      includes:
+        - "grants_to_organizations"
+        - "grants_to_individuals"
+
+    line_11a:
+      label: "Benefits paid to or for members"
+      data_source: "financial.expenses.member_benefits"
+      default: 0
+
+    line_11b:
+      label: "Salaries, other compensation, and employee benefits"
+      data_source: "financial.expenses.compensation_total"
+      includes:
+        - "officer_compensation"
+        - "employee_salaries"
+        - "payroll_taxes"
+        - "employee_benefits"
+      related_to: "part_iv_officers"
+
+    line_12:
+      label: "Professional fees and other payments to independent contractors"
+      data_source: "financial.expenses.professional_fees"
+      includes:
+        - "accounting_fees"
+        - "legal_fees"
+        - "consulting_fees"
+        - "contractor_payments"
+
+    line_13:
+      label: "Occupancy, rent, utilities, and maintenance"
+      data_source: "financial.expenses.occupancy"
+      includes:
+        - "rent"
+        - "utilities"
+        - "maintenance"
+        - "insurance_on_building"
+
+    line_14:
+      label: "Printing, publications, postage, and shipping"
+      data_source: "financial.expenses.printing_postage"
+
+    line_15:
+      label: "Other expenses (describe in Schedule O)"
+      data_source: "financial.expenses.other"
+      schedule_o_required: true
+
+    line_16:
+      label: "Total expenses"
+      calculation: "sum(lines_10_through_15)"
+      validation: "must_equal_sum_of_expense_lines"
+
+    line_17:
+      label: "Excess or (deficit) for the year"
+      calculation: "line_9 - line_16"
+      can_be_negative: true
+
+  net_assets:
+    line_18:
+      label: "Net assets or fund balances at beginning of year"
+      data_source: "financial.net_assets.beginning_of_year"
+      validation: "must_equal_prior_year_line_21"
+
+    line_19:
+      label: "Other changes in net assets or fund balances"
+      data_source: "financial.net_assets.other_changes"
+      default: 0
+      schedule_o_explanation: true
+
+    line_20:
+      label: "Net assets or fund balances at end of year"
+      calculation: "line_18 + line_17 + line_19"
+      validation: "must_equal_part_ii_line_27"
+
+# ============================================================================
+# FORM 990-EZ PART II: BALANCE SHEET
+# ============================================================================
+
+part_ii:
+  description: "Balance Sheets"
+  columns:
+    a: "Beginning of year"
+    b: "End of year"
+
+  assets:
+    line_22:
+      label: "Cash, savings, and investments"
+      data_source:
+        beginning: "financial.balance_sheet.beginning.cash_and_investments"
+        ending: "financial.balance_sheet.ending.cash_and_investments"
+
+    line_23:
+      label: "Land and buildings"
+      data_source:
+        beginning: "financial.balance_sheet.beginning.land_buildings"
+        ending: "financial.balance_sheet.ending.land_buildings"
+      default: 0
+
+    line_24:
+      label: "Other assets (describe in Schedule O)"
+      data_source:
+        beginning: "financial.balance_sheet.beginning.other_assets"
+        ending: "financial.balance_sheet.ending.other_assets"
+      schedule_o_required: true
+
+    line_25:
+      label: "Total assets"
+      calculation: "sum(lines_22_through_24)"
+      validation: "must_be_less_than_500000_for_990ez_eligibility"
+
+  liabilities:
+    line_26:
+      label: "Total liabilities"
+      data_source:
+        beginning: "financial.balance_sheet.beginning.total_liabilities"
+        ending: "financial.balance_sheet.ending.total_liabilities"
+      schedule_o_description: "Describe major liabilities"
+
+  net_assets:
+    line_27:
+      label: "Net assets or fund balances"
+      calculation: "line_25 - line_26"
+      validation:
+        - "column_b_must_equal_part_i_line_21"
+        - "column_a_must_equal_prior_year_part_i_line_21"
+
+# ============================================================================
+# FORM 990-EZ PART III: PROGRAM SERVICE ACCOMPLISHMENTS
+# ============================================================================
+
+part_iii:
+  description: "Statement of Program Service Accomplishments"
+
+  mission_statement:
+    line_28:
+      label: "Describe the organization's primary exempt purpose"
+      data_source: "organization.mission_statement"
+      max_length: 500
+      required: true
+
+  programs:
+    program_1:
+      description:
+        label: "Describe the organization's program service accomplishments"
+        data_source: "programs[0].description"
+        max_length: 1000
+        required_elements:
+          - "program_description"
+          - "target_population"
+          - "measurable_accomplishments"
+          - "outcomes_achieved"
+
+      expenses:
+        label: "(Expenses $ ___ including grants of $ ___)"
+        data_source: "programs[0].expenses"
+        grants_paid: "programs[0].grants_paid"
+
+      revenue:
+        label: "(Revenue $ ___)"
+        data_source: "programs[0].revenue"
+        optional: true
+
+    program_2:
+      description:
+        label: "Describe program service accomplishment"
+        data_source: "programs[1].description"
+        max_length: 1000
+        optional: true
+
+      expenses:
+        data_source: "programs[1].expenses"
+
+      revenue:
+        data_source: "programs[1].revenue"
+        optional: true
+
+    program_3:
+      description:
+        label: "Describe program service accomplishment"
+        data_source: "programs[2].description"
+        max_length: 1000
+        optional: true
+
+      expenses:
+        data_source: "programs[2].expenses"
+
+      revenue:
+        data_source: "programs[2].revenue"
+        optional: true
+
+  validation:
+    total_program_expenses:
+      calculation: "sum(program_1.expenses, program_2.expenses, program_3.expenses)"
+      must_be_less_than_or_equal: "part_i_line_16"  # Total expenses
+
+# ============================================================================
+# FORM 990-EZ PART IV: OFFICERS, DIRECTORS, TRUSTEES, KEY EMPLOYEES
+# ============================================================================
+
+part_iv:
+  description: "List of Officers, Directors, Trustees, and Key Employees"
+
+  columns:
+    a: "Name and title"
+    b: "Average hours per week devoted to position"
+    c: "Reportable compensation"
+    d: "Health benefits, contributions to employee benefit plans, and deferred compensation"
+    e: "Estimated amount of other compensation"
+
+  officers:
+    data_source: "governance.officers"
+    required_fields:
+      - "name"
+      - "title"
+      - "hours_per_week"
+      - "reportable_compensation"
+
+    positions:
+      - "President"
+      - "Vice President"
+      - "Secretary"
+      - "Treasurer"
+      - "Director"
+      - "Trustee"
+      - "Key Employee"
+
+    key_employee_threshold: 150000  # Compensation over $150K requires listing
+
+    validation:
+      minimum_officers: 1  # At least president
+      hours_per_week:
+        reasonable_range: [0, 168]  # Can't exceed hours in a week
+      total_compensation:
+        must_reconcile_with: "part_i_line_11b"  # Total salaries
+
+# ============================================================================
+# FORM 990-EZ PART V: OTHER INFORMATION
+# ============================================================================
+
+part_v:
+  description: "Other Information (47 Yes/No Questions)"
+
+  questions:
+    line_33:
+      question: "Did the organization engage in direct or indirect political campaign activities on behalf of or in opposition to candidates for public office?"
+      data_source: "compliance.political_activity"
+      default: false
+      severity: "ERROR"  # If yes for 501(c)(3)
+      irs_concern: "Prohibited for 501(c)(3) organizations"
+
+    line_34:
+      question: "Did the organization engage in lobbying activities?"
+      data_source: "compliance.lobbying_activity"
+      default: false
+      follow_up:
+        if_yes: "File Form 5768 for 501(h) election or track substantial part test"
+
+    line_35a:
+      question: "Did the organization operate one or more hospital facilities?"
+      data_source: "organization.operates_hospital"
+      default: false
+      disqualifies_990ez: true
+
+    line_35b:
+      question: "Did the organization attach a copy of its audited financial statements?"
+      data_source: "compliance.audited_statements_attached"
+      default: false
+
+    line_36:
+      question: "Did the organization report more than $5,000 of grants or other assistance to any domestic organization or domestic government?"
+      data_source: "compliance.grants_over_5000"
+      default: false
+      schedule_required: "Schedule I (Form 990)"
+
+    line_37:
+      question: "Did the organization report more than $5,000 of grants or other assistance to or for domestic individuals?"
+      data_source: "compliance.individual_grants_over_5000"
+      default: false
+      schedule_required: "Schedule I (Form 990)"
+
+    line_38:
+      question: "Did the organization answer 'Yes' to Part VII, Section A, line 3, 4, or 5 about compensation?"
+      data_source: "compliance.compensation_questions"
+      default: false
+
+    line_39:
+      question: "Did the organization have a tax-exempt bond issue with an outstanding principal amount of more than $100,000?"
+      data_source: "financial.tax_exempt_bonds"
+      default: false
+
+    line_40a:
+      question: "Did the organization maintain an escrow account other than a refunding escrow at any time during the year?"
+      data_source: "financial.escrow_account"
+      default: false
+
+    line_40b:
+      question: "Did the organization act as an 'on behalf of' issuer for bonds outstanding at any time during the year?"
+      data_source: "financial.bond_issuer"
+      default: false
+
+    line_41:
+      question: "Did the organization engage in an excess benefit transaction with a disqualified person during the year?"
+      data_source: "compliance.excess_benefit_transaction"
+      default: false
+      severity: "ERROR"
+      irs_concern: "Subject to intermediate sanctions"
+
+    line_42a:
+      question: "Is the organization aware that it engaged in an excess benefit transaction with a disqualified person in a prior year?"
+      data_source: "compliance.prior_excess_benefit"
+      default: false
+
+    line_42b:
+      question: "If 'Yes,' has the organization filed Form 4720 to report the tax?"
+      data_source: "compliance.form_4720_filed"
+      condition: "line_42a == true"
+
+    line_43:
+      question: "Did the organization engage in a transaction with a related organization that either involved more than $1,000 or is reported on Schedule L, Form 990?"
+      data_source: "compliance.related_organization_transaction"
+      default: false
+
+    line_44:
+      question: "Did the organization conduct more than 5% of its activities through an entity that is not a related organization?"
+      data_source: "compliance.unrelated_entity_activities"
+      default: false
+
+    line_45a:
+      question: "At any time during the tax year, was the organization a party to a prohibited tax shelter transaction?"
+      data_source: "compliance.prohibited_tax_shelter"
+      default: false
+      severity: "ERROR"
+
+    line_45b:
+      question: "Did any taxable party notify the organization that it was or is a party to a prohibited tax shelter transaction?"
+      data_source: "compliance.tax_shelter_notification"
+      default: false
+
+    line_46:
+      question: "Did the organization have annual gross receipts that are normally greater than $100,000, and did the organization solicit any contributions that were not tax deductible?"
+      data_source: "compliance.nondeductible_contributions_solicited"
+      default: false
+      follow_up: "Must provide disclosure statement to donors"
+
+    line_47:
+      question: "Did the organization maintain any donor advised funds?"
+      data_source: "organization.donor_advised_funds"
+      default: false
+      disqualifies_990ez: true
+
+    line_48:
+      question: "Did the organization receive a payment in excess of $75 made partly as a contribution and partly for goods and services?"
+      data_source: "compliance.quid_pro_quo_contributions"
+      default: false
+      follow_up: "Must provide disclosure statement to donors"
+
+  governance_questions:
+    line_44a:
+      question: "Did the organization have a written document retention and destruction policy?"
+      data_source: "governance.policies.document_retention"
+      default: false
+      severity: "WARNING"
+
+    line_44b:
+      question: "Did the process for determining compensation of the following persons include a review and approval by independent persons, comparability data, and contemporaneous substantiation?"
+      data_source: "governance.compensation_process"
+      officers: true
+      key_employees: true
+
+    line_44c:
+      question: "If 'Yes' to line 44b, did the organization make available to the public or its members a copy of the Form 990?"
+      data_source: "compliance.form_990_public_availability"
+
+# ============================================================================
+# SCHEDULE A: PUBLIC CHARITY STATUS AND PUBLIC SUPPORT
+# ============================================================================
+
+schedule_a:
+  description: "Public Charity Status and Public Support"
+  required_for: ["501(c)(3)"]
+
+  part_i:
+    description: "Reason for Public Charity Status"
+    data_source: "organization.public_charity_classification"
+    options:
+      line_1: "Church, convention of churches, or association of churches"
+      line_2: "School"
+      line_3: "Hospital or cooperative hospital service organization"
+      line_4: "Medical research organization"
+      line_5: "Organization operated for benefit of college or university"
+      line_6: "Federal, state, or local government"
+      line_7: "Organization that receives substantial part of support from government or public"
+      line_8: "Community trust"
+      line_9: "Agricultural research organization"
+      line_10: "Organization that normally receives not more than one-third support from gross investment income"
+      line_11: "Organization organized and operated exclusively to test for public safety"
+      line_12: "Organization organized and operated exclusively for supporting 509(a)(1) or (2) organizations"
+
+  part_ii:
+    description: "Support Schedule for Organizations Described in Sections 170(b)(1)(A)(iv) and 170(b)(1)(A)(vi)"
+    calendar_years: 5  # Current year + 4 prior years
+    data_source: "financial.support_schedule"
+
+    public_support:
+      line_1: "Gifts, grants, contributions, and membership fees received"
+      line_2: "Tax revenues levied for organization's benefit"
+      line_3: "Value of services or facilities furnished by governmental unit"
+      line_4: "Total (add lines 1-3)"
+
+    total_support:
+      line_5: "Public support from Part II, line 4"
+      line_6: "Gross income from interest, dividends, payments on securities loans"
+      line_7: "Net income from unrelated business activities"
+      line_8: "Net income from related activities"
+      line_9: "Net income from disposition of assets"
+      line_10: "Other income"
+      line_11: "Total support (add lines 5-10)"
+      line_12: "Gross receipts from related activities, etc."
+
+    public_support_test:
+      line_13: "First five years test - is the organization described in section 509(a)(1) or (2)?"
+      line_14: "Public support percentage for current year (line 6, column (f) divided by line 11, column (f))"
+      line_15: "Public support percentage from prior year Schedule A, Part II, line 14"
+      line_16a: "33 1/3% support test - current year"
+      line_16b: "33 1/3% support test - prior year"
+      line_17a: "10% -facts-and-circumstances test - current year"
+      line_17b: "10% -facts-and-circumstances test - prior year"
+
+# ============================================================================
+# SCHEDULE B: SCHEDULE OF CONTRIBUTORS
+# ============================================================================
+
+schedule_b:
+  description: "Schedule of Contributors"
+  trigger: "any_single_contribution >= 5000"
+  public_disclosure: false  # IRS only
+
+  contributor_information:
+    required_fields:
+      - "contributor_type"  # Person, Payroll, Noncash
+      - "name"
+      - "address"
+      - "city_state_zip"
+      - "total_contributions"
+
+    aggregate_threshold: 5000
+    percentage_threshold: 0.02  # 2% of total contributions
+
+  special_rules:
+    government_grants: "List separately"
+    related_organizations: "Identify relationship"
+    unusual_grants: "Identify if applicable"
+
+# ============================================================================
+# SCHEDULE O: SUPPLEMENTAL INFORMATION
+# ============================================================================
+
+schedule_o:
+  description: "Supplemental Information"
+  purpose: "Provide additional explanations for form responses"
+
+  common_uses:
+    - "Explanation of program accomplishments (if space exceeded)"
+    - "Description of other revenue (Part I, Line 8)"
+    - "Description of other expenses (Part I, Line 15)"
+    - "Description of other assets (Part II, Line 24)"
+    - "Description of major liabilities (Part II, Line 26)"
+    - "Explanation of other changes in net assets (Part I, Line 19)"
+    - "Governance policies and procedures"
+    - "Compensation methodology explanation"
+    - "Expense allocation methodology"
+
+  format:
+    reference_line: "Form 990-EZ, Part I, Line X"
+    explanation: "Detailed explanation text"
+
+# ============================================================================
+# VALIDATION CROSS-REFERENCES
+# ============================================================================
+
+validation_cross_references:
+
+  part_i_line_21_equals_part_ii_line_27_col_b:
+    description: "Net assets at end of year must match"
+    severity: "ERROR"
+
+  part_i_line_18_equals_part_ii_line_27_col_a:
+    description: "Net assets at beginning of year must match"
+    severity: "ERROR"
+
+  part_i_line_18_equals_prior_year_line_21:
+    description: "Beginning net assets must equal prior year ending"
+    severity: "WARNING"
+
+  part_iii_program_expenses_sum_less_than_part_i_line_16:
+    description: "Program expenses cannot exceed total expenses"
+    severity: "ERROR"
+
+  part_iv_compensation_reconciles_with_part_i_line_11b:
+    description: "Officer compensation should reconcile with total salaries"
+    severity: "WARNING"
+
+# ============================================================================
+# VERSION & NOTES
+# ============================================================================
+
+version: 1.0.0
+form_year: 2024
+last_updated: "2025-11-17"
+
+notes: |
+  This file maps data sources to IRS Form 990-EZ fields.
+  Field names and line numbers based on 2024 Form 990-EZ.
+  Always verify against current year form before filing.
