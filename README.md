@@ -22,6 +22,7 @@ claude-usecases/
 │       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
 │       ├── fda-consultant-agent/           # FDA regulatory consulting
 │       └── intelligence-extractor/         # Partnership & funding intelligence extraction
+├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
@@ -171,6 +172,26 @@ claude-usecases/
 - Generating weekly/monthly newsletters for stakeholders and partners
 - Preparing pre-meeting briefings with talking points
 
+#### 360 Board Meeting Prep Agent
+**Location:** `360-board-meeting-prep/`
+**Purpose:** Comprehensive board meeting intelligence system that transforms data from Asana, QuickBooks, Gmail, and Google Drive into professional, governance-ready board packets following exact 360 formatting standards.
+
+**Quick Links:** [README](360-board-meeting-prep/README.md) ⭐ | [Main Orchestrator](360-board-meeting-prep/SKILL.md) | [Financial Dashboard](360-board-meeting-prep/references/financial-dashboard.md) | [Portfolio Health](360-board-meeting-prep/references/client-portfolio-health.md) | [Strategic Initiatives](360-board-meeting-prep/references/strategic-initiatives.md) | [Motion Preparation](360-board-meeting-prep/references/motion-preparation.md)
+
+**When to Use:**
+- Preparing quarterly or annual board meetings (saves 14-19 hours per meeting)
+- Generating 5 professional documents: Financial Dashboard, Client Portfolio Health, Strategic Initiatives, Governance & Compliance, Motion Tracking
+- Cross-validating financial and operational data with automated consistency checks
+- Pre-drafting board motions with proper parliamentary procedure
+- Post-meeting action item extraction and Asana task creation
+
+**Key Features:**
+- 6-phase workflow from data collection to post-meeting follow-up
+- Multi-source data synthesis (Asana pipeline, QuickBooks financials, Gmail communications, Drive materials)
+- Quality assurance framework with automated flag generation
+- Professional DOCX formatting with exact 360 typography standards
+- Interactive review process (drafts before finalizing, never ships without approval)
+
 #### Executive Impact Reports
 
 Two approaches for creating professional board presentations and annual impact reports:
@@ -305,5 +326,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 1.8.1
+**Version:** 1.9.0
 **Last Updated:** 2025-11-17
