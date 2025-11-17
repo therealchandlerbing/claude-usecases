@@ -1,0 +1,477 @@
+# API Integration Configuration
+# IRS Form 990-EZ Preparation Skill
+# Version 1.0 | November 2025
+
+# ============================================================================
+# QUICKBOOKS INTEGRATION
+# ============================================================================
+
+quickbooks:
+  description: "Extract financial data from QuickBooks Online or Desktop"
+
+  authentication:
+    method: "oauth2"
+    scopes:
+      - "com.intuit.quickbooks.accounting"
+    redirect_uri: "http://localhost:8000/callback"
+
+  endpoints:
+    base_url: "https://quickbooks.api.intuit.com/v3"
+
+    reports:
+      profit_loss:
+        endpoint: "/reports/ProfitAndLoss"
+        method: "GET"
+        parameters:
+          start_date: "YYYY-MM-DD"  # First day of tax year
+          end_date: "YYYY-MM-DD"     # Last day of tax year
+          accounting_method: "Accrual"  # or "Cash"
+          summarize_column_by: "Year"
+
+      balance_sheet:
+        endpoint: "/reports/BalanceSheet"
+        method: "GET"
+        parameters:
+          start_date: "YYYY-MM-DD"
+          end_date: "YYYY-MM-DD"
+          accounting_method: "Accrual"
+
+      transaction_detail:
+        endpoint: "/reports/TransactionList"
+        method: "GET"
+        parameters:
+          start_date: "YYYY-MM-DD"
+          end_date: "YYYY-MM-DD"
+          transaction_type: "All"
+
+  account_mapping:
+    # Map QuickBooks accounts to 990-EZ revenue categories
+    revenue:
+      contributions:
+        account_types: ["Income"]
+        account_numbers: ["4000-4999"]
+        keywords: ["donation", "contribution", "grant", "gift"]
+
+      program_service_revenue:
+        account_types: ["Income"]
+        account_numbers: ["5000-5999"]
+        keywords: ["service", "fee", "contract", "consulting"]
+
+      investment_income:
+        account_types: ["Income", "Other Income"]
+        account_numbers: ["6000-6999"]
+        keywords: ["interest", "dividend", "investment", "capital gain"]
+
+      other_revenue:
+        account_types: ["Other Income"]
+        account_numbers: ["7000-7999"]
+        keywords: ["other", "miscellaneous"]
+
+    expenses:
+      program_services:
+        account_numbers: ["6000-6999"]
+        keywords: ["program", "service", "delivery", "client"]
+
+      management_general:
+        account_numbers: ["7000-7999"]
+        keywords: ["admin", "management", "office", "general", "governance"]
+
+      fundraising:
+        account_numbers: ["8000-8999"]
+        keywords: ["fundraising", "development", "donor", "campaign"]
+
+  fallback:
+    method: "csv_export"
+    required_reports:
+      - "Profit & Loss (full year)"
+      - "Balance Sheet (beginning of year)"
+      - "Balance Sheet (end of year)"
+      - "Transaction Detail by Account"
+    instructions: |
+      If QuickBooks integration is unavailable:
+      1. Export Profit & Loss report (full tax year)
+      2. Export Balance Sheet (beginning and end of year)
+      3. Export Transaction Detail by Account
+      4. Save as CSV files
+      5. Provide to the skill for processing
+
+# ============================================================================
+# ASANA INTEGRATION
+# ============================================================================
+
+asana:
+  description: "Extract program metrics and accomplishments from Asana"
+
+  authentication:
+    method: "personal_access_token"
+    token_location: "ASANA_ACCESS_TOKEN"  # Environment variable
+
+  endpoints:
+    base_url: "https://app.asana.com/api/1.0"
+
+    portfolios:
+      client_delivery_hub:
+        portfolio_gid: "1211712180134240"
+        description: "Client projects and program delivery"
+        endpoint: "/portfolios/{portfolio_gid}/items"
+
+    projects:
+      board_governance:
+        project_gid: "1211794887178220"
+        description: "Board governance and compliance tracking"
+        endpoint: "/projects/{project_gid}/tasks"
+
+  custom_fields:
+    program_metrics:
+      contract_value:
+        gid: "custom_field_gid_1"
+        type: "number"
+        maps_to: "program_revenue"
+
+      beneficiaries_served:
+        gid: "custom_field_gid_2"
+        type: "number"
+        maps_to: "program_accomplishments"
+
+      program_expenses:
+        gid: "custom_field_gid_3"
+        type: "number"
+        maps_to: "functional_expenses"
+
+      outcome_metrics:
+        gid: "custom_field_gid_4"
+        type: "text"
+        maps_to: "program_description"
+
+      client_tier:
+        gid: "custom_field_gid_5"
+        type: "enum"
+        values: ["Tier 1", "Tier 2", "Tier 3"]
+
+      stage:
+        gid: "custom_field_gid_6"
+        type: "enum"
+        values: ["Prospect", "Proposal", "Signed", "Delivery", "Complete"]
+
+  data_extraction:
+    program_accomplishments:
+      query: "completed projects in tax year"
+      filters:
+        completed_since: "tax_year_start"
+        completed_before: "tax_year_end"
+      extract:
+        - "project_name"
+        - "project_description"
+        - "custom_fields.beneficiaries_served"
+        - "custom_fields.outcome_metrics"
+        - "custom_fields.program_expenses"
+        - "custom_fields.contract_value"
+
+    volunteer_hours:
+      query: "tasks tagged 'volunteer'"
+      calculation: "sum(time_tracked)"
+      valuation_rate: 31.80  # 2024 Independent Sector rate
+
+  fallback:
+    method: "manual_entry"
+    template: |
+      For each major program, provide:
+      1. Program name and description
+      2. Number of beneficiaries served
+      3. Key accomplishments and outcomes
+      4. Program expenses
+      5. Program revenue (if any)
+
+# ============================================================================
+# GOOGLE DRIVE INTEGRATION
+# ============================================================================
+
+google_drive:
+  description: "Search for governance documents and supporting materials"
+
+  authentication:
+    method: "service_account"
+    credentials_file: "credentials.json"
+    scopes:
+      - "https://www.googleapis.com/auth/drive.readonly"
+      - "https://www.googleapis.com/auth/drive.file"  # For uploads
+
+  folders:
+    board_documents:
+      folder_id: "BOARD_FOLDER_ID"
+      search_patterns:
+        - "board minutes"
+        - "board roster"
+        - "officer list"
+
+    financial_records:
+      folder_id: "FINANCIAL_FOLDER_ID"
+      search_patterns:
+        - "financial statements"
+        - "audit"
+        - "budget"
+
+    governance_policies:
+      folder_id: "POLICIES_FOLDER_ID"
+      search_patterns:
+        - "conflict of interest"
+        - "whistleblower"
+        - "document retention"
+
+    grant_documents:
+      folder_id: "GRANTS_FOLDER_ID"
+      search_patterns:
+        - "grant agreement"
+        - "award letter"
+        - "grant report"
+
+  document_extraction:
+    board_roster:
+      file_types: ["document", "spreadsheet", "pdf"]
+      extract:
+        - "officer_names"
+        - "officer_titles"
+        - "board_member_names"
+        - "term_dates"
+
+    policies:
+      file_types: ["document", "pdf"]
+      validate_existence:
+        - "conflict_of_interest_policy"
+        - "whistleblower_policy"
+        - "document_retention_policy"
+
+    grant_agreements:
+      file_types: ["document", "pdf"]
+      extract:
+        - "grantor_name"
+        - "grant_amount"
+        - "grant_purpose"
+        - "award_date"
+
+  storage:
+    output_folder: "990-EZ Filing Packages"
+    subfolder_pattern: "{tax_year}/{org_name}"
+    file_naming:
+      draft: "{org_name}_990EZ_{tax_year}_DRAFT_{version}.pdf"
+      final: "{org_name}_990EZ_{tax_year}_FINAL.pdf"
+      schedules: "{org_name}_Schedule{letter}_{tax_year}.pdf"
+
+  fallback:
+    method: "manual_document_review"
+    checklist: |
+      Please provide or confirm:
+      1. List of board members and officers
+      2. Conflict of interest policy (Yes/No)
+      3. Whistleblower policy (Yes/No)
+      4. Document retention policy (Yes/No)
+      5. Grant agreements for major grants
+
+# ============================================================================
+# DATA COLLECTION WORKFLOW
+# ============================================================================
+
+data_collection_workflow:
+
+  phase_1_financial:
+    priority: 1
+    sources:
+      primary: "quickbooks"
+      fallback: "manual_entry"
+    data_points:
+      - "revenue_by_source"
+      - "expenses_by_function"
+      - "balance_sheet_beginning"
+      - "balance_sheet_ending"
+    validation:
+      - "balance_sheet_balances"
+      - "net_assets_reconcile"
+
+  phase_2_programs:
+    priority: 2
+    sources:
+      primary: "asana"
+      fallback: "manual_entry"
+    data_points:
+      - "program_descriptions"
+      - "beneficiaries_served"
+      - "outcomes_achieved"
+      - "program_expenses_revenue"
+    validation:
+      - "program_expenses_match_financial"
+      - "descriptions_complete"
+
+  phase_3_governance:
+    priority: 3
+    sources:
+      primary: "google_drive"
+      fallback: "manual_entry"
+    data_points:
+      - "officers_directors"
+      - "compensation"
+      - "policies"
+      - "board_meetings"
+    validation:
+      - "minimum_board_size"
+      - "required_policies_present"
+
+  phase_4_donors:
+    priority: 4
+    sources:
+      primary: "quickbooks"  # Transaction detail
+      fallback: "manual_entry"
+    data_points:
+      - "contributors_over_5000"
+      - "donor_names_addresses"
+      - "contribution_amounts"
+      - "contribution_types"
+    validation:
+      - "total_matches_revenue"
+
+# ============================================================================
+# ERROR HANDLING
+# ============================================================================
+
+error_handling:
+
+  connection_failures:
+    quickbooks:
+      retry_attempts: 3
+      retry_delay_seconds: 5
+      fallback: "csv_export"
+      message: "QuickBooks connection failed. Please provide CSV exports."
+
+    asana:
+      retry_attempts: 3
+      retry_delay_seconds: 5
+      fallback: "manual_entry"
+      message: "Asana connection failed. I'll guide you through manual entry."
+
+    google_drive:
+      retry_attempts: 3
+      retry_delay_seconds: 5
+      fallback: "manual_entry"
+      message: "Google Drive connection failed. I'll ask for information directly."
+
+  data_validation_failures:
+    missing_required_fields:
+      action: "prompt_user"
+      severity: "ERROR"
+
+    inconsistent_data:
+      action: "flag_for_review"
+      severity: "WARNING"
+
+    stale_data:
+      threshold_days: 30
+      action: "notify_user"
+      severity: "INFO"
+
+# ============================================================================
+# PERFORMANCE & CACHING
+# ============================================================================
+
+performance:
+
+  caching:
+    enabled: true
+    ttl_seconds: 3600  # 1 hour
+    cache_keys:
+      - "quickbooks_profit_loss"
+      - "quickbooks_balance_sheet"
+      - "asana_program_data"
+      - "drive_governance_docs"
+
+  rate_limiting:
+    quickbooks:
+      requests_per_minute: 100
+      concurrent_requests: 5
+
+    asana:
+      requests_per_minute: 150
+      concurrent_requests: 10
+
+    google_drive:
+      requests_per_minute: 1000
+      concurrent_requests: 10
+
+  parallel_execution:
+    enabled: true
+    max_parallel_requests: 5
+    sources_to_parallelize:
+      - "quickbooks_reports"
+      - "asana_portfolios"
+      - "drive_folders"
+
+# ============================================================================
+# SECURITY & PRIVACY
+# ============================================================================
+
+security:
+
+  credential_storage:
+    method: "environment_variables"
+    encryption: "at_rest"
+    rotation_policy: "90_days"
+
+  data_protection:
+    pii_fields:
+      - "donor_names"
+      - "donor_addresses"
+      - "officer_compensation"
+    encryption: "required"
+    retention: "7_years"
+
+  access_control:
+    principle: "least_privilege"
+    audit_logging: "enabled"
+
+  compliance:
+    - "IRS Publication 4557 (Safeguarding Taxpayer Data)"
+    - "General Data Protection Regulation (GDPR)" # If applicable
+    - "State privacy laws"
+
+# ============================================================================
+# TESTING & DEVELOPMENT
+# ============================================================================
+
+testing:
+
+  sandbox_mode:
+    enabled: true
+    use_sample_data: true
+    skip_api_calls: true
+
+  sample_data:
+    quickbooks: "tests/sample_data/quickbooks_sample.json"
+    asana: "tests/sample_data/asana_sample.json"
+    google_drive: "tests/sample_data/drive_sample.json"
+
+  integration_tests:
+    - "test_quickbooks_connection"
+    - "test_asana_data_extraction"
+    - "test_drive_document_search"
+    - "test_end_to_end_workflow"
+
+# ============================================================================
+# VERSION & COMPATIBILITY
+# ============================================================================
+
+version: 1.0.0
+last_updated: "2025-11-17"
+
+compatibility:
+  quickbooks:
+    versions: ["QuickBooks Online", "QuickBooks Desktop 2020+"]
+    api_version: "v3"
+
+  asana:
+    api_version: "1.0"
+
+  google_drive:
+    api_version: "v3"
+
+notes: |
+  API integrations are optional. The skill works in manual mode without any integrations.
+  Integration setup requires appropriate credentials and permissions.
+  All API credentials should be stored securely in environment variables.

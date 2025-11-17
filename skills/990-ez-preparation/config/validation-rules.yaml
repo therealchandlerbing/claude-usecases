@@ -1,0 +1,433 @@
+# IRS Form 990-EZ Validation Rules
+# Version 1.0 | November 2025
+
+# ============================================================================
+# ELIGIBILITY CRITERIA
+# ============================================================================
+
+eligibility:
+  gross_receipts:
+    threshold: 200000
+    description: "Organizations with gross receipts >= $200,000 must file Form 990"
+    irs_reference: "Form 990-EZ Instructions, Who Must File"
+
+  total_assets:
+    threshold: 500000
+    description: "Organizations with total assets >= $500,000 must file Form 990"
+    irs_reference: "Form 990-EZ Instructions, Who Must File"
+
+  disqualifying_conditions:
+    - type: "donor_advised_fund"
+      question: "Are you a donor advised fund sponsor?"
+      disqualifies: true
+      reason: "Must file Form 990"
+
+    - type: "hospital_operator"
+      question: "Do you operate hospital facilities?"
+      disqualifies: true
+      reason: "Must file Form 990"
+
+    - type: "supporting_organization"
+      question: "Are you a Type III supporting organization?"
+      disqualifies: false
+      note: "May file 990-EZ but check specific requirements"
+
+# ============================================================================
+# MATHEMATICAL VALIDATION RULES
+# ============================================================================
+
+mathematical_validation:
+  part_i_revenue:
+    line_9_equals_sum:
+      formula: "line_9 == line_1 + line_2 + line_3 + line_4 + line_5a + line_5b + line_6a"
+      error_message: "Line 9 (Total Revenue) must equal sum of lines 1-6"
+      severity: "ERROR"
+
+  part_i_expenses:
+    line_17_equals_sum:
+      formula: "line_17 == line_10 + line_11a + line_11b + line_12 + line_13 + line_14 + line_15 + line_16a"
+      error_message: "Line 17 (Total Expenses) must equal sum of lines 10-16"
+      severity: "ERROR"
+
+  part_i_net_assets:
+    line_21_calculation:
+      formula: "line_21 == line_19 + line_20 - line_17 + line_9"
+      error_message: "Ending net assets calculation error"
+      severity: "ERROR"
+
+  part_ii_balance_sheet:
+    assets_equal_liabilities_plus_net:
+      formula: "line_25 == line_27 + line_28"
+      error_message: "Balance sheet must balance: Assets = Liabilities + Net Assets"
+      severity: "ERROR"
+
+    net_assets_reconciliation:
+      formula: "line_28 == part_i_line_21"
+      error_message: "Part II Net Assets (line 28) must equal Part I Ending Net Assets (line 21)"
+      severity: "ERROR"
+
+# ============================================================================
+# REGULATORY COMPLIANCE RULES
+# ============================================================================
+
+regulatory_compliance:
+
+  public_support_test:
+    # For 501(c)(3) public charities
+    threshold: 0.3333  # 33.33%
+    calculation_period: 5  # years
+    description: "Public support must be at least 1/3 of total support"
+    applies_to: ["501(c)(3)"]
+    schedule_required: "Schedule A"
+    irs_reference: "IRC Section 509(a)(1) or 509(a)(2)"
+
+    alternative_test:
+      threshold: 0.10  # 10%
+      description: "Facts and circumstances test (10% support + other factors)"
+      requires_documentation: true
+
+  expense_allocation:
+    program_services:
+      minimum_recommended: 0.65  # 65%
+      description: "Program expenses should typically be 65% or more of total expenses"
+      severity: "WARNING"
+      impact: "Affects charity ratings (GuideStar, Charity Navigator)"
+
+    fundraising:
+      maximum_recommended: 0.35  # 35%
+      description: "Fundraising should generally not exceed 35% of total expenses"
+      severity: "WARNING"
+      impact: "High fundraising ratios may trigger donor concerns"
+
+    management_general:
+      reasonable_range: [0.10, 0.25]  # 10-25%
+      description: "Management & general typically 10-25% of total expenses"
+      severity: "INFO"
+
+  compensation:
+    key_employee_threshold: 150000
+    description: "Compensation over $150K requires reasonable compensation documentation"
+    documentation_required:
+      - "Comparability data from similar organizations"
+      - "Contemporaneous substantiation of deliberation"
+      - "Compensation committee approval (if applicable)"
+    irs_reference: "IRC Section 4958 - Intermediate Sanctions"
+
+    related_party:
+      disclosure_required: true
+      description: "Related party compensation must be disclosed"
+
+  governance_policies:
+    required:
+      conflict_of_interest:
+        part_v_line: 11
+        required_for: ["All organizations"]
+        description: "Conflict of interest policy required"
+        severity: "WARNING"
+
+    recommended:
+      whistleblower:
+        part_v_line: 12
+        recommended_for: ["Organizations with employees"]
+        description: "Whistleblower policy recommended"
+        severity: "INFO"
+
+      document_retention:
+        part_v_line: 13
+        recommended_for: ["All organizations"]
+        description: "Document retention and destruction policy recommended"
+        severity: "INFO"
+
+  political_activity:
+    prohibited_for: ["501(c)(3)"]
+    part_v_line: 46
+    description: "501(c)(3) organizations cannot engage in political campaign activity"
+    severity: "ERROR"
+    irs_reference: "IRC Section 501(c)(3)"
+
+  lobbying:
+    substantial_part_test:
+      description: "Lobbying cannot be substantial part of activities"
+      applies_to: ["501(c)(3) without 501(h) election"]
+      severity: "WARNING"
+
+    501h_election:
+      description: "Organizations can elect expenditure test (Form 5768)"
+      expenditure_limits:
+        base: 1000000
+        rate_schedule:
+          - amount: 500000
+            rate: 0.20  # 20% of first $500K
+          - amount: 500000
+            rate: 0.15  # 15% of next $500K
+          - amount: 1000000
+            rate: 0.10  # 10% of next $1M
+          - amount: "over_1500000"
+            rate: 0.05  # 5% over $1.5M
+        maximum: 1000000
+
+# ============================================================================
+# SCHEDULE REQUIREMENTS
+# ============================================================================
+
+schedule_requirements:
+
+  schedule_a:
+    required_for:
+      - "501(c)(3) organizations"
+      - "501(c)(4), (5), (6) claiming to be public charities"
+    description: "Public Charity Status and Public Support"
+    parts_required:
+      - "Part I: Reason for Public Charity Status"
+      - "Part II: Support Schedule (5 years)"
+      - "Part III: Supplemental Information (if needed)"
+
+  schedule_b:
+    trigger_conditions:
+      single_contribution: 5000
+      percentage_threshold: 0.02  # 2% of total contributions
+    required_for: "Contributors >= $5,000"
+    description: "Schedule of Contributors"
+    public_disclosure: false  # NOT publicly disclosed
+    note: "Submitted to IRS only, redacted from public copy"
+
+  schedule_o:
+    optional: true
+    recommended_for:
+      - "Additional explanation needed for any answer"
+      - "Program accomplishments exceed space on form"
+      - "Governance policies and procedures"
+      - "Expense allocation methodology"
+      - "Compensation process explanation"
+    description: "Supplemental Information"
+
+# ============================================================================
+# NARRATIVE QUALITY STANDARDS
+# ============================================================================
+
+narrative_quality:
+
+  program_descriptions:
+    part_iii:
+      required_elements:
+        - "Clear description of program activities"
+        - "Target population or beneficiaries served"
+        - "Specific, quantifiable accomplishments"
+        - "Measurable outcomes or impact"
+
+      best_practices:
+        - "Use active voice"
+        - "Include specific metrics (numbers, percentages)"
+        - "Describe WHO, WHAT, WHY, and IMPACT"
+        - "Keep language clear for public disclosure"
+        - "Avoid jargon or acronyms without explanation"
+
+      character_limits:
+        per_program: 1000
+        recommendation: "Aim for 250-500 words per program"
+
+      quality_checks:
+        specificity: "Avoid vague terms like 'various' or 'multiple'"
+        quantification: "Include at least 2-3 specific metrics"
+        impact: "Describe outcomes, not just activities"
+
+  mission_statement:
+    max_length: 500
+    required_elements:
+      - "Purpose of organization"
+      - "Primary activities"
+      - "Beneficiaries served"
+    tone: "Professional, clear, public-appropriate"
+
+# ============================================================================
+# STRATEGIC QUALITY INDICATORS
+# ============================================================================
+
+strategic_indicators:
+
+  financial_sustainability:
+    net_income_ratio:
+      healthy_range: [0.05, 0.20]  # 5-20% of revenue
+      description: "Net income should be positive and reasonable"
+
+    months_of_cash:
+      minimum_recommended: 3
+      healthy_range: [3, 12]
+      calculation: "(cash + savings) / (monthly_expenses)"
+
+    revenue_concentration:
+      maximum_single_source: 0.50  # 50%
+      description: "Avoid over-reliance on single revenue source"
+      severity: "WARNING"
+
+  revenue_diversification:
+    minimum_sources: 2
+    recommended_mix:
+      contributions: [0.30, 0.70]  # 30-70%
+      earned_revenue: [0.20, 0.50]  # 20-50%
+      investment: [0.00, 0.10]  # 0-10%
+    description: "Diversified revenue reduces organizational risk"
+
+  governance_best_practices:
+    board_size:
+      minimum: 3
+      recommended: [5, 15]
+      description: "Effective board size for governance"
+
+    board_independence:
+      minimum_percentage: 0.51  # 51%
+      description: "Majority of board should be independent"
+
+    board_meetings:
+      minimum_per_year: 1
+      recommended: 4
+      description: "Quarterly meetings recommended"
+
+  charity_ratings_alignment:
+    guidestar_platinum:
+      program_expense_ratio: 0.75  # 75%+
+      fundraising_efficiency: 0.10  # 10% or less
+
+    charity_navigator_4star:
+      program_expense_ratio: 0.75
+      fundraising_efficiency: 0.10
+      ceo_compensation_ratio: 0.05
+      liabilities_to_assets: 0.50
+
+# ============================================================================
+# FILING REQUIREMENTS
+# ============================================================================
+
+filing_requirements:
+
+  federal:
+    regular_deadline:
+      formula: "15th day of 5th month after fiscal year end"
+      examples:
+        calendar_year: "May 15"
+        june_30_year: "November 15"
+
+    extension:
+      form: "Form 8868"
+      months: 6
+      automatic: true
+      note: "Extends filing deadline, not payment deadline"
+
+  state_requirements:
+    california:
+      form: "RRF-1"
+      deadline: "Same as federal (4.5 months after year end)"
+      fee: 25
+      threshold: 0  # All organizations
+
+    new_york:
+      form: "CHAR500"
+      deadline: "Same as federal"
+      fee_schedule:
+        - revenue_max: 250000
+          fee: 25
+        - revenue_max: 1000000
+          fee: 100
+
+  public_disclosure:
+    required_documents:
+      - "Form 990-EZ (without Schedule B)"
+      - "Schedule A"
+      - "Schedule O"
+      - "Form 1023 (exemption application)"
+
+    availability:
+      in_person: "Must provide upon request"
+      online: "Recommended to post on website"
+
+    redactions:
+      schedule_b: "Contributor information redacted"
+      other: "Must not redact other information"
+
+# ============================================================================
+# ERROR SEVERITY LEVELS
+# ============================================================================
+
+severity_levels:
+  ERROR:
+    description: "Critical issue that prevents filing"
+    action: "Must be corrected before submission"
+    examples:
+      - "Mathematical calculation errors"
+      - "Balance sheet doesn't balance"
+      - "Required fields missing"
+
+  WARNING:
+    description: "Significant issue that should be addressed"
+    action: "Review and address before filing if possible"
+    examples:
+      - "Low program expense ratio"
+      - "Missing recommended policies"
+      - "Public support test concerns"
+
+  INFO:
+    description: "Informational note or best practice recommendation"
+    action: "Consider for continuous improvement"
+    examples:
+      - "Expense allocation within reasonable range"
+      - "Revenue diversification opportunity"
+      - "Governance enhancement suggestions"
+
+# ============================================================================
+# VALIDATION WORKFLOW
+# ============================================================================
+
+validation_workflow:
+  order:
+    - "eligibility_check"
+    - "mathematical_validation"
+    - "regulatory_compliance"
+    - "narrative_quality"
+    - "strategic_indicators"
+    - "schedule_requirements"
+    - "filing_requirements"
+
+  stop_on_error: true
+  continue_on_warning: true
+  collect_all_info: true
+
+# ============================================================================
+# REFERENCES & RESOURCES
+# ============================================================================
+
+references:
+  irs_forms:
+    form_990ez: "https://www.irs.gov/pub/irs-pdf/f990ez.pdf"
+    instructions: "https://www.irs.gov/pub/irs-pdf/i990ez.pdf"
+    schedule_a: "https://www.irs.gov/pub/irs-pdf/f990sa.pdf"
+    schedule_b: "https://www.irs.gov/pub/irs-pdf/f990sb.pdf"
+
+  irs_publications:
+    pub_557: "https://www.irs.gov/pub/irs-pdf/p557.pdf"  # Tax-Exempt Status
+    pub_4221_pc: "https://www.irs.gov/pub/irs-pdf/p4221pc.pdf"  # Compliance Guide
+
+  irs_guidance:
+    stayexempt: "https://www.stayexempt.irs.gov"
+    charities_nonprofits: "https://www.irs.gov/charities-non-profits"
+
+  charity_rating_agencies:
+    guidestar: "https://www.guidestar.org"
+    charity_navigator: "https://www.charitynavigator.org"
+
+  best_practices:
+    national_council: "https://www.councilofnonprofits.org"
+    independent_sector: "https://independentsector.org"
+
+# ============================================================================
+# VERSION & UPDATES
+# ============================================================================
+
+version: 1.0.0
+last_updated: "2025-11-17"
+tax_year_applicable: 2024
+irs_form_version: "2024"
+
+notes: |
+  These validation rules are based on IRS Form 990-EZ instructions for tax year 2024.
+  Rules are updated annually to reflect current IRS requirements and best practices.
+  Always verify against current IRS publications before filing.
