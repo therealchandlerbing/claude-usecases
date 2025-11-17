@@ -171,36 +171,42 @@ claude-usecases/
 - Generating weekly/monthly newsletters for stakeholders and partners
 - Preparing pre-meeting briefings with talking points
 
-#### Executive Impact Report Templates
-**Location:** `templates/impact-reports/`
-**Purpose:** Professional, accessible HTML templates for creating executive-level impact reports with slide-based navigation. Two optimized variants: Static (presentation-focused) and Dynamic (web-focused).
+#### Executive Impact Reports
 
-**Quick Links:** [README](templates/impact-reports/README.md) ⭐ | [Static Template](templates/impact-reports/static/README.md) | [Dynamic Template](templates/impact-reports/dynamic/README.md) | [Component Library](templates/impact-reports/components/README.md) | [Implementation Summary](templates/impact-reports/IMPLEMENTATION_SUMMARY.md)
+Two approaches for creating professional board presentations and annual impact reports:
 
-**When to Use:**
-- Creating board presentations and annual impact reports with professional design
-- Building interactive web-based reports with flexible content and scrolling
-- Exporting presentation-ready PDFs (landscape, one slide per page)
-- Showcasing program outcomes, partnerships, and financial performance
-- Need WCAG AA accessible, responsive, zero-dependency templates
-
-**Features:**
-- **Static Template:** Fixed slide sizes (6 slides), PDF-optimized, no scrolling, ~75KB
-- **Dynamic Template:** Flexible content (cover + 6 slides), web-optimized, localStorage, ~85KB
-- Zero dependencies (pure HTML/CSS/JS + Google Fonts)
-- Full keyboard navigation and print-ready PDF export
-- 50+ reusable components in component library
-#### Executive Impact Presentation Generator
+##### Option 1: Automated Generation (Recommended)
+**Executive Impact Presentation Generator Skill**
 **Location:** `skills/executive-impact-presentation-generator/`
-**Purpose:** Generate professional board-ready impact reports in two optimized formats (Presentation and Executive) from a single content input. Transform organizational impact data into polished, print-ready reports suitable for board meetings and stakeholder communications.
+**Purpose:** Have Claude generate complete impact reports from your structured content input. Produces two formats (Presentation and Executive) from a single content submission.
 
 **Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md) | [Quick Reference](skills/executive-impact-presentation-generator/QUICK_REFERENCE.md) | [Content Template](skills/executive-impact-presentation-generator/CONTENT_SCHEMA_TEMPLATE.md)
 
-**When to Use:**
-- Creating board presentations and annual impact reports with dual-format generation
-- Generating both presentation slides (landscape deck) and executive documents (portrait pages) from single input
-- Producing print-ready PDF reports with professional design and brand customization
-- Showcasing organizational performance across six core sections (impact, regional portfolio, financial, outcomes, partnerships, strategic outlook)
+**Best for:**
+- Quick report generation from structured data
+- Consistent formatting across multiple reports
+- Organizations familiar with Claude workflows
+- Teams that want automated, repeatable processes
+
+**Output:** Two HTML files (landscape presentation + portrait executive document)
+
+##### Option 2: Manual Customization
+**Executive Impact Report Templates**
+**Location:** `templates/impact-reports/`
+**Purpose:** Download and manually edit professional HTML templates. Offers complete control over content and design customization.
+
+**Quick Links:** [README](templates/impact-reports/README.md) ⭐ | [Static Template](templates/impact-reports/static/README.md) | [Dynamic Template](templates/impact-reports/dynamic/README.md) | [Component Library](templates/impact-reports/components/README.md)
+
+**Best for:**
+- Organizations without Claude access
+- Custom layouts beyond the six-section structure
+- Teams that prefer direct HTML/CSS control
+- One-off reports with unique requirements
+
+**Features:**
+- Static Template: Fixed slides (6 slides), PDF-optimized, ~75KB
+- Dynamic Template: Flexible content (cover + 6 slides), web-optimized, ~85KB
+- Zero dependencies, WCAG AA accessible, 50+ reusable components
 
 ---
 
@@ -299,5 +305,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 1.8.0
+**Version:** 1.8.1
 **Last Updated:** 2025-11-17
