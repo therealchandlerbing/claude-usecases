@@ -31,6 +31,7 @@ claude-usecases/
 │   ├── design-director/         # Design elevation & visual polish
 │   ├── executive-impact-presentation-generator/  # Automated impact report generation
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
+│   ├── open-deep-research-team/ # Multi-agent comprehensive research system
 │   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
@@ -76,6 +77,20 @@ claude-usecases/
 ---
 
 ### Research & Validation
+
+#### Open Deep Research Team
+**Location:** `skills/open-deep-research-team/`
+**Purpose:** Sophisticated multi-agent AI research system conducting comprehensive, academic-quality research through orchestrated specialist agents. Combines academic, technical, and data-driven perspectives with rigorous quality assurance and comprehensive reporting.
+
+**Quick Links:** [README](skills/open-deep-research-team/README.md) ⭐ | [Implementation Guide](skills/open-deep-research-team/docs/implementation_guide.md) | [Workflow Example](skills/open-deep-research-team/examples/workflow_example.md) | [Agent Prompts](skills/open-deep-research-team/prompts/)
+
+**When to Use:**
+- Conducting comprehensive research on complex topics requiring multiple perspectives
+- Academic literature reviews and state-of-the-art analysis
+- Technical evaluations with implementation details and code examples
+- Market research and competitive intelligence with proper citations
+- Business intelligence requiring academic rigor and data validation
+- Research reports with executive summaries and actionable recommendations
 
 #### Vianeo Persona Builder
 **Location:** `skills/vianeo-persona-builder/`
