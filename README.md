@@ -18,6 +18,8 @@ claude-usecases/
 │   └── skills/                  # Managed Claude skills
 │       ├── 360-client-portfolio-builder/   # Client venture portfolio page generator
 │       ├── 360-executive-project-tracker/  # Multi-source project status tracking
+│       ├── ai-ethics-advisor/              # AI ethics, bias assessment & responsible AI
+│       ├── ceo-advisor/                    # Executive advisory board & decision support (v2.0)
 │       ├── contract-redlining-tool/        # Automated contract review & redlining
 │       ├── executive-impact-presentation-generator/  # Board-ready impact report generation
 │       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
@@ -32,7 +34,6 @@ claude-usecases/
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
 │   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
-│   ├── ceo-advisor/             # Executive intelligence & strategic decision support
 │   ├── design-director/         # Design elevation & visual polish
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
 │   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
@@ -76,6 +77,24 @@ claude-usecases/
 - Quality system compliance (QSR, cGMP, ISO 13485)
 - Clinical trial design and regulatory strategy
 - Software as Medical Device (SaMD) and AI/ML regulatory frameworks
+
+---
+
+### AI Governance & Responsible AI
+
+#### AI Ethics Advisor
+**Location:** `.claude/skills/ai-ethics-advisor/`
+**Purpose:** Comprehensive AI ethics and responsible AI development specialist for bias assessment, fairness evaluation, ethical AI implementation, community impact analysis, and regulatory compliance. Expert in AI safety, alignment, and equitable systems design.
+
+**Quick Links:** [README](.claude/skills/ai-ethics-advisor/README.md) ⭐ | [Quick Start](.claude/skills/ai-ethics-advisor/QUICK-START.md) | [Skill Spec](.claude/skills/ai-ethics-advisor/SKILL.md) | [Assessment Templates](.claude/skills/ai-ethics-advisor/ASSESSMENT-TEMPLATES.md)
+
+**When to Use:**
+- Bias assessment and fairness evaluation for AI systems
+- Ethical AI implementation guidance and frameworks
+- Community impact analysis for AI deployments
+- Regulatory compliance (EU AI Act, NIST AI RMF, sectoral requirements)
+- High-risk AI systems affecting employment, lending, healthcare, or criminal justice
+- Algorithmic audits and responsible AI development
 
 ---
 
@@ -315,10 +334,10 @@ claude-usecases/
 ### Strategic Leadership & Decision Support
 
 #### CEO Advisor
-**Location:** `skills/ceo-advisor/`
-**Purpose:** Advanced executive intelligence platform that transforms CEO decision-making from reactive management to predictive excellence through real-time signal detection, stakeholder sentiment analytics, and personal effectiveness optimization.
+**Location:** `.claude/skills/ceo-advisor/`
+**Purpose:** Advanced executive intelligence system providing a complete AI-powered advisory board with five specialized experts (Intelligence, Relationship, Performance, Strategy, Financial) delivering integrated strategic guidance, stakeholder management, performance optimization, financial oversight, and real-time intelligence for CEO decision-making.
 
-**Quick Links:** [README](skills/ceo-advisor/README.md) ⭐ | [Config](skills/ceo-advisor/config/) | [Skill Spec](skills/ceo-advisor/SKILL.md)
+**Quick Links:** [README](.claude/skills/ceo-advisor/README.md) ⭐ | [Quick Start](.claude/skills/ceo-advisor/QUICK-START.md) | [Skill Spec](.claude/skills/ceo-advisor/SKILL.md) | [Implementation Guide](.claude/skills/ceo-advisor/IMPLEMENTATION-GUIDE.md)
 
 **When to Use:**
 - Daily intelligence briefs with critical issues, stakeholder attention, and strategic insights
@@ -408,5 +427,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.1.0
+**Version:** 2.2.0
 **Last Updated:** 2025-11-18
