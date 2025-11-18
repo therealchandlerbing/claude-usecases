@@ -229,3 +229,53 @@ integrations:
   calendar:
     search_history_days: 180
     event_prefix: "Sales:"
+
+  apollo:
+    enabled: true
+    api_endpoint: "https://api.apollo.io/api/v1"
+
+    # Feature Flags
+    features:
+      people_enrichment: true
+      organization_enrichment: true
+      people_search: true
+      organization_search: true
+      bulk_enrichment: true  # Up to 10 records at once
+
+    # Enrichment Settings
+    enrichment:
+      reveal_personal_emails: false  # Costs additional credits
+      reveal_phone_numbers: false    # Costs additional credits
+      auto_enrich_new_prospects: true
+      enrich_on_pipeline_add: true
+
+    # Search Settings
+    search:
+      default_page_size: 25
+      max_results_per_search: 100
+
+    # Data Preferences
+    data_preferences:
+      minimum_confidence_score: 0.7  # Only use high-confidence data
+      include_employment_history: true
+      include_funding_data: true
+      include_technology_stack: true
+
+    # Credit Management
+    credit_management:
+      daily_limit: 100  # Max API calls per day
+      warn_threshold: 80  # Warn when 80% of daily limit reached
+      priority_prospects_only: false  # If true, only use for hot/warm leads
+
+    # Use Cases
+    use_for:
+      cold_outreach: true          # Enrich before first contact
+      contact_discovery: true      # Find decision-makers
+      lead_qualification: true     # Score leads by firmographics
+      data_validation: true        # Verify existing contact data
+      competitive_intelligence: true  # Research competitor customers
+
+    # Fallback Strategy
+    fallback:
+      use_web_search_if_not_found: true
+      cache_results_days: 30  # Cache Apollo data for 30 days
