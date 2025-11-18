@@ -192,6 +192,7 @@ TOP 5 FLEXIBLE POINTS
 
 ### Core Documents
 - **[SKILL.md](SKILL.md)** - Complete skill specification with workflows and clause library
+- **[PROVEN-PATTERNS.md](PROVEN-PATTERNS.md)** - Institutional knowledge from completed agreements with actual negotiated language and proven deal structures
 - **[IMPLEMENTATION-GUIDE.md](IMPLEMENTATION-GUIDE.md)** - Comprehensive knowledge base with risk patterns
 - **[EXAMPLES.md](EXAMPLES.md)** - 14 before/after redlining examples across all deal types
 - **[NEGOTIATION-PLAYBOOK.md](NEGOTIATION-PLAYBOOK.md)** - Quick reference for live negotiations
