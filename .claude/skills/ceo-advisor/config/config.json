@@ -1,0 +1,143 @@
+{
+  "system_configuration": {
+    "version": "2.0.0",
+    "environment": "production",
+    "timezone": "America/Los_Angeles"
+  },
+
+  "intelligence_configuration": {
+    "enabled": true,
+    "sensitivity": "high",
+    "scan_frequency": "real-time",
+    "prediction_horizon_days": 30,
+    "confidence_threshold": 0.75,
+    "alert_thresholds": {
+      "critical": {
+        "team_health": 30,
+        "customer_health": 35,
+        "financial_health": 25,
+        "competitive_threat": 80
+      },
+      "warning": {
+        "team_health": 50,
+        "customer_health": 55,
+        "financial_health": 45,
+        "competitive_threat": 60
+      }
+    }
+  },
+
+  "stakeholder_configuration": {
+    "enabled": true,
+    "tracking_depth": "comprehensive",
+    "sentiment_analysis": true,
+    "relationship_decay_rate": 0.02,
+    "prediction_enabled": true,
+    "categories": {
+      "board": {
+        "weight": 1.0,
+        "default_frequency_days": 7,
+        "sentiment_threshold": 0.8
+      },
+      "investor": {
+        "weight": 0.9,
+        "default_frequency_days": 14,
+        "sentiment_threshold": 0.75
+      },
+      "executive": {
+        "weight": 0.85,
+        "default_frequency_days": 3,
+        "sentiment_threshold": 0.7
+      },
+      "customer": {
+        "weight": 0.8,
+        "default_frequency_days": 30,
+        "sentiment_threshold": 0.65
+      }
+    }
+  },
+
+  "optimization_configuration": {
+    "enabled": true,
+    "mode": "balanced",
+    "focus_time_target_hours": 2.0,
+    "meeting_batch_mode": true,
+    "delegation_threshold": 0.7,
+    "time_allocation_targets": {
+      "strategic_thinking": {
+        "target": 25,
+        "minimum": 20,
+        "maximum": 30
+      },
+      "team_leadership": {
+        "target": 20,
+        "minimum": 15,
+        "maximum": 25
+      },
+      "external_engagement": {
+        "target": 20,
+        "minimum": 15,
+        "maximum": 25
+      },
+      "operational_oversight": {
+        "target": 15,
+        "minimum": 10,
+        "maximum": 20
+      },
+      "customer_interaction": {
+        "target": 10,
+        "minimum": 5,
+        "maximum": 15
+      },
+      "personal_development": {
+        "target": 10,
+        "minimum": 5,
+        "maximum": 15
+      }
+    },
+    "energy_profile": {
+      "peak_hours": ["8:00", "9:00", "10:00"],
+      "high_hours": ["7:00", "11:00", "16:00"],
+      "moderate_hours": ["12:00", "14:00", "15:00"],
+      "low_hours": ["13:00", "17:00"]
+    }
+  },
+
+  "strategy_configuration": {
+    "enabled": true,
+    "review_cycle": "quarterly",
+    "planning_horizon_years": 3,
+    "scenario_count": 3,
+    "risk_tolerance": "moderate"
+  },
+
+  "reporting_configuration": {
+    "daily_brief": {
+      "enabled": true,
+      "time": "06:00",
+      "include_sections": [
+        "executive_summary",
+        "critical_items",
+        "stakeholder_updates",
+        "schedule_optimization",
+        "action_items"
+      ]
+    },
+    "output_formats": ["summary", "detailed", "json"]
+  },
+
+  "personalization": {
+    "ceo_profile": {
+      "decision_style": "analytical",
+      "communication_preference": "concise",
+      "risk_tolerance": "moderate",
+      "energy_pattern": "morning_peak"
+    },
+    "preferences": {
+      "language": "en",
+      "date_format": "YYYY-MM-DD",
+      "time_format": "24h",
+      "currency": "USD"
+    }
+  }
+}
