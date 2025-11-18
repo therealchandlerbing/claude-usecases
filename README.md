@@ -19,19 +19,20 @@ claude-usecases/
 │       ├── 360-client-portfolio-builder/   # Client venture portfolio page generator
 │       ├── 360-executive-project-tracker/  # Multi-source project status tracking
 │       ├── contract-redlining-tool/        # Automated contract review & redlining
+│       ├── executive-impact-presentation-generator/  # Board-ready impact reports (dual-format)
 │       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
 │       ├── fda-consultant-agent/           # FDA regulatory consulting
 │       ├── intelligence-extractor/         # Partnership & funding intelligence extraction
+│       ├── open-deep-research-team/        # Multi-agent comprehensive research system
 │       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
+│   ├── ceo-advisor/             # Strategic advisory and decision support
 │   ├── design-director/         # Design elevation & visual polish
-│   ├── executive-impact-presentation-generator/  # Automated impact report generation
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
-│   ├── open-deep-research-team/ # Multi-agent comprehensive research system
 │   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
@@ -79,10 +80,10 @@ claude-usecases/
 ### Research & Validation
 
 #### Open Deep Research Team
-**Location:** `skills/open-deep-research-team/`
+**Location:** `.claude/skills/open-deep-research-team/`
 **Purpose:** Sophisticated multi-agent AI research system conducting comprehensive, academic-quality research through orchestrated specialist agents. Combines academic, technical, and data-driven perspectives with rigorous quality assurance and comprehensive reporting.
 
-**Quick Links:** [README](skills/open-deep-research-team/README.md) ⭐ | [Implementation Guide](skills/open-deep-research-team/docs/implementation_guide.md) | [Workflow Example](skills/open-deep-research-team/examples/workflow_example.md) | [Agent Prompts](skills/open-deep-research-team/prompts/)
+**Quick Links:** [README](.claude/skills/open-deep-research-team/README.md) ⭐ | [Quick Start](.claude/skills/open-deep-research-team/QUICK-START.md) | [Skill Spec](.claude/skills/open-deep-research-team/SKILL.md) | [Examples](.claude/skills/open-deep-research-team/EXAMPLES.md)
 
 **When to Use:**
 - Conducting comprehensive research on complex topics requiring multiple perspectives
@@ -203,16 +204,18 @@ claude-usecases/
 - Pre-drafting board motions and post-meeting action items
 
 #### Executive Impact Presentation Generator
-**Location:** `skills/executive-impact-presentation-generator/`
-**Purpose:** Generate complete impact reports from structured content input in two formats (presentation and executive document).
+**Location:** `.claude/skills/executive-impact-presentation-generator/`
+**Purpose:** Generate professional, board-ready impact reports in dual formats (presentation deck and executive document) from a single content input, with brand customization, accessibility compliance, and print optimization.
 
-**Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md)
+**Quick Links:** [README](.claude/skills/executive-impact-presentation-generator/README.md) ⭐ | [Quick Start](.claude/skills/executive-impact-presentation-generator/QUICK-START.md) | [Skill Spec](.claude/skills/executive-impact-presentation-generator/SKILL.md) | [Examples](.claude/skills/executive-impact-presentation-generator/EXAMPLES.md) | [Implementation Guide](.claude/skills/executive-impact-presentation-generator/IMPLEMENTATION-GUIDE.md)
 
 **When to Use:**
-- Quick report generation from structured data
-- Consistent formatting across multiple reports
-- Automated, repeatable impact reporting workflows
-- Board presentations and annual impact reports
+- Creating quarterly or annual board presentations with dual-format outputs
+- Generating stakeholder impact reports with professional polish and accessibility
+- Building repeatable reporting workflows (10-20 minutes vs 8-12 hours manually)
+- Distributing board-ready presentations (landscape deck) and comprehensive documents (portrait)
+- Customizing reports with brand colors and maintaining visual consistency
+- Ensuring WCAG 2.1 AA accessibility compliance and perfect PDF print exports
 
 ---
 
@@ -386,5 +389,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.0.0
-**Last Updated:** 2025-11-17
+**Version:** 2.0.1
+**Last Updated:** 2025-11-18
