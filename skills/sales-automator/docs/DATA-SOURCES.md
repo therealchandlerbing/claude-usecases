@@ -11,6 +11,7 @@ This skill pulls intelligence from multiple sources to personalize outreach. Her
 4. **Google Calendar** - Meeting history, relationship frequency
 5. **Past Conversations** - Claude's memory of your discussions
 6. **Web Search** - Company research, competitive intelligence
+7. **Apollo.io** - Contact enrichment, company data, decision-maker discovery
 
 ---
 
@@ -374,6 +375,475 @@ Research prospects, competitors, industry trends when internal data doesn't exis
 ```
 
 Claude will batch the web searches and deliver compiled intelligence brief.
+
+---
+
+## 7. Apollo.io Integration
+
+### Purpose
+Apollo.io provides structured contact and company data from a database of 210M+ contacts and 35M+ companies. Use Apollo to enrich prospect data, discover decision-makers, and qualify leads with firmographic intelligence.
+
+### Access Requirements
+- Active Apollo.io paid account (not available on free plan)
+- API key generated from Apollo.io dashboard
+- API key configured in your environment or MCP settings
+
+### How Claude Uses Apollo
+
+**For Contact Enrichment**:
+- Input: Email address, name, or LinkedIn URL
+- Output: Job title, company, LinkedIn profile, employment history, email verification status
+- Use case: Verify contact data before outreach, find current job title
+
+**For Company Enrichment**:
+- Input: Company domain or name
+- Output: Industry, revenue, employee count, funding data, locations, technologies used
+- Use case: Qualify leads, understand company size and maturity
+
+**For Decision-Maker Discovery**:
+- Input: Company name + job title/department
+- Output: List of contacts matching criteria with emails and LinkedIn profiles
+- Use case: "Find the VP of Sales at Acme Corp"
+
+**For Lead Qualification**:
+- Input: Company domain
+- Output: Firmographic data (size, revenue, funding stage, growth signals)
+- Use case: Score leads based on ideal customer profile (ICP)
+
+### Apollo API Endpoints Used
+
+**1. People Enrichment**
+```
+POST https://api.apollo.io/api/v1/people/match
+```
+**Parameters**:
+- `email`: Email address to enrich
+- `first_name`, `last_name`: Name (if email unknown)
+- `organization_name`: Company name (helps matching)
+- `reveal_personal_emails`: Boolean (costs extra credits)
+- `reveal_phone_number`: Boolean (costs extra credits)
+
+**Returns**:
+- Contact details (name, title, company)
+- LinkedIn profile URL
+- Employment history
+- Email verification status
+- Social media profiles
+
+**2. Organization Enrichment**
+```
+POST https://api.apollo.io/api/v1/organizations/enrich
+```
+**Parameters**:
+- `domain`: Company website domain (e.g., "acmecorp.com")
+- `name`: Company name (if domain unknown)
+
+**Returns**:
+- Industry classification
+- Revenue range
+- Employee count
+- Funding information
+- Office locations
+- Technologies used
+- Corporate phone numbers
+
+**3. People Search**
+```
+POST https://api.apollo.io/api/v1/mixed_people/search
+```
+**Parameters**:
+- `person_titles`: Array of job titles (e.g., ["VP of Sales", "Sales Director"])
+- `person_seniorities`: Array (e.g., ["VP", "Director", "C-Level"])
+- `organization_ids`: Search within specific companies
+- `person_locations`: Array of locations
+- `q_keywords`: Free text search
+
+**Returns**:
+- List of contacts matching filters (up to 100 per search)
+- Each with full contact details
+
+**4. Organization Search**
+```
+POST https://api.apollo.io/api/v1/mixed_companies/search
+```
+**Parameters**:
+- `organization_num_employees_ranges`: Employee count ranges
+- `organization_revenue_ranges`: Revenue ranges
+- `organization_industry_tag_ids`: Industry filters
+- `organization_locations`: Geographic filters
+
+**Returns**:
+- List of companies matching filters (up to 50,000 records total)
+
+### When Apollo Should Be Used
+
+**Priority 1: Contact Discovery**
+User says: "Find the CTO at TechStart Inc"
+- Use Apollo People Search with company + title filters
+- Return top 3-5 matches with LinkedIn URLs and emails
+
+**Priority 2: Prospect Enrichment (Cold Outreach)**
+User says: "Create cold outreach for john.doe@acmecorp.com"
+- Before researching, use Apollo to enrich contact
+- Get current job title, verify employment, check LinkedIn
+- Then continue with normal outreach workflow
+
+**Priority 3: Company Qualification**
+User says: "Should we pursue Acme Corp?"
+- Use Apollo Organization Enrichment to get firmographics
+- Compare against ICP criteria (size, revenue, industry, funding)
+- Provide qualification recommendation
+
+**Priority 4: Lead Scoring**
+When adding deal to pipeline:
+- Auto-enrich company via Apollo
+- Score based on: employee count, revenue, funding stage, growth signals
+- Set Lead Score custom field (Hot/Warm/Cold)
+
+### When NOT to Use Apollo
+
+**Skip Apollo when**:
+- Existing customer/partner (you already have accurate data)
+- Recently enriched (< 30 days ago, use cached data)
+- Free contact discovery tools suffice (LinkedIn manual search)
+- Credit budget exhausted for the day
+
+**Use Web Search instead when**:
+- Need narrative context (recent news, strategy, announcements)
+- Looking for qualitative information (company culture, values)
+- Searching for content (blog posts, case studies, press releases)
+
+### Apollo Credit Management
+
+**Credit Costs**:
+- People Enrichment: 1 credit per person
+- Organization Enrichment: 1 credit per company
+- People Search: 1 credit per search (not per result)
+- Revealing personal email: +1 credit
+- Revealing phone number: +1 credit
+
+**Daily Budget Strategy**:
+```yaml
+# Configure in pipeline-config.yaml
+apollo:
+  credit_management:
+    daily_limit: 100
+    warn_threshold: 80
+    priority_prospects_only: false
+```
+
+**Recommended Allocation**:
+- 50 credits: Cold outreach contact enrichment
+- 30 credits: Decision-maker discovery searches
+- 20 credits: Company qualification/lead scoring
+
+### Apollo Workflow Integration
+
+**Integrated into Phase 1: Intelligence Gathering**
+
+Updated workflow when Apollo is enabled:
+
+```
+1. Check Past Conversations (existing context)
+2. Check Asana (existing deal data)
+3. [NEW] Apollo Enrichment
+   a. If email provided: Enrich contact via Apollo
+   b. If company only: Enrich organization via Apollo
+   c. If finding decision-maker: Search Apollo for contacts
+4. Search Gmail (email history)
+5. Check Calendar (meeting history)
+6. Search Drive (proposals, case studies)
+7. Web Search (narrative context, recent news)
+```
+
+**Example: Cold Outreach with Apollo**
+
+User: "Create cold outreach for sarah.jones@techstart.io"
+
+**Step 1: Apollo People Enrichment**
+```
+POST /api/v1/people/match
+{
+  "email": "sarah.jones@techstart.io"
+}
+```
+**Returns**:
+- Name: Sarah Jones
+- Title: VP of Product
+- Company: TechStart Inc.
+- LinkedIn: linkedin.com/in/sarahjones
+- Employment History: Previously at Google, Microsoft
+- Email Status: Verified
+
+**Step 2: Apollo Organization Enrichment**
+```
+POST /api/v1/organizations/enrich
+{
+  "domain": "techstart.io"
+}
+```
+**Returns**:
+- Industry: SaaS / Enterprise Software
+- Employee Count: 50-200
+- Revenue: $5M-$10M
+- Funding: Series A ($8M raised)
+- Locations: San Francisco, Remote
+- Technologies: AWS, React, Python
+
+**Step 3: Synthesize Apollo Data**
+Claude now knows:
+- Sarah is VP of Product (target persona ✓)
+- TechStart is Series A startup (good timing for sales)
+- Company uses modern tech stack (relevant for your solution)
+- 50-200 employees (fits ICP)
+- Sarah has big tech experience (understands enterprise solutions)
+
+**Step 4: Continue Normal Workflow**
+- Search Gmail for past TechStart emails
+- Check Calendar for TechStart meetings
+- Web search for "TechStart news OR announcements"
+- Generate personalized outreach referencing Sarah's background and TechStart's stage
+
+**Result**: Hyper-personalized outreach that references:
+- Sarah's VP Product role specifically
+- TechStart's Series A stage and growth trajectory
+- Relevant pain points for 50-200 person product teams
+- Credibility via mentioning her Google/Microsoft background
+
+### Apollo Search Strategies
+
+**Strategy 1: Decision-Maker Discovery**
+
+User: "Find the head of sales at companies in the fintech industry with 100-500 employees"
+
+```
+1. Organization Search (find fintech companies 100-500 employees)
+   POST /api/v1/mixed_companies/search
+   {
+     "organization_num_employees_ranges": ["100-500"],
+     "organization_industry_tag_ids": ["fintech"]
+   }
+
+2. People Search (find sales leaders at those companies)
+   POST /api/v1/mixed_people/search
+   {
+     "person_titles": ["VP of Sales", "Head of Sales", "Chief Revenue Officer"],
+     "organization_ids": [results from step 1]
+   }
+```
+
+**Returns**: List of 25-100 sales leaders at fintech companies matching criteria
+
+**Strategy 2: Account-Based Marketing (ABM) List Building**
+
+User: "Build an ABM list for Series B SaaS companies in the US with 200-1000 employees"
+
+```
+1. Organization Search
+   POST /api/v1/mixed_companies/search
+   {
+     "organization_num_employees_ranges": ["200-1000"],
+     "organization_industry_tag_ids": ["saas"],
+     "organization_locations": ["United States"],
+     "funding_stage": ["Series B"]
+   }
+
+2. For each company: Organization Enrichment
+   (Get detailed firmographics, technologies, funding details)
+
+3. For each qualified company: People Search
+   (Find decision-makers: CEO, VP Product, CTO, etc.)
+
+4. Create Asana tasks for top 20-50 accounts
+   (Populate with Apollo enriched data)
+```
+
+**Strategy 3: Competitive Intelligence**
+
+User: "Find companies using [Competitor Product] that might be good prospects"
+
+```
+1. Organization Search
+   POST /api/v1/mixed_companies/search
+   {
+     "technologies_used": ["competitor-product-id"],
+     "organization_num_employees_ranges": ["50-500"]  # Your ICP
+   }
+
+2. Enrich top 50 companies
+   (Understand their tech stack, see what else they use)
+
+3. Find decision-makers at qualified accounts
+   (People Search for titles matching your buyer persona)
+```
+
+### Apollo Data Quality Best Practices
+
+**1. Verify Before Outreach**
+- Apollo provides `email_status` field (verified, guessed, unavailable)
+- Only use "verified" emails for cold outreach
+- "Guessed" emails: Validate with email verification tool first
+
+**2. Employment History Validation**
+- Apollo includes employment history with dates
+- Check `current` flag to ensure person still works there
+- Outdated data = wasted outreach
+
+**3. Confidence Scoring**
+```yaml
+# In pipeline-config.yaml
+data_preferences:
+  minimum_confidence_score: 0.7
+```
+- Apollo returns confidence scores for matches
+- Only use data with >70% confidence for outreach
+
+**4. Multi-Source Validation**
+- Cross-reference Apollo data with LinkedIn (manual check)
+- Verify company data with web search (recent news)
+- Check calendar/Gmail for any past interactions (overrides Apollo)
+
+### Apollo + Other Data Sources
+
+**Apollo complements other sources**:
+
+| Source | Best For | Apollo Adds |
+|--------|----------|-------------|
+| **Gmail** | Email history, past communication | Current job title, employment verification |
+| **Drive** | Case studies, proposals | Firmographics to match best case study |
+| **Calendar** | Meeting history | Decision-maker's current role (may have changed) |
+| **Web Search** | News, narrative context | Structured data (revenue, funding, employee count) |
+| **Asana** | Deal tracking | Auto-enrichment when deal created |
+
+**Example Combined Use**:
+Gmail shows you emailed someone at Acme Corp 6 months ago, but Apollo reveals they've since left the company. This prevents outreach to outdated contact.
+
+### Apollo Setup Checklist
+
+Before using Apollo integration:
+
+- [ ] Apollo.io paid account active
+- [ ] API key generated (Settings > Integrations > API)
+- [ ] API key stored in environment variable `APOLLO_API_KEY`
+- [ ] Or API key configured in MCP settings
+- [ ] Test API connection: `curl -H "X-Api-Key: YOUR_KEY" https://api.apollo.io/api/v1/auth/health`
+- [ ] Set daily credit limit in `pipeline-config.yaml`
+- [ ] Enable auto-enrichment features (or disable if manual only)
+- [ ] Configure fallback to web search if Apollo fails
+- [ ] Review credit costs to optimize budget
+
+### Troubleshooting Apollo Integration
+
+**Issue: "No match found" for contact enrichment**
+
+**Solutions**:
+- Provide more parameters (first_name, last_name, organization_name)
+- Try organization enrichment instead (get company data, then search for people)
+- Fall back to web search + LinkedIn manual lookup
+
+**Issue: "Daily credit limit reached"**
+
+**Solutions**:
+- Increase daily limit in config
+- Enable `priority_prospects_only: true` (only enrich hot/warm leads)
+- Cache results for 30 days (avoid re-enriching same contacts)
+- Use bulk enrichment endpoint (10 at once = more efficient)
+
+**Issue: Data is outdated or incorrect**
+
+**Solutions**:
+- Cross-reference with LinkedIn (Apollo pulls from LinkedIn, but may lag)
+- Use `current` flag in employment history to verify active employment
+- Supplement with web search for recent job changes
+- Report data issues to Apollo support (improves database quality)
+
+**Issue: Too many results from search**
+
+**Solutions**:
+- Add more filters (seniority, location, company size)
+- Use `q_keywords` for more specific matching
+- Reduce `page_size` to get top matches only
+- Combine filters (title + seniority + location)
+
+### Advanced Apollo Workflows
+
+**Workflow 1: Automated Lead Enrichment**
+
+Trigger: User adds new deal to Asana Sales Pipeline
+
+```
+1. Extract company domain from deal task
+2. Apollo Organization Enrichment (domain)
+3. Extract employee count, revenue, industry
+4. Calculate lead score:
+   - Employee count 50-500: +10 points
+   - Revenue $5M-$50M: +10 points
+   - Industry = target industry: +10 points
+   - Funding stage = Series A/B: +5 points
+5. Update Asana custom fields:
+   - Lead Score: Hot (25-35), Warm (15-24), Cold (<15)
+   - Industry: From Apollo
+   - Company Size: From Apollo
+6. Add enriched data to task description
+```
+
+**Workflow 2: Multi-Contact Outreach Sequence**
+
+User: "Create outreach campaign for TechStart Inc."
+
+```
+1. Apollo People Search: Find 3-5 decision-makers at TechStart
+   - VP of Sales
+   - Head of Revenue Operations
+   - CTO (if product-led growth)
+
+2. For each contact: Apollo People Enrichment
+   - Get current title, LinkedIn, email verification
+
+3. Prioritize contacts:
+   - Verified emails first
+   - Decision-making authority (VP > Director > Manager)
+   - Recent job changes (new in role = open to new solutions)
+
+4. Create multi-thread outreach:
+   - Email 1 to VP of Sales (primary)
+   - Email 2 to Head of RevOps (secondary, 3 days later)
+   - Email 3 to CTO (if no response, 7 days later)
+
+5. Track all in Asana with subtasks per contact
+```
+
+**Workflow 3: Competitive Displacement**
+
+User: "Find companies using [Competitor] that match our ICP"
+
+```
+1. Apollo Organization Search:
+   - Technologies used: [Competitor product]
+   - Employee count: 100-500
+   - Revenue: $5M-$50M
+   - Industry: SaaS
+
+2. For each company (top 50):
+   - Apollo Organization Enrichment (full firmographics)
+   - Check funding stage (Series A/B = growth mode = switching openness)
+   - Analyze tech stack (what else they use, integration opportunities)
+
+3. Qualify companies:
+   - Score based on ICP fit
+   - Flag companies with recent funding (buying window)
+   - Identify companies with complementary tech stack
+
+4. For top 20 qualified companies:
+   - Apollo People Search (find decision-makers)
+   - Enrich top 3-5 contacts per company
+   - Create Asana deal tasks with enriched data
+
+5. Generate personalized outreach:
+   - Reference their current solution (Competitor)
+   - Position based on tech stack gaps
+   - Use funding news as timing trigger
+```
 
 ---
 
