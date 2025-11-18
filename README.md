@@ -19,19 +19,22 @@ claude-usecases/
 │       ├── 360-client-portfolio-builder/   # Client venture portfolio page generator
 │       ├── 360-executive-project-tracker/  # Multi-source project status tracking
 │       ├── contract-redlining-tool/        # Automated contract review & redlining
+│       ├── executive-impact-presentation-generator/  # Board-ready impact report generation
 │       ├── executive-intelligence-dashboard/  # Executive intelligence briefing system
 │       ├── fda-consultant-agent/           # FDA regulatory consulting
 │       ├── intelligence-extractor/         # Partnership & funding intelligence extraction
+│       ├── open-deep-research-team/        # Multi-agent comprehensive research system
+│       ├── sales-automator/                # Intelligent sales automation & pipeline tracking
 │       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
+│   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
+│   ├── ceo-advisor/             # Executive intelligence & strategic decision support
 │   ├── design-director/         # Design elevation & visual polish
-│   ├── executive-impact-presentation-generator/  # Automated impact report generation
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
-│   ├── open-deep-research-team/ # Multi-agent comprehensive research system
 │   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
@@ -79,10 +82,10 @@ claude-usecases/
 ### Research & Validation
 
 #### Open Deep Research Team
-**Location:** `skills/open-deep-research-team/`
+**Location:** `.claude/skills/open-deep-research-team/`
 **Purpose:** Sophisticated multi-agent AI research system conducting comprehensive, academic-quality research through orchestrated specialist agents. Combines academic, technical, and data-driven perspectives with rigorous quality assurance and comprehensive reporting.
 
-**Quick Links:** [README](skills/open-deep-research-team/README.md) ⭐ | [Implementation Guide](skills/open-deep-research-team/docs/implementation_guide.md) | [Workflow Example](skills/open-deep-research-team/examples/workflow_example.md) | [Agent Prompts](skills/open-deep-research-team/prompts/)
+**Quick Links:** [README](.claude/skills/open-deep-research-team/README.md) ⭐ | [Quick Start](.claude/skills/open-deep-research-team/QUICK-START.md) | [Implementation Guide](.claude/skills/open-deep-research-team/IMPLEMENTATION-GUIDE.md) | [Agent Prompts](.claude/skills/open-deep-research-team/prompts/)
 
 **When to Use:**
 - Conducting comprehensive research on complex topics requiring multiple perspectives
@@ -203,16 +206,17 @@ claude-usecases/
 - Pre-drafting board motions and post-meeting action items
 
 #### Executive Impact Presentation Generator
-**Location:** `skills/executive-impact-presentation-generator/`
-**Purpose:** Generate complete impact reports from structured content input in two formats (presentation and executive document).
+**Location:** `.claude/skills/executive-impact-presentation-generator/`
+**Purpose:** Generate board-ready impact reports in dual formats (presentation deck and executive document) from a single content input, with brand customization, accessibility compliance, and print optimization.
 
-**Quick Links:** [INDEX (Start Here)](skills/executive-impact-presentation-generator/INDEX.md) ⭐ | [README](skills/executive-impact-presentation-generator/README.md) | [Skill Guide](skills/executive-impact-presentation-generator/SKILL.md)
+**Quick Links:** [README](.claude/skills/executive-impact-presentation-generator/README.md) ⭐ | [Quick Start](.claude/skills/executive-impact-presentation-generator/QUICK-START.md) | [Skill Guide](.claude/skills/executive-impact-presentation-generator/SKILL.md)
 
 **When to Use:**
-- Quick report generation from structured data
-- Consistent formatting across multiple reports
-- Automated, repeatable impact reporting workflows
-- Board presentations and annual impact reports
+- Quarterly board meetings requiring live presentations and comprehensive follow-up documents
+- Annual impact reports for stakeholders, funders, and partners
+- Grant reporting with professional polish and accessibility compliance
+- Partnership pitches with impressive materials and leave-behind documents
+- Quick regeneration of reports with updated metrics
 
 ---
 
@@ -308,13 +312,31 @@ claude-usecases/
 
 ---
 
+### Strategic Leadership & Decision Support
+
+#### CEO Advisor
+**Location:** `skills/ceo-advisor/`
+**Purpose:** Advanced executive intelligence platform that transforms CEO decision-making from reactive management to predictive excellence through real-time signal detection, stakeholder sentiment analytics, and personal effectiveness optimization.
+
+**Quick Links:** [README](skills/ceo-advisor/README.md) ⭐ | [Config](skills/ceo-advisor/config/) | [Skill Spec](skills/ceo-advisor/SKILL.md)
+
+**When to Use:**
+- Daily intelligence briefs with critical issues, stakeholder attention, and strategic insights
+- Board meeting preparation with individual member analysis and predicted questions
+- Crisis response protocol with immediate action plans and communication strategy
+- Strategic planning sessions with environmental scanning and scenario modeling
+- Time and energy optimization with delegation recommendations and schedule analysis
+- Stakeholder relationship tracking with engagement recommendations and trajectory predictions
+
+---
+
 ### Sales & Business Development
 
 #### Sales Automator
-**Location:** `skills/sales-automator/`
+**Location:** `.claude/skills/sales-automator/`
 **Purpose:** Intelligent sales automation with relationship intelligence, deal pipeline tracking, and competitive analysis. Transforms basic email automation into a context-aware conversion engine that researches prospects, tracks deals, and generates hyper-personalized outreach grounded in real intelligence.
 
-**Quick Links:** [README](skills/sales-automator/README.md) ⭐ | [Quick Start](skills/sales-automator/docs/QUICK-START.md) | [Installation](skills/sales-automator/docs/INSTALLATION.md) | [Templates](skills/sales-automator/references/REFERENCE.md)
+**Quick Links:** [README](.claude/skills/sales-automator/README.md) ⭐ | [Quick Start](.claude/skills/sales-automator/docs/QUICK-START.md) | [Installation](.claude/skills/sales-automator/docs/INSTALLATION.md) | [Reference](.claude/skills/sales-automator/references/REFERENCE.md)
 
 **When to Use:**
 - Cold outreach campaigns (5-touch sequences with research-backed personalization)
@@ -386,5 +408,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.0.0
-**Last Updated:** 2025-11-17
+**Version:** 2.1.0
+**Last Updated:** 2025-11-18
