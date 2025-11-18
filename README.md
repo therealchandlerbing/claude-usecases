@@ -27,6 +27,8 @@ claude-usecases/
 │       ├── intelligence-extractor/         # Partnership & funding intelligence extraction
 │       ├── open-deep-research-team/        # Multi-agent comprehensive research system
 │       ├── sales-automator/                # Intelligent sales automation & pipeline tracking
+│       ├── skill-orchestrator/             # Universal workflow coordinator for multi-skill/agent operations
+│       ├── 360-proposal-builder/           # Executive proposal generation for innovation services
 │       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
@@ -36,7 +38,6 @@ claude-usecases/
 │   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
 │   ├── design-director/         # Design elevation & visual polish
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
-│   ├── skill-orchestrator/      # Universal workflow coordinator for multi-skill/agent operations
 │   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
 ├── templates/                   # Production-ready HTML templates
@@ -258,10 +259,10 @@ claude-usecases/
 ### Workflow Coordination & Orchestration
 
 #### Skill Orchestrator
-**Location:** `skills/skill-orchestrator/`
+**Location:** `.claude/skills/skill-orchestrator/`
 **Purpose:** Universal workflow coordinator that intelligently routes requests and coordinates complex multi-skill and multi-agent operations.
 
-**Quick Links:** [INDEX (Start Here)](skills/skill-orchestrator/INDEX.md) ⭐ | [README](skills/skill-orchestrator/README.md) | [Examples](skills/skill-orchestrator/EXAMPLES.md)
+**Quick Links:** [INDEX (Start Here)](.claude/skills/skill-orchestrator/INDEX.md) ⭐ | [README](.claude/skills/skill-orchestrator/README.md) | [Quick Start](.claude/skills/skill-orchestrator/QUICK-START.md)
 
 **When to Use:**
 - Multi-step workflows requiring coordination of multiple skills/agents
@@ -365,6 +366,18 @@ claude-usecases/
 - Pipeline health monitoring (weekly reviews, forecasting, conversion tracking)
 - Competitive positioning (research and position against alternatives)
 
+#### 360 Proposal Builder
+**Location:** `.claude/skills/360-proposal-builder/`
+**Purpose:** Generate executive-grade proposals for 360 Social Impact Studios' innovation transformation services. Creates customized proposals with proper GenIP attribution, cultural considerations, and strategic positioning across Innovation Assessment, Business Design, and Leadership & Culture tracks.
+
+**Quick Links:** [README](.claude/skills/360-proposal-builder/README.md) ⭐ | [Quick Start](.claude/skills/360-proposal-builder/QUICK-START.md) | [Skill Spec](.claude/skills/360-proposal-builder/SKILL.md)
+
+**When to Use:**
+- Creating customized proposals for innovation assessment, venture building, or leadership development
+- Ensuring proper GenIP attribution and methodology crediting
+- Adapting proposals for clients across global regions with cultural intelligence
+- Generating service-specific pricing, deliverables, and strategic positioning
+
 ---
 
 ### Financial Analysis & Investment Intelligence
@@ -427,5 +440,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.2.0
+**Version:** 2.3.0
 **Last Updated:** 2025-11-18
