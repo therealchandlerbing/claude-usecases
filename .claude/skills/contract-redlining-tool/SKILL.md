@@ -168,6 +168,8 @@ Every contract review must deliver:
 
 ## Protective Clause Library
 
+**Note**: The clauses below provide general protective language. For specific proven language from 360's completed agreements, refer to **[PROVEN-PATTERNS.md](PROVEN-PATTERNS.md)**, which contains actual negotiated terms from executed contracts including the ConnectMyVariant Agreement, 360 Space Innovation Studios JV LOI, and Leonardo Langoni NDA.
+
 ### Payment Protection
 
 **Net 15-30 Payment Terms**
@@ -327,6 +329,7 @@ If the user doesn't provide full context, ask targeted questions to gather criti
 
 2. **Pattern Matching**
    - Compare each section against 360's standard positions for this deal type
+   - Reference **PROVEN-PATTERNS.md** for actual structures and language from completed agreements
    - Flag deviations from standard protective clauses
    - Note missing protections that should be added
 
@@ -475,6 +478,7 @@ Recommend involving an attorney for:
 
 For detailed examples, negotiation tactics, and comprehensive implementation guidance, refer to:
 
+- **PROVEN-PATTERNS.md** - Institutional knowledge from completed agreements (ConnectMyVariant, 360 Space Innovation Studios JV, Leonardo Langoni NDA) with actual negotiated language and deal structures
 - **IMPLEMENTATION-GUIDE.md** - Complete knowledge base with risk patterns and protective clauses
 - **EXAMPLES.md** - 14 detailed before/after redlining examples across all deal types
 - **NEGOTIATION-PLAYBOOK.md** - Quick reference for live negotiations with talking points
