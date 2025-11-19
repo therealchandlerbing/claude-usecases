@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Financial Intelligence Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Design-Director Elevation: Stripe Exemplar */
+
+        :root {
+            /* Color Palette */
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #2d2d2d;
+            --card-bg: #242424;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --brand-accent: #FF6B35;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+
+            /* Typography Scale */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --title-size: 32px;
+            --heading-size: 20px;
+            --subheading-size: 16px;
+            --body-size: 14px;
+            --small-size: 12px;
+
+            /* Spacing Scale (8-point grid) */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: var(--space-xl);
+        }
+
+        /* Header */
+        .dashboard-header {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .dashboard-title {
+            font-size: var(--title-size);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .dashboard-subtitle {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+        }
+
+        .dashboard-date {
+            font-size: var(--small-size);
+            color: var(--text-tertiary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-lg);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-full { grid-column: span 12; }
+        .card-half { grid-column: span 6; }
+        .card-third { grid-column: span 4; }
+        .card-quarter { grid-column: span 3; }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .card-title {
+            font-size: var(--subheading-size);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-badge {
+            font-size: var(--small-size);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+
+        .badge-success { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .badge-info { background: rgba(59, 130, 246, 0.2); color: var(--info); }
+
+        /* Metrics */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: var(--space-md);
+            background: var(--secondary-bg);
+            border-radius: var(--radius-md);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-label {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-change {
+            font-size: var(--small-size);
+            margin-top: var(--space-xs);
+        }
+
+        .change-positive { color: var(--success); }
+        .change-negative { color: var(--danger); }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 250px;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .data-table th {
+            font-size: var(--small-size);
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table td {
+            font-size: var(--body-size);
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        /* Flags/Alerts */
+        .flag-list {
+            list-style: none;
+        }
+
+        .flag-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .flag-item:last-child {
+            border-bottom: none;
+        }
+
+        .flag-icon {
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+        }
+
+        .flag-content {
+            flex: 1;
+        }
+
+        .flag-title {
+            font-size: var(--body-size);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+
+        .flag-description {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+        }
+
+        /* Progress bars */
+        .progress-container {
+            margin-bottom: var(--space-md);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+            font-size: var(--small-size);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--secondary-bg);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: var(--radius-sm);
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .card-half { grid-column: span 6; }
+            .card-third { grid-column: span 6; }
+            .card-quarter { grid-column: span 6; }
+            .metric-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: var(--space-md); }
+            .card-half,
+            .card-third,
+            .card-quarter { grid-column: span 12; }
+            .metric-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 0;
+            }
+            .card {
+                background: white;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            .badge-success,
+            .badge-warning,
+            .badge-danger,
+            .badge-info {
+                background: none;
+                border: 1px solid currentColor;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        :focus {
+            outline: 2px solid var(--brand-accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <h1 class="dashboard-title">Financial Intelligence Dashboard</h1>
+        <p class="dashboard-subtitle">360 Social Impact Studios - Board Meeting Packet</p>
+        <p class="dashboard-date">Data as of {{DATE}} | QuickBooks + Asana</p>
+    </header>
+
+    <!-- Dashboard Grid -->
+    <main class="dashboard-grid">
+
+        <!-- Key Metrics -->
+        <section class="card card-full" aria-label="Key Financial Metrics">
+            <div class="card-header">
+                <h2 class="card-title">Key Metrics</h2>
+                <span class="card-badge badge-{{REVENUE_STATUS}}">{{REVENUE_STATUS_TEXT}}</span>
+            </div>
+            <div class="metric-grid">
+                <div class="metric-item">
+                    <div class="metric-value">${{REVENUE_YTD}}</div>
+                    <div class="metric-label">Revenue YTD</div>
+                    <div class="metric-change change-{{REVENUE_CHANGE_TYPE}}">{{REVENUE_CHANGE}}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">${{CASH_POSITION}}</div>
+                    <div class="metric-label">Cash Position</div>
+                    <div class="metric-change">{{RUNWAY_MONTHS}} months runway</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">${{WEIGHTED_PIPELINE}}</div>
+                    <div class="metric-label">Weighted Pipeline</div>
+                    <div class="metric-change">{{PIPELINE_OPPS}} opportunities</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">${{AR_TOTAL}}</div>
+                    <div class="metric-label">Receivables</div>
+                    <div class="metric-change">{{AR_CURRENT_PCT}}% current</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue vs Target -->
+        <section class="card card-half" aria-label="Revenue vs Target">
+            <div class="card-header">
+                <h2 class="card-title">Revenue vs Target</h2>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>${{REVENUE_YTD}} of $40,000</span>
+                    <span>{{REVENUE_PCT}}%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{REVENUE_PCT}}%; background: var(--brand-accent);"></div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Expense Breakdown -->
+        <section class="card card-half" aria-label="Expense Breakdown">
+            <div class="card-header">
+                <h2 class="card-title">Expense Breakdown</h2>
+            </div>
+            <div class="chart-container">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </section>
+
+        <!-- AR Aging -->
+        <section class="card card-half" aria-label="Accounts Receivable Aging">
+            <div class="card-header">
+                <h2 class="card-title">AR Aging</h2>
+                <span class="card-badge badge-{{AR_STATUS}}">{{AR_STATUS_TEXT}}</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="arChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Pipeline by Stage -->
+        <section class="card card-half" aria-label="Pipeline by Stage">
+            <div class="card-header">
+                <h2 class="card-title">Pipeline by Stage</h2>
+            </div>
+            <div class="chart-container">
+                <canvas id="pipelineChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Revenue by Client -->
+        <section class="card card-half" aria-label="Revenue by Client">
+            <div class="card-header">
+                <h2 class="card-title">Top Clients</h2>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th class="text-right">Revenue</th>
+                        <th class="text-right">% of Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{CLIENT_ROWS}}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Risk Flags -->
+        <section class="card card-half" aria-label="Risk Flags">
+            <div class="card-header">
+                <h2 class="card-title">Attention Required</h2>
+            </div>
+            <ul class="flag-list">
+                {{FLAG_ITEMS}}
+            </ul>
+        </section>
+
+    </main>
+
+    <script>
+        // Chart.js configuration with design-director elevation
+        Chart.defaults.color = '#a0a0a0';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.05)';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: {{REVENUE_LABELS}},
+                datasets: [{
+                    label: 'Revenue',
+                    data: {{REVENUE_DATA}},
+                    backgroundColor: '#FF6B35',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Expense Chart
+        const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+        new Chart(expenseCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {{EXPENSE_LABELS}},
+                datasets: [{
+                    data: {{EXPENSE_DATA}},
+                    backgroundColor: ['#FF6B35', '#3B82F6', '#22C55E', '#F59E0B', '#8B5CF6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { padding: 16 }
+                    }
+                }
+            }
+        });
+
+        // AR Aging Chart
+        const arCtx = document.getElementById('arChart').getContext('2d');
+        new Chart(arCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Current', '31-60', '61-90', '90+'],
+                datasets: [{
+                    data: {{AR_DATA}},
+                    backgroundColor: ['#22C55E', '#3B82F6', '#F59E0B', '#EF4444'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Pipeline Chart
+        const pipelineCtx = document.getElementById('pipelineChart').getContext('2d');
+        new Chart(pipelineCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Proposal', 'Negotiation', 'Signed'],
+                datasets: [{
+                    label: 'Weighted Value',
+                    data: {{PIPELINE_DATA}},
+                    backgroundColor: '#FF6B35',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
