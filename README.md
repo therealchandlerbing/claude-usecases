@@ -38,9 +38,7 @@ claude-usecases/
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
 │   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
-│   ├── design-director/         # Design elevation & visual polish
 │   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
-│   ├── vianeo-persona-builder/  # Vianeo persona generation & validation
 │   └── workflow-process-generator/  # Workflow visualization & process documentation
 ├── templates/                   # Production-ready HTML templates
 │   └── impact-reports/          # Executive impact report templates (static & dynamic)
