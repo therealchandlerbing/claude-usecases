@@ -28,18 +28,18 @@ claude-usecases/
 │       ├── open-deep-research-team/        # Multi-agent comprehensive research system
 │       ├── sales-automator/                # Intelligent sales automation & pipeline tracking
 │       ├── skill-orchestrator/             # Universal workflow coordinator for multi-skill/agent operations
+│       ├── 360-newsletter-generator/       # Board updates & investor briefings
 │       ├── 360-proposal-builder/           # Executive proposal generation for innovation services
-│       ├── design-director/                # Design elevation & visual polish (managed)
+│       ├── design-director/                # Design elevation & visual polish
+│       ├── financial-modeling-skills/      # Investment analysis & portfolio intelligence
 │       ├── strategic-persona-builder/      # Multi-framework persona generation & validation
 │       ├── workflow-debugging/             # Systematic workflow debugging & recovery
 │       └── workflow-process-generator/     # Workflow visualization & process documentation
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
-│   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
-│   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
-│   └── financial-modeling-skills/  # Investment analysis & portfolio intelligence
+│   └── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
 ├── templates/                   # Production-ready HTML templates
 │   └── impact-reports/          # Executive impact report templates (static & dynamic)
 ├── intelligence-dashboard/      # Live quality monitoring dashboard (Next.js app)
@@ -204,10 +204,10 @@ claude-usecases/
 - Creating stakeholder communications with strategic context
 
 #### 360 Executive Brief / Newsletter Generator
-**Location:** `skills/360-newsletter-generator/`
+**Location:** `.claude/skills/360-newsletter-generator/`
 **Purpose:** Generate executive intelligence briefs (confidential) and stakeholder newsletters (shareable) with interactive Chart.js visualizations and modern dashboard design.
 
-**Quick Links:** [README](skills/360-newsletter-generator/README.md) ⭐ | [Data Collection Guide](skills/360-newsletter-generator/references/data-collection-guide.md) | [Content Analysis Framework](skills/360-newsletter-generator/references/content-analysis-framework.md)
+**Quick Links:** [README](.claude/skills/360-newsletter-generator/README.md) ⭐ | [Data Collection Guide](.claude/skills/360-newsletter-generator/references/data-collection-guide.md) | [Content Analysis Framework](.claude/skills/360-newsletter-generator/references/content-analysis-framework.md)
 
 **When to Use:**
 - Creating board updates and investor briefings with confidential data
@@ -384,10 +384,10 @@ claude-usecases/
 ### Financial Analysis & Investment Intelligence
 
 #### Financial Modeling Skills
-**Location:** `skills/financial-modeling-skills/`
+**Location:** `.claude/skills/financial-modeling-skills/`
 **Purpose:** Institutional-grade financial analysis toolkit for investment evaluation, portfolio management, and impact measurement.
 
-**Quick Links:** [README](skills/financial-modeling-skills/README.md) ⭐ | [Investment Analysis](skills/financial-modeling-skills/investment-analysis/) | [Portfolio Intelligence](skills/financial-modeling-skills/portfolio-intelligence/)
+**Quick Links:** [README](.claude/skills/financial-modeling-skills/README.md) ⭐ | [Investment Analysis](.claude/skills/financial-modeling-skills/investment-analysis/) | [Portfolio Intelligence](.claude/skills/financial-modeling-skills/portfolio-intelligence/)
 
 **When to Use:**
 - Investment evaluation and multi-scenario financial modeling
@@ -813,5 +813,5 @@ Each skill has detailed documentation in its respective directory with quick-sta
 
 ---
 
-**Version:** 2.5.1
+**Version:** 2.6.0
 **Last Updated:** 2025-11-19
