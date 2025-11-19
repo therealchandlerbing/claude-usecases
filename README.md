@@ -441,5 +441,377 @@ The best way to get started is to:
 
 ---
 
+## AI-Assisted Execution
+
+This system is optimized for AI assistance with Claude. Each skill can be invoked through natural language prompts or by directly referencing the skill name. Below are organized examples by category.
+
+### How to Invoke Skills
+
+**Method 1: Natural Language** - Simply describe your task and Claude will route to the appropriate skill
+**Method 2: Direct Invocation** - Reference the skill name explicitly (e.g., "Use the ceo-advisor skill to...")
+
+---
+
+### Healthcare & Life Sciences Regulatory
+
+**Skill:** `fda-consultant-agent`
+
+```
+"Determine the FDA regulatory pathway for our AI-powered diagnostic device"
+
+"Analyze 510(k) submission requirements for a Class II medical device"
+
+"Review our Quality Management System against FDA QSR requirements"
+
+"Evaluate our SaMD against the IMDRF risk classification framework"
+
+"Provide FDA guidance for our combination drug-device product"
+```
+
+---
+
+### AI Governance & Responsible AI
+
+**Skill:** `ai-ethics-advisor`
+
+```
+"Conduct a bias assessment on our hiring algorithm"
+
+"Evaluate our AI system for EU AI Act compliance"
+
+"Perform a community impact analysis for our predictive policing tool"
+
+"Run an ethical audit on our lending decision model"
+
+"Assess fairness metrics for our healthcare triage system"
+
+"Generate a responsible AI development checklist for our project"
+```
+
+---
+
+### Research & Validation
+
+**Skill:** `open-deep-research-team`
+
+```
+"Conduct comprehensive research on emerging battery technologies for EVs"
+
+"Generate an academic-quality literature review on CRISPR therapeutics"
+
+"Research competitive landscape for enterprise AI governance tools"
+
+"Compile a technical evaluation of federated learning architectures"
+
+"Create a market analysis report with proper academic citations"
+```
+
+**Skill:** `strategic-persona-builder`
+
+```
+"Build a Vianeo-formatted partner persona from these interview transcripts"
+
+"Generate stakeholder personas using Jobs-to-be-Done framework"
+
+"Create beneficiary personas with empathy mapping for our healthcare app"
+
+"Develop hypothesis personas for our validation research planning"
+
+"Generate dual-format personas for both strategy and platform entry"
+```
+
+---
+
+### Design & Visual Excellence
+
+**Skill:** `design-director`
+
+```
+"Elevate this dashboard to Stripe-quality design standards"
+
+"Apply Linear-style visual polish to my executive presentation"
+
+"Transform this functional HTML report into professional design quality"
+
+"Ensure WCAG AA accessibility compliance for this interface"
+
+"Add Apple-inspired typography and visual hierarchy to this document"
+```
+
+---
+
+### Content Strategy & Multi-Platform Publishing
+
+**Skill:** `360-content-converter`
+
+```
+"Convert this blog post into platform-optimized content for LinkedIn, Twitter, and email"
+
+"Repurpose this case study for 15 different platforms in English and Spanish"
+
+"Create a cohesive content ecosystem from this single research report"
+
+"Generate design-ready specifications for social media graphics from this content"
+```
+
+---
+
+### Data Intelligence & Quality Monitoring
+
+**Skill:** `intelligence-extractor`
+
+```
+"Extract partnership intelligence from this meeting transcript"
+
+"Parse funding insights from these investor call notes"
+
+"Generate structured stakeholder intelligence from board meeting minutes"
+
+"Process this Zapier webhook payload for intelligence extraction"
+
+"Create cross-cultural meeting intelligence report from this session"
+```
+
+---
+
+### Executive Communication & Strategic Briefing
+
+**Skill:** `executive-intelligence-dashboard`
+
+```
+"Generate the weekly 360 Impact Brief from Asana, Gmail, and Drive data"
+
+"Create a comprehensive partnership report with decision support"
+
+"Prepare a quarterly strategic planning brief for the board"
+
+"Build an executive HTML dashboard synthesizing all project data"
+```
+
+**Skill:** `360-newsletter-generator`
+
+```
+"Generate an executive intelligence brief for board members"
+
+"Create a stakeholder newsletter with Chart.js visualizations"
+
+"Prepare a pre-meeting briefing with key talking points"
+
+"Build a monthly investor update with confidential metrics"
+```
+
+**Skill:** `360-board-meeting-prep`
+
+```
+"Prepare the quarterly board meeting packet from all data sources"
+
+"Generate board documents with automated quality checks"
+
+"Cross-validate financial and operational data for board presentation"
+
+"Pre-draft board motions and action items for the upcoming meeting"
+```
+
+**Skill:** `executive-impact-presentation-generator`
+
+```
+"Generate board-ready impact reports in both presentation and document formats"
+
+"Create an annual impact report with brand customization"
+
+"Produce grant reporting materials with accessibility compliance"
+
+"Build partnership pitch materials with leave-behind documents"
+```
+
+---
+
+### Process Documentation & Workflow Visualization
+
+**Skill:** `workflow-process-generator`
+
+```
+"Document our onboarding workflow with Mermaid diagrams"
+
+"Create board-ready workflow visualizations for operations review"
+
+"Generate interactive HTML workflow documentation from our process descriptions"
+
+"Build delegation-ready process documentation with bottleneck analysis"
+
+"Create multi-language workflow documentation for international teams"
+```
+
+---
+
+### Workflow Coordination & Orchestration
+
+**Skill:** `skill-orchestrator`
+
+```
+"Coordinate a multi-step workflow using research and design skills"
+
+"Orchestrate cross-domain operations with Asana, Gmail, and Drive"
+
+"Route this complex request to the appropriate specialist skills"
+
+"Manage this sequential workflow with context preservation"
+```
+
+**Skill:** `workflow-debugging`
+
+```
+"Debug this failing multi-stage evaluation workflow"
+
+"Troubleshoot Asana webhook integration issues"
+
+"Diagnose cross-system integration failures in our pipeline"
+
+"Resolve multi-geography workflow errors with timezone issues"
+```
+
+---
+
+### Project Management & Executive Intelligence
+
+**Skill:** `360-executive-project-tracker`
+
+```
+"Build a project status tracker consolidating Gmail, Calendar, Drive, and Asana"
+
+"Create an executive dashboard for project visibility and blockers"
+
+"Generate weekly status reports across all workstreams"
+
+"Monitor team workload and capacity with automated updates"
+```
+
+---
+
+### Legal Intelligence & Risk Management
+
+**Skill:** `contract-redlining-tool`
+
+```
+"Review this partner contract and generate attorney-quality redlines"
+
+"Analyze this agreement for IP, payment, and liability risks"
+
+"Prepare negotiation strategy and talking points for this contract"
+
+"Identify misalignment with our standard contract positions"
+
+"Generate tracked changes with margin comments for legal review"
+```
+
+---
+
+### Client Showcasing & Business Development
+
+**Skill:** `360-client-portfolio-builder`
+
+```
+"Create a professional portfolio page for this client venture"
+
+"Generate an investor-ready showcase from Vianeo sprint data"
+
+"Build a client portfolio section for the 360 website"
+
+"Prepare partnership development materials from validation outputs"
+```
+
+**Skill:** `360-proposal-builder`
+
+```
+"Generate a customized proposal for innovation assessment services"
+
+"Create a venture building proposal with proper GenIP attribution"
+
+"Build a leadership development proposal with cultural considerations"
+
+"Prepare service-specific pricing and deliverables documentation"
+```
+
+---
+
+### Strategic Leadership & Decision Support
+
+**Skill:** `ceo-advisor`
+
+```
+"Generate my daily intelligence brief with critical issues and strategic insights"
+
+"Prepare board meeting materials with individual member analysis"
+
+"Activate crisis response protocol with immediate action plan"
+
+"Run a strategic planning session with scenario modeling"
+
+"Optimize my schedule with delegation recommendations"
+
+"Analyze stakeholder relationships and engagement trajectory"
+```
+
+---
+
+### Sales & Business Development
+
+**Skill:** `sales-automator`
+
+```
+"Generate a 5-touch cold outreach sequence with research-backed personalization"
+
+"Create warm lead follow-up emails using past conversation context"
+
+"Re-engage stalled deals with context-aware messaging"
+
+"Build a comprehensive partnership proposal with case studies"
+
+"Run weekly pipeline health review with conversion tracking"
+
+"Research and position against competitive alternatives"
+```
+
+---
+
+### Financial Analysis & Investment Intelligence
+
+**Skill:** `financial-modeling-skills`
+
+```
+"Perform multi-scenario investment evaluation modeling"
+
+"Generate portfolio performance analytics with allocation optimization"
+
+"Calculate social return on investment (SROI) for this program"
+
+"Assess technology transfer valuation for our IP portfolio"
+```
+
+**Skill:** `990-ez-preparation`
+
+```
+"Prepare IRS Form 990-EZ with automated eligibility verification"
+
+"Run multi-level validation on our nonprofit tax filing"
+
+"Generate complete filing package with Schedules A, B, and O"
+
+"Create board-ready presentation with pre-filing checklist"
+```
+
+---
+
+### Tips for Effective AI Execution
+
+1. **Be Specific**: Include relevant context like "for our healthcare AI startup" or "targeting Series A investors"
+2. **Reference Data Sources**: Mention where your data lives (e.g., "from our Asana projects and Gmail threads")
+3. **Specify Output Format**: Request "HTML dashboard," "Mermaid diagram," or "executive summary" as needed
+4. **Chain Skills**: For complex workflows, mention multiple needs and the skill-orchestrator will coordinate
+
+Each skill has detailed documentation in its respective directory with quick-start guides, implementation details, and example outputs.
+
+---
+
 **Version:** 2.5.0
 **Last Updated:** 2025-11-19
