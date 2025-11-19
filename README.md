@@ -31,15 +31,15 @@ claude-usecases/
 │       ├── 360-proposal-builder/           # Executive proposal generation for innovation services
 │       ├── design-director/                # Design elevation & visual polish (managed)
 │       ├── strategic-persona-builder/      # Multi-framework persona generation & validation
-│       └── workflow-debugging/             # Systematic workflow debugging & recovery
+│       ├── workflow-debugging/             # Systematic workflow debugging & recovery
+│       └── workflow-process-generator/     # Workflow visualization & process documentation
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-newsletter-generator/  # Board updates & investor briefings
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
 │   ├── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
-│   ├── financial-modeling-skills/  # Investment analysis & portfolio intelligence
-│   └── workflow-process-generator/  # Workflow visualization & process documentation
+│   └── financial-modeling-skills/  # Investment analysis & portfolio intelligence
 ├── templates/                   # Production-ready HTML templates
 │   └── impact-reports/          # Executive impact report templates (static & dynamic)
 ├── intelligence-dashboard/      # Live quality monitoring dashboard (Next.js app)
@@ -244,10 +244,10 @@ claude-usecases/
 ### Process Documentation & Workflow Visualization
 
 #### Workflow Process Generator
-**Location:** `skills/workflow-process-generator/`
-**Purpose:** Transform operational workflows from implicit tribal knowledge into explicit, shareable visual documentation through automated extraction and professional Mermaid diagrams + interactive HTML.
+**Location:** `.claude/skills/workflow-process-generator/`
+**Purpose:** Transform organizational knowledge into professional, compliance-ready workflow documentation including SOPs, process maps, runbooks, and operational playbooks with built-in quality assurance and change management frameworks.
 
-**Quick Links:** [README](skills/workflow-process-generator/README.md) ⭐ | [Data Extraction Guide](skills/workflow-process-generator/references/data-extraction-guide.md) | [Mermaid Standards](skills/workflow-process-generator/references/mermaid-generation-standards.md)
+**Quick Links:** [README](.claude/skills/workflow-process-generator/README.md) ⭐ | [Quick Start](.claude/skills/workflow-process-generator/QUICK-START.md) | [Skill Spec](.claude/skills/workflow-process-generator/SKILL.md) | [Implementation Guide](.claude/skills/workflow-process-generator/IMPLEMENTATION-GUIDE.md)
 
 **When to Use:**
 - Visualizing operational workflows for team onboarding
@@ -813,5 +813,5 @@ Each skill has detailed documentation in its respective directory with quick-sta
 
 ---
 
-**Version:** 2.5.0
+**Version:** 2.5.1
 **Last Updated:** 2025-11-19
