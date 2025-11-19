@@ -30,6 +30,7 @@ claude-usecases/
 │       ├── skill-orchestrator/             # Universal workflow coordinator for multi-skill/agent operations
 │       ├── 360-proposal-builder/           # Executive proposal generation for innovation services
 │       ├── design-director/                # Design elevation & visual polish (managed)
+│       ├── strategic-persona-builder/      # Multi-framework persona generation & validation
 │       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
@@ -116,17 +117,18 @@ claude-usecases/
 - Business intelligence requiring academic rigor and data validation
 - Research reports with executive summaries and actionable recommendations
 
-#### Vianeo Persona Builder
-**Location:** `skills/vianeo-persona-builder/`
-**Purpose:** Generate validated stakeholder personas from research data following the Vianeo framework with interactive dashboard visualizations.
+#### Strategic Persona Builder
+**Location:** `.claude/skills/strategic-persona-builder/`
+**Purpose:** Generate evidence-backed stakeholder personas from research data using structured frameworks (Vianeo, Jobs-to-be-Done, empathy mapping). Supports partners, innovators, stakeholders, beneficiaries, and customers with dual outputs for strategy and platform entry.
 
-**Quick Links:** [README](skills/vianeo-persona-builder/README.md) ⭐ | [Examples](skills/vianeo-persona-builder/examples/) | [Scoring Rubric](skills/vianeo-persona-builder/references/vianeo-scoring-rubric.md)
+**Quick Links:** [README](.claude/skills/strategic-persona-builder/README.md) ⭐ | [Quick Start](.claude/skills/strategic-persona-builder/QUICK-START.md) | [Skill Spec](.claude/skills/strategic-persona-builder/SKILL.md) | [Scoring Rubric](.claude/skills/strategic-persona-builder/references/scoring-rubric.md)
 
 **When to Use:**
-- Building personas for technology validation projects
-- Documenting stakeholder needs for partnership development
-- Preparing Desirability dimension documentation for Vianeo submissions
-- Creating interactive presentations for stakeholders
+- Building personas for technology validation projects (Vianeo submissions)
+- Product development with Jobs-to-be-Done analysis
+- Team alignment with empathy mapping
+- Partnership development and stakeholder documentation
+- Research planning with hypothesis personas and validation questions
 
 ---
 
@@ -441,5 +443,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.4.0
+**Version:** 2.5.0
 **Last Updated:** 2025-11-19
