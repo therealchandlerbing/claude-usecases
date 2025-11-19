@@ -29,6 +29,7 @@ claude-usecases/
 │       ├── sales-automator/                # Intelligent sales automation & pipeline tracking
 │       ├── skill-orchestrator/             # Universal workflow coordinator for multi-skill/agent operations
 │       ├── 360-proposal-builder/           # Executive proposal generation for innovation services
+│       ├── design-director/                # Design elevation & visual polish (managed)
 │       └── workflow-debugging/             # Systematic workflow debugging & recovery
 ├── 360-board-meeting-prep/      # Board meeting intelligence system & packet generator
 ├── skills/                      # User-created skills
@@ -132,16 +133,16 @@ claude-usecases/
 ### Design & Visual Excellence
 
 #### Design Director
-**Location:** `skills/design-director/`
-**Purpose:** Transform functional outputs into professionally polished, design-elevated work through systematic application of contemporary design best practices.
+**Location:** `.claude/skills/design-director/`
+**Purpose:** Transform functional outputs (presentations, dashboards, HTML interfaces, reports) into professionally polished, design-elevated work through systematic application of proven techniques and world-class exemplars (Stripe, Linear, Apple).
 
-**Quick Links:** [Quick Reference](skills/design-director/QUICK-REFERENCE.md) ⭐ | [Complete Guide](skills/design-director/COMPLETE-GUIDE.md) | [Technique Catalog](skills/design-director/references/technique-catalog.md)
+**Quick Links:** [README](.claude/skills/design-director/README.md) ⭐ | [Quick Start](.claude/skills/design-director/QUICK-START.md) | [Skill Spec](.claude/skills/design-director/SKILL.md) | [Technique Catalog](.claude/skills/design-director/references/technique-catalog.md)
 
 **When to Use:**
 - Elevating dashboards, presentations, and reports to professional design quality
-- Building web interfaces that match contemporary standards
-- Ensuring visual consistency and WCAG AA accessibility
-- Making data-heavy outputs scannable and beautiful
+- Building web interfaces that match Stripe/Linear/Apple standards
+- Ensuring visual consistency, WCAG AA accessibility, and hand-crafted appearance
+- Making data-heavy outputs scannable and beautiful with exemplar-aligned quality
 
 ---
 
@@ -440,5 +441,5 @@ The best way to get started is to:
 
 ---
 
-**Version:** 2.3.0
-**Last Updated:** 2025-11-18
+**Version:** 2.4.0
+**Last Updated:** 2025-11-19
