@@ -29,7 +29,7 @@ export const EvidenceQuote: React.FC<EvidenceQuoteProps> = ({ quote, colors }) =
           margin: 0
         }}
       >
-        "{quote.text}"
+        &quot;{quote.text}&quot;
       </blockquote>
 
       <div
