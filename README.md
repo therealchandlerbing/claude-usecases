@@ -39,11 +39,14 @@ claude-usecases/
 ├── skills/                      # User-created skills
 │   ├── 360-content-converter/   # Multi-platform content conversion
 │   ├── 360-use-cases/           # 360-specific workflow skills (organizational directory)
-│   └── 990-ez-preparation/      # IRS Form 990-EZ automated preparation
+│   └── 990-ez-preparation/      # IRS Form 990-EZ automated preparation (99% test coverage)
 ├── templates/                   # Production-ready HTML templates
 │   └── impact-reports/          # Executive impact report templates (static & dynamic)
 ├── intelligence-dashboard/      # Live quality monitoring dashboard (Next.js app)
+├── tests/                       # Comprehensive test suite (Python & TypeScript)
 ├── docs/                        # Documentation and guides
+│   ├── pr-descriptions/         # Pull request templates and descriptions
+│   └── summaries/               # Feature and implementation summaries
 └── examples/                    # Example implementations
 ```
 
@@ -399,6 +402,8 @@ claude-usecases/
 **Location:** `skills/990-ez-preparation/`
 **Purpose:** Automated nonprofit tax compliance through intelligent data collection, multi-level validation, and complete filing package generation. Reduces preparation time from 40+ hours to under 10 hours.
 
+**Quality:** ✅ **99% test coverage** (73 comprehensive tests covering all phases and edge cases)
+
 **Quick Links:** [README](skills/990-ez-preparation/README.md) ⭐ | [Quick Start](skills/990-ez-preparation/docs/QUICK-START.md) | [Skill Spec](skills/990-ez-preparation/SKILL.md)
 
 **When to Use:**
@@ -412,8 +417,15 @@ claude-usecases/
 
 ## Documentation
 
+### Guides & References
 - [Creating Skills Guide](docs/CREATING-SKILLS.md) - Comprehensive guide for creating new skills
 - [Skill Template](skills/templates/skill-template.md) - Template for new skills
+- [Testing Infrastructure](docs/TESTING.md) - Python and TypeScript testing setup
+- [Merge Instructions](docs/MERGE_INSTRUCTIONS.md) - Guidelines for merging contributions
+
+### Project Documentation
+- [PR Descriptions](docs/pr-descriptions/) - Pull request templates and descriptions for all major features
+- [Implementation Summaries](docs/summaries/) - Detailed summaries of key implementations and features
 
 ## Contributing
 
@@ -813,5 +825,11 @@ Each skill has detailed documentation in its respective directory with quick-sta
 
 ---
 
-**Version:** 2.6.0
-**Last Updated:** 2025-11-19
+**Version:** 2.7.0
+**Last Updated:** 2025-11-20
+
+### Recent Updates
+- Improved 990-ez-preparation test coverage from 51% to 99% (73 comprehensive tests)
+- Reorganized documentation into structured directories (pr-descriptions/, summaries/)
+- Added comprehensive testing infrastructure for Python and TypeScript
+- Enhanced repository organization and documentation structure
