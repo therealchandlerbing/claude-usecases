@@ -64,33 +64,46 @@ jobs:
     name: TypeScript Tests (Intelligence Dashboard)
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: intelligence-dashboard
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Check if directory exists
+        id: check_dir
+        run: |
+          if [ -d "intelligence-dashboard" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "::notice::intelligence-dashboard directory not found, skipping tests"
+          fi
+
       - name: Set up Node.js
+        if: steps.check_dir.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install dependencies
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: intelligence-dashboard
         run: npm install
 
       - name: Run tests
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: intelligence-dashboard
         run: npm test
         continue-on-error: true
 
       - name: Run tests with coverage
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: intelligence-dashboard
         run: npm run test:coverage
         continue-on-error: true
 
       - name: Upload coverage reports
+        if: steps.check_dir.outputs.exists == 'true'
         uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: intelligence-dashboard-coverage
           path: coverage/
@@ -100,31 +113,44 @@ jobs:
     name: TypeScript Tests (Vianeo Persona Builder)
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: skills/vianeo-persona-builder/powerups/interactive-dashboard
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Check if directory exists
+        id: check_dir
+        run: |
+          if [ -d "skills/vianeo-persona-builder/powerups/interactive-dashboard" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "::notice::skills/vianeo-persona-builder/powerups/interactive-dashboard directory not found, skipping tests"
+          fi
+
       - name: Set up Node.js
+        if: steps.check_dir.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install dependencies
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: skills/vianeo-persona-builder/powerups/interactive-dashboard
         run: npm install
 
       - name: Run tests
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: skills/vianeo-persona-builder/powerups/interactive-dashboard
         run: npm test
 
       - name: Run tests with coverage
+        if: steps.check_dir.outputs.exists == 'true'
+        working-directory: skills/vianeo-persona-builder/powerups/interactive-dashboard
         run: npm run test:coverage
 
       - name: Upload coverage reports
+        if: steps.check_dir.outputs.exists == 'true'
         uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: vianeo-dashboard-coverage
           path: coverage/
