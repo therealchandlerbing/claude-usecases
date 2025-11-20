@@ -39,8 +39,7 @@ beforeAll(() => {
   // Mock next/image
   vi.mock('next/image', () => ({
     default: (props: any) => {
-      // eslint-disable-next-line jsx-a11y/alt-text
-      return <img {...props} />
+      return { type: 'img', props }
     },
   }))
 })
