@@ -54,7 +54,7 @@ const TabbedContent: React.FC<TabbedContentProps> = ({
             <div>
               <h3 className="text-sm font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <Target className="w-4 h-4 text-blue-600" />
-                What They're Solving For
+                What They&apos;re Solving For
               </h3>
               <div className="space-y-4">
                 {currentPartner.opportunities.map((opp, idx) => (
@@ -88,14 +88,14 @@ const TabbedContent: React.FC<TabbedContentProps> = ({
         {activeTab === 'language' && (
           <div className="space-y-6 animate-fadeIn">
             <div>
-              <h3 className="text-sm font-bold text-gray-900 mb-4">How to Frame 360's Work</h3>
+              <h3 className="text-sm font-bold text-gray-900 mb-4">How to Frame 360&apos;s Work</h3>
               <div className="space-y-2">
                 {currentPartner.valueAlignment.frame.map((frame, idx) => (
                   <div key={idx} className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-900 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start gap-2">
-                      <div className="text-blue-600 font-bold text-lg">"</div>
+                      <div className="text-blue-600 font-bold text-lg">&quot;</div>
                       <div className="flex-1">{frame.replace(/^"|"$/g, '')}</div>
-                      <div className="text-blue-600 font-bold text-lg">"</div>
+                      <div className="text-blue-600 font-bold text-lg">&quot;</div>
                     </div>
                   </div>
                 ))}
@@ -177,7 +177,7 @@ const TabbedContent: React.FC<TabbedContentProps> = ({
                 <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-200 p-4">
                   <div className="flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                    <div className="font-semibold text-gray-900 text-sm leading-relaxed">"{item.hesitation}"</div>
+                    <div className="font-semibold text-gray-900 text-sm leading-relaxed">&quot;{item.hesitation}&quot;</div>
                   </div>
                 </div>
                 <div className="p-5 space-y-4 bg-white">

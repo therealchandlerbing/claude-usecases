@@ -127,7 +127,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ partnerTypes }) => {
               </div>
               <div className="flex items-start gap-2">
                 <ChevronRight className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="leading-relaxed">360's unique positioning in Brazil ecosystem</span>
+                <span className="leading-relaxed">360&apos;s unique positioning in Brazil ecosystem</span>
               </div>
             </div>
           </div>
