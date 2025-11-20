@@ -93,7 +93,7 @@ jobs:
         if: always()
         with:
           name: intelligence-dashboard-coverage
-          path: intelligence-dashboard/coverage/
+          path: coverage/
           retention-days: 30
 
   typescript-vianeo-dashboard:
@@ -127,7 +127,7 @@ jobs:
         if: always()
         with:
           name: vianeo-dashboard-coverage
-          path: skills/vianeo-persona-builder/powerups/interactive-dashboard/coverage/
+          path: coverage/
           retention-days: 30
 
   test-summary:
