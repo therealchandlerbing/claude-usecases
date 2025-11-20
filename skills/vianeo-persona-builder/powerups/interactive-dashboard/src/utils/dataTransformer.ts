@@ -161,7 +161,7 @@ export function createSampleDashboardData(): DashboardData {
           },
           {
             label: 'Life/Motivations',
-            content: 'Leads the technology transfer office at a major public research university in São Paulo. Came to the role five years ago after 15 years as faculty researcher. Success means increasing commercialization rate while maintaining the university's social mission.',
+            content: 'Leads the technology transfer office at a major public research university in São Paulo. Came to the role five years ago after 15 years as faculty researcher. Success means increasing commercialization rate while maintaining the university\'s social mission.',
             source: 'Interview #1, #2, #5'
           },
           {
@@ -204,7 +204,7 @@ export function createSampleDashboardData(): DashboardData {
         ],
         quotes: [
           {
-            text: 'When I explain to US partners that we need three months to get faculty alignment, they think we're being difficult. But that's how you build partnerships that last 10 years.',
+            text: 'When I explain to US partners that we need three months to get faculty alignment, they think we\'re being difficult. But that\'s how you build partnerships that last 10 years.',
             author: 'Dr. Maria, Interview #3',
             source: 'Interview April 2024'
           }
@@ -239,7 +239,7 @@ export function createSampleDashboardData(): DashboardData {
               'Reduce time spent on non-serious partners from 40% to under 20%',
               'Increase faculty engagement with commercialization from reluctant to enthusiastic',
               'Find validation frameworks that both university and partners trust and respect',
-              'Build repeatable partnership models that don't require reinventing process each time',
+              'Build repeatable partnership models that don\'t require reinventing process each time',
               'Double commercialization rate while maintaining 100% social impact alignment'
             ]
           }
@@ -254,7 +254,7 @@ export function createSampleDashboardData(): DashboardData {
       },
       'layer4': {
         title: 'Layer 4: Current Solutions',
-        content: 'Currently uses a combination of informal relationship-building, manual technology assessment spreadsheets, and ad-hoc partnership processes that vary by partner and technology. Relies heavily on personal network and reputation rather than systematic evaluation frameworks. The university's legal team handles contract negotiations using templates that require extensive customization for each partnership. Technology validation happens through partner-funded pilots or research grants, creating misaligned incentives. The system works for established relationships but breaks down when trying to scale or engage with new partners who don't yet have trust built up.',
+        content: 'Currently uses a combination of informal relationship-building, manual technology assessment spreadsheets, and ad-hoc partnership processes that vary by partner and technology. Relies heavily on personal network and reputation rather than systematic evaluation frameworks. The university\'s legal team handles contract negotiations using templates that require extensive customization for each partnership. Technology validation happens through partner-funded pilots or research grants, creating misaligned incentives. The system works for established relationships but breaks down when trying to scale or engage with new partners who don\'t yet have trust built up.',
         source: 'Interview #2, #4, #6, Process documentation',
         gaps: [
           'No systematic partner qualification framework',
@@ -264,7 +264,7 @@ export function createSampleDashboardData(): DashboardData {
         ],
         quotes: [
           {
-            text: 'We have spreadsheets and email threads, but nothing that gives us or partners a clear, objective view of where a technology stands. It's all relationship-based, which doesn't scale.',
+            text: 'We have spreadsheets and email threads, but nothing that gives us or partners a clear, objective view of where a technology stands. It\'s all relationship-based, which doesn\'t scale.',
             author: 'Dr. Maria, Interview #4',
             source: 'Interview May 2024'
           }

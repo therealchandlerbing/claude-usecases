@@ -1,0 +1,33 @@
+# Testing dependencies for claude-usecases
+
+# Core testing framework
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+pytest-asyncio>=0.21.0
+
+# Test utilities
+pytest-xdist>=3.5.0          # Parallel test execution
+pytest-timeout>=2.2.0         # Test timeout support
+pytest-benchmark>=4.0.0       # Performance benchmarking
+
+# Mocking and fixtures
+responses>=0.24.0             # HTTP request mocking
+freezegun>=1.4.0              # Time/date mocking
+faker>=22.0.0                 # Fake data generation
+
+# Coverage and reporting
+coverage[toml]>=7.4.0
+pytest-html>=4.1.0            # HTML test reports
+
+# Code quality
+pylint>=3.0.0
+flake8>=7.0.0
+black>=24.0.0
+mypy>=1.8.0
+
+# Specific to the codebase needs
+openpyxl>=3.1.0               # Excel file testing (for xlsx_enhancer tests)
+python-docx>=1.1.0            # DOCX testing (for docx_utilities tests)
+beautifulsoup4>=4.12.0        # HTML parsing for testing HTML outputs
+lxml>=5.0.0                   # XML/HTML processing
