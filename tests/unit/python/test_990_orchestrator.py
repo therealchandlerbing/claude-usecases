@@ -885,3 +885,558 @@ def test_eligibility_threshold_boundaries(orchestrator, gross_receipts, total_as
     """Test eligibility verification at various threshold boundaries."""
     eligible, _ = orchestrator.verify_eligibility(gross_receipts, total_assets)
     assert eligible == expected_eligible
+
+
+# ============================================================================
+# INTERACTIVE METHOD TESTS
+# ============================================================================
+
+@pytest.mark.unit
+class TestInteractiveMethods:
+    """Tests for interactive data collection methods."""
+
+    def test_check_eligibility_interactive_eligible(self, orchestrator):
+        """Test interactive eligibility check with eligible organization."""
+        with patch('builtins.input', side_effect=['150000', '400000', 'no', 'no']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is True
+                # Verify success message was printed
+                assert any('QUALIFIES FOR FORM 990-EZ' in str(call) for call in mock_print.call_args_list)
+
+    def test_check_eligibility_interactive_ineligible_receipts(self, orchestrator):
+        """Test interactive eligibility check with ineligible organization (high receipts)."""
+        with patch('builtins.input', side_effect=['250000', '100000', 'no', 'no']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is False
+                # Verify failure message was printed
+                assert any('DOES NOT QUALIFY' in str(call) for call in mock_print.call_args_list)
+
+    def test_check_eligibility_interactive_ineligible_assets(self, orchestrator):
+        """Test interactive eligibility check with ineligible organization (high assets)."""
+        with patch('builtins.input', side_effect=['100000', '600000', 'no', 'no']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is False
+                assert any('DOES NOT QUALIFY' in str(call) for call in mock_print.call_args_list)
+
+    def test_check_eligibility_interactive_donor_advised_fund(self, orchestrator):
+        """Test interactive eligibility check with donor advised fund."""
+        with patch('builtins.input', side_effect=['100000', '200000', 'yes', 'no']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is False
+                assert any('donor advised fund' in str(call).lower() for call in mock_print.call_args_list)
+
+    def test_check_eligibility_interactive_hospital(self, orchestrator):
+        """Test interactive eligibility check with hospital operator."""
+        with patch('builtins.input', side_effect=['100000', '200000', 'no', 'yes']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is False
+                assert any('hospital' in str(call).lower() for call in mock_print.call_args_list)
+
+    def test_check_eligibility_interactive_invalid_input(self, orchestrator):
+        """Test interactive eligibility check with invalid input."""
+        with patch('builtins.input', side_effect=['invalid', '100000', 'no', 'no']):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.check_eligibility_interactive()
+
+                assert result is False
+                # Should show error message
+                assert any('Error' in str(call) or 'valid' in str(call) for call in mock_print.call_args_list)
+
+    def test_collect_organization_info(self, orchestrator):
+        """Test interactive organization information collection."""
+        test_inputs = [
+            'Test Nonprofit Org',
+            '12-3456789',
+            '2024',
+            '12/31/2024',
+            '501(c)(3)'
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_organization_info()
+
+                assert result['legal_name'] == 'Test Nonprofit Org'
+                assert result['ein'] == '12-3456789'
+                assert result['tax_year'] == 2024
+                assert result['fiscal_year_end'] == '12/31/2024'
+                assert result['classification'] == '501(c)(3)'
+                assert orchestrator.organization_data == result
+
+    def test_collect_financial_data_manual_entry(self, orchestrator):
+        """Test interactive financial data collection with manual entry."""
+        test_inputs = [
+            '100000',  # contributions
+            '40000',   # program service revenue
+            '5000',    # investment income
+            '5000',    # other revenue
+            '90000',   # program services expenses
+            '25000',   # management & general
+            '10000',   # fundraising
+            '50000',   # beginning cash
+            '150000',  # beginning other assets
+            '50000',   # beginning liabilities
+            '60000',   # ending cash
+            '165000',  # ending other assets
+            '50000',   # ending liabilities
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_financial_data(use_manual_entry=True)
+
+                assert result['revenue']['contributions'] == 100000
+                assert result['revenue']['total'] == 150000
+                assert result['expenses']['total'] == 125000
+                assert result['net_income'] == 25000
+                assert orchestrator.financial_data == result
+
+    def test_collect_financial_data_api_fallback(self, orchestrator):
+        """Test financial data collection falls back to manual when API not available."""
+        test_inputs = [
+            '100000', '40000', '5000', '5000',
+            '90000', '25000', '10000',
+            '50000', '150000', '50000',
+            '60000', '165000', '50000',
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.collect_financial_data(use_manual_entry=False)
+
+                # Should print message about API not implemented
+                assert any('not yet implemented' in str(call).lower() or 'manual' in str(call).lower()
+                          for call in mock_print.call_args_list)
+                assert result is not None
+
+    def test_collect_financial_data_low_program_ratio_warning(self, orchestrator):
+        """Test that low program ratio triggers warning during financial collection."""
+        test_inputs = [
+            '100000',  # contributions
+            '0',       # program service revenue
+            '0',       # investment income
+            '0',       # other revenue
+            '50000',   # program services expenses (50% - below 65%)
+            '40000',   # management & general
+            '10000',   # fundraising
+            '50000',   # beginning cash
+            '50000',   # beginning other assets
+            '20000',   # beginning liabilities
+            '50000',   # ending cash
+            '50000',   # ending other assets
+            '20000',   # ending liabilities
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                result = orchestrator.collect_financial_data(use_manual_entry=True)
+
+                # Should warn about program ratio below 65%
+                assert any('Warning' in str(call) or 'below' in str(call)
+                          for call in mock_print.call_args_list)
+
+    def test_collect_program_data_multiple_programs(self, orchestrator):
+        """Test interactive program data collection with multiple programs."""
+        test_inputs = [
+            'yes',  # Add program 1
+            'Educational workshops for 500 underserved youth with 85% improvement in literacy',
+            '60000',
+            '10000',
+            'yes',  # Add program 2
+            'Food bank serving 200 families monthly distributing 50000 pounds of food',
+            '30000',
+            '5000',
+            'no',   # Don't add program 3
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_program_data()
+
+                assert len(result) == 2
+                assert result[0]['number'] == 1
+                assert result[0]['expenses'] == 60000
+                assert result[1]['number'] == 2
+                assert result[1]['expenses'] == 30000
+                assert orchestrator.program_data == result
+
+    def test_collect_program_data_no_programs(self, orchestrator):
+        """Test interactive program data collection with no programs."""
+        test_inputs = ['no']  # Don't add any programs
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_program_data()
+
+                assert len(result) == 0
+                assert orchestrator.program_data == []
+
+    def test_collect_program_data_one_program_then_stop(self, orchestrator):
+        """Test program data collection that stops after one program."""
+        test_inputs = [
+            'yes',  # Add program 1
+            'Community health screenings for 1000 residents with early detection of diabetes',
+            '75000',
+            '15000',
+            'no',   # Don't add program 2
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_program_data()
+
+                assert len(result) == 1
+                assert result[0]['number'] == 1
+
+    def test_collect_governance_data_with_officers(self, orchestrator):
+        """Test interactive governance data collection with officers."""
+        test_inputs = [
+            'yes',   # Add officer 1
+            'Jane Doe',
+            'Executive Director',
+            '40',
+            '75000',
+            'yes',   # Add officer 2
+            'John Smith',
+            'Board Chair',
+            '5',
+            '0',
+            'no',    # No more officers
+            'yes',   # Conflict of interest policy
+            'yes',   # Whistleblower policy
+            'no',    # No document retention policy
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_governance_data()
+
+                assert len(result['officers']) == 2
+                assert result['officers'][0]['name'] == 'Jane Doe'
+                assert result['officers'][0]['compensation'] == 75000
+                assert result['officers'][1]['name'] == 'John Smith'
+                assert result['officers'][1]['compensation'] == 0
+                assert result['policies']['conflict_of_interest'] is True
+                assert result['policies']['whistleblower'] is True
+                assert result['policies']['document_retention'] is False
+                assert orchestrator.governance_data == result
+
+    def test_collect_governance_data_no_officers(self, orchestrator):
+        """Test governance data collection with no officers."""
+        test_inputs = [
+            'no',    # No officers
+            'yes',   # Conflict of interest policy
+            'no',    # No whistleblower policy
+            'yes',   # Document retention policy
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print'):
+                result = orchestrator.collect_governance_data()
+
+                assert len(result['officers']) == 0
+                assert result['policies']['conflict_of_interest'] is True
+                assert result['policies']['whistleblower'] is False
+                assert result['policies']['document_retention'] is True
+
+    def test_main_function_eligible_complete_workflow(self, temp_config_dir):
+        """Test main() function with complete workflow for eligible organization."""
+        test_inputs = [
+            # Eligibility check (4 inputs)
+            '150000', '400000', 'no', 'no',
+            # Press Enter to continue to data collection (1 input)
+            '',
+            # Organization info (5 inputs)
+            'Test Org', '12-3456789', '2024', '12/31/2024', '501(c)(3)',
+            # Financial data (13 inputs)
+            '100000', '40000', '5000', '5000',
+            '90000', '25000', '10000',
+            '50000', '150000', '50000',
+            '60000', '165000', '50000',
+            # Program data (5 inputs)
+            'yes', 'Educational program for youth with measurable outcomes', '60000', '10000', 'no',
+            # Governance data (9 inputs)
+            'yes', 'Jane Doe', 'Executive Director', '40', '75000', 'no',
+            'yes', 'yes', 'yes',
+            # Press Enter to generate form (1 input)
+            '',
+            # Press Enter to validate (1 input)
+            '',
+            # Press Enter to generate filing package (1 input)
+            '',
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                # Mock Form990EZOrchestrator to use test config
+                with patch('orchestrator.Form990EZOrchestrator') as mock_orch_class:
+                    mock_orch = Form990EZOrchestrator(config_path=temp_config_dir)
+                    mock_orch_class.return_value = mock_orch
+
+                    from orchestrator import main
+                    main()
+
+                    # Verify completion message
+                    assert any('COMPLETE' in str(call) for call in mock_print.call_args_list)
+
+    def test_main_function_ineligible_organization(self, temp_config_dir):
+        """Test main() function with ineligible organization."""
+        test_inputs = [
+            '250000',  # High gross receipts
+            '100000',
+            'no',
+            'no',
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                # Mock Form990EZOrchestrator to use test config
+                with patch('orchestrator.Form990EZOrchestrator') as mock_orch_class:
+                    mock_orch = Form990EZOrchestrator(config_path=temp_config_dir)
+                    mock_orch_class.return_value = mock_orch
+
+                    from orchestrator import main
+                    main()
+
+                    # Should exit early with message about Form 990
+                    assert any('must file form 990' in str(call).lower() or 'exiting' in str(call).lower()
+                              for call in mock_print.call_args_list)
+
+    def test_main_function_complete_workflow_alternative(self, temp_config_dir):
+        """Test main() function with complete workflow (alternative data)."""
+        test_inputs = [
+            # Eligibility check (4 inputs)
+            '150000', '400000', 'no', 'no',
+            # Press Enter to data collection (1 input)
+            '',
+            # Organization info (5 inputs)
+            'Test Org', '12-3456789', '2024', '12/31/2024', '501(c)(3)',
+            # Financial data (13 inputs)
+            '100000', '0', '0', '0',
+            '90000', '10000', '0',
+            '50000', '50000', '10000',  # Beginning: Assets=100k, Liab=10k, Net=90k
+            '60000', '60000', '10000',  # Ending: Assets=120k, Liab=10k, Net=110k
+            # Program data (1 input - no programs)
+            'no',
+            # Governance data (4 inputs - no officers)
+            'no', 'yes', 'yes', 'yes',
+            # Press Enter to generate form (1 input)
+            '',
+            # Press Enter to validate (1 input)
+            '',
+            # Press Enter to generate filing package (1 input) - form is valid
+            '',
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                # Mock Form990EZOrchestrator to use test config
+                with patch('orchestrator.Form990EZOrchestrator') as mock_orch_class:
+                    mock_orch = Form990EZOrchestrator(config_path=temp_config_dir)
+                    mock_orch_class.return_value = mock_orch
+
+                    from orchestrator import main
+                    main()
+
+                    # Verify completion message
+                    assert any('COMPLETE' in str(call) for call in mock_print.call_args_list)
+
+    def test_main_function_with_validation_errors(self, temp_config_dir):
+        """Test main() function when form has validation errors."""
+        test_inputs = [
+            # Eligibility check (4 inputs)
+            '150000', '400000', 'no', 'no',
+            # Press Enter to data collection (1 input)
+            '',
+            # Organization info (5 inputs)
+            'Test Org', '12-3456789', '2024', '12/31/2024', '501(c)(3)',
+            # Financial data with INCORRECT totals that will cause validation errors (13 inputs)
+            '100000', '40000', '5000', '5000',  # These sum to 150000
+            '90000', '25000', '10000',          # These sum to 125000
+            '50000', '150000', '50000',         # Beginning
+            '60000', '165000', '50000',         # Ending
+            # Program data (1 input)
+            'no',
+            # Governance data (4 inputs)
+            'no', 'yes', 'yes', 'yes',
+            # Press Enter to generate form (1 input)
+            '',
+            # Press Enter to validate (1 input)
+            '',
+            # No filing package prompt since form has errors
+        ]
+
+        with patch('builtins.input', side_effect=test_inputs):
+            with patch('builtins.print') as mock_print:
+                # Mock Form990EZOrchestrator to use test config
+                with patch('orchestrator.Form990EZOrchestrator') as mock_orch_class:
+                    mock_orch = Form990EZOrchestrator(config_path=temp_config_dir)
+                    # Force validation to fail by making validate_form return errors
+                    original_validate = mock_orch.validate_form
+
+                    def failing_validate(form):
+                        result = original_validate(form)
+                        # Force an error
+                        result['errors'] = 1
+                        result['filing_ready'] = False
+                        result['details']['errors'] = ['Test validation error']
+                        return result
+
+                    mock_orch.validate_form = failing_validate
+                    mock_orch_class.return_value = mock_orch
+
+                    from orchestrator import main
+                    main()
+
+                    # Verify error message was shown
+                    assert any('FORM HAS ERRORS' in str(call) or 'CANNOT FILE' in str(call)
+                              for call in mock_print.call_args_list)
+
+
+# ============================================================================
+# ADDITIONAL VALIDATION EDGE CASES
+# ============================================================================
+
+@pytest.mark.unit
+@pytest.mark.financial
+class TestValidationEdgeCases:
+    """Additional tests for validation edge cases to improve coverage."""
+
+    def test_validate_mathematical_revenue_sum_incorrect(self, orchestrator, sample_organization_data,
+                                                         sample_governance_data, sample_program_data):
+        """Test mathematical validation catches incorrect revenue sums."""
+        # Create financial data with incorrect total
+        bad_financial = {
+            'revenue': {
+                'contributions': 100000,
+                'program_service_revenue': 40000,
+                'investment_income': 5000,
+                'other': 5000,
+                'total': 140000,  # Wrong! Should be 150000
+            },
+            'expenses': {
+                'program_services': 90000,
+                'management_general': 25000,
+                'fundraising': 10000,
+                'total': 125000,
+            },
+            'balance_sheet': {
+                'beginning': {'cash': 50000, 'other_assets': 150000, 'total_assets': 200000,
+                             'liabilities': 50000, 'net_assets': 150000},
+                'ending': {'cash': 60000, 'other_assets': 155000, 'total_assets': 215000,
+                          'liabilities': 50000, 'net_assets': 165000}
+            },
+            'net_income': 15000,
+        }
+
+        orchestrator.organization_data = sample_organization_data
+        orchestrator.financial_data = bad_financial
+        orchestrator.governance_data = sample_governance_data
+        orchestrator.program_data = sample_program_data
+
+        form = orchestrator.populate_form()
+        validation = orchestrator.validate_form(form)
+
+        # Should have error about revenue not summing correctly
+        assert validation['errors'] > 0
+        assert any('revenue' in e.lower() for e in validation['details']['errors'])
+
+    def test_validate_mathematical_balance_sheet_imbalanced(self, orchestrator, sample_organization_data,
+                                                            sample_governance_data, sample_program_data):
+        """Test mathematical validation catches imbalanced balance sheet."""
+        # Create financial data with imbalanced balance sheet
+        imbalanced_financial = {
+            'revenue': {'contributions': 100000, 'program_service_revenue': 0,
+                       'investment_income': 0, 'other': 0, 'total': 100000},
+            'expenses': {'program_services': 90000, 'management_general': 10000,
+                        'fundraising': 0, 'total': 100000},
+            'balance_sheet': {
+                'beginning': {'cash': 50000, 'other_assets': 50000, 'total_assets': 100000,
+                             'liabilities': 20000, 'net_assets': 80000},
+                'ending': {'cash': 60000, 'other_assets': 50000, 'total_assets': 110000,
+                          'liabilities': 20000, 'net_assets': 100000}  # Imbalanced: 110 ≠ 20 + 100
+            },
+            'net_income': 0,
+        }
+
+        orchestrator.organization_data = sample_organization_data
+        orchestrator.financial_data = imbalanced_financial
+        orchestrator.governance_data = sample_governance_data
+        orchestrator.program_data = sample_program_data
+
+        form = orchestrator.populate_form()
+        validation = orchestrator.validate_form(form)
+
+        # Should have error about balance sheet not balancing
+        assert validation['errors'] > 0
+        assert any('balance sheet' in e.lower() for e in validation['details']['errors'])
+
+    def test_validate_mathematical_part_i_part_ii_mismatch(self, orchestrator, sample_organization_data,
+                                                           sample_governance_data, sample_program_data):
+        """Test validation catches mismatch between Part I and Part II net assets."""
+        # Create financial data where Part I and Part II won't reconcile
+        mismatch_financial = {
+            'revenue': {'contributions': 100000, 'program_service_revenue': 0,
+                       'investment_income': 0, 'other': 0, 'total': 100000},
+            'expenses': {'program_services': 90000, 'management_general': 10000,
+                        'fundraising': 0, 'total': 100000},
+            'balance_sheet': {
+                'beginning': {'cash': 50000, 'other_assets': 50000, 'total_assets': 100000,
+                             'liabilities': 20000, 'net_assets': 80000},
+                'ending': {'cash': 50000, 'other_assets': 50000, 'total_assets': 100000,
+                          'liabilities': 20000, 'net_assets': 80000}  # No change, but net income is 0
+            },
+            'net_income': 0,
+        }
+
+        orchestrator.organization_data = sample_organization_data
+        orchestrator.financial_data = mismatch_financial
+        orchestrator.governance_data = sample_governance_data
+        orchestrator.program_data = sample_program_data
+
+        form = orchestrator.populate_form()
+        validation = orchestrator.validate_form(form)
+
+        # Part I should show ending net assets = 80k (beginning) + 0 (net income) = 80k
+        # This should match Part II, so no error expected
+        # But if we force a mismatch by changing Part I line 21:
+        form['part_i']['line_21'] = 90000  # Force mismatch
+
+        validation = orchestrator.validate_form(form)
+
+        # Should have error about Part I/II mismatch
+        assert validation['errors'] > 0
+        assert any('part i' in e.lower() and 'part ii' in e.lower() for e in validation['details']['errors'])
+
+    def test_validate_with_missing_whistleblower_policy(self, orchestrator, sample_organization_data,
+                                                        sample_financial_data, sample_program_data):
+        """Test that missing whistleblower policy generates info message."""
+        governance_no_whistleblower = {
+            'officers': [{'name': 'Test', 'title': 'Director', 'hours_per_week': 10, 'compensation': 0}],
+            'policies': {
+                'conflict_of_interest': True,
+                'whistleblower': False,
+                'document_retention': True,
+            }
+        }
+
+        orchestrator.organization_data = sample_organization_data
+        orchestrator.financial_data = sample_financial_data
+        orchestrator.governance_data = governance_no_whistleblower
+        orchestrator.program_data = sample_program_data
+
+        form = orchestrator.populate_form()
+        validation = orchestrator.validate_form(form)
+
+        # Should have info message about whistleblower policy
+        assert any('whistleblower' in i.lower() for i in validation['details']['info'])
