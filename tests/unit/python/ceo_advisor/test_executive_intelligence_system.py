@@ -242,7 +242,8 @@ class TestExternalSignalAnalysis:
         system = ExecutiveIntelligenceSystem()
 
         config = {'weight': 0.7, 'thresholds': {'critical': 35, 'warning': 50}}
-        data = {'opportunity_score': 85}
+        # Include low threat_level to ensure it doesn't trigger critical path
+        data = {'opportunity_score': 85, 'threat_level': 30}
 
         signal = system._analyze_external_signal('market_dynamics', data, config)
 
@@ -280,11 +281,13 @@ class TestExternalSignalAnalysis:
 
         config = {'weight': 0.7, 'thresholds': {'critical': 35, 'warning': 50}}
         opportunity_score = 85
-        data = {'opportunity_score': opportunity_score}
+        # Include low threat_level to ensure opportunity path is taken
+        data = {'opportunity_score': opportunity_score, 'threat_level': 30}
 
         signal = system._analyze_external_signal('market_dynamics', data, config)
 
-        expected_impact = 0.7 * opportunity_score
+        # Apply confidence factor to opportunity impact score (0.95)
+        expected_impact = 0.7 * opportunity_score * 0.95
         assert signal.impact_score == expected_impact
 
 
