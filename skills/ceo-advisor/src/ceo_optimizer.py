@@ -78,6 +78,9 @@ class CEOOptimizer:
 
         for block in calendar_data:
             duration = (block.end_time - block.start_time).total_seconds() / 60
+            # Skip blocks with zero duration
+            if duration == 0:
+                continue
             total_minutes += duration
 
             if block.category not in category_minutes:
@@ -89,7 +92,7 @@ class CEOOptimizer:
             allocation[category] = {
                 'percentage': (minutes / total_minutes * 100) if total_minutes > 0 else 0,
                 'hours_per_week': minutes / 60,
-                'status': self._get_allocation_status(category, (minutes / total_minutes * 100))
+                'status': self._get_allocation_status(category, (minutes / total_minutes * 100) if total_minutes > 0 else 0)
             }
 
         return allocation
