@@ -142,6 +142,8 @@ class ExecutiveIntelligenceSystem:
         # Check for opportunities
         opportunity = data.get('opportunity_score', random.randint(0, 100))
         if opportunity > 80:
+            # Apply confidence factor to opportunity impact score
+            opportunity_impact = config['weight'] * opportunity * 0.95
             return Signal(
                 source=f"External/{source}",
                 category="Market Intelligence",
@@ -150,7 +152,7 @@ class ExecutiveIntelligenceSystem:
                 confidence=0.7,
                 action_required="Evaluate and potentially fast-track initiative",
                 deadline=datetime.now() + timedelta(days=14),
-                impact_score=config['weight'] * opportunity,
+                impact_score=opportunity_impact,
                 stakeholders=self._get_stakeholders_for_source(source)
             )
 

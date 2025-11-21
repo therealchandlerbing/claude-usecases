@@ -55,6 +55,7 @@ coverage/
 *.coverage
 htmlcov/
 .vitest/
+coverage_output.txt
 
 # Environment
 .env
