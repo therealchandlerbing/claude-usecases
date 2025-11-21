@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: intelligence-dashboard-coverage
-          path: intelligence-dashboard/coverage/
+          path: coverage/
           retention-days: 30
 
   typescript-vianeo-dashboard:
@@ -153,7 +153,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vianeo-dashboard-coverage
-          path: skills/vianeo-persona-builder/powerups/interactive-dashboard/coverage/
+          path: coverage/
           retention-days: 30
 
   test-summary:
