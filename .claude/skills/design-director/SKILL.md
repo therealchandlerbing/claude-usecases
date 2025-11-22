@@ -1,13 +1,13 @@
 ---
 name: Design Director
 description: Transform functional outputs into professionally polished, design-elevated work through systematic application of typography, color, layout, and visual refinement. Use PROACTIVELY when creating presentations, dashboards, HTML interfaces, reports, or any visual content requiring professional polish.
-version: 1.0.0
+version: 1.1.0
 author: 360 Social Impact Studios
 created: 2025-11-14
-updated: 2025-11-19
+updated: 2025-11-22
 status: production
 category: design-excellence
-tags: [design, elevation, visual-polish, typography, color, layout, presentations, dashboards, html]
+tags: [design, elevation, visual-polish, typography, color, layout, presentations, dashboards, html, branding, brand-modules]
 tools: [Read, Write]
 ---
 
@@ -93,6 +93,54 @@ This skill should activate automatically when:
 - Quick internal drafts
 - Technical documentation without visual elements
 - When user explicitly wants minimal styling
+
+## Brand Modules
+
+The Design Director skill supports organization-specific brand modules that provide precise brand standards while maintaining Design Director's elevation techniques.
+
+### Available Brand Modules
+
+**360 Social Impact Studios**
+- Location: `references/brands/360-social-impact/`
+- Triggers: "360", "360 Social Impact Studios", requests from Chandler Lewis
+- Components:
+  - [360 Brand Standards](references/brands/360-social-impact/360-brand-standards.md) - Complete specification
+  - [360 Quick Reference](references/brands/360-social-impact/360-quick-reference.md) - Fast lookups
+  - [360 Integration Guide](references/brands/360-social-impact/360-integration-guide.md) - Workflow integration
+  - [360 Quality Checklist](references/brands/360-social-impact/360-quality-checklist.md) - Pre-delivery validation
+
+### When Brand Modules Activate
+
+Brand modules take precedence when:
+1. User explicitly mentions organization name ("360", "360 Social Impact Studios")
+2. Document is for organization's partners, board, community, or internal use
+3. User explicitly requests brand standards
+
+### How Brand Modules Work
+
+**Integration with 6-Phase Protocol:**
+- **Phase 1 (Functional Foundation):** Standard process + identify audience
+- **Phase 2 (Design Interrogation):** Standard interrogation + brand requirements check
+- **Phase 3 (Technique Selection):** Standard techniques + brand-specific replacements
+  - Replace exemplar colors with brand palette
+  - Replace generic fonts with brand typography
+  - Add brand logos and visual elements
+- **Phase 4 (Systematic Application):** Apply techniques with brand elements as foundation
+- **Phase 5 (Quality Validation):** Standard validation + brand compliance checks
+- **Phase 6 (Delivery):** Standard delivery + note brand application
+
+**Key Principle:** Brand modules provide the *what* (specific colors, logos, typography), while Design Director provides the *how* (elevation techniques, quality standards).
+
+### Adding New Brand Modules
+
+To add a brand module:
+1. Create directory: `references/brands/[organization-name]/`
+2. Include files:
+   - `[org]-brand-standards.md` - Complete brand specification
+   - `[org]-quick-reference.md` - Fast lookup tables
+   - `[org]-integration-guide.md` - How to integrate with Design Director
+   - `[org]-quality-checklist.md` - Pre-delivery validation
+3. Update this section with trigger patterns
 
 ## The 6-Phase Elevation Protocol
 
@@ -454,5 +502,6 @@ The Design Director skill works well in combination with:
 ---
 
 **Version History:**
+- v1.1.0 (2025-11-22): Added brand modules system with 360 Social Impact Studios integration
 - v1.0.0 (2025-11-19): Elevated to managed skill with complete operational specification
 - v1.0 (2025-11-14): Initial user-skill release
