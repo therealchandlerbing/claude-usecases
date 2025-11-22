@@ -50,6 +50,31 @@ Fathom Transcripts → Google Drive → Zapier → Claude Extraction → Supabas
 
 ## Setup Instructions
 
+### Quickstart for your Supabase project (https://nzvmihdgbvomjlkelcum.supabase.co)
+
+Use this one-time checklist to wire the dashboard to the Supabase project you already created:
+
+1. In Supabase → **SQL Editor**, paste and run `supabase-schema.sql` from this repo to create the `extractions`, `experiments`, `edits`, and `weekly_analyses` tables.
+2. In Supabase → **Project Settings → API**, copy the **anon key** and confirm the **Project URL** matches `https://nzvmihdgbvomjlkelcum.supabase.co`.
+3. From `intelligence-dashboard/`, make your env file and fill in the values:
+   ```bash
+   cp .env.local.example .env.local
+   # then edit .env.local with your project URL and anon key
+   ```
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://nzvmihdgbvomjlkelcum.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY_HERE
+   ```
+4. Start the app locally and confirm it loads with no Supabase errors:
+   ```bash
+   npm install
+   npm run dev
+   ```
+   Visit http://localhost:3000. Once data is inserted, cards and charts will populate automatically.
+5. (Optional) In Zapier, open the Code step that writes to Supabase (`zapier-supabase-integration.js`) and update the two constants at the top to the same URL and anon key above. Run a Zap test to insert a row and verify it appears in the Supabase table editor and on the dashboard in real time.
+
+The sections below provide the full setup reference if you need more detail.
+
 ### 1. Set Up Supabase Database
 
 1. Go to [supabase.com](https://supabase.com) and create a new project
