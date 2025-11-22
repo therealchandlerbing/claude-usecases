@@ -70,9 +70,6 @@ jobs:
       - name: Run skill structure validation
         run: |
           python scripts/validate_skill_structure.py --verbose
-        # TODO: Remove continue-on-error once all existing skills are compliant
-        # This will make validation blocking to prevent structural drift
-        continue-on-error: true
 
       - name: Upload validation report
         if: always()
