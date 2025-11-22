@@ -48,6 +48,41 @@ jobs:
           mypy skills/ --ignore-missing-imports --no-error-summary
         continue-on-error: true
 
+  skill-structure-validation:
+    name: Skill Structure Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Run skill structure validation
+        run: |
+          python scripts/validate_skill_structure.py --verbose
+        # TODO: Remove continue-on-error once all existing skills are compliant
+        # This will make validation blocking to prevent structural drift
+        continue-on-error: true
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-validation-report
+          path: |
+            config/skill-structure-requirements.yaml
+          retention-days: 30
+
   typescript-quality:
     name: TypeScript Code Quality
     runs-on: ubuntu-latest
@@ -86,7 +121,7 @@ jobs:
   quality-summary:
     name: Quality Check Summary
     runs-on: ubuntu-latest
-    needs: [python-quality, typescript-quality]
+    needs: [python-quality, typescript-quality, skill-structure-validation]
     if: always()
 
     steps:
@@ -98,5 +133,7 @@ jobs:
           echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| Python Quality | ${{ needs.python-quality.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| TypeScript Quality | ${{ needs.typescript-quality.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Skill Structure Validation | ${{ needs.skill-structure-validation.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Note: Quality checks are informational and do not block merges." >> $GITHUB_STEP_SUMMARY
+          echo "Note: Python and TypeScript quality checks are informational and do not block merges." >> $GITHUB_STEP_SUMMARY
+          echo "**Skill structure validation failures WILL block merges to maintain consistency.**" >> $GITHUB_STEP_SUMMARY
