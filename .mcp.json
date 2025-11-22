@@ -2,7 +2,10 @@
   "mcpServers": {
     "supabase": {
       "transport": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=nzvmihdgbvomjlkelcum"
+      "url": "https://mcp.supabase.com/mcp?project_ref=nzvmihdgbvomjlkelcum",
+      "headers": {
+        "Authorization": "Bearer ${SUPABASE_SERVICE_ROLE_KEY}"
+      }
     }
   }
 }
