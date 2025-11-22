@@ -1,3 +1,27 @@
+---
+name: 360 Executive Project Tracker
+description: Build professionally designed, multi-source project status trackers that consolidate information from Gmail, Google Calendar, Google Drive, and Asana into Excel dashboards and interactive HTML visualizations with automated updates, intelligent blocker detection, and category-based organization.
+version: 1.2.0
+author: 360 Social Impact Studios
+created: 2024-09-12
+updated: 2025-11-22
+category: project-management
+complexity: high
+tags: [project-tracker, status-dashboard, asana-integration, gmail-integration, calendar-integration, drive-integration, excel-automation, html-dashboard]
+dependencies:
+  - Gmail API (status updates, blocker mentions)
+  - Google Calendar API (meeting notes, action items)
+  - Google Drive API (meeting deliverables)
+  - Asana API (project and task integration)
+  - Python (orchestration scripts)
+  - openpyxl (Excel generation)
+outputs:
+  - Excel tracker (16-column source of truth)
+  - HTML dashboard (interactive presentation)
+  - Blocker reports (warning/critical alerts)
+  - Weekly status summaries
+---
+
 # 360 Executive Project Tracker
 
 **Version:** 1.2.0
