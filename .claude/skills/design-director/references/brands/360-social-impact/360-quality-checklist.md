@@ -130,9 +130,10 @@ Use this checklist before finalizing any document, presentation, report, or visu
 ### Color Contrast
 - [ ] Text meets 4.5:1 contrast minimum
 - [ ] Navy on white: PASS ✓
-- [ ] Bright Blue on white: PASS ✓
-- [ ] Lime Green on white: PASS ✓
 - [ ] Magenta on white: PASS ✓
+- [ ] Black on white: PASS ✓
+- [ ] Bright Blue on white: **Only large text (18pt+ or 14pt bold+) or dark backgrounds**
+- [ ] Lime Green on white: **Only large text (18pt+ or 14pt bold+) or dark backgrounds**
 - [ ] **Yellow on white: FAIL** ❌ (not used for text)
 
 ### Font Sizes

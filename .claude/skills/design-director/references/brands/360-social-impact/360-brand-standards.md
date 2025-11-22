@@ -410,15 +410,17 @@ When applying Design Director typography techniques to 360 materials:
 
 All text must meet 4.5:1 contrast ratio for normal text:
 
-**Tested and Approved:**
-- ✅ Navy blue (#1E4D6B) on white: **PASS**
-- ✅ Bright blue (#00A7E1) on white: **PASS**
-- ✅ Lime green (#7AC143) on white: **PASS**
-- ✅ Magenta (#E6007E) on white: **PASS**
-- ✅ Black (#231F20) on white: **PASS**
+**Tested and Approved for normal text:**
+- ✅ Navy blue (#1E4D6B) on white: **PASS** (9.0:1)
+- ✅ Magenta (#E6007E) on white: **PASS** (4.5:1)
+- ✅ Black (#231F20) on white: **PASS** (16.3:1)
+
+**Use with caution:**
+- ⚠️ Bright blue (#00A7E1) on white: **FAIL for normal text** (2.8:1). Only use for large text (18pt+ or 14pt bold+) or on dark backgrounds.
+- ⚠️ Lime green (#7AC143) on white: **FAIL for normal text** (2.2:1). Only use for large text (18pt+ or 14pt bold+) or on dark backgrounds.
 
 **Known Failures:**
-- ❌ Yellow (#FFD100) on white: **FAIL** (use for backgrounds only, never text)
+- ❌ Yellow (#FFD100) on white: **FAIL** (1.46:1) — background accents only, never text
 
 ### Font Sizes
 

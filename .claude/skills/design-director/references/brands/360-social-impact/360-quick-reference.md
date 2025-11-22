@@ -269,12 +269,14 @@ viz_colors_360 = {
 
 ### WCAG AA Compliance
 
-✅ **Safe for text on white:**
+✅ **Safe for text on white (normal text):**
 - Navy Blue (#1E4D6B)
-- Bright Blue (#00A7E1)
-- Lime Green (#7AC143)
 - Magenta (#E6007E)
 - Black (#231F20)
+
+⚠️ **Large text only (18pt+ or 14pt bold+), or on dark backgrounds:**
+- Bright Blue (#00A7E1)
+- Lime Green (#7AC143)
 
 ❌ **NOT safe for text on white:**
 - Yellow (#FFD100) - Use for backgrounds only
