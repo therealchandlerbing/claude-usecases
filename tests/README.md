@@ -42,13 +42,18 @@ tests/
 ├── conftest.py              # Shared pytest fixtures and configuration
 ├── data/                    # Test data and fixtures
 │   └── README.md
-├── unit/                    # Unit tests
-│   ├── python/              # Python unit tests
-│   │   └── test_example.py
-│   └── typescript/          # TypeScript unit tests (in project dirs)
-├── integration/             # Integration tests
-└── e2e/                     # End-to-end tests
+└── unit/                    # Unit tests
+    └── python/
+        ├── test_990_orchestrator.py
+        ├── test_ceo_advisor.py
+        ├── test_example.py
+        └── test_placeholder.py
 ```
+
+TypeScript unit tests live within each project directory:
+
+- `intelligence-dashboard/tests/` (e.g., `supabase.test.ts`)
+- `skills/vianeo-persona-builder/powerups/interactive-dashboard/tests/` (e.g., `dataTransformer.test.ts`)
 
 ## Test Markers
 
@@ -81,13 +86,10 @@ See [TESTING.md](../TESTING.md) in the project root for comprehensive testing do
 
 ## Current Status
 
-**Coverage:** Building from 0%
+- Python unit tests: CEO advisor, 990 orchestrator helpers, placeholder scenarios, and example coverage.
+- TypeScript unit tests: Intelligence Dashboard Supabase utilities and Vianeo data transformer utilities.
 
-**Priority Areas:**
-1. Financial & Compliance (IRS 990-EZ, financial modeling)
-2. Executive Intelligence (CEO advisor, stakeholder analytics)
-3. Data Processing (transformers, collectors)
-4. UI Components (dashboards, visualizations)
+Coverage is still being expanded; priority remains on financial/compliance, executive intelligence, data processing, and UI components.
 
 ## Contributing
 

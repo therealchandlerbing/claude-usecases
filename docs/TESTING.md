@@ -25,11 +25,16 @@ The claude-usecases project uses two testing frameworks:
 
 ### Current Status
 
-As of November 2024, we are building test coverage from zero. Priority areas:
+The repository currently includes:
 
-1. **Financial & Compliance** (IRS 990-EZ, financial modeling)
+- **Python unit tests** for the CEO advisor skill, 990 orchestrator helpers, placeholder behaviors, and a general example suite.
+- **TypeScript unit tests** for the Intelligence Dashboard (Supabase utilities) and the Vianeo Persona Builder interactive dashboard (data transformer utilities).
+
+Coverage is still being expanded. Near-term focus areas remain:
+
+1. **Financial & Compliance** (IRS 990-EZ workflows, financial modeling)
 2. **Executive Intelligence** (CEO advisor, stakeholder analytics)
-3. **Data Processing** (transformers, integrators, collectors)
+3. **Data Processing** (transformers, collectors)
 4. **UI Components** (dashboards, visualizations)
 
 ---
@@ -298,25 +303,19 @@ describe('utilityFunction', () => {
 ```
 tests/
 ├── conftest.py              # Shared pytest fixtures
-├── data/                    # Test data files
-│   ├── financial/
-│   ├── personas/
-│   ├── html/
-│   └── api_responses/
-├── unit/                    # Unit tests
-│   ├── python/
-│   │   ├── test_example.py
-│   │   ├── test_990_orchestrator.py
-│   │   └── test_data_transformer.py
-│   └── typescript/
-│       └── (tests within project dirs)
-├── integration/             # Integration tests
-│   ├── test_project_tracker_pipeline.py
-│   └── test_supabase_integration.py
-└── e2e/                     # End-to-end tests
-    ├── test_990_workflow.py
-    └── test_dashboard_workflows.py
+├── data/README.md           # Notes for adding shared test data
+└── unit/                    # Unit tests
+    └── python/
+        ├── test_990_orchestrator.py
+        ├── test_ceo_advisor.py
+        ├── test_example.py
+        └── test_placeholder.py
 ```
+
+TypeScript unit tests live inside their respective project directories:
+
+- `intelligence-dashboard/tests/` (e.g., `supabase.test.ts`)
+- `skills/vianeo-persona-builder/powerups/interactive-dashboard/tests/` (e.g., `dataTransformer.test.ts`)
 
 ### Test Markers
 
@@ -325,7 +324,7 @@ Use markers to organize and categorize tests:
 ```python
 @pytest.mark.unit           # Unit test
 @pytest.mark.integration    # Integration test
-@pytest.mark.e2e           # End-to-end test
+@pytest.mark.e2e           # End-to-end test (marker registered, tests to be added)
 @pytest.mark.financial     # Financial calculation (high priority)
 @pytest.mark.compliance    # Regulatory compliance (high priority)
 @pytest.mark.data_processing  # Data processing test
