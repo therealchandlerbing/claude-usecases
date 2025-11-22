@@ -1,3 +1,22 @@
+---
+name: Executive Impact Presentation Generator
+description: Generate professional, board-ready impact reports in dual formats (presentation deck and executive document) from a single content input, with brand customization, accessibility compliance, and print optimization. Transforms organizational impact data into polished HTML outputs for board meetings and stakeholder communication.
+version: 1.0.0
+author: 360 Social Impact Studios
+created: 2024-11-18
+updated: 2025-11-22
+category: reporting
+complexity: medium
+tags: [impact-reports, board-presentations, executive-documents, dual-format, brand-customization, accessibility, wcag, html-generation]
+dependencies:
+  - HTML/CSS templates
+  - Impact data (metrics, outcomes, partnerships)
+outputs:
+  - Presentation Format HTML (landscape slides, board meetings)
+  - Executive Format HTML (portrait pages, comprehensive review)
+  - Print-optimized PDFs (both formats)
+---
+
 # Executive Impact Presentation Generator
 
 Generate professional executive impact reports in two distinct formats from a single content input: **Presentation format** (fixed-slide deck) and **Executive format** (continuous scroll document).

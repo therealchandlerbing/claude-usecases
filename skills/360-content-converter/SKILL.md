@@ -1,3 +1,24 @@
+---
+name: 360 Content Converter
+description: Transform one piece of content into multiple platform-optimized formats while maintaining brand consistency, strategic coherence, and cultural awareness. Supports 20+ platforms across social media, business communications, and specialized formats with multi-language adaptation (English, Portuguese, Spanish).
+version: 1.0.0
+author: 360 Social Impact Studios
+created: 2024-11-12
+updated: 2025-11-22
+category: content-strategy
+complexity: medium
+tags: [content-conversion, multi-platform, social-media, marketing, localization, brand-consistency, cultural-adaptation]
+dependencies:
+  - Source content (any format)
+  - Platform specifications
+  - Brand guidelines (optional)
+outputs:
+  - Platform-optimized content (LinkedIn, Twitter, email, blog, etc.)
+  - Multi-language versions (EN, PT-BR, ES-LA)
+  - Design specifications (infographics, carousels, videos)
+  - Distribution-ready files
+---
+
 # 360 Content Converter
 
 Transform one piece of content into multiple platform-optimized formats while maintaining brand consistency, strategic coherence, and cultural awareness.
