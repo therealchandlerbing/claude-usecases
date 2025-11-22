@@ -1,0 +1,149 @@
+# Skill Structure Validation Requirements
+# This file defines the expected structure for Claude skills
+# Used by scripts/validate_skill_structure.py to enforce consistency
+
+# Global settings
+settings:
+  # Directories to validate
+  skill_directories:
+    - "skills/"           # User-created skills
+    - ".claude/skills/"   # Managed skills (production)
+
+  # Directories to exclude from validation
+  exclude_directories:
+    - "skills/templates"  # Template directory
+    - "skills/.git"
+    - "*/__pycache__"
+    - "*/node_modules"
+    - "*/.pytest_cache"
+    - "*/dist"
+    - "*/.next"
+
+  # Enable/disable specific validation checks
+  enable_frontmatter_validation: true
+  enable_file_presence_validation: true
+  enable_content_validation: false  # Future: validate file content quality
+
+# File requirements for managed skills (.claude/skills/)
+managed_skills:
+  required_files:
+    - name: "SKILL.md"
+      description: "Main operational logic for Claude"
+      validation:
+        - check_frontmatter: true
+        - min_size_bytes: 500  # Must have substantial content
+
+    - name: "README.md"
+      description: "User-facing documentation"
+      validation:
+        - min_size_bytes: 200
+
+    - name: "QUICK-START.md"
+      description: "One-page quick reference"
+      validation:
+        - min_size_bytes: 100
+
+  recommended_files:
+    - name: "IMPLEMENTATION-GUIDE.md"
+      description: "Setup and deployment instructions"
+
+    - name: "EXAMPLES.md"
+      description: "Concrete usage examples"
+
+    - name: "INDEX.md"
+      description: "Navigation guide (for complex skills)"
+      note: "Only required for complex multi-file skills"
+
+  # Required frontmatter fields in SKILL.md
+  required_frontmatter:
+    - field: "name"
+      type: "string"
+      description: "Skill identifier (should match directory name)"
+
+    - field: "description"
+      type: "string"
+      description: "Brief description of skill purpose"
+      min_length: 20
+
+    - field: "version"
+      type: "string"
+      description: "Semantic version (e.g., 1.0.0)"
+      pattern: '^\d+\.\d+\.\d+$'
+
+  # Optional but recommended frontmatter fields
+  recommended_frontmatter:
+    - field: "author"
+      type: "string"
+
+    - field: "created"
+      type: "string"
+      description: "Creation date (YYYY-MM-DD)"
+
+    - field: "category"
+      type: "string"
+      description: "Skill category"
+      allowed_values:
+        - "executive-leadership"
+        - "research-validation"
+        - "financial-compliance"
+        - "design-visual"
+        - "sales-business"
+        - "ai-governance"
+        - "healthcare-regulatory"
+        - "process-documentation"
+        - "workflow-coordination"
+        - "data-intelligence"
+
+# File requirements for user skills (skills/)
+user_skills:
+  required_files:
+    - name: "SKILL.md"
+      description: "Main operational logic for Claude"
+      validation:
+        - check_frontmatter: true
+        - min_size_bytes: 200  # Less strict for user skills
+
+  recommended_files:
+    - name: "README.md"
+      description: "User-facing documentation"
+
+    - name: "QUICK-START.md"
+      description: "One-page quick reference"
+
+  # Required frontmatter fields (less strict than managed)
+  required_frontmatter:
+    - field: "name"
+      type: "string"
+
+    - field: "description"
+      type: "string"
+      min_length: 10
+
+  recommended_frontmatter:
+    - field: "version"
+      type: "string"
+
+# Error messages
+error_messages:
+  missing_required_file: "❌ Required file '{file}' is missing in skill '{skill}'"
+  missing_frontmatter: "❌ Required frontmatter field '{field}' is missing in {skill}/SKILL.md"
+  invalid_frontmatter: "❌ Frontmatter field '{field}' in {skill}/SKILL.md: {error}"
+  file_too_small: "⚠️  File '{file}' in skill '{skill}' is only {size} bytes (minimum: {min_size})"
+  invalid_yaml: "❌ Invalid YAML frontmatter in {skill}/SKILL.md: {error}"
+
+success_messages:
+  skill_valid: "✅ Skill '{skill}' structure is valid"
+  all_valid: "✅ All {count} skills have valid structure"
+
+warning_messages:
+  missing_recommended_file: "⚠️  Recommended file '{file}' is missing in skill '{skill}'"
+  missing_recommended_frontmatter: "⚠️  Recommended frontmatter field '{field}' is missing in {skill}/SKILL.md"
+
+# Validation severity levels
+severity:
+  missing_required_file: "error"      # Fail validation
+  missing_frontmatter: "error"        # Fail validation
+  invalid_frontmatter: "error"        # Fail validation
+  file_too_small: "warning"           # Warn but don't fail
+  missing_recommended_file: "warning" # Warn but don't fail
+  missing_recommended_frontmatter: "info"  # Info only

@@ -93,9 +93,16 @@ claude-usecases/
 │   ├── data/                  # Test data files
 │   └── unit/python/           # Python unit tests
 │
+├── scripts/                    # Automation scripts
+│   └── validate_skill_structure.py  # Skill structure validator
+│
+├── config/                     # Configuration files
+│   └── skill-structure-requirements.yaml  # Validation requirements
+│
 ├── docs/                       # Documentation
 │   ├── CREATING-SKILLS.md     # Skill creation guide
 │   ├── TESTING.md             # Testing infrastructure guide
+│   ├── SKILL-STRUCTURE-VALIDATION.md  # Structure validation guide
 │   ├── MERGE_INSTRUCTIONS.md  # PR merge guidelines
 │   ├── pr-descriptions/       # PR templates and history
 │   └── summaries/             # Feature implementation summaries
@@ -773,7 +780,32 @@ Location: `.github/workflows/`
 
 **Note**: Quality checks don't block merges, they're for awareness only.
 
-#### 3. Coverage Report (`coverage.yml`)
+#### 3. Skill Structure Validation (`code-quality.yml`)
+
+**Triggers**: Push to main/master/claude/**, PRs to main/master
+
+**Jobs**:
+- **skill-structure-validation** (Python 3.11)
+  - Install PyYAML
+  - Run `validate_skill_structure.py --verbose`
+  - Validates all skills in `skills/` and `.claude/skills/`
+  - Upload validation artifacts (30-day retention)
+  - **BLOCKS merge if validation fails** ❌
+
+**What gets validated**:
+- Required files present (SKILL.md, README.md, QUICK-START.md)
+- Valid YAML frontmatter in SKILL.md
+- Required frontmatter fields (name, description, version)
+- Field formats and patterns
+- Minimum file sizes
+
+**Artifacts**:
+- Validation configuration
+- Retained for 30 days
+
+**Note**: Currently set to **informational mode** (continue-on-error) while existing skills are brought into compliance. Once all skills meet requirements, this will become **blocking** to prevent structural drift.
+
+#### 4. Coverage Report (`coverage.yml`)
 
 **Triggers**: Push to main/master, PRs to main/master
 
@@ -804,6 +836,15 @@ cd intelligence-dashboard
 npm ci
 npm test
 npm run test:coverage
+```
+
+**Skill Structure Validation**
+```bash
+# Install PyYAML if needed
+pip install pyyaml
+
+# Run validation
+python scripts/validate_skill_structure.py --verbose
 ```
 
 **Code Quality**
@@ -852,10 +893,48 @@ npm run lint
    - Add entry to README.md
    - Create docs/pr-descriptions/PR_DESCRIPTION_YOUR_SKILL.md
 
-6. **Test the skill**
+6. **Validate skill structure**
+   ```bash
+   python scripts/validate_skill_structure.py --verbose
+   ```
+
+7. **Test the skill**
    - Use with Claude to verify it works
    - Run automated tests
    - Check code quality
+
+### Validating Skill Structure
+
+Before committing new or modified skills, validate their structure:
+
+```bash
+# Install dependencies (if not already installed)
+pip install pyyaml
+
+# Run validation
+python scripts/validate_skill_structure.py
+
+# Run with verbose output to see all details
+python scripts/validate_skill_structure.py --verbose
+
+# Use custom configuration
+python scripts/validate_skill_structure.py --config path/to/config.yaml
+```
+
+**What gets validated**:
+- Required files are present (SKILL.md, README.md, etc.)
+- YAML frontmatter in SKILL.md is valid
+- Required frontmatter fields exist (name, description, version)
+- Field formats are correct (e.g., semantic versioning)
+- File sizes meet minimum thresholds
+
+**Common fixes**:
+- Missing SKILL.md: Create with proper frontmatter
+- Missing frontmatter: Add YAML block at top of SKILL.md
+- Invalid version: Use format `1.0.0` (MAJOR.MINOR.PATCH)
+- Description too short: Expand to meet minimum length
+
+See [docs/SKILL-STRUCTURE-VALIDATION.md](docs/SKILL-STRUCTURE-VALIDATION.md) for complete guide.
 
 ### Adding Tests to Existing Code
 
