@@ -148,9 +148,18 @@ vercel
 2. Go to [vercel.com](https://vercel.com)
 3. Click "Add New Project"
 4. Import your GitHub repository
-5. Configure environment variables in Vercel:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+5. **IMPORTANT**: Configure environment variables in Vercel by entering the **actual values**, NOT secret references:
+
+   **Environment Variable #1:**
+   - Key: `NEXT_PUBLIC_SUPABASE_URL`
+   - Value: `https://nzvmihdgbvomjlkelcum.supabase.co` (your actual Supabase URL)
+
+   **Environment Variable #2:**
+   - Key: `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - Value: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` (your full anon key - paste the entire key)
+
+   ⚠️ **Common Error**: Do NOT use secret references like `@supabase_url` - paste the actual values directly.
+
 6. Click "Deploy"
 
 **Auto-deployment**: Every push to `main` will automatically trigger a new deployment.
@@ -386,6 +395,40 @@ This is approximately what you'd pay for advanced Google Sheets + Zapier integra
 4. Verify API response in Zapier output
 
 ### Deployment Issues
+
+#### Error: "Environment Variable references Secret which does not exist"
+
+This error occurs when Vercel tries to reference a secret that doesn't exist in your account.
+
+**Symptoms:**
+```
+Environment Variable "NEXT_PUBLIC_SUPABASE_URL" references Secret "supabase_url", which does not exist.
+```
+
+**Solution:**
+1. **Delete** any existing environment variables in the Vercel deployment screen (click X or trash icon)
+2. **Add them again** with the **actual values** (not secret references):
+
+   **Variable #1:**
+   - Key: `NEXT_PUBLIC_SUPABASE_URL`
+   - Value: `https://nzvmihdgbvomjlkelcum.supabase.co` (paste the actual URL)
+
+   **Variable #2:**
+   - Key: `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - Value: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dm1paGRnYnZvbWpsa2VsY3VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3OTg0MzYsImV4cCI6MjA3OTM3NDQzNn0.8Z88SBISSMMJPoIqz_i3nc5KoiYKeNCJbaoI82Ijl30` (paste the full key)
+
+3. **Click Deploy** again
+
+**Important:**
+- ❌ DO NOT use `@supabase_url` or any `@` symbol syntax
+- ❌ DO NOT create secrets in Vercel first
+- ✅ PASTE the actual values directly into the "Value" field
+- ✅ The values should appear as plain text (the URL and the JWT token)
+
+**Why this happens:**
+The `@` prefix tells Vercel to look for a Vercel Secret. Since these environment variables are already public (they're exposed to the browser with the `NEXT_PUBLIC_` prefix), there's no need to use secrets.
+
+#### Other Deployment Issues
 
 1. Check build logs in Vercel
 2. Ensure all environment variables are set
