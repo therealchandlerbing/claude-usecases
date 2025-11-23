@@ -6,8 +6,8 @@
  */
 
 // ===== CONFIGURATION =====
-const SUPABASE_URL = 'https://your-project.supabase.co';  // Replace with your Supabase URL
-const SUPABASE_ANON_KEY = 'your-anon-key-here';  // Replace with your Supabase anon key (use Zapier Storage)
+const SUPABASE_URL = 'https://nzvmihdgbvomjlkelcum.supabase.co';  // Replace with your Supabase URL
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dm1paGRnYnZvbWpsa2VsY3VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3OTg0MzYsImV4cCI6MjA3OTM3NDQzNn0.8Z88SBISSMMJPoIqz_i3nc5KoiYKeNCJbaoI82Ijl30';  // Replace with your Supabase anon key (use Zapier Storage)
 
 // ===== MAIN FUNCTION =====
 
