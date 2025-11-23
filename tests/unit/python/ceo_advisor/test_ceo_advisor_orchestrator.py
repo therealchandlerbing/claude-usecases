@@ -18,7 +18,8 @@ import sys
 # Add CEO Advisor to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent.parent / "skills" / "ceo-advisor" / "src"))
 
-from ceo_advisor_orchestrator import CEOAdvisorOrchestrator
+import ceo_advisor_orchestrator
+from ceo_advisor_orchestrator import CEOAdvisorOrchestrator, main
 
 
 class TestCEOAdvisorInitialization:
@@ -520,6 +521,84 @@ class TestFinancialMethods:
             assert 'npv' in scenario
             assert 'break_even' in scenario
             assert 0 <= scenario['probability'] <= 1
+
+
+class TestOutputFormatting:
+    """Test output formatting helpers."""
+
+    def test_format_output_summary_includes_key_sections(self):
+        """Summary output should highlight executive summary and actions."""
+        orchestrator = CEOAdvisorOrchestrator()
+        results = {
+            'executive_summary': 'Summary text',
+            'action_items': [
+                {'action': 'Do something important', 'priority': 'Critical', 'deadline': 'Today'},
+                {'action': 'Secondary task', 'priority': 'High', 'deadline': 'Tomorrow'},
+            ],
+            'critical_items': [
+                {'issue': 'Issue 1', 'action': 'Resolve'},
+                {'issue': 'Issue 2', 'action': 'Monitor'},
+            ],
+        }
+
+        output = orchestrator.format_output(results, output_type='summary')
+
+        assert "CEO ADVISOR - EXECUTIVE SUMMARY" in output
+        assert "SUMMARY: Summary text" in output
+        assert "1. Do something important [Critical]" in output
+        assert "2. Secondary task [High]" in output
+        assert "CRITICAL ITEMS:" in output
+        assert "• Issue 1" in output
+
+    def test_format_output_detailed_renders_json(self):
+        """Detailed output should render JSON payload."""
+        orchestrator = CEOAdvisorOrchestrator()
+        results = {'executive_summary': 'Summary text', 'action_items': []}
+
+        output = orchestrator.format_output(results, output_type='detailed')
+
+        assert "CEO ADVISOR - DETAILED ANALYSIS" in output
+        assert json.dumps(results, indent=2) in output
+
+
+class TestMainEntryPoint:
+    """Test CLI entry point behavior."""
+
+    def test_main_loads_config_and_runs_daily(self, monkeypatch, tmp_path, capsys):
+        """Main should load config file and execute daily command."""
+
+        captured_config = {}
+
+        class DummyOrchestrator:
+            def __init__(self, config=None):
+                captured_config['config'] = config
+
+            def run_daily_intelligence_brief(self):
+                return {
+                    'executive_summary': 'Summary text',
+                    'action_items': [],
+                    'critical_items': [],
+                }
+
+            def format_output(self, results, output_type='summary'):
+                return f"Output: {results['executive_summary']} ({output_type})"
+
+        # Create custom config file
+        config_data = {'intelligence': {'sensitivity': 'low'}}
+        config_file = tmp_path / "config.json"
+        config_file.write_text(json.dumps(config_data))
+
+        # Replace orchestrator class
+        monkeypatch.setattr(ceo_advisor_orchestrator, 'CEOAdvisorOrchestrator', DummyOrchestrator)
+
+        # Invoke CLI
+        monkeypatch.setattr(sys, 'argv', ['prog', 'daily', '--config', str(config_file)])
+        main()
+
+        # Verify config was loaded and output printed
+        assert captured_config['config'] == config_data
+        captured = capsys.readouterr().out
+        assert "Output: Summary text (summary)" in captured
 
 
 class TestIntegrationMethods:
