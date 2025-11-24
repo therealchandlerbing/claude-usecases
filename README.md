@@ -1,5 +1,12 @@
 # Claude Use Cases & Skills
 
+**Comprehensive AI skill library for specialized workflows** | 20+ Managed Skills | 15 Categories | Production-Ready
+
+![status](https://img.shields.io/badge/status-production--ready-brightgreen)
+![skills](https://img.shields.io/badge/skills-20%2B%20managed-blue)
+![coverage](https://img.shields.io/badge/coverage-99%25%20financial-green)
+![content](https://img.shields.io/badge/content-8700%2B%20lines-purple)
+
 A comprehensive collection of use cases and skills that can be deployed with Claude for specialized workflows and automation. This repository provides structured, reusable skill files optimized for various business and technical use cases.
 
 ## Overview
