@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Intelligence Dashboard - Test Template</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --success-green: #16a34a;
+            --warning-yellow: #ca8a04;
+            --danger-red: #dc2626;
+            --neutral-gray: #6b7280;
+            --background-light: #f9fafb;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--background-light);
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .dashboard-header {
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .dashboard-header .subtitle {
+            font-size: 14px;
+            color: var(--neutral-gray);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .metric-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-card .label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--neutral-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-card .value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 8px;
+        }
+
+        .metric-card .trend {
+            font-size: 14px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend.positive {
+            color: var(--success-green);
+        }
+
+        .trend.negative {
+            color: var(--danger-red);
+        }
+
+        .trend.neutral {
+            color: var(--neutral-gray);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .data-table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #f3f4f6;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--neutral-gray);
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .data-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: #dcfce7;
+            color: var(--success-green);
+        }
+
+        .status-badge.warning {
+            background: #fef3c7;
+            color: var(--warning-yellow);
+        }
+
+        .status-badge.danger {
+            background: #fee2e2;
+            color: var(--danger-red);
+        }
+
+        .status-badge.neutral {
+            background: #f3f4f6;
+            color: var(--neutral-gray);
+        }
+
+        .chart-placeholder {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neutral-gray);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 12px;
+            color: var(--neutral-gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Executive Intelligence Dashboard</h1>
+            <p class="subtitle">Generated: {{generation_date}} | Period: {{reporting_period}}</p>
+        </header>
+
+        <section id="metrics">
+            <h2 class="section-title">Key Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="label">
+                        <span>Total Extractions</span>
+                        <span class="icon">📊</span>
+                    </div>
+                    <div class="value">{{total_extractions}}</div>
+                    <div class="trend {{extractions_trend_class}}">
+                        {{extractions_trend_icon}} {{extractions_trend_value}}% vs last period
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="label">
+                        <span>Avg Completeness</span>
+                        <span class="icon">✅</span>
+                    </div>
+                    <div class="value">{{avg_completeness}}%</div>
+                    <div class="trend {{completeness_trend_class}}">
+                        {{completeness_trend_icon}} {{completeness_trend_value}}% vs last period
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="label">
+                        <span>User Rating</span>
+                        <span class="icon">⭐</span>
+                    </div>
+                    <div class="value">{{user_rating}}/5</div>
+                    <div class="trend {{rating_trend_class}}">
+                        {{rating_trend_icon}} {{rating_trend_value}} vs last period
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="label">
+                        <span>Flagged Rate</span>
+                        <span class="icon">🚩</span>
+                    </div>
+                    <div class="value">{{flagged_rate}}%</div>
+                    <div class="trend {{flagged_trend_class}}">
+                        {{flagged_trend_icon}} {{flagged_trend_value}}% vs last period
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recent-extractions">
+            <h2 class="section-title">Recent Extractions</h2>
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Source</th>
+                            <th>Type</th>
+                            <th>Completeness</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each extractions}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.source}}</td>
+                            <td>{{this.type}}</td>
+                            <td>{{this.completeness}}%</td>
+                            <td><span class="status-badge {{this.status_class}}">{{this.status}}</span></td>
+                            <td>{{this.date}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="quality-trend">
+            <h2 class="section-title">Quality Trend (30 Days)</h2>
+            <div class="chart-placeholder">
+                [Chart visualization would be rendered here by Recharts or similar library]
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>360 Social Impact Studios | Intelligence Dashboard v1.0</p>
+            <p>Confidential - Internal Use Only</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "created_at": "2024-06-15T10:00:00.000Z",
+      "updated_at": "2024-11-20T14:30:00.000Z",
+      "partner_name": "NanoBioPlus Research Institute",
+      "partner_type": "brazilian_tech_transfer",
+      "status": "active",
+      "relationship_score": 0.87,
+      "quality_score": 0.92,
+      "engagement_level": "high",
+      "last_interaction": "2024-11-18T09:00:00.000Z",
+      "next_scheduled_meeting": "2024-11-28T14:00:00.000Z",
+      "primary_contact": {
+        "name": "Dr. Ana Costa",
+        "title": "Director of Technology Transfer",
+        "email": "ana.costa@nanobioplus.br"
+      },
+      "metrics": {
+        "technologies_evaluated": 28,
+        "technologies_validated": 12,
+        "active_projects": 3,
+        "total_contract_value": 185000
+      },
+      "tags": ["priority", "tech-transfer", "brazil"],
+      "notes": "Strong relationship built over 18 months. Key partner for Latin America expansion."
+    },
+    {
+      "id": 2,
+      "created_at": "2024-03-10T08:00:00.000Z",
+      "updated_at": "2024-11-19T16:45:00.000Z",
+      "partner_name": "Innovation Ventures Fund",
+      "partner_type": "impact_investor",
+      "status": "active",
+      "relationship_score": 0.75,
+      "quality_score": 0.88,
+      "engagement_level": "medium",
+      "last_interaction": "2024-11-10T11:00:00.000Z",
+      "next_scheduled_meeting": null,
+      "primary_contact": {
+        "name": "Michael Torres",
+        "title": "Managing Partner",
+        "email": "mtorres@innovationventures.com"
+      },
+      "metrics": {
+        "portfolio_companies_assessed": 8,
+        "investments_validated": 3,
+        "active_projects": 1,
+        "total_contract_value": 65000
+      },
+      "tags": ["investor", "impact", "portfolio-assessment"],
+      "notes": "Interest in expanding impact measurement capabilities across portfolio."
+    },
+    {
+      "id": 3,
+      "created_at": "2024-08-20T12:00:00.000Z",
+      "updated_at": "2024-11-15T10:00:00.000Z",
+      "partner_name": "TechCorp Strategic Partnerships",
+      "partner_type": "corporate",
+      "status": "prospect",
+      "relationship_score": 0.55,
+      "quality_score": 0.70,
+      "engagement_level": "low",
+      "last_interaction": "2024-11-05T15:00:00.000Z",
+      "next_scheduled_meeting": "2024-12-02T10:00:00.000Z",
+      "primary_contact": {
+        "name": "Jennifer Walsh",
+        "title": "VP Innovation",
+        "email": "jwalsh@techcorp.com"
+      },
+      "metrics": {
+        "technologies_evaluated": 0,
+        "technologies_validated": 0,
+        "active_projects": 0,
+        "total_contract_value": 0
+      },
+      "tags": ["prospect", "corporate", "innovation"],
+      "notes": "Initial conversations promising. Need to demonstrate value proposition clearly."
+    },
+    {
+      "id": 4,
+      "created_at": "2024-01-05T09:00:00.000Z",
+      "updated_at": "2024-10-30T11:00:00.000Z",
+      "partner_name": "Community Foundation of Greater Bay",
+      "partner_type": "foundation",
+      "status": "inactive",
+      "relationship_score": 0.40,
+      "quality_score": 0.65,
+      "engagement_level": "none",
+      "last_interaction": "2024-09-15T14:00:00.000Z",
+      "next_scheduled_meeting": null,
+      "primary_contact": {
+        "name": "David Kim",
+        "title": "Program Officer",
+        "email": "dkim@communityfoundation.org"
+      },
+      "metrics": {
+        "technologies_evaluated": 5,
+        "technologies_validated": 2,
+        "active_projects": 0,
+        "total_contract_value": 45000
+      },
+      "tags": ["foundation", "past-client"],
+      "notes": "Completed portfolio assessment in Q2. May re-engage for 2025 grantmaking cycle."
+    }
+  ],
+  "error": null,
+  "count": 4,
+  "status": 200
+}

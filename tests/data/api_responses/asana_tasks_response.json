@@ -1,0 +1,111 @@
+{
+  "data": [
+    {
+      "gid": "1205432198765",
+      "name": "Complete Q4 financial report",
+      "resource_type": "task",
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2024-12-15",
+      "due_at": null,
+      "created_at": "2024-11-01T10:30:00.000Z",
+      "modified_at": "2024-11-20T14:22:00.000Z",
+      "notes": "Prepare comprehensive financial analysis for board review",
+      "assignee": {
+        "gid": "9876543210",
+        "name": "Sarah Chen",
+        "resource_type": "user"
+      },
+      "projects": [
+        {
+          "gid": "1234567890123",
+          "name": "Q4 2024 Operations",
+          "resource_type": "project"
+        }
+      ],
+      "tags": [
+        {
+          "gid": "5555555555",
+          "name": "High Priority"
+        },
+        {
+          "gid": "6666666666",
+          "name": "Finance"
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "7777777777",
+          "name": "Status",
+          "display_value": "In Progress",
+          "type": "enum"
+        },
+        {
+          "gid": "8888888888",
+          "name": "Estimated Hours",
+          "number_value": 20,
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "gid": "1205432198766",
+      "name": "Review partnership proposal from TechCorp",
+      "resource_type": "task",
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2024-11-25",
+      "due_at": null,
+      "created_at": "2024-11-10T09:00:00.000Z",
+      "modified_at": "2024-11-18T16:45:00.000Z",
+      "notes": "Evaluate strategic fit and financial terms",
+      "assignee": {
+        "gid": "9876543211",
+        "name": "Marcus Johnson",
+        "resource_type": "user"
+      },
+      "projects": [
+        {
+          "gid": "1234567890124",
+          "name": "Partnership Development",
+          "resource_type": "project"
+        }
+      ],
+      "tags": [
+        {
+          "gid": "5555555555",
+          "name": "High Priority"
+        },
+        {
+          "gid": "9999999999",
+          "name": "Partnership"
+        }
+      ]
+    },
+    {
+      "gid": "1205432198767",
+      "name": "Update impact metrics dashboard",
+      "resource_type": "task",
+      "completed": true,
+      "completed_at": "2024-11-15T11:30:00.000Z",
+      "due_on": "2024-11-14",
+      "due_at": null,
+      "created_at": "2024-11-05T08:00:00.000Z",
+      "modified_at": "2024-11-15T11:30:00.000Z",
+      "notes": "Integrate new data sources and refresh visualizations",
+      "assignee": {
+        "gid": "9876543212",
+        "name": "Emily Rodriguez",
+        "resource_type": "user"
+      },
+      "projects": [
+        {
+          "gid": "1234567890125",
+          "name": "Data & Analytics",
+          "resource_type": "project"
+        }
+      ]
+    }
+  ],
+  "next_page": null
+}
