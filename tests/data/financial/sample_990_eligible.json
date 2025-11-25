@@ -1,0 +1,146 @@
+{
+  "organization_info": {
+    "name": "Hope Community Foundation",
+    "ein": "12-3456789",
+    "address": {
+      "street": "123 Main Street",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94102"
+    },
+    "fiscal_year_end": "December 31",
+    "tax_year": 2024,
+    "formation_year": 2018,
+    "website": "www.hopecommunity.org",
+    "mission": "Supporting local community development through education and economic empowerment programs"
+  },
+  "eligibility": {
+    "is_eligible_for_990ez": true,
+    "gross_receipts": 175000.00,
+    "total_assets": 425000.00,
+    "gross_receipts_threshold": 200000.00,
+    "total_assets_threshold": 500000.00,
+    "is_donor_advised_fund": false,
+    "is_hospital": false,
+    "is_school": false
+  },
+  "revenue": {
+    "contributions_and_grants": 120000.00,
+    "program_service_revenue": 45000.00,
+    "membership_dues": 5000.00,
+    "investment_income": 3500.00,
+    "other_revenue": 1500.00,
+    "total_revenue": 175000.00
+  },
+  "expenses": {
+    "program_services": 98000.00,
+    "management_and_general": 22000.00,
+    "fundraising": 12000.00,
+    "total_expenses": 132000.00,
+    "program_expense_ratio": 0.74
+  },
+  "balance_sheet": {
+    "beginning_of_year": {
+      "cash": 85000.00,
+      "savings": 45000.00,
+      "receivables": 12000.00,
+      "other_assets": 8000.00,
+      "total_assets": 150000.00,
+      "accounts_payable": 8000.00,
+      "grants_payable": 0.00,
+      "total_liabilities": 8000.00,
+      "net_assets": 142000.00
+    },
+    "end_of_year": {
+      "cash": 95000.00,
+      "savings": 55000.00,
+      "receivables": 15000.00,
+      "other_assets": 10000.00,
+      "total_assets": 175000.00,
+      "accounts_payable": 5000.00,
+      "grants_payable": 0.00,
+      "total_liabilities": 5000.00,
+      "net_assets": 170000.00
+    }
+  },
+  "governance": {
+    "board_members": 7,
+    "independent_board_members": 6,
+    "board_meetings_per_year": 4,
+    "has_conflict_of_interest_policy": true,
+    "has_whistleblower_policy": true,
+    "has_document_retention_policy": true,
+    "financial_statements_reviewed": true,
+    "form_990_available_to_public": true
+  },
+  "officers": [
+    {
+      "name": "Maria Santos",
+      "title": "Executive Director",
+      "hours_per_week": 40.0,
+      "compensation": 72000.00,
+      "is_officer": true,
+      "is_director": false
+    },
+    {
+      "name": "James Chen",
+      "title": "Board Chair",
+      "hours_per_week": 5.0,
+      "compensation": 0.00,
+      "is_officer": true,
+      "is_director": true
+    },
+    {
+      "name": "Sarah Williams",
+      "title": "Treasurer",
+      "hours_per_week": 3.0,
+      "compensation": 0.00,
+      "is_officer": true,
+      "is_director": true
+    }
+  ],
+  "programs": [
+    {
+      "name": "Youth Education Initiative",
+      "description": "After-school tutoring and mentorship program serving 150 students annually in underserved communities",
+      "expenses": 55000.00,
+      "revenue": 25000.00,
+      "beneficiaries_served": 150,
+      "accomplishments": [
+        "85% of participants improved grades by one letter grade",
+        "92% program completion rate",
+        "12 students received college scholarships"
+      ]
+    },
+    {
+      "name": "Economic Empowerment Program",
+      "description": "Small business training and microloans for local entrepreneurs",
+      "expenses": 43000.00,
+      "revenue": 20000.00,
+      "beneficiaries_served": 45,
+      "accomplishments": [
+        "23 new businesses launched",
+        "87% loan repayment rate",
+        "Created 68 local jobs"
+      ]
+    }
+  ],
+  "major_donors": [
+    {
+      "type": "foundation",
+      "amount": 50000.00,
+      "restricted": true,
+      "purpose": "Youth Education Initiative"
+    },
+    {
+      "type": "corporation",
+      "amount": 25000.00,
+      "restricted": false
+    },
+    {
+      "type": "individual",
+      "amount": 15000.00,
+      "restricted": false
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "organization": {
+    "name": "Hope Community Foundation",
+    "ein": "12-3456789",
+    "fiscal_year_end": "December 31"
+  },
+  "board_overview": {
+    "total_voting_members": 7,
+    "independent_members": 6,
+    "meetings_per_year": 4,
+    "quorum_requirement": 4,
+    "term_length_years": 3,
+    "term_limits": 2,
+    "board_committees": [
+      "Executive Committee",
+      "Finance Committee",
+      "Governance Committee",
+      "Program Committee"
+    ]
+  },
+  "officers": [
+    {
+      "name": "James Chen",
+      "title": "Board Chair",
+      "term_start": "2023-01-01",
+      "term_end": "2025-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 5.0,
+      "compensation": 0.00,
+      "committees": ["Executive Committee", "Governance Committee"],
+      "professional_background": "CEO, Chen Consulting Group",
+      "expertise_areas": ["Strategic Planning", "Nonprofit Governance"]
+    },
+    {
+      "name": "Sarah Williams",
+      "title": "Treasurer",
+      "term_start": "2022-01-01",
+      "term_end": "2024-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 3.0,
+      "compensation": 0.00,
+      "committees": ["Executive Committee", "Finance Committee"],
+      "professional_background": "Partner, Williams & Associates CPAs",
+      "expertise_areas": ["Financial Management", "Nonprofit Accounting", "Audit"]
+    },
+    {
+      "name": "Michael Thompson",
+      "title": "Secretary",
+      "term_start": "2023-01-01",
+      "term_end": "2025-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 2.0,
+      "compensation": 0.00,
+      "committees": ["Executive Committee", "Governance Committee"],
+      "professional_background": "Attorney, Thompson Legal Services",
+      "expertise_areas": ["Legal Compliance", "Corporate Governance"]
+    }
+  ],
+  "directors": [
+    {
+      "name": "Dr. Patricia Rodriguez",
+      "title": "Director",
+      "term_start": "2022-01-01",
+      "term_end": "2024-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 2.0,
+      "compensation": 0.00,
+      "committees": ["Program Committee"],
+      "professional_background": "Professor of Education, State University",
+      "expertise_areas": ["Education Policy", "Program Evaluation"]
+    },
+    {
+      "name": "Robert Kim",
+      "title": "Director",
+      "term_start": "2024-01-01",
+      "term_end": "2026-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 2.0,
+      "compensation": 0.00,
+      "committees": ["Finance Committee"],
+      "professional_background": "VP Finance, Tech Startup Inc.",
+      "expertise_areas": ["Financial Planning", "Technology"]
+    },
+    {
+      "name": "Angela Martinez",
+      "title": "Director",
+      "term_start": "2023-01-01",
+      "term_end": "2025-12-31",
+      "current_term": 1,
+      "is_independent": true,
+      "hours_per_week": 2.0,
+      "compensation": 0.00,
+      "committees": ["Program Committee", "Governance Committee"],
+      "professional_background": "Community Organizer, Local Nonprofit",
+      "expertise_areas": ["Community Development", "Diversity & Inclusion"]
+    },
+    {
+      "name": "Maria Santos",
+      "title": "Executive Director (Ex-Officio)",
+      "term_start": "2020-06-01",
+      "term_end": null,
+      "current_term": null,
+      "is_independent": false,
+      "hours_per_week": 40.0,
+      "compensation": 72000.00,
+      "committees": ["Executive Committee"],
+      "professional_background": "Former Program Director, Large Regional Nonprofit",
+      "expertise_areas": ["Nonprofit Management", "Fundraising", "Program Development"],
+      "is_voting_member": false
+    }
+  ],
+  "governance_policies": {
+    "conflict_of_interest": {
+      "has_policy": true,
+      "last_reviewed": "2024-01-15",
+      "annual_disclosure_required": true,
+      "policy_document": "policies/conflict-of-interest-policy.pdf"
+    },
+    "whistleblower": {
+      "has_policy": true,
+      "last_reviewed": "2024-01-15",
+      "anonymous_reporting_available": true,
+      "policy_document": "policies/whistleblower-policy.pdf"
+    },
+    "document_retention": {
+      "has_policy": true,
+      "last_reviewed": "2024-01-15",
+      "retention_schedule_defined": true,
+      "policy_document": "policies/document-retention-policy.pdf"
+    },
+    "board_self_assessment": {
+      "conducted_annually": true,
+      "last_assessment": "2024-03-15",
+      "results_reviewed_by_governance_committee": true
+    }
+  },
+  "financial_oversight": {
+    "financial_statements_reviewed": true,
+    "review_frequency": "quarterly",
+    "external_audit": false,
+    "external_review": true,
+    "last_review_date": "2024-04-30",
+    "reviewing_firm": "Williams & Associates CPAs",
+    "990_review_before_filing": true,
+    "budget_approval_process": "Annual budget approved by full board in December"
+  },
+  "meeting_schedule": {
+    "regular_board_meetings": [
+      { "quarter": "Q1", "date": "March - Third Thursday" },
+      { "quarter": "Q2", "date": "June - Third Thursday" },
+      { "quarter": "Q3", "date": "September - Third Thursday" },
+      { "quarter": "Q4", "date": "December - Third Thursday" }
+    ],
+    "annual_meeting": "December board meeting",
+    "special_meetings": "Called as needed by Chair or majority of directors"
+  }
+}

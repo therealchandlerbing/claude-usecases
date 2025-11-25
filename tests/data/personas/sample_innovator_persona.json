@@ -1,0 +1,183 @@
+{
+  "persona_metadata": {
+    "name": "Innovation Director Persona",
+    "type": "innovator",
+    "validation_status": "validated",
+    "layer": "surface",
+    "created_date": "2024-11-01",
+    "last_updated": "2024-11-20",
+    "confidence_score": 0.85,
+    "evidence_count": 12
+  },
+  "demographic_profile": {
+    "role": "Director of Innovation",
+    "organization_type": "Mid-size technology company",
+    "industry": "Software/SaaS",
+    "company_size": "500-2000 employees",
+    "years_in_role": "3-5 years",
+    "reports_to": "Chief Technology Officer",
+    "team_size": "8-12 direct reports"
+  },
+  "jobs_to_be_done": {
+    "functional_jobs": [
+      {
+        "job": "Identify and evaluate emerging technologies for potential adoption",
+        "importance": "critical",
+        "current_satisfaction": "partially_satisfied"
+      },
+      {
+        "job": "Build business cases that convince leadership to invest in innovation",
+        "importance": "critical",
+        "current_satisfaction": "unsatisfied"
+      },
+      {
+        "job": "Manage innovation portfolio to balance risk and return",
+        "importance": "high",
+        "current_satisfaction": "partially_satisfied"
+      },
+      {
+        "job": "Translate technical innovation into business value",
+        "importance": "high",
+        "current_satisfaction": "partially_satisfied"
+      }
+    ],
+    "emotional_jobs": [
+      {
+        "job": "Feel confident presenting innovation strategy to the board",
+        "importance": "high"
+      },
+      {
+        "job": "Be seen as a strategic leader, not just a technology manager",
+        "importance": "critical"
+      },
+      {
+        "job": "Reduce anxiety about missing important technology trends",
+        "importance": "medium"
+      }
+    ],
+    "social_jobs": [
+      {
+        "job": "Be recognized as an innovation thought leader in the industry",
+        "importance": "medium"
+      },
+      {
+        "job": "Build credibility with peers and executives",
+        "importance": "high"
+      }
+    ]
+  },
+  "pain_points": [
+    {
+      "pain": "Limited budget for experimentation despite high expectations",
+      "severity": "high",
+      "frequency": "constant",
+      "evidence_quotes": [
+        "We're expected to innovate but every dollar has to show ROI immediately",
+        "My budget got cut 20% but my targets stayed the same"
+      ]
+    },
+    {
+      "pain": "Difficulty getting leadership buy-in for longer-term innovations",
+      "severity": "critical",
+      "frequency": "frequent",
+      "evidence_quotes": [
+        "The board wants quarterly results, not 3-year transformation stories",
+        "I can't get anyone to commit to something that won't pay off for 18 months"
+      ]
+    },
+    {
+      "pain": "Lack of systematic framework for evaluating innovation opportunities",
+      "severity": "high",
+      "frequency": "constant",
+      "evidence_quotes": [
+        "Every evaluation feels like we're reinventing the wheel",
+        "We don't have a consistent way to compare very different types of innovations"
+      ]
+    },
+    {
+      "pain": "Resistance to change from operational teams",
+      "severity": "medium",
+      "frequency": "frequent",
+      "evidence_quotes": [
+        "The operations team sees us as troublemakers who create more work",
+        "Getting pilot programs adopted into production is like pulling teeth"
+      ]
+    }
+  ],
+  "gains_desired": [
+    {
+      "gain": "Credible methodology to prioritize innovation investments",
+      "importance": "critical"
+    },
+    {
+      "gain": "Data-driven evidence to support innovation business cases",
+      "importance": "critical"
+    },
+    {
+      "gain": "Framework that balances short-term wins with long-term transformation",
+      "importance": "high"
+    },
+    {
+      "gain": "Ability to demonstrate innovation impact in language leadership understands",
+      "importance": "high"
+    }
+  ],
+  "current_alternatives": [
+    {
+      "solution": "Generic consulting frameworks (McKinsey, BCG)",
+      "satisfaction": "low",
+      "limitations": "Too generic, expensive, don't understand our specific context"
+    },
+    {
+      "solution": "Internal ad-hoc evaluation processes",
+      "satisfaction": "very_low",
+      "limitations": "Inconsistent, time-consuming, lacks credibility with leadership"
+    },
+    {
+      "solution": "Industry analyst reports (Gartner, Forrester)",
+      "satisfaction": "medium",
+      "limitations": "Good for awareness but don't help with specific prioritization decisions"
+    }
+  ],
+  "decision_criteria": [
+    {
+      "criterion": "Methodology credibility and track record",
+      "weight": "high"
+    },
+    {
+      "criterion": "Speed of implementation",
+      "weight": "medium"
+    },
+    {
+      "criterion": "Customization to our industry/context",
+      "weight": "high"
+    },
+    {
+      "criterion": "Ability to build internal capability over time",
+      "weight": "medium"
+    },
+    {
+      "criterion": "Cost relative to consulting alternatives",
+      "weight": "medium"
+    }
+  ],
+  "communication_preferences": {
+    "preferred_channels": ["email", "scheduled video calls", "in-person workshops"],
+    "communication_style": "data-driven with strategic narrative",
+    "decision_timeline": "4-8 weeks for major decisions",
+    "stakeholders_involved": ["CTO", "CFO", "Business Unit Leaders"]
+  },
+  "value_proposition_resonance": {
+    "high_resonance_messages": [
+      "Systematic methodology for innovation prioritization",
+      "Data-backed business cases for leadership",
+      "Balance portfolio risk across time horizons",
+      "Build internal innovation assessment capability"
+    ],
+    "low_resonance_messages": [
+      "Cutting-edge AI technology",
+      "Disruptive innovation frameworks",
+      "Move fast and break things philosophy"
+    ]
+  }
+}

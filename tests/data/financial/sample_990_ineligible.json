@@ -1,0 +1,141 @@
+{
+  "organization_info": {
+    "name": "Large Community Services Organization",
+    "ein": "98-7654321",
+    "address": {
+      "street": "500 Corporate Plaza",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": "90001"
+    },
+    "fiscal_year_end": "June 30",
+    "tax_year": 2024,
+    "formation_year": 2010,
+    "website": "www.largecommunityservices.org",
+    "mission": "Comprehensive community services including healthcare, education, and housing support"
+  },
+  "eligibility": {
+    "is_eligible_for_990ez": false,
+    "ineligibility_reasons": [
+      "Gross receipts exceed $200,000 threshold",
+      "Total assets exceed $500,000 threshold"
+    ],
+    "gross_receipts": 2500000.00,
+    "total_assets": 3200000.00,
+    "gross_receipts_threshold": 200000.00,
+    "total_assets_threshold": 500000.00,
+    "required_form": "990",
+    "is_donor_advised_fund": false,
+    "is_hospital": false,
+    "is_school": false
+  },
+  "revenue": {
+    "contributions_and_grants": 1800000.00,
+    "program_service_revenue": 550000.00,
+    "membership_dues": 25000.00,
+    "investment_income": 85000.00,
+    "other_revenue": 40000.00,
+    "total_revenue": 2500000.00
+  },
+  "expenses": {
+    "program_services": 1850000.00,
+    "management_and_general": 280000.00,
+    "fundraising": 170000.00,
+    "total_expenses": 2300000.00,
+    "program_expense_ratio": 0.80
+  },
+  "balance_sheet": {
+    "beginning_of_year": {
+      "cash": 450000.00,
+      "savings": 800000.00,
+      "receivables": 320000.00,
+      "investments": 950000.00,
+      "property_and_equipment": 580000.00,
+      "other_assets": 100000.00,
+      "total_assets": 3200000.00,
+      "accounts_payable": 85000.00,
+      "grants_payable": 150000.00,
+      "mortgages": 280000.00,
+      "total_liabilities": 515000.00,
+      "net_assets": 2685000.00
+    },
+    "end_of_year": {
+      "cash": 520000.00,
+      "savings": 850000.00,
+      "receivables": 290000.00,
+      "investments": 1020000.00,
+      "property_and_equipment": 550000.00,
+      "other_assets": 120000.00,
+      "total_assets": 3350000.00,
+      "accounts_payable": 72000.00,
+      "grants_payable": 180000.00,
+      "mortgages": 250000.00,
+      "total_liabilities": 502000.00,
+      "net_assets": 2848000.00
+    }
+  },
+  "governance": {
+    "board_members": 15,
+    "independent_board_members": 13,
+    "board_meetings_per_year": 6,
+    "has_conflict_of_interest_policy": true,
+    "has_whistleblower_policy": true,
+    "has_document_retention_policy": true,
+    "has_investment_policy": true,
+    "has_gift_acceptance_policy": true,
+    "financial_statements_audited": true,
+    "form_990_available_to_public": true
+  },
+  "officers": [
+    {
+      "name": "Robert Martinez",
+      "title": "CEO",
+      "hours_per_week": 50.0,
+      "compensation": 185000.00,
+      "benefits": 42000.00,
+      "is_officer": true,
+      "is_director": false
+    },
+    {
+      "name": "Linda Thompson",
+      "title": "CFO",
+      "hours_per_week": 45.0,
+      "compensation": 145000.00,
+      "benefits": 35000.00,
+      "is_officer": true,
+      "is_director": false
+    },
+    {
+      "name": "William Foster",
+      "title": "Board Chair",
+      "hours_per_week": 8.0,
+      "compensation": 0.00,
+      "is_officer": true,
+      "is_director": true
+    }
+  ],
+  "programs": [
+    {
+      "name": "Community Health Services",
+      "description": "Free and low-cost healthcare services including primary care, dental, and mental health",
+      "expenses": 1100000.00,
+      "revenue": 350000.00,
+      "beneficiaries_served": 8500
+    },
+    {
+      "name": "Educational Excellence Program",
+      "description": "Comprehensive education support from early childhood through adult education",
+      "expenses": 500000.00,
+      "revenue": 150000.00,
+      "beneficiaries_served": 2200
+    },
+    {
+      "name": "Housing Stability Initiative",
+      "description": "Emergency housing assistance and long-term housing support services",
+      "expenses": 250000.00,
+      "revenue": 50000.00,
+      "beneficiaries_served": 450
+    }
+  ],
+  "notes": "This organization must file Form 990 (full form) instead of 990-EZ due to exceeding both gross receipts and total assets thresholds."
+}
