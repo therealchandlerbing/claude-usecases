@@ -73,6 +73,65 @@ claude-usecases/
 
 ---
 
+## Slash Commands
+
+Quick shortcuts for invoking skills. Use these instead of typing full trigger phrases.
+
+### Single-Skill Commands
+
+| Category | Command | Skill | Description |
+|----------|---------|-------|-------------|
+| **Executive** | `/brief` | ceo-advisor | Daily CEO intelligence brief |
+| | `/weekly-brief` | executive-intelligence-dashboard | Weekly 360 Impact Brief |
+| | `/board-prep` | 360-board-meeting-prep | Board meeting packet generation |
+| | `/impact-report` | executive-impact-presentation-generator | Board-ready impact reports |
+| | `/newsletter` | 360-newsletter-generator | Executive briefs & newsletters |
+| **Research** | `/research` | open-deep-research-team | Multi-agent deep research |
+| | `/persona` | strategic-persona-builder | Stakeholder personas |
+| **Sales/BD** | `/outreach` | sales-automator | Sales email sequences |
+| | `/proposal` | 360-proposal-builder | Client proposals |
+| | `/redline` | contract-redlining-tool | Contract review & redlining |
+| | `/portfolio` | 360-client-portfolio-builder | Venture portfolio pages |
+| **Financial** | `/finance` | financial-modeling-skills | Investment & SROI analysis |
+| **Design** | `/elevate` | design-director | Professional design polish |
+| **Data** | `/extract` | intelligence-extractor | Extract intelligence from content |
+| | `/tracker` | 360-executive-project-tracker | Project status dashboards |
+| **Healthcare** | `/fda` | fda-consultant-agent | FDA regulatory guidance |
+| **AI Ethics** | `/ethics` | ai-ethics-advisor | Bias assessment & AI compliance |
+| **Process** | `/sop` | workflow-process-generator | SOPs & process documentation |
+| | `/debug` | workflow-debugging | Workflow debugging |
+| | `/orchestrate` | skill-orchestrator | Multi-skill coordination |
+| **Catalog** | `/skills` | — | Browse all available skills |
+
+### Workflow Templates
+
+Pre-built multi-skill sequences for common routines:
+
+| Command | Workflow | Skills Chained | Time |
+|---------|----------|----------------|------|
+| `/morning` | Morning executive startup | ceo-advisor → intelligence-extractor → tracker | 20-40 min |
+| `/weekly-review` | End-of-week review & planning | 4 skills | 45-75 min |
+| `/meeting-wrap` | Post-meeting intelligence capture | 3 skills | 10-30 min |
+| `/client-onboard` | New client engagement prep | research → persona → proposal → outreach | 60-120 min |
+| `/partnership-eval` | Partnership due diligence | 5 skills | 90-120 min |
+| `/deal-review` | Contract + financial evaluation | redline → finance → ceo-advisor | 60-90 min |
+| `/venture-launch` | Complete launch package | 5 skills | 4-8 hours |
+| `/quarterly-report` | Quarterly board materials | 4 skills | 3-4 hours |
+| `/research-brief` | Research to executive presentation | 5 skills | 45 min - 3 hrs |
+| `/compliance-audit` | Ethics + process documentation | 4 skills | 3-6 hours |
+
+### Usage
+
+Both methods work interchangeably:
+```
+/brief                                    # Slash command
+"Generate my morning executive brief"     # Natural language
+```
+
+**Location:** `.claude/commands/`
+
+---
+
 ## Available Skills
 
 ### Healthcare & Life Sciences Regulatory
@@ -832,10 +891,12 @@ Each skill has detailed documentation in its respective directory with quick-sta
 
 ---
 
-**Version:** 2.7.0
-**Last Updated:** 2025-11-20
+**Version:** 2.8.0
+**Last Updated:** 2025-11-25
 
 ### Recent Updates
+- **NEW: Slash Commands** - 31 shortcuts for invoking skills (21 single-skill + 10 workflow templates)
+- **NEW: Workflow Templates** - Pre-built multi-skill sequences for common routines (`/morning`, `/weekly-review`, `/meeting-wrap`, etc.)
 - Improved 990-ez-preparation test coverage from 51% to 99% (73 comprehensive tests)
 - Reorganized documentation into structured directories (pr-descriptions/, summaries/)
 - Added comprehensive testing infrastructure for Python and TypeScript
