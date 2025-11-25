@@ -1,127 +1,268 @@
 # Quick Reference Guide
 
-## Creating a New Skill - Fast Track
+**Fast answers for common tasks in the claude-usecases repository.**
 
-### 1. Copy the Template
+---
+
+## Skill Locations
+
+| Type | Location | Purpose |
+|------|----------|---------|
+| **Managed Skills** | `.claude/skills/` | Production-ready, fully tested (20 skills) |
+| **User Skills** | `skills/` | Development, custom implementations (12+ skills) |
+| **Templates** | `skills/templates/` | Starting point for new skills |
+
+---
+
+## Creating a New Skill
+
+### 1. Create Directory Structure
 ```bash
-cp skills/templates/skill-template.md skills/360-use-cases/my-new-skill.md
+mkdir -p skills/your-skill-name/{src,config,templates,docs}
 ```
 
-### 2. Fill in the Sections
-- **Title**: Clear, descriptive name
-- **Description**: One-line explanation
-- **Use Case**: When to use this skill
-- **Prerequisites**: What's needed
-- **Instructions**: Step-by-step process
-- **Expected Outputs**: What you'll get
-- **Examples**: Real scenarios
-- **Notes**: Important tips
+### 2. Create Required Files
+```bash
+# Required
+touch skills/your-skill-name/SKILL.md
+touch skills/your-skill-name/README.md
+touch skills/your-skill-name/QUICK-START.md
+```
 
-### 3. Test It
-- Use the skill with Claude
-- Verify it produces expected results
-- Iterate if needed
+### 3. Add YAML Frontmatter to SKILL.md
+```yaml
+---
+name: your-skill-name
+description: Brief description of what this skill does
+version: 1.0.0
+author: Your Name
+category: appropriate-category
+---
 
-### 4. Add to Index
-Update `skills/360-use-cases/README.md` with a link to your new skill
+# Your Skill Name
 
-## File Naming Conventions
+## When to Activate
+...
+```
 
-- Use lowercase letters
-- Separate words with hyphens
-- Be descriptive but concise
-- Use `.md` extension
+### 4. Validate Structure
+```bash
+python scripts/validate_skill_structure.py --verbose
+```
 
-**Good Examples:**
-- `customer-onboarding-workflow.md`
-- `quarterly-reporting-process.md`
-- `data-analysis-template.md`
+---
 
-**Avoid:**
-- `Skill1.md` (not descriptive)
-- `customer_onboarding.md` (use hyphens, not underscores)
-- `WORKFLOW.md` (don't use all caps)
+## Required Files by Skill Type
 
-## Skill Section Checklist
+### Managed Skills (.claude/skills/)
+| File | Required | Min Size |
+|------|----------|----------|
+| SKILL.md | Yes | 500 bytes |
+| README.md | Yes | 200 bytes |
+| QUICK-START.md | Yes | 100 bytes |
+| INDEX.md | Recommended | - |
+| IMPLEMENTATION-GUIDE.md | Recommended | - |
 
-When creating a skill, make sure you include:
+### User Skills (skills/)
+| File | Required | Min Size |
+|------|----------|----------|
+| SKILL.md | Yes | 200 bytes |
+| README.md | Recommended | - |
+| QUICK-START.md | Recommended | - |
 
-- [ ] Clear title
-- [ ] Brief description
-- [ ] Detailed use case explanation
-- [ ] List of prerequisites
-- [ ] Step-by-step instructions
-- [ ] Expected outputs
-- [ ] At least one example
-- [ ] Important notes or tips
-- [ ] Related skills (if applicable)
-- [ ] Version history
+---
 
-## Common Skill Types
+## YAML Frontmatter Requirements
 
-### Research & Validation
-Analyze data and generate validated personas or insights (e.g., Vianeo Persona Builder)
+```yaml
+---
+name: skill-name              # Required: lowercase-with-hyphens
+description: What it does     # Required: 20+ characters for managed
+version: 1.0.0               # Required: semantic versioning (X.Y.Z)
+author: Author Name          # Recommended
+category: skill-category     # Recommended
+created: 2025-01-01         # Optional
+---
+```
 
-### Design & Visual Excellence
-Transform functional outputs into professionally polished work (e.g., Design Director)
+---
 
-### Process Documentation
-Documents a repeatable business or technical process
+## Running Tests
 
-### Analysis Template
-Provides structure for analyzing data or situations
+### Python Tests
+```bash
+# All tests
+pytest
 
-### Workflow Automation
-Guides automation of repetitive tasks
+# With coverage
+pytest --cov
 
-### Decision Framework
-Helps make consistent decisions based on criteria
+# Specific marker
+pytest -m financial
+pytest -m compliance
 
-### Report Generator
-Templates for creating standardized reports
+# Single file
+pytest tests/unit/python/test_990_orchestrator.py -v
+```
 
-## Using Skills with Claude
+### TypeScript Tests
+```bash
+# Intelligence Dashboard
+cd intelligence-dashboard && npm test
 
-### Method 1: Direct Reference
-Share the skill file content directly in your conversation with Claude
+# With coverage
+npm run test:coverage
 
-### Method 2: Repository Link
-Link to the specific skill file in this repository
+# Watch mode
+npm run test:watch
+```
 
-### Method 3: Skill Chaining
-Reference multiple skills in sequence for complex workflows:
-1. Use skill A to gather information
-2. Use skill B to analyze
-3. Use skill C to document
+---
 
-## Tips for Effective Skills
+## Test Markers
 
-1. **Be Specific**: Vague instructions lead to inconsistent results
-2. **Include Context**: Explain why, not just what
-3. **Add Examples**: Show don't just tell
-4. **Test Thoroughly**: Use the skill yourself before sharing
-5. **Iterate**: Update based on real-world usage
-6. **Version Control**: Track changes over time
+| Marker | Purpose |
+|--------|---------|
+| `@pytest.mark.unit` | Unit tests |
+| `@pytest.mark.integration` | Integration tests |
+| `@pytest.mark.financial` | Financial calculations (HIGH PRIORITY) |
+| `@pytest.mark.compliance` | Regulatory compliance (HIGH PRIORITY) |
+| `@pytest.mark.slow` | Long-running tests |
 
-## Directory Structure at a Glance
+---
+
+## Git Workflow
+
+### Branch Naming
+```
+claude/feature-description-{session-id}
+```
+
+### Commit & Push
+```bash
+git add -A
+git commit -m "Description of changes"
+git push -u origin claude/your-branch-name
+```
+
+### Create PR
+Use GitHub UI with `.github/pull_request_template.md`
+
+---
+
+## CI/CD Overview
+
+| Workflow | Triggers | Blocking |
+|----------|----------|----------|
+| `tests.yml` | Push, PR | Yes (all tests) |
+| `code-quality.yml` | Push, PR | No (informational) |
+| `coverage.yml` | Push to main, PR | No (informational) |
+
+---
+
+## Skill Categories
+
+| Category | Skills | Example |
+|----------|--------|---------|
+| Executive Intelligence | ceo-advisor, executive-intelligence-dashboard | Daily briefs, board prep |
+| Financial/Compliance | 990-ez-preparation, financial-modeling-skills | Tax filing, analysis |
+| Research | open-deep-research-team, strategic-persona-builder | Multi-agent research |
+| Design | design-director, executive-impact-presentation | Professional polish |
+| Sales | sales-automator, 360-proposal-builder | Outreach, proposals |
+| Process | workflow-process-generator, workflow-debugging | SOPs, debugging |
+
+---
+
+## Common Commands
+
+### Skill Validation
+```bash
+python scripts/validate_skill_structure.py --verbose
+```
+
+### Run Specific Skill
+```bash
+# CEO Advisor
+python skills/ceo-advisor/src/ceo_advisor_orchestrator.py daily
+
+# Invoke via Claude
+"Prepare our 990-EZ for 2024"
+"Generate daily intelligence brief"
+```
+
+### Check Coverage
+```bash
+pytest --cov=skills --cov-report=html
+open htmlcov/index.html
+```
+
+---
+
+## Directory Structure
 
 ```
 claude-usecases/
-├── skills/
-│   ├── vianeo-persona-builder/ ← Research & validation personas
-│   ├── design-director/        ← Design elevation & polish
-│   ├── 360-use-cases/          ← Your 360 skills go here
-│   └── templates/              ← Start here for new skills
-├── docs/
-│   ├── CREATING-SKILLS.md      ← Detailed guide
-│   └── QUICK-REFERENCE.md      ← You are here
-├── examples/                   ← See working examples
-└── README.md                  ← Project overview
+├── .claude/skills/          # 20 managed production skills
+├── skills/                  # 12+ user/development skills
+├── intelligence-dashboard/  # Next.js real-time dashboard
+├── tests/                   # pytest + vitest test suites
+├── docs/                    # Documentation hub
+├── config/                  # Validation configuration
+├── scripts/                 # Automation utilities
+├── templates/               # Output templates
+└── .github/workflows/       # CI/CD pipelines
 ```
 
-## Need Help?
+---
 
-- **Detailed Guide**: See `docs/CREATING-SKILLS.md`
-- **Examples**: Check `examples/` directory
-- **Template**: Use `skills/templates/skill-template.md`
-- **Project Overview**: Read main `README.md`
+## Key Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | AI assistant guide (1,564 lines) |
+| `pytest.ini` | Python test configuration |
+| `requirements-test.txt` | Test dependencies |
+| `config/skill-structure-requirements.yaml` | Validation rules |
+
+---
+
+## Fixtures Available (conftest.py)
+
+| Fixture | Returns |
+|---------|---------|
+| `project_root` | Path to repo root |
+| `skills_dir` | Path to skills/ |
+| `claude_skills_dir` | Path to .claude/skills/ |
+| `test_data_dir` | Path to tests/data/ |
+| `temp_output_dir` | Temporary directory |
+| `sample_financial_data` | Sample financial dict |
+| `sample_990_data` | Sample IRS 990 data |
+| `sample_persona_data` | Sample Vianeo persona |
+
+---
+
+## Getting Help
+
+| Resource | Location |
+|----------|----------|
+| Full documentation | `CLAUDE.md` |
+| Testing guide | `docs/TESTING.md` |
+| Skill creation | `docs/CREATING-SKILLS.md` |
+| Validation guide | `docs/SKILL-STRUCTURE-VALIDATION.md` |
+| Individual skill docs | Each skill's README.md |
+
+---
+
+## Quick Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Import errors | Add to PYTHONPATH: `export PYTHONPATH="${PYTHONPATH}:$(pwd)"` |
+| Missing module | `pip install -r requirements-test.txt` |
+| TypeScript errors | `cd intelligence-dashboard && npm install` |
+| Validation fails | Check YAML frontmatter in SKILL.md |
+| Push rejected | Ensure branch starts with `claude/` |
+
+---
+
+*Updated: November 2025 | Repository v2.7.0*
