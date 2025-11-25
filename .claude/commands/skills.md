@@ -1,81 +1,149 @@
 # Browse Available Skills
 
-Display the skill catalog organized by category.
+Display the complete skill catalog with slash commands organized by category.
 
-## Skill Categories
+---
 
-### Executive Intelligence & Leadership
+## Executive Intelligence & Leadership
+
 | Command | Skill | Description |
 |---------|-------|-------------|
 | `/brief` | ceo-advisor | Daily CEO intelligence brief with 5-expert advisory board |
 | `/weekly-brief` | executive-intelligence-dashboard | Weekly 360 Impact Brief with HTML dashboard |
 | `/board-prep` | 360-board-meeting-prep | Complete board meeting packet generation |
+| `/impact-report` | executive-impact-presentation-generator | Board-ready impact reports (deck + document) |
+| `/newsletter` | 360-newsletter-generator | Publication-style newsletters and executive briefs |
 
-### Research & Validation
+---
+
+## Research & Validation
+
 | Command | Skill | Description |
 |---------|-------|-------------|
 | `/research` | open-deep-research-team | Multi-agent academic-quality research |
 | `/persona` | strategic-persona-builder | Evidence-backed stakeholder personas |
 
-### Sales & Business Development
+---
+
+## Sales & Business Development
+
 | Command | Skill | Description |
 |---------|-------|-------------|
 | `/outreach` | sales-automator | Conversion-optimized email sequences |
 | `/proposal` | 360-proposal-builder | Executive-grade client proposals |
+| `/redline` | contract-redlining-tool | Attorney-quality contract review and redlining |
+| `/portfolio` | 360-client-portfolio-builder | Professional HTML portfolio pages for ventures |
 
-### Design & Visual Excellence
+---
+
+## Financial & Compliance
+
+| Command | Skill | Description |
+|---------|-------|-------------|
+| `/finance` | financial-modeling-skills | Investment analysis, SROI, portfolio intelligence |
+
+*Note: `990-ez-preparation` skill available in `skills/` directory (99% test coverage)*
+
+---
+
+## Design & Visual Excellence
+
 | Command | Skill | Description |
 |---------|-------|-------------|
 | `/elevate` | design-director | Professional design polish (Stripe/Linear quality) |
 
-### Data & Intelligence
+---
+
+## Data & Intelligence
+
 | Command | Skill | Description |
 |---------|-------|-------------|
 | `/extract` | intelligence-extractor | Extract structured intelligence from content |
+| `/tracker` | 360-executive-project-tracker | Multi-source project status dashboards |
 
 ---
 
-## Additional Skills (invoke by name)
+## Healthcare & Regulatory
 
-### Financial & Compliance
-- `financial-modeling-skills` - Investment analysis, SROI, portfolio intelligence
-- `990-ez-preparation` - IRS Form 990-EZ automation (99% test coverage)
-- `contract-redlining-tool` - Attorney-quality contract review
+| Command | Skill | Description |
+|---------|-------|-------------|
+| `/fda` | fda-consultant-agent | FDA pathway guidance and regulatory compliance |
 
-### Healthcare & Regulatory
-- `fda-consultant-agent` - FDA pathway guidance and regulatory compliance
+---
 
-### AI Governance
-- `ai-ethics-advisor` - Bias assessment, EU AI Act compliance, ethical AI
+## AI Governance & Ethics
 
-### Process Documentation
-- `workflow-process-generator` - SOPs, process maps, runbooks
-- `workflow-debugging` - Systematic debugging for complex workflows
+| Command | Skill | Description |
+|---------|-------|-------------|
+| `/ethics` | ai-ethics-advisor | Bias assessment, fairness evaluation, AI compliance |
 
-### Content & Newsletters
-- `360-newsletter-generator` - Publication-style newsletters and executive briefs
-- `360-client-portfolio-builder` - Professional HTML portfolio pages
+---
 
-### Orchestration
-- `skill-orchestrator` - Coordinate multi-skill workflows automatically
+## Process & Workflow
+
+| Command | Skill | Description |
+|---------|-------|-------------|
+| `/sop` | workflow-process-generator | SOPs, process maps, runbooks, playbooks |
+| `/debug` | workflow-debugging | Systematic debugging for complex workflows |
+| `/orchestrate` | skill-orchestrator | Coordinate multi-skill workflows |
 
 ---
 
 ## Quick Reference
 
 ```
-/brief        → Morning CEO intelligence brief
-/extract      → Extract intelligence from transcript
-/elevate      → Apply design polish
-/research     → Deep research on topic
-/proposal     → Generate client proposal
-/board-prep   → Board meeting preparation
-/outreach     → Sales email sequence
-/persona      → Build stakeholder personas
-/weekly-brief → Weekly executive brief
-/skills       → This catalog
+Executive Intelligence:
+  /brief        → Morning CEO intelligence brief
+  /weekly-brief → Weekly executive brief
+  /board-prep   → Board meeting preparation
+  /impact-report→ Board-ready impact reports
+  /newsletter   → Publication-style newsletters
+
+Research & Validation:
+  /research     → Deep research on topic
+  /persona      → Build stakeholder personas
+
+Sales & Business:
+  /outreach     → Sales email sequence
+  /proposal     → Generate client proposal
+  /redline      → Review and redline contract
+  /portfolio    → Build venture portfolio page
+
+Financial:
+  /finance      → Financial modeling & analysis
+
+Design:
+  /elevate      → Apply design polish
+
+Data & Intelligence:
+  /extract      → Extract intelligence from content
+  /tracker      → Create project status tracker
+
+Healthcare:
+  /fda          → FDA regulatory consultation
+
+AI Ethics:
+  /ethics       → AI ethics assessment
+
+Process & Workflow:
+  /sop          → Generate process documentation
+  /debug        → Debug workflow failure
+  /orchestrate  → Coordinate multi-skill workflow
+
+Catalog:
+  /skills       → This catalog
 ```
 
 ---
 
-**Tip**: For complex multi-step workflows, the `skill-orchestrator` coordinates automatically when you describe what you need.
+## Usage Tips
+
+1. **Both methods work**: Use `/brief` or say "Generate my morning executive brief"
+2. **Complex workflows**: Use `/orchestrate` or describe what you need
+3. **Design polish**: Run `/elevate` after generating any visual output
+4. **Multi-step tasks**: The orchestrator coordinates automatically
+
+---
+
+**Total Skills**: 20 managed skills with slash commands
+**Location**: `.claude/skills/`
