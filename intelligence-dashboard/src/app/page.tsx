@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import MetricsCards from '@/components/dashboard/MetricsCards';
 import QualityTrend from '@/components/dashboard/QualityTrend';
 import TemplatePerformance from '@/components/dashboard/TemplatePerformance';
@@ -111,17 +112,25 @@ export default function Dashboard() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Metrics Cards */}
-        {metrics && <MetricsCards metrics={metrics} />}
+        <ErrorBoundary>
+          {metrics && <MetricsCards metrics={metrics} />}
+        </ErrorBoundary>
 
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-          <QualityTrend />
-          <TemplatePerformance />
+          <ErrorBoundary>
+            <QualityTrend />
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <TemplatePerformance />
+          </ErrorBoundary>
         </div>
 
         {/* Recent Activity */}
         <div className="mt-6">
-          <RecentExtractions extractions={recentExtractions} />
+          <ErrorBoundary>
+            <RecentExtractions extractions={recentExtractions} />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
