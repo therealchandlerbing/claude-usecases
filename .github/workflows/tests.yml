@@ -93,13 +93,11 @@ jobs:
         if: steps.check_dir.outputs.exists == 'true'
         working-directory: intelligence-dashboard
         run: npm test
-        continue-on-error: true
 
       - name: Run tests with coverage
         if: steps.check_dir.outputs.exists == 'true'
         working-directory: intelligence-dashboard
         run: npm run test:coverage
-        continue-on-error: true
 
       - name: Upload coverage reports
         if: steps.check_dir.outputs.exists == 'true'
@@ -174,7 +172,13 @@ jobs:
           echo "| Vianeo Dashboard Tests | ${{ needs.typescript-vianeo-dashboard.result }} |" >> $GITHUB_STEP_SUMMARY
 
       - name: Fail if any tests failed
-        if: needs.python-tests.result == 'failure'
+        if: |
+          needs.python-tests.result == 'failure' ||
+          needs.typescript-intelligence-dashboard.result == 'failure' ||
+          needs.typescript-vianeo-dashboard.result == 'failure'
         run: |
-          echo "::error::Python tests failed"
+          echo "::error::One or more test suites failed"
+          echo "Python tests: ${{ needs.python-tests.result }}"
+          echo "Intelligence Dashboard: ${{ needs.typescript-intelligence-dashboard.result }}"
+          echo "Vianeo Dashboard: ${{ needs.typescript-vianeo-dashboard.result }}"
           exit 1
