@@ -6,11 +6,24 @@
  */
 
 // ===== CONFIGURATION =====
-const SUPABASE_URL = 'https://pblxazslxcotbdxtvnlb.supabase.co';
-// Using service role key for Zapier (bypasses RLS, server-side only)
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBibHhhenNseGNvdGJkeHR2bmxiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NDEwMjIxOCwiZXhwIjoyMDc5Njc4MjE4fQ.YRi8Uut8X1je7cmEDgcxffrsDNG-BHQyZWYa1W14sUU';
-// Note: For legacy compatibility, also available as SUPABASE_ANON_KEY
-const SUPABASE_ANON_KEY = SUPABASE_KEY;
+// Provide secrets via Zapier "Environment" variables or encrypted input fields
+// instead of hard-coding them in the script.
+const SUPABASE_URL = inputData.supabase_url || process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY =
+  inputData.supabase_service_role_key || process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Prefer a scoped anon key when available; fall back to service role only when necessary
+const SUPABASE_ANON_KEY =
+  inputData.supabase_anon_key || process.env.SUPABASE_ANON_KEY || SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SUPABASE_URL) {
+  throw new Error('Missing Supabase URL. Set supabase_url input or SUPABASE_URL secret.');
+}
+
+if (!SUPABASE_SERVICE_ROLE_KEY && !SUPABASE_ANON_KEY) {
+  throw new Error(
+    'Missing Supabase credentials. Provide supabase_service_role_key or supabase_anon_key as a secret input or environment variable.'
+  );
+}
 
 // ===== MAIN FUNCTION =====
 
