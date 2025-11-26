@@ -1,0 +1,767 @@
+{
+    "name": "Fathom Direct → Intelligence Pipeline",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": null,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "label": "fathom-transcript-webhook",
+                            "data": {
+                                "editable": "true"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://api.anthropic.com/v1/messages",
+                "serializeUrl": false,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "x-api-key",
+                        "value": "YOUR_ANTHROPIC_API_KEY_HERE"
+                    },
+                    {
+                        "name": "anthropic-version",
+                        "value": "2023-06-01"
+                    },
+                    {
+                        "name": "content-type",
+                        "value": "application/json"
+                    }
+                ],
+                "qs": [],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "authUser": "",
+                "authPass": "",
+                "timeout": "60",
+                "shareCookies": false,
+                "ca": "",
+                "rejectUnauthorized": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "gzip": true,
+                "useMtls": false,
+                "contentType": "application/json",
+                "data": "{\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an expert relationship intelligence analyst for 360 Social Impact Studios.\\n\\nExtract structured intelligence from this meeting transcript.\\n\\n## TRANSCRIPT\\nTitle: {{1.title}}\\nDate: {{1.date}}\\nParticipants: {{1.participants}}\\n\\n{{1.transcript}}\\n\\n## OUTPUT FORMAT\\nRespond with ONLY valid JSON (no markdown, no explanation):\\n\\n{\\n  \\\"extraction_metadata\\\": {\\n    \\\"meeting_title\\\": \\\"string\\\",\\n    \\\"meeting_date\\\": \\\"YYYY-MM-DD\\\",\\n    \\\"confidence_score\\\": 0.0-1.0,\\n    \\\"needs_human_review\\\": boolean,\\n    \\\"review_reasons\\\": [\\\"string\\\"]\\n  },\\n  \\\"interaction\\\": {\\n    \\\"meeting_type\\\": \\\"discovery|followup|presentation|negotiation|closing|check_in|introduction\\\",\\n    \\\"meeting_format\\\": \\\"video|phone|in_person|async\\\",\\n    \\\"outcome\\\": \\\"positive|neutral|negative|mixed\\\",\\n    \\\"temperature_change\\\": \\\"warming|cooling|stable\\\",\\n    \\\"summary\\\": \\\"2-3 sentence summary\\\",\\n    \\\"topics\\\": [\\\"topic1\\\", \\\"topic2\\\"],\\n    \\\"key_quotes\\\": [\\\"verbatim quote 1\\\"]\\n  },\\n  \\\"relationships\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"name\\\": \\\"Full Name\\\",\\n        \\\"organization\\\": \\\"Company\\\",\\n        \\\"title\\\": \\\"Job Title\\\",\\n        \\\"persona_type\\\": \\\"government_innovation|university_tto|corporate_innovation|vc_partner|foundation_program|startup_founder|research_director|c_suite_executive\\\",\\n        \\\"geography\\\": \\\"City, Country\\\",\\n        \\\"stage\\\": \\\"prospect|active|partner|dormant\\\",\\n        \\\"source\\\": \\\"referral|conference|inbound|outbound\\\",\\n        \\\"notes\\\": \\\"Key context\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"service_interests\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"service\\\": \\\"innovation_compass|vianeo_validation|ip_assessment|university_partnership|venture_studio|market_entry_brazil|innovation_strategy|franchise_development\\\",\\n        \\\"interest_level\\\": \\\"mentioned|exploring|evaluating|ready_to_buy\\\",\\n        \\\"interest_source\\\": \\\"explicit|inferred\\\",\\n        \\\"budget_confirmed\\\": boolean,\\n        \\\"timeline_confirmed\\\": boolean,\\n        \\\"estimated_value\\\": number or null\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"commitments\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"owner\\\": \\\"ours|theirs\\\",\\n        \\\"relationship_name\\\": \\\"Name of person\\\",\\n        \\\"description\\\": \\\"What was promised\\\",\\n        \\\"commitment_type\\\": \\\"deliverable|meeting|introduction|information|decision\\\",\\n        \\\"due_date\\\": \\\"YYYY-MM-DD or null\\\",\\n        \\\"due_date_type\\\": \\\"explicit|inferred|none\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"signals\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"signal_type\\\": \\\"budget|timeline|authority|need|competition|risk|opportunity|relationship\\\",\\n        \\\"description\\\": \\\"What was signaled\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote if available\\\",\\n        \\\"significance\\\": \\\"high|medium|low\\\",\\n        \\\"amount\\\": number or null,\\n        \\\"actionable\\\": boolean,\\n        \\\"action_required\\\": \\\"Recommended action or null\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"objections\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"objection_type\\\": \\\"price|timing|authority|need|trust|competition|scope|process\\\",\\n        \\\"objection_text\\\": \\\"Summary of objection\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote\\\",\\n        \\\"response_given\\\": \\\"How we responded or null\\\",\\n        \\\"response_effective\\\": boolean or null,\\n        \\\"objection_overcome\\\": boolean,\\n        \\\"what_worked\\\": \\\"What worked or null\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"competitor_mentions\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"competitor_name\\\": \\\"Company name\\\",\\n        \\\"competitor_type\\\": \\\"direct|indirect|alternative|incumbent\\\",\\n        \\\"context\\\": \\\"How they came up\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote or null\\\",\\n        \\\"perceived_strengths\\\": [\\\"strength1\\\"],\\n        \\\"perceived_weaknesses\\\": [\\\"weakness1\\\"],\\n        \\\"price_comparison\\\": \\\"cheaper|similar|expensive|unknown\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"introductions\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"introduced_name\\\": \\\"Name\\\",\\n        \\\"introduced_org\\\": \\\"Organization\\\",\\n        \\\"introduced_by\\\": \\\"Who made intro\\\",\\n        \\\"context\\\": \\\"Why introduced\\\",\\n        \\\"warmth\\\": \\\"hot|warm|cold\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ]\\n}\"\n    }\n  ]\n}",
+                "followAllRedirects": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [
+                                null,
+                                null,
+                                null
+                            ]
+                        },
+                        "qs": {
+                            "mode": "chose"
+                        },
+                        "bodyType": {
+                            "label": "Raw"
+                        },
+                        "contentType": {
+                            "label": "JSON (application/json)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "handleErrors",
+                        "type": "boolean",
+                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                        "required": true
+                    },
+                    {
+                        "name": "useNewZLibDeCompress",
+                        "type": "hidden"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
+                        "required": true
+                    },
+                    {
+                        "name": "method",
+                        "type": "select",
+                        "label": "Method",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {
+                "type": ""
+            },
+            "mapper": {
+                "json": "{{2.data.content[0].text}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "type": {
+                            "label": "Choose a data structure"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "type",
+                        "type": "udt",
+                        "label": "Data structure"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "json",
+                        "type": "text",
+                        "label": "JSON string",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "parameters": {},
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 5,
+                            "module": "supabase:searchRows",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "persona_archetypes",
+                                "filter": [
+                                    {
+                                        "a": "name",
+                                        "b": "{{3.relationships[0].data.persona_type}}",
+                                        "o": "text:eq."
+                                    }
+                                ],
+                                "limit": 1
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": -300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "relationships",
+                                "data": {
+                                    "name": "{{3.relationships[0].data.name}}",
+                                    "organization": "{{3.relationships[0].data.organization}}",
+                                    "title": "{{3.relationships[0].data.title}}",
+                                    "persona_id": "{{5.id}}",
+                                    "geography": "{{3.relationships[0].data.geography}}",
+                                    "stage": "{{3.relationships[0].data.stage}}",
+                                    "source": "{{3.relationships[0].data.source}}",
+                                    "notes": "{{3.relationships[0].data.notes}}",
+                                    "push_status": "pending_review"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": -300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "interactions",
+                                "data": {
+                                    "relationship_id": "{{6.id}}",
+                                    "interaction_date": "{{3.extraction_metadata.meeting_date}}",
+                                    "meeting_type": "{{3.interaction.meeting_type}}",
+                                    "meeting_format": "{{3.interaction.meeting_format}}",
+                                    "outcome": "{{3.interaction.outcome}}",
+                                    "temperature_change": "{{3.interaction.temperature_change}}",
+                                    "summary": "{{3.interaction.summary}}",
+                                    "topics": "{{3.interaction.topics}}",
+                                    "key_quotes": "{{3.interaction.key_quotes}}",
+                                    "needs_review": "{{3.extraction_metadata.needs_human_review}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": -300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 8,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.commitments}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": -100
+                                },
+                                "restore": {}
+                            }
+                        },
+                        {
+                            "id": 9,
+                            "module": "supabase:searchRows",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "relationships",
+                                "filter": [
+                                    {
+                                        "a": "name",
+                                        "b": "{{8.data.relationship_name}}",
+                                        "o": "text:ilike."
+                                    }
+                                ],
+                                "limit": 1
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": -100
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "commitments",
+                                "data": {
+                                    "relationship_id": "{{9.id}}",
+                                    "owner": "{{8.data.owner}}",
+                                    "description": "{{8.data.description}}",
+                                    "commitment_type": "{{8.data.commitment_type}}",
+                                    "due_date": "{{8.data.due_date}}",
+                                    "due_date_type": "{{8.data.due_date_type}}",
+                                    "status": "pending",
+                                    "push_status": "pending_review"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": -100
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 11,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.signals}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 100
+                                }
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "module": "supabase:searchRows",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "relationships",
+                                "filter": [
+                                    {
+                                        "a": "name",
+                                        "b": "{{3.relationships[0].data.name}}",
+                                        "o": "text:ilike."
+                                    }
+                                ],
+                                "limit": 1
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 100
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "signals",
+                                "data": {
+                                    "relationship_id": "{{12.id}}",
+                                    "signal_type": "{{11.data.signal_type}}",
+                                    "description": "{{11.data.description}}",
+                                    "verbatim_quote": "{{11.data.verbatim_quote}}",
+                                    "significance": "{{11.data.significance}}",
+                                    "amount": "{{11.data.amount}}",
+                                    "actionable": "{{11.data.actionable}}",
+                                    "action_required": "{{11.data.action_required}}",
+                                    "confidence": "{{11.confidence}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": 100
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 14,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.service_interests}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 300
+                                }
+                            }
+                        },
+                        {
+                            "id": 15,
+                            "module": "supabase:searchRows",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "relationships",
+                                "filter": [
+                                    {
+                                        "a": "name",
+                                        "b": "{{3.relationships[0].data.name}}",
+                                        "o": "text:ilike."
+                                    }
+                                ],
+                                "limit": 1
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 16,
+                            "module": "supabase:searchRows",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "services",
+                                "filter": [
+                                    {
+                                        "a": "name",
+                                        "b": "{{14.data.service}}",
+                                        "o": "text:eq."
+                                    }
+                                ],
+                                "limit": 1
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 17,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "service_interest",
+                                "data": {
+                                    "relationship_id": "{{15.id}}",
+                                    "service_id": "{{16.id}}",
+                                    "interest_level": "{{14.data.interest_level}}",
+                                    "interest_source": "{{14.data.interest_source}}",
+                                    "budget_confirmed": "{{14.data.budget_confirmed}}",
+                                    "timeline_confirmed": "{{14.data.timeline_confirmed}}",
+                                    "estimated_value": "{{14.data.estimated_value}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2100,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 18,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.objections}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 500
+                                }
+                            }
+                        },
+                        {
+                            "id": 19,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "objections",
+                                "data": {
+                                    "objection_type": "{{18.data.objection_type}}",
+                                    "objection_text": "{{18.data.objection_text}}",
+                                    "verbatim_quote": "{{18.data.verbatim_quote}}",
+                                    "response_given": "{{18.data.response_given}}",
+                                    "response_effective": "{{18.data.response_effective}}",
+                                    "objection_overcome": "{{18.data.objection_overcome}}",
+                                    "what_worked": "{{18.data.what_worked}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 500
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 20,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.competitor_mentions}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 700
+                                }
+                            }
+                        },
+                        {
+                            "id": 21,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "competitor_intel",
+                                "data": {
+                                    "competitor_name": "{{20.data.competitor_name}}",
+                                    "competitor_type": "{{20.data.competitor_type}}",
+                                    "context": "{{20.data.context}}",
+                                    "verbatim_quote": "{{20.data.verbatim_quote}}",
+                                    "perceived_strengths": "{{20.data.perceived_strengths}}",
+                                    "perceived_weaknesses": "{{20.data.perceived_weaknesses}}",
+                                    "price_comparison": "{{20.data.price_comparison}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 700
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 22,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.introductions}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 900
+                                }
+                            }
+                        },
+                        {
+                            "id": 23,
+                            "module": "supabase:createRow",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6402762
+                            },
+                            "mapper": {
+                                "table": "introductions",
+                                "data": {
+                                    "introduced_name": "{{22.data.introduced_name}}",
+                                    "introduced_org": "{{22.data.introduced_org}}",
+                                    "introduced_by": "{{22.data.introduced_by}}",
+                                    "context": "{{22.data.context}}",
+                                    "warmth": "{{22.data.warmth}}"
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 900
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "My Supabase connection"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com"
+    }
+}
