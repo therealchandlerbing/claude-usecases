@@ -1,0 +1,213 @@
+{
+    "name": "Fathom Intelligence Pipeline v2",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": null,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {"x": 0, "y": 0},
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "label": "fathom-webhook",
+                            "data": {
+                                "editable": "true"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {"name": "title", "type": "text", "label": "Title"},
+                    {"name": "date", "type": "text", "label": "Date"},
+                    {"name": "participants", "type": "text", "label": "Participants"},
+                    {"name": "transcript", "type": "text", "label": "Transcript"},
+                    {"name": "call_id", "type": "text", "label": "Call ID"}
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://api.anthropic.com/v1/messages",
+                "method": "post",
+                "headers": [
+                    {"name": "x-api-key", "value": "YOUR_ANTHROPIC_API_KEY"},
+                    {"name": "anthropic-version", "value": "2023-06-01"},
+                    {"name": "content-type", "value": "application/json"}
+                ],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "120",
+                "contentType": "application/json",
+                "data": "{\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an expert relationship intelligence analyst.\\n\\nExtract structured intelligence from this meeting transcript.\\n\\n## TRANSCRIPT\\nTitle: {{1.title}}\\nDate: {{1.date}}\\nParticipants: {{1.participants}}\\n\\n{{1.transcript}}\\n\\n## OUTPUT FORMAT\\nRespond with ONLY valid JSON:\\n\\n{\\n  \\\"extraction_metadata\\\": {\\n    \\\"meeting_title\\\": \\\"string\\\",\\n    \\\"meeting_date\\\": \\\"YYYY-MM-DD\\\",\\n    \\\"confidence_score\\\": 0.0-1.0\\n  },\\n  \\\"interaction\\\": {\\n    \\\"meeting_type\\\": \\\"discovery|followup|presentation|negotiation|closing\\\",\\n    \\\"outcome\\\": \\\"positive|neutral|negative|mixed\\\",\\n    \\\"summary\\\": \\\"2-3 sentence summary\\\"\\n  },\\n  \\\"relationships\\\": [\\n    {\\n      \\\"name\\\": \\\"Full Name\\\",\\n      \\\"organization\\\": \\\"Company\\\",\\n      \\\"title\\\": \\\"Job Title\\\",\\n      \\\"stage\\\": \\\"prospect|active|partner|dormant\\\"\\n    }\\n  ],\\n  \\\"commitments\\\": [\\n    {\\n      \\\"owner\\\": \\\"ours|theirs\\\",\\n      \\\"description\\\": \\\"What was promised\\\",\\n      \\\"due_date\\\": \\\"YYYY-MM-DD or null\\\"\\n    }\\n  ],\\n  \\\"signals\\\": [\\n    {\\n      \\\"signal_type\\\": \\\"budget|timeline|authority|need|opportunity\\\",\\n      \\\"description\\\": \\\"What was signaled\\\",\\n      \\\"significance\\\": \\\"high|medium|low\\\"\\n    }\\n  ]\\n}\"\n    }\n  ]\n}"
+            },
+            "metadata": {
+                "designer": {"x": 300, "y": 0},
+                "restore": {
+                    "expect": {
+                        "method": {"mode": "chose", "label": "POST"},
+                        "bodyType": {"label": "Raw"},
+                        "contentType": {"label": "JSON (application/json)"}
+                    }
+                }
+            }
+        },
+        {
+            "id": 3,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {"type": ""},
+            "mapper": {
+                "json": "{{2.data.content[1].text}}"
+            },
+            "metadata": {
+                "designer": {"x": 600, "y": 0}
+            }
+        },
+        {
+            "id": 4,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/relationships",
+                "method": "post",
+                "headers": [
+                    {"name": "apikey", "value": "YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Authorization", "value": "Bearer YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Content-Type", "value": "application/json"},
+                    {"name": "Prefer", "value": "return=representation"}
+                ],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "30",
+                "contentType": "application/json",
+                "data": "{\n  \"name\": \"{{3.relationships[1].name}}\",\n  \"organization\": \"{{3.relationships[1].organization}}\",\n  \"title\": \"{{3.relationships[1].title}}\",\n  \"stage\": \"{{3.relationships[1].stage}}\",\n  \"first_contact_date\": \"{{1.date}}\",\n  \"temperature\": \"warm\",\n  \"is_active\": true\n}"
+            },
+            "metadata": {
+                "designer": {"x": 900, "y": -100}
+            }
+        },
+        {
+            "id": 5,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/interactions",
+                "method": "post",
+                "headers": [
+                    {"name": "apikey", "value": "YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Authorization", "value": "Bearer YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Content-Type", "value": "application/json"},
+                    {"name": "Prefer", "value": "return=representation"}
+                ],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "30",
+                "contentType": "application/json",
+                "data": "{\n  \"relationship_id\": \"{{4.data[1].id}}\",\n  \"interaction_date\": \"{{1.date}}\",\n  \"meeting_type\": \"{{3.interaction.meeting_type}}\",\n  \"outcome\": \"{{3.interaction.outcome}}\",\n  \"summary\": \"{{3.interaction.summary}}\",\n  \"source\": \"fathom\",\n  \"fathom_call_id\": \"{{1.call_id}}\"\n}"
+            },
+            "metadata": {
+                "designer": {"x": 1200, "y": -100}
+            }
+        },
+        {
+            "id": 6,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/commitments",
+                "method": "post",
+                "headers": [
+                    {"name": "apikey", "value": "YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Authorization", "value": "Bearer YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Content-Type", "value": "application/json"},
+                    {"name": "Prefer", "value": "return=representation"}
+                ],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "30",
+                "contentType": "application/json",
+                "data": "{\n  \"owner\": \"{{3.commitments[1].owner}}\",\n  \"description\": \"{{3.commitments[1].description}}\",\n  \"due_date\": \"{{3.commitments[1].due_date}}\",\n  \"status\": \"pending\",\n  \"source\": \"fathom\"\n}"
+            },
+            "metadata": {
+                "designer": {"x": 900, "y": 100}
+            }
+        },
+        {
+            "id": 7,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/signals",
+                "method": "post",
+                "headers": [
+                    {"name": "apikey", "value": "YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Authorization", "value": "Bearer YOUR_SUPABASE_ANON_KEY"},
+                    {"name": "Content-Type", "value": "application/json"},
+                    {"name": "Prefer", "value": "return=representation"}
+                ],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "30",
+                "contentType": "application/json",
+                "data": "{\n  \"signal_type\": \"{{3.signals[1].signal_type}}\",\n  \"description\": \"{{3.signals[1].description}}\",\n  \"significance\": \"{{3.signals[1].significance}}\",\n  \"detected_at\": \"{{1.date}}\",\n  \"source\": \"fathom\"\n}"
+            },
+            "metadata": {
+                "designer": {"x": 1200, "y": 100}
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "sequential": true,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com"
+    }
+}
