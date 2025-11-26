@@ -4,15 +4,21 @@ A comprehensive system for extracting relationship intelligence from meeting tra
 
 ## Architecture
 
+### Option A: Direct Pipeline (Recommended)
+
 ```
-Fathom Transcripts → Zapier → Claude (Extract) → Google Drive (JSON)
-                                                        ↓
-                                                  Make.com
-                                                        ↓
-                                                   Supabase
-                                                        ↓
-                                              React Dashboard (Vercel)
+Fathom → Make.com (Webhook) → Claude API → Supabase → Dashboard (Vercel)
 ```
+
+Single platform, faster processing, easier debugging. See `MAKE_DIRECT_SETUP.md`.
+
+### Option B: Zapier + Make.com Pipeline
+
+```
+Fathom → Zapier → Claude → Google Drive (JSON) → Make.com → Supabase → Dashboard
+```
+
+Uses existing Zapier setup, stores JSON intermediates. See `MAKE_SETUP.md`.
 
 ## Components
 
@@ -64,7 +70,11 @@ Four main views:
 
 ### Configure Extraction Pipeline
 
-See `MAKE_SETUP.md` for Make.com configuration.
+**Option A (Recommended):** Direct Fathom → Make.com → Claude → Supabase
+- See `MAKE_DIRECT_SETUP.md` for complete setup
+
+**Option B:** Existing Zapier flow with Make.com for database inserts
+- See `MAKE_SETUP.md` for Google Drive → Make.com → Supabase setup
 
 ### Deploy Dashboard to Vercel
 
