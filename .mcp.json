@@ -2,10 +2,14 @@
   "mcpServers": {
     "supabase": {
       "transport": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=nzvmihdgbvomjlkelcum",
+      "url": "https://mcp.supabase.com/mcp?project_ref=pblxazslxcotbdxtvnlb",
       "headers": {
-        "Authorization": "Bearer ${SUPABASE_SERVICE_ROLE_KEY}"
+        "Authorization": "Bearer sb_publishable_mCH6Oiq63NdZAeOct2c80w_v8hHwsuS"
       }
+    },
+    "gdrive": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-gdrive"]
     }
   }
 }

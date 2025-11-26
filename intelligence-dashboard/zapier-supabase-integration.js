@@ -6,8 +6,11 @@
  */
 
 // ===== CONFIGURATION =====
-const SUPABASE_URL = 'https://nzvmihdgbvomjlkelcum.supabase.co';  
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dm1paGRnYnZvbWpsa2VsY3VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3OTg0MzYsImV4cCI6MjA3OTM3NDQzNn0.8Z88SBISSMMJPoIqz_i3nc5KoiYKeNCJbaoI82Ijl30';
+const SUPABASE_URL = 'https://pblxazslxcotbdxtvnlb.supabase.co';
+// Using service role key for Zapier (bypasses RLS, server-side only)
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBibHhhenNseGNvdGJkeHR2bmxiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NDEwMjIxOCwiZXhwIjoyMDc5Njc4MjE4fQ.YRi8Uut8X1je7cmEDgcxffrsDNG-BHQyZWYa1W14sUU';
+// Note: For legacy compatibility, also available as SUPABASE_ANON_KEY
+const SUPABASE_ANON_KEY = SUPABASE_KEY;
 
 // ===== MAIN FUNCTION =====
 
