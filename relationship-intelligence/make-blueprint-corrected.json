@@ -1,0 +1,753 @@
+{
+    "name": "Fathom Direct → Intelligence Pipeline (Corrected)",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": null,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "label": "fathom-transcript-webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "url": "https://api.anthropic.com/v1/messages",
+                "serializeUrl": false,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "x-api-key",
+                        "value": "{{parameters.anthropic_api_key}}"
+                    },
+                    {
+                        "name": "anthropic-version",
+                        "value": "2023-06-01"
+                    },
+                    {
+                        "name": "content-type",
+                        "value": "application/json"
+                    }
+                ],
+                "qs": [],
+                "bodyType": "raw",
+                "parseResponse": true,
+                "timeout": "60",
+                "shareCookies": false,
+                "rejectUnauthorized": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "gzip": true,
+                "useMtls": false,
+                "contentType": "application/json",
+                "data": "{\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an expert relationship intelligence analyst for 360 Social Impact Studios.\\n\\nExtract structured intelligence from this meeting transcript.\\n\\n## TRANSCRIPT\\nTitle: {{1.title}}\\nDate: {{1.date}}\\nParticipants: {{1.participants}}\\n\\n{{1.transcript}}\\n\\n## OUTPUT FORMAT\\nRespond with ONLY valid JSON (no markdown, no explanation):\\n\\n{\\n  \\\"extraction_metadata\\\": {\\n    \\\"meeting_title\\\": \\\"string\\\",\\n    \\\"meeting_date\\\": \\\"YYYY-MM-DD\\\",\\n    \\\"confidence_score\\\": 0.0-1.0,\\n    \\\"needs_human_review\\\": boolean,\\n    \\\"review_reasons\\\": [\\\"string\\\"]\\n  },\\n  \\\"interaction\\\": {\\n    \\\"meeting_type\\\": \\\"discovery|followup|presentation|negotiation|closing|check_in|introduction\\\",\\n    \\\"meeting_format\\\": \\\"video|phone|in_person|async\\\",\\n    \\\"outcome\\\": \\\"positive|neutral|negative|mixed\\\",\\n    \\\"temperature_change\\\": \\\"warming|cooling|stable\\\",\\n    \\\"summary\\\": \\\"2-3 sentence summary\\\",\\n    \\\"topics\\\": [\\\"topic1\\\", \\\"topic2\\\"],\\n    \\\"key_quotes\\\": [\\\"verbatim quote 1\\\"]\\n  },\\n  \\\"relationships\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"name\\\": \\\"Full Name\\\",\\n        \\\"organization\\\": \\\"Company\\\",\\n        \\\"title\\\": \\\"Job Title\\\",\\n        \\\"persona_type\\\": \\\"government_innovation|university_tto|corporate_innovation|vc_partner|foundation_program|startup_founder|research_director|c_suite_executive\\\",\\n        \\\"geography\\\": \\\"City, Country\\\",\\n        \\\"stage\\\": \\\"prospect|active|partner|dormant\\\",\\n        \\\"source\\\": \\\"referral|conference|inbound|outbound\\\",\\n        \\\"notes\\\": \\\"Key context\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"service_interests\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"service\\\": \\\"innovation_compass|vianeo_validation|ip_assessment|university_partnership|venture_studio|market_entry_brazil|innovation_strategy|franchise_development\\\",\\n        \\\"interest_level\\\": \\\"mentioned|exploring|evaluating|ready_to_buy\\\",\\n        \\\"interest_source\\\": \\\"explicit|inferred\\\",\\n        \\\"budget_confirmed\\\": boolean,\\n        \\\"timeline_confirmed\\\": boolean,\\n        \\\"estimated_value\\\": number or null\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"commitments\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"owner\\\": \\\"ours|theirs\\\",\\n        \\\"relationship_name\\\": \\\"Name of person\\\",\\n        \\\"description\\\": \\\"What was promised\\\",\\n        \\\"commitment_type\\\": \\\"deliverable|meeting|introduction|information|decision\\\",\\n        \\\"due_date\\\": \\\"YYYY-MM-DD or null\\\",\\n        \\\"due_date_type\\\": \\\"explicit|inferred|none\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"signals\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"signal_type\\\": \\\"budget|timeline|authority|need|competition|risk|opportunity|relationship\\\",\\n        \\\"description\\\": \\\"What was signaled\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote if available\\\",\\n        \\\"significance\\\": \\\"high|medium|low\\\",\\n        \\\"amount\\\": number or null,\\n        \\\"actionable\\\": boolean,\\n        \\\"action_required\\\": \\\"Recommended action or null\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"objections\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"objection_type\\\": \\\"price|timing|authority|need|trust|competition|scope|process\\\",\\n        \\\"objection_text\\\": \\\"Summary of objection\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote\\\",\\n        \\\"response_given\\\": \\\"How we responded or null\\\",\\n        \\\"response_effective\\\": boolean or null,\\n        \\\"objection_overcome\\\": boolean,\\n        \\\"what_worked\\\": \\\"What worked or null\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"competitor_mentions\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"competitor_name\\\": \\\"Company name\\\",\\n        \\\"competitor_type\\\": \\\"direct|indirect|alternative|incumbent\\\",\\n        \\\"context\\\": \\\"How they came up\\\",\\n        \\\"verbatim_quote\\\": \\\"Exact quote or null\\\",\\n        \\\"perceived_strengths\\\": [\\\"strength1\\\"],\\n        \\\"perceived_weaknesses\\\": [\\\"weakness1\\\"],\\n        \\\"price_comparison\\\": \\\"cheaper|similar|expensive|unknown\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ],\\n  \\\"introductions\\\": [\\n    {\\n      \\\"data\\\": {\\n        \\\"introduced_name\\\": \\\"Name\\\",\\n        \\\"introduced_org\\\": \\\"Organization\\\",\\n        \\\"introduced_by\\\": \\\"Who made intro\\\",\\n        \\\"context\\\": \\\"Why introduced\\\",\\n        \\\"warmth\\\": \\\"hot|warm|cold\\\"\\n      },\\n      \\\"confidence\\\": 0.0-1.0\\n    }\\n  ]\\n}\"\n    }\n  ]\n}",
+                "followAllRedirects": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
+                        },
+                        "headers": {
+                            "mode": "chose",
+                            "items": [null, null, null]
+                        },
+                        "bodyType": {
+                            "label": "Raw"
+                        },
+                        "contentType": {
+                            "label": "JSON (application/json)"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": 3,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {
+                "type": ""
+            },
+            "mapper": {
+                "json": "{{2.data.content[1].text}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 4,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "parameters": {},
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 5,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.relationships}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": -400
+                                }
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/relationships",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"name\": \"{{5.data.name}}\",\n  \"organization\": \"{{5.data.organization}}\",\n  \"title\": \"{{5.data.title}}\",\n  \"geography\": \"{{5.data.geography}}\",\n  \"stage\": \"{{5.data.stage}}\",\n  \"source\": \"{{5.data.source}}\",\n  \"notes\": \"{{5.data.notes}}\",\n  \"first_contact_date\": \"{{1.date}}\",\n  \"temperature\": \"warm\",\n  \"is_active\": true\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": -400
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/interactions",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"relationship_id\": \"{{6.data[1].id}}\",\n  \"interaction_date\": \"{{1.date}}\",\n  \"meeting_type\": \"{{3.interaction.meeting_type}}\",\n  \"meeting_format\": \"{{3.interaction.meeting_format}}\",\n  \"outcome\": \"{{3.interaction.outcome}}\",\n  \"temperature_change\": \"{{3.interaction.temperature_change}}\",\n  \"summary\": \"{{3.interaction.summary}}\",\n  \"source\": \"fathom\",\n  \"fathom_call_id\": \"{{1.call_id}}\"\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": -400
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 8,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.commitments}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": -200
+                                }
+                            }
+                        },
+                        {
+                            "id": 9,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/commitments",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"owner\": \"{{8.data.owner}}\",\n  \"description\": \"{{8.data.description}}\",\n  \"commitment_type\": \"{{8.data.commitment_type}}\",\n  \"due_date\": \"{{8.data.due_date}}\",\n  \"due_date_type\": \"{{8.data.due_date_type}}\",\n  \"status\": \"pending\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{8.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": -200
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 10,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.signals}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 0
+                                }
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/signals",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"signal_type\": \"{{10.data.signal_type}}\",\n  \"description\": \"{{10.data.description}}\",\n  \"verbatim_quote\": \"{{10.data.verbatim_quote}}\",\n  \"significance\": \"{{10.data.significance}}\",\n  \"amount\": {{10.data.amount}},\n  \"actionable\": {{10.data.actionable}},\n  \"action_required\": \"{{10.data.action_required}}\",\n  \"detected_at\": \"{{1.date}}\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{10.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 12,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.service_interests}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 200
+                                }
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/service_interest",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"service_name\": \"{{12.data.service}}\",\n  \"interest_level\": \"{{12.data.interest_level}}\",\n  \"interest_source\": \"{{12.data.interest_source}}\",\n  \"budget_confirmed\": {{12.data.budget_confirmed}},\n  \"timeline_confirmed\": {{12.data.timeline_confirmed}},\n  \"estimated_value\": {{12.data.estimated_value}},\n  \"detected_at\": \"{{1.date}}\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{12.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 200
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 14,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.objections}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 400
+                                }
+                            }
+                        },
+                        {
+                            "id": 15,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/objections",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"objection_type\": \"{{14.data.objection_type}}\",\n  \"objection_text\": \"{{14.data.objection_text}}\",\n  \"verbatim_quote\": \"{{14.data.verbatim_quote}}\",\n  \"response_given\": \"{{14.data.response_given}}\",\n  \"response_effective\": {{14.data.response_effective}},\n  \"objection_overcome\": {{14.data.objection_overcome}},\n  \"what_worked\": \"{{14.data.what_worked}}\",\n  \"detected_at\": \"{{1.date}}\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{14.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 400
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 16,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.competitor_mentions}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 600
+                                }
+                            }
+                        },
+                        {
+                            "id": 17,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/competitor_intel",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"competitor_name\": \"{{16.data.competitor_name}}\",\n  \"competitor_type\": \"{{16.data.competitor_type}}\",\n  \"context\": \"{{16.data.context}}\",\n  \"verbatim_quote\": \"{{16.data.verbatim_quote}}\",\n  \"price_comparison\": \"{{16.data.price_comparison}}\",\n  \"detected_at\": \"{{1.date}}\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{16.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 600
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 18,
+                            "module": "builtin:BasicFeeder",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "array": "{{3.introductions}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 800
+                                }
+                            }
+                        },
+                        {
+                            "id": 19,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "url": "https://pblxazslxcotbdxtvnlb.supabase.co/rest/v1/introductions",
+                                "serializeUrl": false,
+                                "method": "post",
+                                "headers": [
+                                    {
+                                        "name": "apikey",
+                                        "value": "{{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer {{parameters.supabase_api_key}}"
+                                    },
+                                    {
+                                        "name": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "name": "Prefer",
+                                        "value": "return=representation"
+                                    }
+                                ],
+                                "qs": [],
+                                "bodyType": "raw",
+                                "parseResponse": true,
+                                "timeout": "30",
+                                "shareCookies": false,
+                                "rejectUnauthorized": true,
+                                "followRedirect": true,
+                                "gzip": true,
+                                "useMtls": false,
+                                "contentType": "application/json",
+                                "data": "{\n  \"introduced_name\": \"{{18.data.introduced_name}}\",\n  \"introduced_org\": \"{{18.data.introduced_org}}\",\n  \"introduced_by\": \"{{18.data.introduced_by}}\",\n  \"context\": \"{{18.data.context}}\",\n  \"warmth\": \"{{18.data.warmth}}\",\n  \"introduced_at\": \"{{1.date}}\",\n  \"source\": \"fathom\",\n  \"extraction_confidence\": {{18.confidence}}\n}",
+                                "followAllRedirects": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 800
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "POST"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com"
+    }
+}
