@@ -114,7 +114,7 @@
         "type": ""
       },
       "mapper": {
-        "json": "{{2.data.content[0].text}}"
+        "json": "{{2.data.content[1].text}}"
       },
       "metadata": {
         "designer": {
