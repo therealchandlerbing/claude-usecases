@@ -68,7 +68,26 @@ Four main views:
 3. Click Run
 4. Verify tables in Table Editor
 
+The schema includes:
+- 17 tables (core + intelligence)
+- 13 views for dashboard queries
+- 9 functions (triggers, scheduled jobs, and dashboard RPC)
+- Seed data for persona archetypes and services
+
 ### Configure Extraction Pipeline
+
+#### Make.com Blueprint Files
+
+| File | Description | Use When |
+|------|-------------|----------|
+| `make-blueprint-corrected.json` | **Recommended** - Uses HTTP modules for Supabase REST API | New setups, or if Supabase modules give "Module Not Found" errors |
+| `make-blueprint.json` | Uses Supabase native app modules | You have Supabase app installed and prefer native modules |
+
+**After importing either blueprint:**
+- See `MAKE_POST_IMPORT_SETUP.md` for step-by-step configuration
+- You'll need to configure: Supabase connection, Anthropic API key, Webhook URL
+
+**Detailed Setup Guides:**
 
 **Option A (Recommended):** Direct Fathom → Make.com → Claude → Supabase
 - See `MAKE_DIRECT_SETUP.md` for complete setup
@@ -111,6 +130,8 @@ npm run dev
 - Dashboard will be live at: `https://your-project.vercel.app`
 - Auto-deploys on every push to main branch
 
+**For more dashboard details:** See `dashboard/README.md`
+
 ## Supabase Connection
 
 ```javascript
@@ -118,16 +139,20 @@ const supabaseUrl = 'https://pblxazslxcotbdxtvnlb.supabase.co';
 const supabaseKey = 'your-anon-key';
 ```
 
-## Key Views
+## Key Views & Functions
 
-| View | Purpose |
-|------|---------|
+| View/Function | Purpose |
+|---------------|---------|
 | `v_pending_review` | Items awaiting push decision |
 | `v_attention_queue` | Cooling relationships, overdue items |
 | `v_portfolio_health` | Aggregated metrics |
 | `v_persona_battle_cards` | Persona engagement playbooks |
 | `v_service_battle_cards` | Service intelligence |
 | `v_competitor_battle_cards` | Competitive positioning |
+| `v_persona_engagement` | Persona metrics for dashboard |
+| `v_service_traction` | Service pipeline for dashboard |
+| `get_persona_dashboard_data()` | RPC: Enriched persona data |
+| `get_service_dashboard_data()` | RPC: Enriched service data |
 
 ## Temperature Thresholds
 

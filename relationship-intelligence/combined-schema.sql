@@ -1698,6 +1698,136 @@ COMMENT ON TABLE competitor_intel IS 'Competitor mentions and intelligence. AI s
 COMMENT ON TABLE proof_points IS 'Evidence and case studies that resonate. Track effectiveness.';
 
 -- ============================================================
+-- RPC FUNCTIONS FOR DASHBOARD
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- get_persona_dashboard_data()
+-- Returns enriched persona data for intelligence dashboard
+-- ------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_persona_dashboard_data()
+RETURNS TABLE (
+  id UUID,
+  display_name TEXT,
+  description TEXT,
+  total_relationships BIGINT,
+  active_pipeline BIGINT,
+  pipeline_value DECIMAL,
+  conversion_rate DECIMAL,
+  hot BIGINT,
+  warm BIGINT,
+  cool BIGINT,
+  cold BIGINT,
+  overdue_count BIGINT,
+  recommended_touch_days INTEGER,
+  avg_days_to_convert DECIMAL,
+  effective_proof_points TEXT[],
+  effective_language TEXT[],
+  top_objections TEXT[],
+  ineffective_approaches TEXT[],
+  cultural_notes JSONB
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT
+    p.id,
+    p.display_name,
+    p.description,
+    COUNT(DISTINCT r.id)::BIGINT as total_relationships,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.stage IN ('discovery', 'proposal', 'negotiation'))::BIGINT as active_pipeline,
+    COALESCE(SUM(r.deal_value) FILTER (WHERE r.stage IN ('discovery', 'proposal', 'negotiation')), 0) as pipeline_value,
+    ROUND(
+      COUNT(DISTINCT r.id) FILTER (WHERE r.stage = 'closed_won')::decimal /
+      NULLIF(COUNT(DISTINCT r.id) FILTER (WHERE r.stage IN ('closed_won', 'closed_lost')), 0) * 100,
+      1
+    ) as conversion_rate,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.temperature = 'hot')::BIGINT as hot,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.temperature = 'warm')::BIGINT as warm,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.temperature = 'cool')::BIGINT as cool,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.temperature = 'cold')::BIGINT as cold,
+    COUNT(DISTINCT r.id) FILTER (WHERE r.days_since_contact > p.recommended_touch_frequency_days)::BIGINT as overdue_count,
+    p.recommended_touch_frequency_days as recommended_touch_days,
+    COALESCE(p.avg_conversion_days, 60) as avg_days_to_convert,
+    COALESCE(p.effective_proof_points, ARRAY[]::TEXT[]) as effective_proof_points,
+    COALESCE(p.effective_language, ARRAY[]::TEXT[]) as effective_language,
+    COALESCE(
+      (SELECT array_agg(DISTINCT o.objection_type)
+       FROM objections o
+       WHERE o.persona_id = p.id
+       LIMIT 5),
+      ARRAY[]::TEXT[]
+    ) as top_objections,
+    COALESCE(p.ineffective_approaches, ARRAY[]::TEXT[]) as ineffective_approaches,
+    COALESCE(p.cultural_considerations, '{}'::JSONB) as cultural_notes
+  FROM persona_archetypes p
+  LEFT JOIN relationships r ON p.id = r.persona_id AND r.is_active = true
+  GROUP BY p.id
+  ORDER BY total_relationships DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION get_persona_dashboard_data IS 'Returns enriched persona data for the intelligence dashboard with metrics, temperature distribution, and playbook data.';
+
+-- ------------------------------------------------------------
+-- get_service_dashboard_data()
+-- Returns enriched service data for intelligence dashboard
+-- ------------------------------------------------------------
+CREATE OR REPLACE FUNCTION get_service_dashboard_data()
+RETURNS TABLE (
+  id UUID,
+  display_name TEXT,
+  category TEXT,
+  pipeline_value DECIMAL,
+  mentioned BIGINT,
+  curious BIGINT,
+  evaluating BIGINT,
+  ready_to_buy BIGINT,
+  win_rate DECIMAL,
+  avg_deal_size DECIMAL,
+  best_personas TEXT[],
+  winning_differentiators TEXT[],
+  top_objections TEXT[],
+  key_proof_points TEXT[]
+) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT
+    s.id,
+    s.display_name,
+    s.category,
+    COALESCE(SUM(si.estimated_value) FILTER (WHERE si.outcome = 'active' OR si.outcome IS NULL), 0) as pipeline_value,
+    COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.interest_level = 'mentioned')::BIGINT as mentioned,
+    COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.interest_level = 'curious')::BIGINT as curious,
+    COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.interest_level = 'evaluating')::BIGINT as evaluating,
+    COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.interest_level = 'ready_to_buy')::BIGINT as ready_to_buy,
+    ROUND(
+      COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.outcome = 'won')::decimal /
+      NULLIF(COUNT(DISTINCT si.relationship_id) FILTER (WHERE si.outcome IN ('won', 'lost')), 0) * 100,
+      1
+    ) as win_rate,
+    AVG(si.estimated_value) FILTER (WHERE si.outcome = 'won') as avg_deal_size,
+    COALESCE(
+      (SELECT array_agg(DISTINCT pa.display_name)
+       FROM service_interest si2
+       JOIN relationships r ON si2.relationship_id = r.id
+       JOIN persona_archetypes pa ON r.persona_id = pa.id
+       WHERE si2.service_id = s.id AND si2.outcome = 'won'
+       LIMIT 3),
+      ARRAY[]::TEXT[]
+    ) as best_personas,
+    COALESCE(s.differentiation_points, ARRAY[]::TEXT[]) as winning_differentiators,
+    COALESCE(s.common_objections, ARRAY[]::TEXT[]) as top_objections,
+    COALESCE(s.quantified_outcomes, ARRAY[]::TEXT[]) as key_proof_points
+  FROM services s
+  LEFT JOIN service_interest si ON s.id = si.service_id
+  GROUP BY s.id
+  ORDER BY evaluating DESC, curious DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION get_service_dashboard_data IS 'Returns enriched service data for the intelligence dashboard with pipeline stages, win rates, and battle card data.';
+
+-- ============================================================
 -- DEPLOYMENT COMPLETE
 -- ============================================================
 --
@@ -1715,14 +1845,19 @@ COMMENT ON TABLE proof_points IS 'Evidence and case studies that resonate. Track
 --                 v_competitor_battle_cards, v_objection_patterns,
 --                 v_service_traction, v_persona_engagement, v_signal_intelligence
 --
--- Functions created:
+-- Functions created (9 total):
+--   TRIGGERS:
 --   - update_updated_at() - Auto-update timestamps
 --   - calculate_days_since_contact() - Calculate days since last interaction
 --   - auto_update_temperature() - Auto-cool relationships based on time
 --   - log_stage_transition() - Auto-log stage changes
 --   - update_relationship_from_interaction() - Update metrics on new interaction
+--   SCHEDULED:
 --   - mark_overdue_commitments() - Mark overdue (run via cron)
 --   - refresh_days_since_contact() - Refresh all (run via cron)
+--   DASHBOARD RPC:
+--   - get_persona_dashboard_data() - Enriched persona data for intelligence dashboard
+--   - get_service_dashboard_data() - Enriched service data for intelligence dashboard
 --
 -- Seeded data:
 --   - 8 persona archetypes (government_innovation, university_tto, etc.)
