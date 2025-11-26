@@ -567,7 +567,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER relationships_auto_temperature
-  BEFORE INSERT OR UPDATE OF days_since_contact ON relationships
+  BEFORE INSERT OR UPDATE ON relationships
   FOR EACH ROW
   EXECUTE FUNCTION auto_update_temperature();
 
