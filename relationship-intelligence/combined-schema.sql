@@ -566,7 +566,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER relationships_auto_temperature
+-- Name is prefixed with "z_" so this BEFORE trigger executes after
+-- relationships_days_since_contact (PostgreSQL orders BEFORE triggers alphabetically).
+CREATE TRIGGER relationships_z_auto_temperature
   BEFORE INSERT OR UPDATE ON relationships
   FOR EACH ROW
   EXECUTE FUNCTION auto_update_temperature();
