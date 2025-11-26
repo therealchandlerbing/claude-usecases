@@ -31,10 +31,10 @@ Asana (stores actual intelligence)
 | Component | Value |
 |-----------|-------|
 | **Google Drive Folder** | `A - Meeting Transcript Processing` |
-| **Folder ID** | `1asWprM3W64cjz8HEoI7NA55mtAegFQWI` |
-| **Supabase URL** | `https://pblxazslxcotbdxtvnlb.supabase.co` |
-| **Supabase Anon Key** | `sb_publishable_mCH6Oiq63NdZAeOct2c80w_v8hHwsuS` |
-| **Fathom Webhook** | `whsec_fMhJjCKZKrrw459/lsgdeswf5VeoWqGt` |
+| **Folder ID** | `YOUR_GOOGLE_DRIVE_FOLDER_ID` |
+| **Supabase URL** | `https://YOUR_SUPABASE_PROJECT.supabase.co` |
+| **Supabase Anon Key** | `YOUR_SUPABASE_ANON_KEY` |
+| **Fathom Webhook** | `YOUR_FATHOM_WEBHOOK_SECRET` |
 
 ---
 
