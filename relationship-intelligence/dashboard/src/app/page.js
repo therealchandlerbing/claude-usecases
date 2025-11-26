@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import RelationshipIntelligenceDashboard from '../components/RelationshipIntelligenceDashboard';
-import { fetchActionData, fetchIntelligenceData, updatePushStatus, pushToAsana } from '../lib/supabase';
+import {
+  fetchActionData,
+  fetchIntelligenceData,
+  updatePushStatus,
+  pushToAsana,
+  resolveCommitment,
+  saveToPlaybook,
+  logReachOut
+} from '../services/supabase';
 
 export default function Home() {
   const [actionData, setActionData] = useState({
@@ -41,17 +49,55 @@ export default function Home() {
   async function handleAction(action, item) {
     try {
       switch (action) {
-        case 'approve':
-          await updatePushStatus(item.table, item.id, 'approved');
-          break;
-        case 'reject':
-          await updatePushStatus(item.table, item.id, 'rejected');
-          break;
+        // Push actions - create Asana task and mark as pushed
+        case 'push':
         case 'push_to_asana':
           await pushToAsana(item);
           break;
+
+        // Keep in Supabase only - don't push to Asana
+        case 'keep':
+        case 'note':
+          await updatePushStatus(item.table, item.id, 'supabase_only');
+          break;
+
+        // Decline/dismiss - mark as declined
+        case 'decline':
+        case 'dismiss':
+          await updatePushStatus(item.table, item.id, 'declined');
+          break;
+
+        // Create action from signal
+        case 'action':
+          await pushToAsana(item);
+          break;
+
+        // Save objection response to playbook
+        case 'save':
+          await saveToPlaybook(item);
+          await updatePushStatus(item.table, item.id, 'supabase_only');
+          break;
+
+        // Reach out to cooling relationship
+        case 'reach_out':
+          await logReachOut(item.id);
+          break;
+
+        // Resolve overdue commitment
+        case 'resolve':
+          await resolveCommitment(item.id);
+          break;
+
+        // Legacy approve/reject actions
+        case 'approve':
+          await updatePushStatus(item.table, item.id, 'pushed');
+          break;
+        case 'reject':
+          await updatePushStatus(item.table, item.id, 'declined');
+          break;
+
         default:
-          console.log('Unknown action:', action);
+          console.warn('Unknown action:', action, item);
       }
       // Reload data after action
       await loadData();
