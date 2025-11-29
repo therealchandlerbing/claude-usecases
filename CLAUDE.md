@@ -196,11 +196,11 @@ Specialized subagents that Claude can invoke automatically:
 
 | Agent | Expertise | Skills Used |
 |-------|-----------|-------------|
-| `financial-analyst` | Financial analysis, 990-EZ | 990-ez-preparation, financial-modeling-skills |
-| `research-coordinator` | Deep research | open-deep-research-team, strategic-persona-builder |
-| `design-reviewer` | Design quality, a11y | design-director |
-| `compliance-checker` | FDA, AI ethics, regulations | fda-consultant-agent, ai-ethics-advisor |
-| `executive-advisor` | CEO decision support | ceo-advisor, executive-intelligence-dashboard |
+| `financial-analyst` | Financial analysis, 990-EZ | 990-ez-preparation, financial-modeling-skills, executive-intelligence-dashboard |
+| `research-coordinator` | Deep research | open-deep-research-team, strategic-persona-builder, ai-ethics-advisor, fda-consultant-agent |
+| `design-reviewer` | Design quality, a11y | design-director, executive-impact-presentation-generator, 360-client-portfolio-builder |
+| `compliance-checker` | FDA, AI ethics, regulations | fda-consultant-agent, ai-ethics-advisor, 990-ez-preparation, contract-redlining-tool |
+| `executive-advisor` | CEO decision support | ceo-advisor, executive-intelligence-dashboard, 360-board-meeting-prep, intelligence-extractor |
 
 ### Hooks
 

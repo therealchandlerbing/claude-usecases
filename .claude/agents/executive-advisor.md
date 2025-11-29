@@ -181,4 +181,4 @@ If conflicting expert perspectives:
 
 ---
 
-*Agent Version: 1.0.0 | Skills: ceo-advisor, executive-intelligence-dashboard, 360-board-meeting-prep*
+*Agent Version: 1.0.0 | Skills: ceo-advisor, executive-intelligence-dashboard, 360-board-meeting-prep, intelligence-extractor*

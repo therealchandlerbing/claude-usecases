@@ -81,7 +81,7 @@
 
     "PreToolUse": [
       {
-        "description": "Safety check for dangerous bash commands",
+        "description": "Log bash command execution for auditing",
         "matcher": "Bash",
         "hooks": [
           {

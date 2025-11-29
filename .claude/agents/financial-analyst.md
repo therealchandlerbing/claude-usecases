@@ -100,4 +100,4 @@ If eligibility check fails:
 
 ---
 
-*Agent Version: 1.0.0 | Skills: 990-ez-preparation, financial-modeling-skills*
+*Agent Version: 1.0.0 | Skills: 990-ez-preparation, financial-modeling-skills, executive-intelligence-dashboard*

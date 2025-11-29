@@ -136,4 +136,4 @@ If multiple jurisdictions apply:
 
 ---
 
-*Agent Version: 1.0.0 | Skills: fda-consultant-agent, ai-ethics-advisor, 990-ez-preparation*
+*Agent Version: 1.0.0 | Skills: fda-consultant-agent, ai-ethics-advisor, 990-ez-preparation, contract-redlining-tool*

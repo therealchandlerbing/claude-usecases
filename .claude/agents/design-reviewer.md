@@ -142,4 +142,4 @@ If brand guidelines unavailable:
 
 ---
 
-*Agent Version: 1.0.0 | Skills: design-director, executive-impact-presentation-generator*
+*Agent Version: 1.0.0 | Skills: design-director, executive-impact-presentation-generator, 360-client-portfolio-builder*

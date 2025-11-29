@@ -116,4 +116,4 @@ If conflicting information:
 
 ---
 
-*Agent Version: 1.0.0 | Skills: open-deep-research-team, strategic-persona-builder*
+*Agent Version: 1.0.0 | Skills: open-deep-research-team, strategic-persona-builder, ai-ethics-advisor, fda-consultant-agent*

@@ -252,11 +252,11 @@ How this agent works with skills in this repository.
 
 | Agent | Description | Skills Used |
 |-------|-------------|-------------|
-| `security-reviewer` | Review code for security vulnerabilities | ai-ethics-advisor |
-| `financial-analyst` | Analyze financial data and compliance | 990-ez-preparation, financial-modeling-skills |
-| `research-coordinator` | Coordinate multi-source research | open-deep-research-team |
-| `design-reviewer` | Review outputs for visual quality | design-director |
-| `compliance-checker` | Verify regulatory compliance | fda-consultant-agent, ai-ethics-advisor |
+| `financial-analyst` | Financial analysis, compliance, and nonprofit tax preparation | 990-ez-preparation, financial-modeling-skills, executive-intelligence-dashboard |
+| `research-coordinator` | Multi-source research across academic, technical, and market domains | open-deep-research-team, strategic-persona-builder, ai-ethics-advisor, fda-consultant-agent |
+| `design-reviewer` | Design quality, accessibility, and brand consistency | design-director, executive-impact-presentation-generator, 360-client-portfolio-builder |
+| `compliance-checker` | FDA, AI ethics, financial, and privacy compliance | fda-consultant-agent, ai-ethics-advisor, 990-ez-preparation, contract-redlining-tool |
+| `executive-advisor` | 5-expert advisory board for executive decision support | ceo-advisor, executive-intelligence-dashboard, 360-board-meeting-prep, intelligence-extractor |
 
 ---
 
@@ -322,7 +322,7 @@ Create `plugin.json` at repository root to formalize the entire repository as a 
 ```json
 {
   "name": "claude-usecases",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Comprehensive Claude AI skills and workflows for business automation",
   "author": {
     "name": "360 Social Impact Studios",
