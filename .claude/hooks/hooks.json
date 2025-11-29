@@ -1,0 +1,95 @@
+{
+  "$schema": "https://code.claude.com/schemas/hooks.json",
+  "description": "Claude Code hooks configuration for 360 Social Impact Studios skill ecosystem",
+  "version": "1.0.0",
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "description": "Validate skill structure after writing SKILL.md files",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/validate_skill_structure.py 2>/dev/null || true",
+            "timeout": 30000,
+            "on_file_pattern": "**/SKILL.md"
+          }
+        ]
+      },
+      {
+        "description": "Format Python files after writing",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v black >/dev/null && black --quiet \"$CLAUDE_FILE_PATH\" 2>/dev/null || true",
+            "timeout": 10000,
+            "on_file_pattern": "**/*.py"
+          }
+        ]
+      },
+      {
+        "description": "Type-check TypeScript files after writing",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd intelligence-dashboard && npm run type-check 2>/dev/null || true",
+            "timeout": 30000,
+            "on_file_pattern": "intelligence-dashboard/**/*.ts*"
+          }
+        ]
+      }
+    ],
+
+    "UserPromptSubmit": [
+      {
+        "description": "Log skill invocation analytics",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date -Iseconds) | Prompt submitted\" >> .claude/logs/session.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+
+    "SessionStart": [
+      {
+        "description": "Initialize session environment",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p .claude/logs && echo \"Session started: $(date -Iseconds)\" >> .claude/logs/session.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+
+    "SessionEnd": [
+      {
+        "description": "Cleanup and log session end",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Session ended: $(date -Iseconds)\" >> .claude/logs/session.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "description": "Log bash command execution for auditing",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Bash command executed: $(date -Iseconds)\" >> .claude/logs/bash.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
