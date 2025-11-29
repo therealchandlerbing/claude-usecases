@@ -1,0 +1,121 @@
+{
+  "$schema": "https://code.claude.com/schemas/plugin.json",
+  "name": "claude-usecases",
+  "version": "2.7.0",
+  "description": "Comprehensive Claude AI skills and workflows for specialized business and technical automation by 360 Social Impact Studios",
+  "author": {
+    "name": "360 Social Impact Studios",
+    "email": "dev@360socialimpact.com",
+    "url": "https://github.com/therealchandlerbing"
+  },
+  "homepage": "https://github.com/therealchandlerbing/claude-usecases",
+  "repository": "https://github.com/therealchandlerbing/claude-usecases",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "ai-skills",
+    "business-automation",
+    "executive-intelligence",
+    "financial-compliance",
+    "nonprofit",
+    "research",
+    "design",
+    "fda-regulatory",
+    "ai-ethics"
+  ],
+
+  "commands": "./.claude/commands/",
+  "agents": "./.claude/agents/",
+  "hooks": "./.claude/hooks/hooks.json",
+  "mcpServers": "./.mcp.json",
+
+  "skills": {
+    "managed": "./.claude/skills/",
+    "user": "./skills/"
+  },
+
+  "categories": [
+    {
+      "id": "executive-leadership",
+      "name": "Executive Intelligence & Leadership",
+      "skills": ["ceo-advisor", "executive-intelligence-dashboard", "360-board-meeting-prep"]
+    },
+    {
+      "id": "research-validation",
+      "name": "Research & Validation",
+      "skills": ["open-deep-research-team", "strategic-persona-builder"]
+    },
+    {
+      "id": "financial-compliance",
+      "name": "Financial & Compliance",
+      "skills": ["990-ez-preparation", "financial-modeling-skills"]
+    },
+    {
+      "id": "design-excellence",
+      "name": "Design & Visual Excellence",
+      "skills": ["design-director", "executive-impact-presentation-generator"]
+    },
+    {
+      "id": "sales-development",
+      "name": "Sales & Business Development",
+      "skills": ["sales-automator", "360-proposal-builder", "contract-redlining-tool"]
+    },
+    {
+      "id": "ai-governance",
+      "name": "AI Governance & Ethics",
+      "skills": ["ai-ethics-advisor"]
+    },
+    {
+      "id": "healthcare-regulatory",
+      "name": "Healthcare & Regulatory",
+      "skills": ["fda-consultant-agent"]
+    },
+    {
+      "id": "process-documentation",
+      "name": "Process Documentation",
+      "skills": ["workflow-process-generator"]
+    },
+    {
+      "id": "workflow-coordination",
+      "name": "Workflow Coordination",
+      "skills": ["skill-orchestrator", "workflow-debugging"]
+    },
+    {
+      "id": "data-intelligence",
+      "name": "Data Intelligence",
+      "skills": ["intelligence-extractor", "360-client-portfolio-builder"]
+    }
+  ],
+
+  "agents_registry": [
+    {
+      "id": "financial-analyst",
+      "description": "Financial analysis, compliance, and nonprofit tax preparation",
+      "skills": ["990-ez-preparation", "financial-modeling-skills"]
+    },
+    {
+      "id": "research-coordinator",
+      "description": "Multi-source research across academic, technical, and market domains",
+      "skills": ["open-deep-research-team", "strategic-persona-builder"]
+    },
+    {
+      "id": "design-reviewer",
+      "description": "Design quality, accessibility, and brand consistency",
+      "skills": ["design-director", "executive-impact-presentation-generator"]
+    },
+    {
+      "id": "compliance-checker",
+      "description": "FDA, AI ethics, financial, and privacy compliance",
+      "skills": ["fda-consultant-agent", "ai-ethics-advisor", "990-ez-preparation"]
+    },
+    {
+      "id": "executive-advisor",
+      "description": "5-expert advisory board for executive decision support",
+      "skills": ["ceo-advisor", "executive-intelligence-dashboard", "360-board-meeting-prep"]
+    }
+  ],
+
+  "engines": {
+    "claude-code": ">=1.0.0"
+  }
+}

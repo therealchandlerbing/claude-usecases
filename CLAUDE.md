@@ -3,8 +3,8 @@
 **Repository**: claude-usecases
 **Purpose**: Comprehensive collection of Claude AI skills and workflows for specialized business and technical automation
 **Organization**: 360 Social Impact Studios
-**Version**: 2.7.0
-**Last Updated**: 2025-11-21
+**Version**: 2.8.0
+**Last Updated**: 2025-11-29
 
 ---
 
@@ -12,15 +12,16 @@
 
 1. [Quick Start](#quick-start)
 2. [Repository Structure](#repository-structure)
-3. [Technology Stack](#technology-stack)
-4. [Skills Architecture](#skills-architecture)
-5. [Development Workflow](#development-workflow)
-6. [Testing Infrastructure](#testing-infrastructure)
-7. [Code Conventions](#code-conventions)
-8. [Key Configuration Files](#key-configuration-files)
-9. [CI/CD Pipeline](#cicd-pipeline)
-10. [Common Tasks](#common-tasks)
-11. [Skill Categories](#skill-categories)
+3. [Plugin Architecture](#plugin-architecture)
+4. [Technology Stack](#technology-stack)
+5. [Skills Architecture](#skills-architecture)
+6. [Development Workflow](#development-workflow)
+7. [Testing Infrastructure](#testing-infrastructure)
+8. [Code Conventions](#code-conventions)
+9. [Key Configuration Files](#key-configuration-files)
+10. [CI/CD Pipeline](#cicd-pipeline)
+11. [Common Tasks](#common-tasks)
+12. [Skill Categories](#skill-categories)
 
 ---
 
@@ -53,19 +54,28 @@ Transform complex workflows into reliable, repeatable AI-powered automation acro
 ```
 claude-usecases/
 ├── .claude/
-│   └── skills/                 # 20 managed Claude skills (production-ready)
-│       ├── 360-board-meeting-prep/
-│       ├── 360-client-portfolio-builder/
-│       ├── ai-ethics-advisor/
-│       ├── ceo-advisor/
-│       ├── design-director/
-│       ├── executive-intelligence-dashboard/
-│       ├── fda-consultant-agent/
-│       ├── intelligence-extractor/
-│       ├── open-deep-research-team/
-│       ├── sales-automator/
-│       ├── skill-orchestrator/     # Universal workflow coordinator
-│       └── ... (11 more)
+│   ├── commands/               # 34 slash commands
+│   ├── skills/                 # 20 managed Claude skills (production-ready)
+│   │   ├── 360-board-meeting-prep/
+│   │   ├── 360-client-portfolio-builder/
+│   │   ├── ai-ethics-advisor/
+│   │   ├── ceo-advisor/
+│   │   ├── design-director/
+│   │   ├── executive-intelligence-dashboard/
+│   │   ├── fda-consultant-agent/
+│   │   ├── intelligence-extractor/
+│   │   ├── open-deep-research-team/
+│   │   ├── sales-automator/
+│   │   ├── skill-orchestrator/     # Universal workflow coordinator
+│   │   └── ... (9 more)
+│   ├── agents/                 # Specialized subagents
+│   │   ├── financial-analyst.md
+│   │   ├── research-coordinator.md
+│   │   ├── design-reviewer.md
+│   │   ├── compliance-checker.md
+│   │   └── executive-advisor.md
+│   └── hooks/                  # Event automation
+│       └── hooks.json
 │
 ├── skills/                     # User-created skills
 │   ├── 990-ez-preparation/     # 99% test coverage ✅
@@ -120,6 +130,8 @@ claude-usecases/
 ├── pytest.ini                  # Pytest configuration
 ├── requirements-test.txt       # Python testing dependencies
 ├── .gitignore                 # Standard Python + Node gitignore
+├── .mcp.json                  # MCP server configuration
+├── plugin.json                # Repository plugin manifest
 └── README.md                  # 835-line comprehensive documentation
 ```
 
@@ -148,6 +160,72 @@ claude-usecases/
 - TypeScript tests: vitest with React Testing Library
 - Shared test data and utilities
 - 99% coverage on critical financial modules
+
+#### `.claude/agents/` - Specialized Subagents
+- Markdown-based agent definitions
+- Claude invokes automatically based on task context
+- Coordinate multiple skills for complex tasks
+- See [docs/PLUGINS-REFERENCE.md](docs/PLUGINS-REFERENCE.md) for details
+
+#### `.claude/hooks/` - Event Automation
+- JSON-based hook configuration
+- PostToolUse, SessionStart, PreToolUse events
+- Automatic validation and formatting
+- See [docs/PLUGINS-REFERENCE.md](docs/PLUGINS-REFERENCE.md) for details
+
+---
+
+## Plugin Architecture
+
+This repository implements the Claude Code plugin system, enabling distribution, automation, and integration of skills as plugins.
+
+### Plugin Components
+
+| Component | Location | Status |
+|-----------|----------|--------|
+| **Commands** | `.claude/commands/` | 34 commands |
+| **Skills** | `.claude/skills/`, `skills/` | 33 skills |
+| **Agents** | `.claude/agents/` | 5 specialized agents |
+| **Hooks** | `.claude/hooks/hooks.json` | Event automation |
+| **MCP Servers** | `.mcp.json` | 2 servers (Supabase, GDrive) |
+| **Manifest** | `plugin.json` | Repository-level manifest |
+
+### Agents
+
+Specialized subagents that Claude can invoke automatically:
+
+| Agent | Expertise | Skills Used |
+|-------|-----------|-------------|
+| `financial-analyst` | Financial analysis, 990-EZ | 990-ez-preparation, financial-modeling-skills |
+| `research-coordinator` | Deep research | open-deep-research-team, strategic-persona-builder |
+| `design-reviewer` | Design quality, a11y | design-director |
+| `compliance-checker` | FDA, AI ethics, regulations | fda-consultant-agent, ai-ethics-advisor |
+| `executive-advisor` | CEO decision support | ceo-advisor, executive-intelligence-dashboard |
+
+### Hooks
+
+Event-based automation configured in `.claude/hooks/hooks.json`:
+
+- **PostToolUse**: Validate skill structure, format code
+- **SessionStart/End**: Logging and cleanup
+- **PreToolUse**: Security logging
+
+### MCP Servers
+
+External integrations via Model Context Protocol:
+
+- **Supabase**: Real-time database access for intelligence dashboard
+- **Google Drive**: Document search and retrieval
+
+### Plugin Manifest
+
+Repository-level manifest (`plugin.json`) enables:
+- Distribution as a complete plugin
+- Skill categorization and discovery
+- Agent registry
+- Version management
+
+**For complete plugin documentation, see [docs/PLUGINS-REFERENCE.md](docs/PLUGINS-REFERENCE.md).**
 
 ---
 
@@ -1512,7 +1590,15 @@ When troubleshooting any issue, work through this checklist:
 
 ## Version History
 
-- **v2.7.0** (2025-11-21) - Current version
+- **v2.8.0** (2025-11-29) - Current version
+  - Added Claude Code plugin architecture support
+  - Created `.claude/agents/` with 5 specialized subagents
+  - Implemented `.claude/hooks/hooks.json` for event automation
+  - Added `plugin.json` repository-level manifest
+  - Created comprehensive `docs/PLUGINS-REFERENCE.md` documentation
+  - Added `skills/templates/plugin-template.json` for skill distribution
+
+- **v2.7.0** (2025-11-21)
   - 99% test coverage on 990-ez-preparation
   - Reorganized documentation (pr-descriptions/, summaries/)
   - Enhanced testing infrastructure
@@ -1527,6 +1613,7 @@ When troubleshooting any issue, work through this checklist:
 ## Additional Resources
 
 ### Documentation Files
+- `docs/PLUGINS-REFERENCE.md` - Plugin architecture and distribution guide
 - `docs/CREATING-SKILLS.md` - Comprehensive skill creation guide
 - `docs/TESTING.md` - Testing infrastructure and best practices
 - `docs/MERGE_INSTRUCTIONS.md` - PR merge guidelines
@@ -1537,6 +1624,7 @@ When troubleshooting any issue, work through this checklist:
 
 ### Templates
 - `skills/templates/skill-template.md` - Skill creation template
+- `skills/templates/plugin-template.json` - Plugin manifest template
 - `.github/pull_request_template.md` - PR template
 
 ### Key READMEs
