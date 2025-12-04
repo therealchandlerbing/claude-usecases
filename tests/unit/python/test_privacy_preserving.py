@@ -9,22 +9,12 @@ import pytest
 import numpy as np
 import sys
 import os
-import importlib.util
-
-# Load module with hyphenated filename
-spec = importlib.util.spec_from_file_location(
-    "privacy_preserving",
-    os.path.join(
-        os.path.dirname(__file__),
-        '../../../.claude/skills/ai-ethics-advisor/modules/technical-safeguards/privacy-preserving.py'
-    )
+# Direct import now that files use underscores
+from privacy_preserving import (
+    DifferentialPrivacyEngine,
+    FederatedLearningCoordinator,
+    DataMinimizer,
 )
-privacy_preserving = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(privacy_preserving)
-
-DifferentialPrivacyEngine = privacy_preserving.DifferentialPrivacyEngine
-FederatedLearningCoordinator = privacy_preserving.FederatedLearningCoordinator
-DataMinimizer = privacy_preserving.DataMinimizer
 
 
 class TestDifferentialPrivacyEngine:

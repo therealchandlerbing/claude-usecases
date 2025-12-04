@@ -16,20 +16,8 @@ sys.path.insert(0, os.path.join(
     '../../../.claude/skills/ai-ethics-advisor/modules/technical-safeguards'
 ))
 
-# Import with hyphen handling
-import importlib.util
-spec = importlib.util.spec_from_file_location(
-    "bias_monitoring",
-    os.path.join(
-        os.path.dirname(__file__),
-        '../../../.claude/skills/ai-ethics-advisor/modules/technical-safeguards/bias-monitoring.py'
-    )
-)
-bias_monitoring = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(bias_monitoring)
-
-BiasMonitor = bias_monitoring.BiasMonitor
-FairnessMetrics = bias_monitoring.FairnessMetrics
+# Direct import now that files use underscores
+from bias_monitoring import BiasMonitor, FairnessMetrics
 
 
 class TestFairnessMetrics:
