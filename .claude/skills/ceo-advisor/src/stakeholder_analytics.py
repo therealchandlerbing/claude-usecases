@@ -9,7 +9,7 @@ and influence mapping.
 import json
 from typing import Dict, List
 from datetime import datetime, timedelta
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
 
@@ -42,8 +42,8 @@ class Stakeholder:
     interaction_frequency_days: int
     key_concerns: List[str]
     preferred_channels: List[str]
-    relationship_history: List[Dict]
-    notes: str
+    notes: str = ""
+    relationship_history: List[Dict] = field(default_factory=list)
 
 
 class StakeholderAnalytics:
