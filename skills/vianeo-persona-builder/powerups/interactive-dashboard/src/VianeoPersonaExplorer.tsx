@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { DashboardData, PersonaColors, PersonaType } from './types';
+import { DashboardData } from './types';
 import { PersonaCard } from './components/PersonaCard';
 import { LayerNavigation } from './components/LayerNavigation';
 import { LayerContent } from './components/LayerContent';
+import { PERSONA_TYPE_COLORS } from './constants';
 
 /**
  * VianeoPersonaExplorer
@@ -16,34 +17,6 @@ import { LayerContent } from './components/LayerContent';
 interface VianeoPersonaExplorerProps {
   data: DashboardData;
 }
-
-// Color schemes for different persona types
-const personaTypeColors: Record<PersonaType, PersonaColors> = {
-  partner: {
-    border: '#64748b',
-    accent: '#f8fafc',
-    stat: '#475569',
-    subtle: '#e2e8f0'
-  },
-  innovator: {
-    border: '#059669',
-    accent: '#f0fdf4',
-    stat: '#047857',
-    subtle: '#d1fae5'
-  },
-  stakeholder: {
-    border: '#7c3aed',
-    accent: '#faf5ff',
-    stat: '#6d28d9',
-    subtle: '#e9d5ff'
-  },
-  beneficiary: {
-    border: '#d97706',
-    accent: '#fffbeb',
-    stat: '#b45309',
-    subtle: '#fde68a'
-  }
-};
 
 export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ data }) => {
   const [activePersona, setActivePersona] = useState<string | null>(null);
@@ -150,7 +123,7 @@ export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ da
           }}
         >
           {Object.entries(data.personas).map(([id, persona]) => {
-            const colors = personaTypeColors[persona.type];
+            const colors = PERSONA_TYPE_COLORS[persona.type];
             const isActive = activePersona === id;
 
             return (
@@ -171,7 +144,7 @@ export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ da
           <div
             style={{
               background: '#ffffff',
-              border: `2px solid ${personaTypeColors[data.personas[activePersona].type].border}`,
+              border: `2px solid ${PERSONA_TYPE_COLORS[data.personas[activePersona].type].border}`,
               borderRadius: '8px',
               padding: '32px',
               marginBottom: '32px'
@@ -181,7 +154,7 @@ export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ da
               style={{
                 fontSize: '32px',
                 fontWeight: '300',
-                color: personaTypeColors[data.personas[activePersona].type].border,
+                color: PERSONA_TYPE_COLORS[data.personas[activePersona].type].border,
                 marginBottom: '12px',
                 margin: '0 0 12px 0'
               }}
@@ -205,7 +178,7 @@ export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ da
               layers={data.personas[activePersona].layers}
               activeLayer={activeLayer}
               onLayerClick={handleLayerClick}
-              colors={personaTypeColors[data.personas[activePersona].type]}
+              colors={PERSONA_TYPE_COLORS[data.personas[activePersona].type]}
             />
 
             {/* Layer Content */}
@@ -213,7 +186,7 @@ export const VianeoPersonaExplorer: React.FC<VianeoPersonaExplorerProps> = ({ da
               <LayerContent
                 layerId={activeLayer}
                 content={data.layerContent[activeLayer]}
-                colors={personaTypeColors[data.personas[activePersona].type]}
+                colors={PERSONA_TYPE_COLORS[data.personas[activePersona].type]}
               />
             )}
           </div>
