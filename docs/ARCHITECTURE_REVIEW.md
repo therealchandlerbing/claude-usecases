@@ -9,11 +9,13 @@
 ## Repository Snapshot
 
 - **Domain focus:** Evidence-based Claude skill framework with executive intelligence, financial compliance, persona building, and workflow automation capabilities.
-- **Primary languages:** Python (~7,500+ lines), TypeScript/React (~4,000+ lines)
+- **Primary languages:** Python (~12,000+ lines), TypeScript/React (~6,000+ lines)
 - **Core executables:**
-  - Python: `scripts/validate_skill_structure.py`, `360-board-meeting-prep/assets/docx_utilities.py`, skill orchestrators
-  - TypeScript: `intelligence-dashboard/`, `skills/vianeo-persona-builder/powerups/interactive-dashboard/`
+  - Python: `scripts/validate_skill_structure.py`, `360-board-meeting-prep/assets/docx_utilities.py`, skill orchestrators, 6 tracker scripts, 3 ethics modules, workflow debugger
+  - TypeScript: `intelligence-dashboard/`, `skills/vianeo-persona-builder/powerups/interactive-dashboard/`, `relationship-intelligence/dashboard/`
 - **Tests:** Python pytest suite with comprehensive fixtures; Vitest for TypeScript components
+- **npm packages:** 3 (intelligence-dashboard, vianeo-dashboard, relationship-intelligence)
+- **CI/CD:** GitHub Actions (tests.yml, code-quality.yml, coverage.yml)
 
 ---
 
@@ -42,6 +44,40 @@
 
 ## Bottlenecks
 
+### Critical: Third Dashboard Missing from CI/CD
+
+**Problem:** `relationship-intelligence/dashboard/` exists (1,293 lines) but:
+- Has **ZERO tests**
+- Is **NOT included** in GitHub Actions `tests.yml`
+- Only `intelligence-dashboard` and `vianeo-dashboard` are tested in CI
+
+**Files:**
+| File | Lines | Purpose |
+|------|-------|---------|
+| `src/components/RelationshipIntelligenceDashboard.jsx` | 692 | Main dashboard component |
+| `src/services/supabase.js` | 440 | Supabase integration |
+| `src/app/page.js` | 147 | Next.js page |
+
+**Impact:** Production dashboard code with no test coverage and no CI verification.
+
+---
+
+### Critical: ~4,700+ Lines of Untested Python Code
+
+**Problem:** Significant Python modules have NO test coverage:
+
+| Module | Location | Lines | Tests? |
+|--------|----------|-------|--------|
+| 360-executive-project-tracker | `.claude/skills/.../scripts/*.py` | 1,976 | ❌ None |
+| ai-ethics-advisor safeguards | `.claude/skills/.../modules/technical-safeguards/*.py` | 823 | ❌ None |
+| financial-modeling-skills | `.claude/skills/.../scripts/*.py` | 1,305 | ❌ None |
+| workflow-debugging | `.claude/skills/.../src/workflow_debugger.py` | 665 | ❌ None |
+| **Total Untested** | | **4,769** | |
+
+**Impact:** Critical business logic (financial modeling, ethics safeguards, project tracking) has no automated verification.
+
+---
+
 ### Critical: Code Duplication Across Skill Locations
 
 **Problem:** CEO advisor modules exist in both user skills and managed skills:
@@ -54,6 +90,26 @@
 | ceo_optimizer.py | `skills/ceo-advisor/src/` | `.claude/skills/ceo-advisor/src/` | ~331 |
 
 **Impact:** ~2,000+ lines duplicated, risk of drift, maintenance burden, confusion about canonical source.
+
+**Additional duplication:** `requirements.txt` also duplicated:
+- `skills/ceo-advisor/config/requirements.txt` (43 lines)
+- `.claude/skills/ceo-advisor/config/requirements.txt` (43 lines)
+
+---
+
+### Critical: Make.com Blueprint Duplication
+
+**Problem:** Three versions of Make.com integration blueprints exist with unclear canonical status:
+
+| File | Lines | Notes |
+|------|-------|-------|
+| `relationship-intelligence/make-blueprint.json` | 653 | Original? |
+| `relationship-intelligence/make-blueprint-v2.json` | 213 | Simplified version |
+| `relationship-intelligence/make-blueprint-corrected.json` | 753 | Bug fixes? |
+
+**Impact:** 1,619 lines total; unclear which version is production; risk of deploying wrong version.
+
+---
 
 ### Critical: Three Vianeo Dashboard Implementations
 
@@ -400,46 +456,88 @@ it('has no accessibility violations', async () => {
 | **1** | Fix broken type guards | 30 min | Low | High |
 | **2** | Add `pyproject.toml` | 30 min | Very Low | Medium |
 | **3** | Extract shared constants | 1 hour | Very Low | Medium |
-| **4** | Implement `transformMarkdownToData()` | 4 hours | Medium | High |
-| **5** | Add component tests | 2-3 days | Low | High |
-| **6** | Consolidate CEO advisor locations | 2-3 days | High | Very High |
-| **7** | Consolidate Vianeo implementations | 3-5 days | High | Very High |
-| **8** | Package Python skills as modules | 2-3 days | Medium | Medium |
-| **9** | Extract CSS to shared stylesheet | 2-3 days | Medium | Medium |
-| **10** | Add JSON validation | 1 hour | Low | Low |
-| **11** | Add accessibility testing | 2 hours | Very Low | Low |
-| **12** | Add Python type hints/mypy | 1 day | Low | Low |
+| **4** | Add relationship-intelligence to CI/CD | 2 hours | Low | **Critical** |
+| **5** | Implement `transformMarkdownToData()` | 4 hours | Medium | High |
+| **6** | Designate canonical Make.com blueprint | 1 hour | Low | Medium |
+| **7** | Add tests for untested Python modules | 3-5 days | Low | **Critical** |
+| **8** | Add Vianeo component tests | 2-3 days | Low | High |
+| **9** | Consolidate CEO advisor locations | 2-3 days | High | Very High |
+| **10** | Consolidate Vianeo implementations | 3-5 days | High | Very High |
+| **11** | Package Python skills as modules | 2-3 days | Medium | Medium |
+| **12** | Add tests for relationship-intelligence | 2-3 days | Low | High |
+| **13** | Extract CSS to shared stylesheet | 2-3 days | Medium | Medium |
+| **14** | Add JSON validation | 1 hour | Low | Low |
+| **15** | Add accessibility testing | 2 hours | Very Low | Low |
+| **16** | Add Python type hints/mypy | 1 day | Low | Low |
 
 ---
 
 ## Key Files Reference
 
 ### Python Infrastructure
-| File | Lines | Purpose |
-|------|-------|---------|
-| `scripts/validate_skill_structure.py` | 631 | Skill structure validation |
-| `360-board-meeting-prep/assets/docx_utilities.py` | 426 | Board packet DOCX generation |
-| `skills/990-ez-preparation/src/orchestrator.py` | ~150+ | IRS 990-EZ workflow |
-| `.claude/skills/ceo-advisor/src/*.py` | ~2,600 | CEO advisory modules (canonical) |
-| `skills/ceo-advisor/src/*.py` | ~1,050 | CEO advisory (duplicate - consolidate) |
+| File | Lines | Has Tests? | Purpose |
+|------|-------|------------|---------|
+| `scripts/validate_skill_structure.py` | 631 | ✅ Yes | Skill structure validation |
+| `360-board-meeting-prep/assets/docx_utilities.py` | 426 | ❌ No | Board packet DOCX generation |
+| `skills/990-ez-preparation/src/orchestrator.py` | ~150+ | ✅ Yes | IRS 990-EZ workflow |
+| `.claude/skills/ceo-advisor/src/*.py` | ~2,600 | ✅ Yes | CEO advisory modules (canonical) |
+| `skills/ceo-advisor/src/*.py` | ~1,050 | ✅ Yes | CEO advisory (duplicate) |
+| `.claude/skills/360-executive-project-tracker/scripts/*.py` | 1,976 | ❌ No | Project tracking & Excel |
+| `.claude/skills/ai-ethics-advisor/modules/technical-safeguards/*.py` | 823 | ❌ No | Bias, explainability, privacy |
+| `.claude/skills/financial-modeling-skills/scripts/*.py` | 1,305 | ❌ No | Financial modeling utilities |
+| `.claude/skills/workflow-debugging/src/workflow_debugger.py` | 665 | ❌ No | Workflow debugging |
+| **Total Python** | **~12,000+** | | |
 
-### TypeScript Infrastructure
-| File | Lines | Purpose |
-|------|-------|---------|
-| `intelligence-dashboard/src/` | ~1,000+ | Real-time quality dashboard |
-| `skills/vianeo-persona-builder/powerups/interactive-dashboard/src/` | ~600 | Persona explorer (canonical) |
-| `examples/standalone-html/index.html` | ~1,553 | (duplicate - remove after build pipeline) |
-| `examples/portable-version/VianeoPersonaExplorer.jsx` | ~1,037 | (duplicate - remove after build pipeline) |
+### TypeScript/JavaScript Infrastructure
+| File | Lines | Has Tests? | Purpose |
+|------|-------|------------|---------|
+| `intelligence-dashboard/src/` | ~1,500+ | ✅ Yes (747 lines) | Real-time quality dashboard |
+| `intelligence-dashboard/tests/` | 747 | N/A | 7 test files |
+| `relationship-intelligence/dashboard/src/` | 1,293 | ❌ **NO** | Relationship intelligence (NOT IN CI!) |
+| `skills/vianeo-persona-builder/.../src/` | ~600 | ⚠️ Partial | Persona explorer (canonical) |
+| `skills/vianeo-persona-builder/.../examples/standalone-html/` | ~1,553 | ❌ No | (duplicate) |
+| `skills/vianeo-persona-builder/.../examples/portable-version/` | ~1,037 | ❌ No | (duplicate) |
+| **Total TypeScript/JS** | **~6,000+** | | |
+
+### Configuration & Integration Files
+| File | Lines | Notes |
+|------|-------|-------|
+| `relationship-intelligence/make-blueprint.json` | 653 | Make.com integration (unclear if canonical) |
+| `relationship-intelligence/make-blueprint-v2.json` | 213 | Simplified version |
+| `relationship-intelligence/make-blueprint-corrected.json` | 753 | Bug fixes version |
+| `.claude/hooks/hooks.json` | 96 | Claude Code event hooks |
+| `plugin.json` | 122 | Repository plugin manifest |
+| `.mcp.json` | — | MCP server configuration |
 
 ---
 
 ## Conclusion
 
-The repository has strong foundations: well-documented skills, comprehensive test fixtures, and good separation of concerns in newer code. The primary technical debt is **code duplication** - both between skill locations (CEO advisor) and across implementation variants (Vianeo dashboard). Addressing these consolidation opportunities would eliminate ~5,000+ lines of duplicate code and significantly reduce maintenance burden.
+The repository has strong foundations: well-documented skills, comprehensive test fixtures, and good separation of concerns in newer code.
 
-All refactoring should be paired with regression tests before release to ensure current behavior is preserved.
+### Critical Issues Summary
+
+| Issue | Scale | Priority |
+|-------|-------|----------|
+| **Code duplication** (CEO advisor, Vianeo implementations) | ~5,000+ lines | High |
+| **Untested Python modules** (tracker, ethics, financial, debugging) | ~4,700 lines | **Critical** |
+| **Dashboard missing from CI** (relationship-intelligence) | 1,293 lines | **Critical** |
+| **Make.com blueprint confusion** (3 versions) | 1,619 lines | Medium |
+| **Broken type guards** | 2 functions | High |
+| **Missing documented feature** (`transformMarkdownToData`) | 1 function | High |
+
+### Total Technical Debt
+
+- **Duplicate code to consolidate:** ~6,600+ lines
+- **Production code without tests:** ~6,000+ lines
+- **Missing CI/CD coverage:** 1 dashboard (1,293 lines)
+- **Unclear canonical sources:** 3 Make.com blueprints, CEO advisor skill locations
+
+Addressing these issues systematically (following the Implementation Roadmap) would significantly improve maintainability and reduce risk of production regressions.
+
+**All refactoring should be paired with regression tests before release to ensure current behavior is preserved.**
 
 ---
 
 *Generated: 2025-12-04*
-*Review Version: 1.0.0*
+*Review Version: 2.0.0* (comprehensive second-pass review)
