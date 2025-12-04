@@ -7,8 +7,7 @@ import {
   Layer4Content,
   PersonaField,
   PersonaSection,
-  isLayer1Content,
-  isLayer2Content,
+  isFieldBasedLayer,
   isLayer3Content,
   isLayer4Content,
   ValidationStatus
@@ -28,8 +27,8 @@ const validationConfig: Record<ValidationStatus, { label: string; color: string;
  * Dynamically renders layer content based on layer type (1-4)
  */
 export const LayerContent: React.FC<LayerContentProps> = ({ layerId, content, colors }) => {
-  // Layer 1 & 2: Field-based content
-  if (isLayer1Content(content) || isLayer2Content(content)) {
+  // Layer 1 & 2: Field-based content (structurally identical)
+  if (isFieldBasedLayer(content)) {
     return (
       <div style={{ paddingTop: '20px', borderTop: '1px solid #e7e5e4' }}>
         <h3

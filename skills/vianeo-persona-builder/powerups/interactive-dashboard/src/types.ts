@@ -161,18 +161,36 @@ export interface ExportOptions {
 }
 
 // Utility type guards
-export function isLayer1Content(content: LayerContent): content is Layer1Content {
-  return 'fields' in content && Array.isArray(content.fields);
+
+/**
+ * Checks if content is field-based (Layer 1 or Layer 2).
+ *
+ * Note: Layer1Content and Layer2Content are structurally identical
+ * (both have `fields` array), so they cannot be distinguished at runtime.
+ * This combined guard handles both layer types together.
+ */
+export function isFieldBasedLayer(content: LayerContent): content is Layer1Content | Layer2Content {
+  return 'fields' in content && Array.isArray((content as Layer1Content).fields);
 }
 
+/**
+ * @deprecated Use isFieldBasedLayer() instead - Layer1 and Layer2 are structurally identical
+ */
+export function isLayer1Content(content: LayerContent): content is Layer1Content {
+  return isFieldBasedLayer(content);
+}
+
+/**
+ * @deprecated Use isFieldBasedLayer() instead - Layer1 and Layer2 are structurally identical
+ */
 export function isLayer2Content(content: LayerContent): content is Layer2Content {
-  return 'fields' in content && Array.isArray(content.fields);
+  return isFieldBasedLayer(content);
 }
 
 export function isLayer3Content(content: LayerContent): content is Layer3Content {
-  return 'sections' in content && Array.isArray(content.sections);
+  return 'sections' in content && Array.isArray((content as Layer3Content).sections);
 }
 
 export function isLayer4Content(content: LayerContent): content is Layer4Content {
-  return 'content' in content && typeof content.content === 'string' && 'gaps' in content;
+  return 'content' in content && typeof (content as Layer4Content).content === 'string' && 'gaps' in content;
 }
