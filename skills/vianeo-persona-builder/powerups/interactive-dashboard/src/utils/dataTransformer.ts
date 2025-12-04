@@ -628,8 +628,216 @@ export function exportToJSON(data: DashboardData): string {
 }
 
 /**
- * Import dashboard data from JSON string
+ * Validation error for JSON import
+ */
+export class DashboardDataValidationError extends Error {
+  constructor(message: string, public readonly path: string) {
+    super(`Invalid DashboardData at ${path}: ${message}`);
+    this.name = 'DashboardDataValidationError';
+  }
+}
+
+/**
+ * Validate a Quote object
+ */
+function validateQuote(quote: unknown, path: string): boolean {
+  if (typeof quote !== 'object' || quote === null) {
+    throw new DashboardDataValidationError('Quote must be an object', path);
+  }
+  const q = quote as Record<string, unknown>;
+  if (typeof q.text !== 'string') {
+    throw new DashboardDataValidationError('Quote.text must be a string', `${path}.text`);
+  }
+  if (typeof q.author !== 'string') {
+    throw new DashboardDataValidationError('Quote.author must be a string', `${path}.author`);
+  }
+  if (typeof q.source !== 'string') {
+    throw new DashboardDataValidationError('Quote.source must be a string', `${path}.source`);
+  }
+  return true;
+}
+
+/**
+ * Validate a Persona object
+ */
+function validatePersona(persona: unknown, path: string): boolean {
+  if (typeof persona !== 'object' || persona === null) {
+    throw new DashboardDataValidationError('Persona must be an object', path);
+  }
+  const p = persona as Record<string, unknown>;
+
+  // Required string fields
+  const requiredStrings = ['type', 'title', 'subtitle', 'validationStatus', 'evidenceSummary'] as const;
+  for (const field of requiredStrings) {
+    if (typeof p[field] !== 'string') {
+      throw new DashboardDataValidationError(`Persona.${field} must be a string`, `${path}.${field}`);
+    }
+  }
+
+  // Validate type is valid PersonaType
+  const validTypes = ['partner', 'innovator', 'stakeholder', 'beneficiary'];
+  if (!validTypes.includes(p.type as string)) {
+    throw new DashboardDataValidationError(
+      `Persona.type must be one of: ${validTypes.join(', ')}`,
+      `${path}.type`
+    );
+  }
+
+  // Validate validationStatus
+  const validStatuses = ['validated', 'inferred', 'hybrid'];
+  if (!validStatuses.includes(p.validationStatus as string)) {
+    throw new DashboardDataValidationError(
+      `Persona.validationStatus must be one of: ${validStatuses.join(', ')}`,
+      `${path}.validationStatus`
+    );
+  }
+
+  // Required number fields
+  if (typeof p.interviewCount !== 'number') {
+    throw new DashboardDataValidationError('Persona.interviewCount must be a number', `${path}.interviewCount`);
+  }
+  if (typeof p.qualityScore !== 'number') {
+    throw new DashboardDataValidationError('Persona.qualityScore must be a number', `${path}.qualityScore`);
+  }
+
+  // Validate layers array
+  if (!Array.isArray(p.layers)) {
+    throw new DashboardDataValidationError('Persona.layers must be an array', `${path}.layers`);
+  }
+  for (let i = 0; i < p.layers.length; i++) {
+    const layer = p.layers[i] as Record<string, unknown>;
+    if (typeof layer.id !== 'string') {
+      throw new DashboardDataValidationError('Layer.id must be a string', `${path}.layers[${i}].id`);
+    }
+    if (typeof layer.number !== 'string') {
+      throw new DashboardDataValidationError('Layer.number must be a string', `${path}.layers[${i}].number`);
+    }
+    if (typeof layer.title !== 'string') {
+      throw new DashboardDataValidationError('Layer.title must be a string', `${path}.layers[${i}].title`);
+    }
+    if (typeof layer.subtitle !== 'string') {
+      throw new DashboardDataValidationError('Layer.subtitle must be a string', `${path}.layers[${i}].subtitle`);
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Validate LayerContent (any type)
+ */
+function validateLayerContent(content: unknown, path: string): boolean {
+  if (typeof content !== 'object' || content === null) {
+    throw new DashboardDataValidationError('LayerContent must be an object', path);
+  }
+  const c = content as Record<string, unknown>;
+
+  if (typeof c.title !== 'string') {
+    throw new DashboardDataValidationError('LayerContent.title must be a string', `${path}.title`);
+  }
+
+  // Validate quotes if present
+  if (c.quotes !== undefined) {
+    if (!Array.isArray(c.quotes)) {
+      throw new DashboardDataValidationError('LayerContent.quotes must be an array', `${path}.quotes`);
+    }
+    for (let i = 0; i < c.quotes.length; i++) {
+      validateQuote(c.quotes[i], `${path}.quotes[${i}]`);
+    }
+  }
+
+  // Validate field-based layers (Layer 1 & 2)
+  if ('fields' in c) {
+    if (!Array.isArray(c.fields)) {
+      throw new DashboardDataValidationError('fields must be an array', `${path}.fields`);
+    }
+    for (let i = 0; i < c.fields.length; i++) {
+      const field = c.fields[i] as Record<string, unknown>;
+      if (typeof field.label !== 'string') {
+        throw new DashboardDataValidationError('Field.label must be a string', `${path}.fields[${i}].label`);
+      }
+      if (typeof field.content !== 'string') {
+        throw new DashboardDataValidationError('Field.content must be a string', `${path}.fields[${i}].content`);
+      }
+      if (typeof field.source !== 'string') {
+        throw new DashboardDataValidationError('Field.source must be a string', `${path}.fields[${i}].source`);
+      }
+    }
+  }
+
+  // Validate section-based layers (Layer 3)
+  if ('sections' in c) {
+    if (!Array.isArray(c.sections)) {
+      throw new DashboardDataValidationError('sections must be an array', `${path}.sections`);
+    }
+    for (let i = 0; i < c.sections.length; i++) {
+      const section = c.sections[i] as Record<string, unknown>;
+      if (typeof section.label !== 'string') {
+        throw new DashboardDataValidationError('Section.label must be a string', `${path}.sections[${i}].label`);
+      }
+      if (!Array.isArray(section.items)) {
+        throw new DashboardDataValidationError('Section.items must be an array', `${path}.sections[${i}].items`);
+      }
+    }
+  }
+
+  // Validate content-based layers (Layer 4)
+  if ('content' in c && typeof c.content === 'string') {
+    if (typeof c.source !== 'string') {
+      throw new DashboardDataValidationError('source must be a string', `${path}.source`);
+    }
+    if (c.gaps !== undefined && !Array.isArray(c.gaps)) {
+      throw new DashboardDataValidationError('gaps must be an array', `${path}.gaps`);
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Validate DashboardData structure
+ */
+export function validateDashboardData(data: unknown): data is DashboardData {
+  if (typeof data !== 'object' || data === null) {
+    throw new DashboardDataValidationError('DashboardData must be an object', 'root');
+  }
+
+  const d = data as Record<string, unknown>;
+
+  // Validate personas
+  if (typeof d.personas !== 'object' || d.personas === null) {
+    throw new DashboardDataValidationError('personas must be an object', 'personas');
+  }
+  for (const [personaId, persona] of Object.entries(d.personas as Record<string, unknown>)) {
+    validatePersona(persona, `personas.${personaId}`);
+  }
+
+  // Validate layerContent
+  if (typeof d.layerContent !== 'object' || d.layerContent === null) {
+    throw new DashboardDataValidationError('layerContent must be an object', 'layerContent');
+  }
+  for (const [layerId, content] of Object.entries(d.layerContent as Record<string, unknown>)) {
+    validateLayerContent(content, `layerContent.${layerId}`);
+  }
+
+  // Validate metadata if present (optional)
+  if (d.metadata !== undefined) {
+    if (typeof d.metadata !== 'object' || d.metadata === null) {
+      throw new DashboardDataValidationError('metadata must be an object', 'metadata');
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Import dashboard data from JSON string with validation
+ *
+ * @throws {SyntaxError} If JSON is malformed
+ * @throws {DashboardDataValidationError} If data structure is invalid
  */
 export function importFromJSON(jsonString: string): DashboardData {
-  return JSON.parse(jsonString);
+  const data = JSON.parse(jsonString);
+  validateDashboardData(data);
+  return data as DashboardData;
 }

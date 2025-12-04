@@ -471,3 +471,213 @@ Maria currently uses a combination of Excel spreadsheets for project tracking.
     expect(layers[3].id).toBe('test-id-layer4')
   })
 })
+
+// ================================
+// JSON Validation Tests
+// ================================
+
+import {
+  validateDashboardData,
+  DashboardDataValidationError
+} from '../src/utils/dataTransformer'
+
+describe('validateDashboardData', () => {
+  const validData = {
+    personas: {
+      'test-persona': {
+        type: 'partner',
+        title: 'Test Persona',
+        subtitle: 'A test persona',
+        validationStatus: 'validated',
+        interviewCount: 5,
+        qualityScore: 4,
+        evidenceSummary: 'Based on 5 interviews',
+        layers: [
+          { id: 'layer1', number: '1', title: 'Layer 1', subtitle: 'Who They Are' }
+        ]
+      }
+    },
+    layerContent: {
+      'layer1': {
+        title: 'Layer 1: Who They Are',
+        fields: [
+          { label: 'Name', content: 'Test', source: 'Interview #1' }
+        ]
+      }
+    }
+  }
+
+  it('should validate correct data', () => {
+    expect(() => validateDashboardData(validData)).not.toThrow()
+    expect(validateDashboardData(validData)).toBe(true)
+  })
+
+  it('should throw for null data', () => {
+    expect(() => validateDashboardData(null)).toThrow(DashboardDataValidationError)
+  })
+
+  it('should throw for non-object data', () => {
+    expect(() => validateDashboardData('string')).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(123)).toThrow(DashboardDataValidationError)
+  })
+
+  it('should throw for missing personas', () => {
+    expect(() => validateDashboardData({ layerContent: {} })).toThrow(DashboardDataValidationError)
+  })
+
+  it('should throw for missing layerContent', () => {
+    expect(() => validateDashboardData({ personas: {} })).toThrow(DashboardDataValidationError)
+  })
+
+  it('should throw for invalid persona type', () => {
+    const invalidData = structuredClone(validData)
+    invalidData.personas['test-persona'].type = 'invalid' as any
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/Persona.type must be one of/)
+  })
+
+  it('should throw for invalid validationStatus', () => {
+    const invalidData = structuredClone(validData)
+    invalidData.personas['test-persona'].validationStatus = 'invalid' as any
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/validationStatus must be one of/)
+  })
+
+  it('should throw for missing persona required fields', () => {
+    const invalidData = structuredClone(validData)
+    delete (invalidData.personas['test-persona'] as any).title
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/title must be a string/)
+  })
+
+  it('should throw for invalid interviewCount type', () => {
+    const invalidData = structuredClone(validData)
+    ;(invalidData.personas['test-persona'] as any).interviewCount = 'five'
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/interviewCount must be a number/)
+  })
+
+  it('should throw for invalid layer structure', () => {
+    const invalidData = structuredClone(validData)
+    invalidData.personas['test-persona'].layers = [{ id: 'layer1' } as any]
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/Layer.number must be a string/)
+  })
+
+  it('should throw for invalid layerContent title', () => {
+    const invalidData = structuredClone(validData)
+    delete (invalidData.layerContent['layer1'] as any).title
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/title must be a string/)
+  })
+
+  it('should throw for invalid field structure', () => {
+    const invalidData = structuredClone(validData)
+    ;(invalidData.layerContent['layer1'] as any).fields = [{ label: 'Name' }]
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/Field.content must be a string/)
+  })
+
+  it('should throw for invalid quote structure', () => {
+    const invalidData = structuredClone(validData)
+    ;(invalidData.layerContent['layer1'] as any).quotes = [{ text: 'Quote' }]
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/Quote.author must be a string/)
+  })
+
+  it('should accept optional metadata', () => {
+    const dataWithMetadata = structuredClone(validData) as any
+    dataWithMetadata.metadata = { projectName: 'Test', version: '1.0' }
+    expect(() => validateDashboardData(dataWithMetadata)).not.toThrow()
+  })
+
+  it('should throw for invalid metadata type', () => {
+    const invalidData = structuredClone(validData) as any
+    invalidData.metadata = 'invalid'
+    expect(() => validateDashboardData(invalidData)).toThrow(DashboardDataValidationError)
+    expect(() => validateDashboardData(invalidData)).toThrow(/metadata must be an object/)
+  })
+})
+
+describe('importFromJSON with validation', () => {
+  it('should parse and validate valid JSON', () => {
+    const validJSON = JSON.stringify({
+      personas: {
+        'test': {
+          type: 'partner',
+          title: 'Test',
+          subtitle: 'Test subtitle',
+          validationStatus: 'validated',
+          interviewCount: 3,
+          qualityScore: 4,
+          evidenceSummary: 'Based on 3 interviews',
+          layers: [
+            { id: 'l1', number: '1', title: 'Layer 1', subtitle: 'Who' }
+          ]
+        }
+      },
+      layerContent: {
+        'l1': {
+          title: 'Layer 1',
+          fields: []
+        }
+      }
+    })
+
+    const result = importFromJSON(validJSON)
+    expect(result.personas['test'].title).toBe('Test')
+  })
+
+  it('should throw SyntaxError for malformed JSON', () => {
+    expect(() => importFromJSON('not valid json')).toThrow(SyntaxError)
+  })
+
+  it('should throw DashboardDataValidationError for invalid structure', () => {
+    const invalidJSON = JSON.stringify({ personas: {} })
+    expect(() => importFromJSON(invalidJSON)).toThrow(DashboardDataValidationError)
+  })
+
+  it('should include path in validation error message', () => {
+    const invalidJSON = JSON.stringify({
+      personas: {
+        'test': {
+          type: 'invalid-type',
+          title: 'Test',
+          subtitle: 'Test',
+          validationStatus: 'validated',
+          interviewCount: 1,
+          qualityScore: 1,
+          evidenceSummary: 'Test',
+          layers: []
+        }
+      },
+      layerContent: {}
+    })
+
+    try {
+      importFromJSON(invalidJSON)
+      expect.fail('Should have thrown')
+    } catch (e) {
+      expect(e).toBeInstanceOf(DashboardDataValidationError)
+      expect((e as DashboardDataValidationError).path).toBe('personas.test.type')
+    }
+  })
+})
+
+describe('DashboardDataValidationError', () => {
+  it('should have correct name property', () => {
+    const error = new DashboardDataValidationError('test', 'path.to.field')
+    expect(error.name).toBe('DashboardDataValidationError')
+  })
+
+  it('should include path in message', () => {
+    const error = new DashboardDataValidationError('field is missing', 'personas.test.title')
+    expect(error.message).toContain('personas.test.title')
+    expect(error.message).toContain('field is missing')
+  })
+
+  it('should store path as property', () => {
+    const error = new DashboardDataValidationError('test', 'layerContent.layer1')
+    expect(error.path).toBe('layerContent.layer1')
+  })
+})
