@@ -14,6 +14,7 @@ import {
   parseInterviewCount,
   exportToJSON,
   importFromJSON,
+  transformMarkdownToData,
 } from '../src/utils/dataTransformer'
 
 describe('dataTransformer - Persona Type Parsing', () => {
@@ -273,5 +274,200 @@ describe('dataTransformer - JSON Export/Import', () => {
     const importedData = importFromJSON(json)
 
     expect(importedData).toEqual(originalData)
+  })
+})
+
+describe('dataTransformer - transformMarkdownToData', () => {
+  const sampleMarkdown = `
+# Example: Partner Persona (Validated)
+
+## Persona: Maria
+
+**Type:** Partner
+**Validation Status:** Validated - Strong Quality (Score 4)
+**Sources:** 8 interviews with university tech transfer office staff
+**Geographic Context:** Brazilian university system
+
+---
+
+### Layer 1: Requester (Who They Are)
+
+**Name:** Maria
+**Age:** 42
+
+**Life / Motivations:**
+Maria serves as Deputy Director of a university technology transfer office.
+
+**Personality / Values:**
+Maria is pragmatic and relationship-oriented.
+
+**Evidence Notes:**
+- "I want to see our innovations help people" (Interview 3)
+
+---
+
+### Layer 2: Field of Application (Their World)
+
+**Thinks / Feels:**
+Maria worries that valuable university innovations are being lost.
+
+**Observes:**
+Maria sees researchers with promising technologies give up.
+
+**Does:**
+Maria spends her days reviewing partnership proposals.
+
+**Others Say:**
+Colleagues describe Maria as "the person who actually gets things done".
+
+**Evidence Notes:**
+- All 8 interviews mentioned spreadsheet tracking system
+
+---
+
+### Layer 3: Activities and Challenges (What They Do and Struggle With)
+
+**Tasks / Activities:**
+- Review and process 15-20 partnership proposals monthly
+- Coordinate between university legal department and partners
+- Maintain tracking systems for all active partnerships
+
+**Pains / Lacks:**
+- Spends 10-12 hours weekly on manual status updates
+- Lacks standardized templates for common partnership types
+
+**Expectations / Hopes:**
+- Reduce partnership approval timeline from 6-8 weeks to 2-3 weeks
+- Have clear qualification criteria
+
+**Evidence Notes:**
+- 10-12 hour figure from time tracking data
+
+---
+
+### Layer 4: Current Solutions (Their Present Reality)
+
+**Current Solutions:**
+Maria currently uses a combination of Excel spreadsheets for project tracking.
+
+**Evidence Notes:**
+- Excel + email + DocuSign combination mentioned in all 8 interviews
+- "Tools work but don't talk to each other" (Interview 2)
+`
+
+  it('should extract persona name correctly', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas).toBeDefined()
+    expect(result.personas!['partner-maria'].title).toBe('Maria')
+  })
+
+  it('should extract persona type correctly', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas!['partner-maria'].type).toBe('partner')
+  })
+
+  it('should extract validation status correctly', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas!['partner-maria'].validationStatus).toBe('validated')
+  })
+
+  it('should extract quality score correctly', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas!['partner-maria'].qualityScore).toBe(4)
+  })
+
+  it('should extract interview count correctly', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas!['partner-maria'].interviewCount).toBe(8)
+  })
+
+  it('should create four layers for the persona', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.personas!['partner-maria'].layers).toHaveLength(4)
+    expect(result.personas!['partner-maria'].layers[0].number).toBe('1')
+    expect(result.personas!['partner-maria'].layers[3].number).toBe('4')
+  })
+
+  it('should extract Layer 1 fields', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    const layer1Id = result.personas!['partner-maria'].layers[0].id
+    const layer1 = result.layerContent![layer1Id]
+
+    expect(layer1).toBeDefined()
+    expect('fields' in layer1).toBe(true)
+    if ('fields' in layer1) {
+      expect(layer1.fields.length).toBeGreaterThan(0)
+      const nameField = layer1.fields.find(f => f.label === 'First Name')
+      expect(nameField).toBeDefined()
+      expect(nameField?.content).toBe('Maria')
+    }
+  })
+
+  it('should extract Layer 2 fields', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    const layer2Id = result.personas!['partner-maria'].layers[1].id
+    const layer2 = result.layerContent![layer2Id]
+
+    expect(layer2).toBeDefined()
+    expect('fields' in layer2).toBe(true)
+    if ('fields' in layer2) {
+      expect(layer2.fields.length).toBeGreaterThan(0)
+      const thinksField = layer2.fields.find(f => f.label === 'Thinks/Feels')
+      expect(thinksField).toBeDefined()
+    }
+  })
+
+  it('should extract Layer 3 sections with items', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    const layer3Id = result.personas!['partner-maria'].layers[2].id
+    const layer3 = result.layerContent![layer3Id]
+
+    expect(layer3).toBeDefined()
+    expect('sections' in layer3).toBe(true)
+    if ('sections' in layer3) {
+      expect(layer3.sections.length).toBeGreaterThan(0)
+      const tasksSection = layer3.sections.find(s => s.label === 'Tasks/Activities')
+      expect(tasksSection).toBeDefined()
+      expect(tasksSection?.items.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('should extract Layer 4 content', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    const layer4Id = result.personas!['partner-maria'].layers[3].id
+    const layer4 = result.layerContent![layer4Id]
+
+    expect(layer4).toBeDefined()
+    expect('content' in layer4).toBe(true)
+    if ('content' in layer4) {
+      expect(layer4.content).toContain('Excel')
+    }
+  })
+
+  it('should include metadata with current date', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'partner-maria')
+    expect(result.metadata).toBeDefined()
+    expect(result.metadata!.version).toBe('1.0')
+    expect(result.metadata!.createdDate).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+
+  it('should handle minimal markdown gracefully', () => {
+    const minimalMarkdown = `
+# Simple Persona
+**Type:** innovator
+`
+    const result = transformMarkdownToData(minimalMarkdown, 'minimal')
+    expect(result.personas).toBeDefined()
+    expect(result.personas!['minimal'].type).toBe('innovator')
+    expect(result.personas!['minimal'].layers).toHaveLength(4)
+  })
+
+  it('should use personaId for layer IDs', () => {
+    const result = transformMarkdownToData(sampleMarkdown, 'test-id')
+    const layers = result.personas!['test-id'].layers
+    expect(layers[0].id).toBe('test-id-layer1')
+    expect(layers[1].id).toBe('test-id-layer2')
+    expect(layers[2].id).toBe('test-id-layer3')
+    expect(layers[3].id).toBe('test-id-layer4')
   })
 })

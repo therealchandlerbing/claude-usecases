@@ -311,6 +311,316 @@ export function createSampleDashboardData(): DashboardData {
 }
 
 /**
+ * Transform Vianeo Persona Builder markdown output to dashboard data format.
+ *
+ * This function parses the standard markdown output from the Vianeo Persona Builder
+ * skill and converts it into the DashboardData format used by the interactive dashboard.
+ *
+ * @param markdown - Raw markdown text from Vianeo Persona Builder output
+ * @param personaId - Unique identifier for this persona (e.g., 'partner-maria')
+ * @returns Partial<DashboardData> containing the parsed persona and layer content
+ */
+export function transformMarkdownToData(markdown: string, personaId: string): Partial<DashboardData> {
+  // Extract persona metadata from header
+  const personaName = extractPersonaName(markdown);
+  const personaType = parsePersonaType(markdown);
+
+  // Extract validation status line specifically to avoid false matches from other "not" occurrences
+  const validationStatusLine = markdown.match(/\*\*Validation Status:\*\*\s*(.+?)[\n\r]/)?.[1] || markdown;
+  const validationStatus = parseValidationStatus(validationStatusLine);
+
+  const qualityScore = parseQualityScore(markdown);
+  const interviewCount = parseInterviewCount(markdown);
+
+  // Extract subtitle from context
+  const subtitle = extractSubtitle(markdown);
+  const evidenceSummary = extractEvidenceSummary(markdown);
+
+  // Create layer IDs
+  const layerIds = {
+    layer1: `${personaId}-layer1`,
+    layer2: `${personaId}-layer2`,
+    layer3: `${personaId}-layer3`,
+    layer4: `${personaId}-layer4`
+  };
+
+  // Define persona with layers
+  const persona: Persona = {
+    type: personaType,
+    title: personaName,
+    subtitle: subtitle,
+    validationStatus: validationStatus,
+    interviewCount: interviewCount,
+    qualityScore: qualityScore,
+    evidenceSummary: evidenceSummary,
+    layers: [
+      { id: layerIds.layer1, number: '1', title: 'Requester', subtitle: 'Who They Are' },
+      { id: layerIds.layer2, number: '2', title: 'Field of Application', subtitle: 'Their World' },
+      { id: layerIds.layer3, number: '3', title: 'Activities & Challenges', subtitle: 'What They Do' },
+      { id: layerIds.layer4, number: '4', title: 'Current Solutions', subtitle: 'Present Reality' }
+    ]
+  };
+
+  // Parse layer content
+  const layerContent: LayerContentMap = {};
+
+  // Layer 1: Who They Are (field-based)
+  const layer1Content = extractLayer1Content(markdown);
+  layerContent[layerIds.layer1] = {
+    title: 'Layer 1: Who They Are',
+    fields: layer1Content.fields,
+    quotes: layer1Content.quotes
+  };
+
+  // Layer 2: Their World (field-based)
+  const layer2Content = extractLayer2Content(markdown);
+  layerContent[layerIds.layer2] = {
+    title: 'Layer 2: Their World',
+    fields: layer2Content.fields,
+    quotes: layer2Content.quotes
+  };
+
+  // Layer 3: Activities & Challenges (section-based)
+  const layer3Content = extractLayer3Content(markdown);
+  layerContent[layerIds.layer3] = {
+    title: 'Layer 3: Activities & Challenges',
+    sections: layer3Content.sections,
+    quotes: layer3Content.quotes
+  };
+
+  // Layer 4: Current Solutions (content-based)
+  const layer4Content = extractLayer4Content(markdown);
+  layerContent[layerIds.layer4] = {
+    title: 'Layer 4: Current Solutions',
+    content: layer4Content.content,
+    source: layer4Content.source,
+    gaps: layer4Content.gaps,
+    quotes: layer4Content.quotes
+  };
+
+  return {
+    personas: {
+      [personaId]: persona
+    },
+    layerContent: layerContent,
+    metadata: {
+      createdDate: new Date().toISOString().split('T')[0],
+      version: '1.0'
+    }
+  };
+}
+
+/**
+ * Extract persona name from markdown
+ */
+function extractPersonaName(markdown: string): string {
+  // Try "## Persona: Name" format
+  const personaMatch = markdown.match(/##\s*Persona:\s*(.+?)[\n\r]/);
+  if (personaMatch) return personaMatch[1].trim();
+
+  // Try "**Name:** Value" format
+  const nameMatch = markdown.match(/\*\*Name:\*\*\s*(.+?)[\n\r]/);
+  if (nameMatch) return nameMatch[1].trim();
+
+  // Try title
+  const titleMatch = markdown.match(/^#\s+(?:Example:\s*)?(.+?)[\n\r]/m);
+  if (titleMatch) return titleMatch[1].trim();
+
+  return 'Unknown Persona';
+}
+
+/**
+ * Extract subtitle/context from markdown
+ */
+function extractSubtitle(markdown: string): string {
+  const contextMatch = markdown.match(/\*\*Geographic Context:\*\*\s*(.+?)[\n\r]/);
+  if (contextMatch) return contextMatch[1].trim();
+
+  const sourcesMatch = markdown.match(/\*\*Sources?:\*\*\s*(.+?)[\n\r]/);
+  if (sourcesMatch) return sourcesMatch[1].trim();
+
+  return 'Evidence-based persona';
+}
+
+/**
+ * Extract evidence summary from markdown
+ */
+function extractEvidenceSummary(markdown: string): string {
+  const sourcesMatch = markdown.match(/\*\*Sources?:\*\*\s*(.+?)[\n\r]/);
+  if (sourcesMatch) return `Based on ${sourcesMatch[1].trim()}`;
+
+  const interviewCount = parseInterviewCount(markdown);
+  if (interviewCount > 0) {
+    return `Based on ${interviewCount} interviews`;
+  }
+
+  return 'Evidence-based persona';
+}
+
+/**
+ * Extract Layer 1 content (Who They Are)
+ */
+function extractLayer1Content(markdown: string): { fields: Array<{ label: string; content: string; source: string }>; quotes: Array<{ text: string; author: string; source: string }> } {
+  const section = extractSection(markdown, ['Layer 1', 'Requester']);
+  const fields: Array<{ label: string; content: string; source: string }> = [];
+
+  // Extract Name
+  const nameMatch = section.match(/\*\*Name:\*\*\s*(.+?)[\n\r]/);
+  if (nameMatch) {
+    fields.push({ label: 'First Name', content: nameMatch[1].trim(), source: 'Interview data' });
+  }
+
+  // Extract Age
+  const ageMatch = section.match(/\*\*Age:\*\*\s*(.+?)[\n\r]/);
+  if (ageMatch) {
+    fields.push({ label: 'Age', content: ageMatch[1].trim(), source: 'Interview data' });
+  }
+
+  // Extract Life/Motivations
+  const lifeMatch = extractFieldContent(section, 'Life / Motivations');
+  if (lifeMatch) {
+    fields.push({ label: 'Life/Motivations', content: lifeMatch, source: 'Interview data' });
+  }
+
+  // Extract Personality/Values
+  const personalityMatch = extractFieldContent(section, 'Personality / Values');
+  if (personalityMatch) {
+    fields.push({ label: 'Personality/Values', content: personalityMatch, source: 'Interview data' });
+  }
+
+  const quotes = extractQuotes(section);
+
+  return { fields, quotes };
+}
+
+/**
+ * Extract Layer 2 content (Their World)
+ */
+function extractLayer2Content(markdown: string): { fields: Array<{ label: string; content: string; source: string }>; quotes: Array<{ text: string; author: string; source: string }> } {
+  const section = extractSection(markdown, ['Layer 2', 'Field of Application']);
+  const fields: Array<{ label: string; content: string; source: string }> = [];
+
+  // Extract Thinks/Feels
+  const thinksMatch = extractFieldContent(section, 'Thinks / Feels');
+  if (thinksMatch) {
+    fields.push({ label: 'Thinks/Feels', content: thinksMatch, source: 'Interview data' });
+  }
+
+  // Extract Observes
+  const observesMatch = extractFieldContent(section, 'Observes');
+  if (observesMatch) {
+    fields.push({ label: 'Observes', content: observesMatch, source: 'Interview data' });
+  }
+
+  // Extract Does
+  const doesMatch = extractFieldContent(section, 'Does');
+  if (doesMatch) {
+    fields.push({ label: 'Does', content: doesMatch, source: 'Interview data' });
+  }
+
+  // Extract Others Say
+  const othersSayMatch = extractFieldContent(section, 'Others Say');
+  if (othersSayMatch) {
+    fields.push({ label: 'Others Say', content: othersSayMatch, source: 'Interview data' });
+  }
+
+  const quotes = extractQuotes(section);
+
+  return { fields, quotes };
+}
+
+/**
+ * Extract Layer 3 content (Activities & Challenges)
+ */
+function extractLayer3Content(markdown: string): { sections: Array<{ label: string; items: string[] }>; quotes: Array<{ text: string; author: string; source: string }> } {
+  const section = extractSection(markdown, ['Layer 3', 'Activities and Challenges', 'Activities & Challenges']);
+  const sections: Array<{ label: string; items: string[] }> = [];
+
+  // Extract Tasks/Activities
+  const tasksSection = extractListSection(section, 'Tasks / Activities');
+  if (tasksSection.length > 0) {
+    sections.push({ label: 'Tasks/Activities', items: tasksSection });
+  }
+
+  // Extract Pains/Lacks
+  const painsSection = extractListSection(section, 'Pains / Lacks');
+  if (painsSection.length > 0) {
+    sections.push({ label: 'Pains/Lacks', items: painsSection });
+  }
+
+  // Extract Expectations/Hopes
+  const hopesSection = extractListSection(section, 'Expectations / Hopes');
+  if (hopesSection.length > 0) {
+    sections.push({ label: 'Expectations/Hopes', items: hopesSection });
+  }
+
+  const quotes = extractQuotes(section);
+
+  return { sections, quotes };
+}
+
+/**
+ * Extract Layer 4 content (Current Solutions)
+ */
+function extractLayer4Content(markdown: string): { content: string; source: string; gaps: string[]; quotes: Array<{ text: string; author: string; source: string }> } {
+  const section = extractSection(markdown, ['Layer 4', 'Current Solutions']);
+
+  // Extract main content
+  const contentMatch = extractFieldContent(section, 'Current Solutions');
+  const content = contentMatch || section.replace(/\*\*Evidence Notes:\*\*[\s\S]*$/, '').trim() || 'Current solutions not specified';
+
+  // Extract evidence notes as source
+  const evidenceMatch = section.match(/\*\*Evidence Notes:\*\*[\s\S]*?(?=---|\n##|$)/);
+  const source = evidenceMatch
+    ? extractBulletPoints(evidenceMatch[0]).join('; ')
+    : 'Interview data';
+
+  // Extract gaps (often found in evidence notes or as bullet points)
+  const gapsSection = extractListSection(section, 'Gaps');
+  const gaps = gapsSection.length > 0 ? gapsSection : [];
+
+  const quotes = extractQuotes(section);
+
+  return { content, source, gaps, quotes };
+}
+
+/**
+ * Extract a section from markdown by heading
+ */
+function extractSection(markdown: string, headingKeywords: string[]): string {
+  for (const keyword of headingKeywords) {
+    const pattern = new RegExp(`###?\\s*.*${keyword}.*[\\n\\r]([\\s\\S]*?)(?=###|---|$)`, 'i');
+    const match = markdown.match(pattern);
+    if (match) return match[1];
+  }
+  return '';
+}
+
+/**
+ * Extract field content from bold label format
+ */
+function extractFieldContent(section: string, fieldName: string): string | null {
+  const pattern = new RegExp(`\\*\\*${fieldName}:?\\*\\*[\\s\\n]*([\\s\\S]*?)(?=\\*\\*[A-Z]|\\*\\*Evidence|---|\n###|$)`, 'i');
+  const match = section.match(pattern);
+  if (match) {
+    return match[1].trim().replace(/\n+/g, ' ');
+  }
+  return null;
+}
+
+/**
+ * Extract list section content
+ */
+function extractListSection(section: string, sectionName: string): string[] {
+  const pattern = new RegExp(`\\*\\*${sectionName}:?\\*\\*[\\s\\n]*([\\s\\S]*?)(?=\\*\\*[A-Z]|\\*\\*Evidence|---|\n###|$)`, 'i');
+  const match = section.match(pattern);
+  if (match) {
+    return extractBulletPoints(match[1]);
+  }
+  return [];
+}
+
+/**
  * Export dashboard data to JSON file
  */
 export function exportToJSON(data: DashboardData): string {
