@@ -14,6 +14,7 @@ import {
   parseInterviewCount,
   exportToJSON,
   importFromJSON,
+  ImportValidationError,
 } from '../src/utils/dataTransformer'
 
 describe('dataTransformer - Persona Type Parsing', () => {
@@ -244,7 +245,179 @@ describe('dataTransformer - JSON Export/Import', () => {
     const importedData = importFromJSON(json)
 
     expect(importedData).toEqual(originalData)
-    expect(importedData.metadata.projectName).toBe('Test Project')
+    expect(importedData.metadata?.projectName).toBe('Test Project')
+  })
+
+  // Validation tests
+  describe('importFromJSON validation', () => {
+    it('should throw ImportValidationError for invalid JSON', () => {
+      expect(() => importFromJSON('not valid json')).toThrow(ImportValidationError)
+      expect(() => importFromJSON('not valid json')).toThrow(/Invalid JSON/)
+    })
+
+    it('should throw ImportValidationError for non-object root', () => {
+      expect(() => importFromJSON('null')).toThrow(ImportValidationError)
+      expect(() => importFromJSON('null')).toThrow(/must be an object/)
+      expect(() => importFromJSON('"string"')).toThrow(/must be an object/)
+    })
+
+    it('should throw ImportValidationError for array root', () => {
+      // Array is technically an object but should fail validation for missing personas
+      expect(() => importFromJSON('[]')).toThrow(/missing or invalid "personas" object/)
+    })
+
+    it('should throw ImportValidationError for missing personas', () => {
+      const data = { layerContent: {} }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "personas" object/)
+    })
+
+    it('should throw ImportValidationError for missing layerContent', () => {
+      const data = { personas: {} }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "layerContent" object/)
+    })
+
+    it('should throw ImportValidationError for array personas', () => {
+      const data = { personas: [], layerContent: {} }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "personas" object/)
+    })
+
+    it('should throw ImportValidationError for array layerContent', () => {
+      const data = { personas: {}, layerContent: [] }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "layerContent" object/)
+    })
+
+    it('should throw ImportValidationError for invalid persona type', () => {
+      const data = {
+        personas: {
+          'test': {
+            type: 'invalid_type',
+            title: 'Test',
+            layers: []
+          }
+        },
+        layerContent: {}
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/type must be one of/)
+    })
+
+    it('should throw ImportValidationError for missing persona title', () => {
+      const data = {
+        personas: {
+          'test': {
+            type: 'partner',
+            layers: []
+          }
+        },
+        layerContent: {}
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "title" field/)
+    })
+
+    it('should throw ImportValidationError for missing persona layers', () => {
+      const data = {
+        personas: {
+          'test': {
+            type: 'partner',
+            title: 'Test'
+          }
+        },
+        layerContent: {}
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "layers" array/)
+    })
+
+    it('should throw ImportValidationError for invalid layer content', () => {
+      const data = {
+        personas: {},
+        layerContent: {
+          'layer1': {
+            title: 'Layer 1'
+            // missing fields, sections, or content
+          }
+        }
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/must have "fields", "sections", or "content"/)
+    })
+
+    it('should throw ImportValidationError for layer content missing title', () => {
+      const data = {
+        personas: {},
+        layerContent: {
+          'layer1': {
+            fields: []
+          }
+        }
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/missing or invalid "title" field/)
+    })
+
+    it('should throw ImportValidationError for invalid metadata type', () => {
+      const data = {
+        personas: {},
+        layerContent: {},
+        metadata: 'invalid'
+      }
+      expect(() => importFromJSON(JSON.stringify(data))).toThrow(/"metadata" must be an object/)
+    })
+
+    it('should accept valid complete data', () => {
+      const data = {
+        personas: {
+          'test-persona': {
+            type: 'partner',
+            title: 'Test Partner',
+            subtitle: 'Test',
+            validationStatus: 'validated',
+            interviewCount: 3,
+            qualityScore: 4,
+            evidenceSummary: 'Test evidence',
+            layers: [{ id: 'layer1', number: '1', title: 'L1', subtitle: 'Layer 1' }]
+          }
+        },
+        layerContent: {
+          'layer1': {
+            title: 'Layer 1: Test',
+            fields: [{ label: 'Name', content: 'Test', source: 'Interview' }]
+          }
+        },
+        metadata: {
+          projectName: 'Test',
+          createdDate: '2024-01-01',
+          version: '1.0'
+        }
+      }
+      const result = importFromJSON(JSON.stringify(data))
+      expect(result).toEqual(data)
+    })
+
+    it('should accept valid layer content with sections', () => {
+      const data = {
+        personas: {},
+        layerContent: {
+          'layer3': {
+            title: 'Layer 3: Activities',
+            sections: [{ label: 'Tasks', items: ['Task 1', 'Task 2'] }]
+          }
+        }
+      }
+      const result = importFromJSON(JSON.stringify(data))
+      expect(result).toEqual(data)
+    })
+
+    it('should accept valid layer content with content string', () => {
+      const data = {
+        personas: {},
+        layerContent: {
+          'layer4': {
+            title: 'Layer 4: Solutions',
+            content: 'Current solution description',
+            source: 'Interview'
+          }
+        }
+      }
+      const result = importFromJSON(JSON.stringify(data))
+      expect(result).toEqual(data)
+    })
   })
 
   it('should round-trip export and import correctly', () => {

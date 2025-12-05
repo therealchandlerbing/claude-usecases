@@ -318,8 +318,119 @@ export function exportToJSON(data: DashboardData): string {
 }
 
 /**
- * Import dashboard data from JSON string
+ * Validation error class for JSON import
+ */
+export class ImportValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ImportValidationError';
+  }
+}
+
+/**
+ * Validate persona object structure
+ */
+function validatePersona(id: string, persona: unknown): void {
+  if (!persona || typeof persona !== 'object') {
+    throw new ImportValidationError(`Invalid persona "${id}": must be an object`);
+  }
+
+  const p = persona as Record<string, unknown>;
+
+  if (!p.type || typeof p.type !== 'string') {
+    throw new ImportValidationError(`Invalid persona "${id}": missing or invalid "type" field`);
+  }
+
+  const validTypes: PersonaType[] = ['partner', 'innovator', 'stakeholder', 'beneficiary'];
+  if (!validTypes.includes(p.type as PersonaType)) {
+    throw new ImportValidationError(`Invalid persona "${id}": type must be one of: ${validTypes.join(', ')}`);
+  }
+
+  if (!p.title || typeof p.title !== 'string') {
+    throw new ImportValidationError(`Invalid persona "${id}": missing or invalid "title" field`);
+  }
+
+  if (!p.layers || !Array.isArray(p.layers)) {
+    throw new ImportValidationError(`Invalid persona "${id}": missing or invalid "layers" array`);
+  }
+}
+
+/**
+ * Validate layer content structure
+ */
+function validateLayerContent(id: string, content: unknown): void {
+  if (!content || typeof content !== 'object') {
+    throw new ImportValidationError(`Invalid layer content "${id}": must be an object`);
+  }
+
+  const c = content as Record<string, unknown>;
+
+  if (!c.title || typeof c.title !== 'string') {
+    throw new ImportValidationError(`Invalid layer content "${id}": missing or invalid "title" field`);
+  }
+
+  // Layer 1, 2 should have fields array
+  // Layer 3 should have sections array
+  // Layer 4 should have content string
+  // At least one of these should be present
+  const hasFields = Array.isArray(c.fields);
+  const hasSections = Array.isArray(c.sections);
+  const hasContent = typeof c.content === 'string';
+
+  if (!hasFields && !hasSections && !hasContent) {
+    throw new ImportValidationError(
+      `Invalid layer content "${id}": must have "fields", "sections", or "content"`
+    );
+  }
+}
+
+/**
+ * Import dashboard data from JSON string with validation
  */
 export function importFromJSON(jsonString: string): DashboardData {
-  return JSON.parse(jsonString);
+  // Parse JSON
+  let data: unknown;
+  try {
+    data = JSON.parse(jsonString);
+  } catch (e) {
+    throw new ImportValidationError(
+      `Invalid JSON: ${e instanceof Error ? e.message : 'parse error'}`
+    );
+  }
+
+  // Validate root structure
+  if (!data || typeof data !== 'object') {
+    throw new ImportValidationError('Invalid DashboardData: must be an object');
+  }
+
+  const d = data as Record<string, unknown>;
+
+  // Validate personas object
+  if (!d.personas || typeof d.personas !== 'object' || Array.isArray(d.personas)) {
+    throw new ImportValidationError('Invalid DashboardData: missing or invalid "personas" object');
+  }
+
+  // Validate layerContent object
+  if (!d.layerContent || typeof d.layerContent !== 'object' || Array.isArray(d.layerContent)) {
+    throw new ImportValidationError('Invalid DashboardData: missing or invalid "layerContent" object');
+  }
+
+  // Validate each persona
+  const personas = d.personas as Record<string, unknown>;
+  for (const [id, persona] of Object.entries(personas)) {
+    validatePersona(id, persona);
+  }
+
+  // Validate each layer content
+  const layerContent = d.layerContent as Record<string, unknown>;
+  for (const [id, content] of Object.entries(layerContent)) {
+    validateLayerContent(id, content);
+  }
+
+  // Validate metadata if present
+  if (d.metadata !== undefined && (typeof d.metadata !== 'object' || Array.isArray(d.metadata))) {
+    throw new ImportValidationError('Invalid DashboardData: "metadata" must be an object if present');
+  }
+
+  return data as DashboardData;
 }

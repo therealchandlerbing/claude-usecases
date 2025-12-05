@@ -1,0 +1,125 @@
+[project]
+name = "claude-usecases"
+version = "2.8.0"
+description = "Claude AI skills and workflows for specialized business and technical automation"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.mypy]
+# Python version
+python_version = "3.11"
+
+# Paths to check - scoped to skill source directories
+# Note: ai-ethics-advisor/modules/technical-safeguards excluded due to hyphenated directory name
+files = [
+    "skills/990-ez-preparation/src",
+    ".claude/skills/ceo-advisor/src",
+    ".claude/skills/workflow-debugging/src"
+]
+
+# Strictness settings - start relaxed and tighten over time
+warn_return_any = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+show_error_codes = true
+
+# Allow untyped definitions initially for gradual adoption
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+
+# Handle missing imports gracefully
+ignore_missing_imports = true
+
+# Allow dynamic typing
+allow_redefinition = true
+
+# Error handling
+show_column_numbers = true
+pretty = true
+
+[tool.ruff]
+# Target Python 3.11
+target-version = "py311"
+
+# Line length to match existing flake8 config
+line-length = 127
+
+# Directories to check
+include = [
+    "skills/**/*.py",
+    ".claude/skills/**/*.py",
+    "scripts/**/*.py",
+    "tests/**/*.py"
+]
+
+# Exclude common directories
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "*.egg-info"
+]
+
+[tool.ruff.lint]
+# Enable specific rule sets
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade
+]
+
+# Ignore specific rules
+ignore = [
+    "E501",   # Line too long (handled by line-length)
+    "B008",   # Do not perform function calls in argument defaults
+    "B905",   # zip() without an explicit strict= parameter
+]
+
+# Allow autofix for all enabled rules
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+# Sort imports consistently
+known-first-party = ["skills", "tests"]
+
+[tool.ruff.format]
+# Use double quotes for strings
+quote-style = "double"
+
+# Indent with spaces
+indent-style = "space"
+
+# Respect magic trailing commas
+skip-magic-trailing-comma = false
+
+# Format docstrings
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+# Duplicate pytest.ini settings here for consistency
+testpaths = ["tests"]
+pythonpath = [".", "skills", ".claude/skills"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*", "*Tests"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests (fast, isolated)",
+    "integration: Integration tests",
+    "e2e: End-to-end tests",
+    "financial: Financial calculation tests (high priority)",
+    "compliance: Regulatory compliance tests (high priority)",
+    "data_processing: Data transformation tests",
+    "api: External API integration tests",
+    "slow: Slow-running tests"
+]

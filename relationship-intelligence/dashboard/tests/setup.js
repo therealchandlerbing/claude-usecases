@@ -1,21 +1,50 @@
 /**
- * Vitest setup file for Vianeo Persona Interactive Dashboard
+ * Vitest setup file for relationship-intelligence-dashboard
  *
  * This file runs before all tests and sets up the testing environment.
  */
 
 import '@testing-library/jest-dom'
-import { afterEach, vi, expect } from 'vitest'
+import { afterEach, beforeAll, vi } from 'vitest'
 import { cleanup } from '@testing-library/react'
-import * as matchers from 'vitest-axe/matchers'
 
-// Extend vitest expect with axe matchers for accessibility testing
-expect.extend(matchers)
-
-// Cleanup after each test case (e.g., clearing DOM)
+// Cleanup after each test case
 afterEach(() => {
   cleanup()
 })
+
+// Mock Next.js router
+beforeAll(() => {
+  vi.mock('next/navigation', () => ({
+    useRouter() {
+      return {
+        push: vi.fn(),
+        replace: vi.fn(),
+        prefetch: vi.fn(),
+        back: vi.fn(),
+        pathname: '/',
+        query: {},
+        asPath: '/',
+      }
+    },
+    useSearchParams() {
+      return new URLSearchParams()
+    },
+    usePathname() {
+      return '/'
+    },
+  }))
+
+  vi.mock('next/image', () => ({
+    default: (props) => {
+      return { type: 'img', props }
+    },
+  }))
+})
+
+// Mock environment variables
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co'
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key'
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -41,7 +70,7 @@ global.IntersectionObserver = class IntersectionObserver {
     return []
   }
   unobserve() {}
-} as any
+}
 
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
@@ -49,4 +78,4 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
   observe() {}
   unobserve() {}
-} as any
+}

@@ -52,7 +52,8 @@ export {
   parseInterviewCount,
   createSampleDashboardData,
   exportToJSON,
-  importFromJSON
+  importFromJSON,
+  ImportValidationError
 } from './utils/dataTransformer';
 
 // Type guards
