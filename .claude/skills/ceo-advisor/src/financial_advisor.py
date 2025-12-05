@@ -210,7 +210,7 @@ class FinancialAdvisor:
                 unit='currency',
                 trend=TrendDirection.DECLINING,
                 health='green',
-                context=f"{data.get('runway_months', 14)} months runway'
+                context=f"{data.get('runway_months', 14)} months runway"
             ),
             FinancialMetric(
                 name='Gross Margin',
