@@ -14,7 +14,7 @@ from pathlib import Path
 import sys
 
 # Add CEO Advisor to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent.parent / "skills" / "ceo-advisor" / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent.parent / ".claude" / "skills" / "ceo-advisor" / "src"))
 
 from stakeholder_analytics import (
     StakeholderAnalytics,

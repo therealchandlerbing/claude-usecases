@@ -7,19 +7,18 @@ import {
   Layer4Content,
   PersonaField,
   PersonaSection,
-  isLayer1Content,
-  isLayer2Content,
+  isFieldBasedLayer,
   isLayer3Content,
   isLayer4Content,
   ValidationStatus
 } from '../types';
 import { EvidenceQuote } from './EvidenceQuote';
+import { VALIDATION_STATUS_CONFIG } from '../constants';
 
-// Validation status configuration for field-level badges
-const validationConfig: Record<ValidationStatus, { label: string; color: string; bgColor: string }> = {
-  validated: { label: '✓ Validated', color: '#059669', bgColor: '#d1fae5' },
-  inferred: { label: '⚠ Inferred', color: '#dc2626', bgColor: '#fee2e2' },
-  hybrid: { label: '◐ Partial', color: '#d97706', bgColor: '#fef3c7' }
+// Helper to format validation badge label with icon
+const getValidationLabel = (status: ValidationStatus): string => {
+  const config = VALIDATION_STATUS_CONFIG[status];
+  return `${config.icon} ${config.label}`;
 };
 
 /**
@@ -28,8 +27,8 @@ const validationConfig: Record<ValidationStatus, { label: string; color: string;
  * Dynamically renders layer content based on layer type (1-4)
  */
 export const LayerContent: React.FC<LayerContentProps> = ({ layerId, content, colors }) => {
-  // Layer 1 & 2: Field-based content
-  if (isLayer1Content(content) || isLayer2Content(content)) {
+  // Layer 1 & 2: Field-based content (structurally identical)
+  if (isFieldBasedLayer(content)) {
     return (
       <div style={{ paddingTop: '20px', borderTop: '1px solid #e7e5e4' }}>
         <h3
@@ -227,15 +226,15 @@ const FieldDisplay: React.FC<{ field: PersonaField; colors: any }> = ({ field, c
           style={{
             fontSize: '10px',
             padding: '3px 8px',
-            background: validationConfig[field.validation].bgColor,
-            color: validationConfig[field.validation].color,
+            background: VALIDATION_STATUS_CONFIG[field.validation].bgColor,
+            color: VALIDATION_STATUS_CONFIG[field.validation].color,
             borderRadius: '3px',
             fontWeight: '500'
           }}
           role="status"
-          aria-label={`Validation: ${validationConfig[field.validation].label}`}
+          aria-label={`Validation: ${VALIDATION_STATUS_CONFIG[field.validation].label}`}
         >
-          {validationConfig[field.validation].label}
+          {getValidationLabel(field.validation)}
         </div>
       )}
     </div>
@@ -295,15 +294,15 @@ const SectionDisplay: React.FC<{ section: PersonaSection; colors: any }> = ({ se
           style={{
             fontSize: '10px',
             padding: '4px 10px',
-            background: validationConfig[section.validation].bgColor,
-            color: validationConfig[section.validation].color,
+            background: VALIDATION_STATUS_CONFIG[section.validation].bgColor,
+            color: VALIDATION_STATUS_CONFIG[section.validation].color,
             borderRadius: '3px',
             fontWeight: '600'
           }}
           role="status"
-          aria-label={`Validation: ${validationConfig[section.validation].label}`}
+          aria-label={`Validation: ${VALIDATION_STATUS_CONFIG[section.validation].label}`}
         >
-          {validationConfig[section.validation].label}
+          {getValidationLabel(section.validation)}
         </div>
       )}
     </div>

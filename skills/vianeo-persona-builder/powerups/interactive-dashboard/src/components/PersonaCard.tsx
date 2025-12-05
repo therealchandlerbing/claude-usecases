@@ -67,8 +67,8 @@ export const PersonaCard: React.FC<PersonaCardProps> = ({
         <ValidationBadge status={persona.validationStatus} config={validation} />
       </div>
 
-      {/* Title */}
-      <h3
+      {/* Title - using div instead of h3 since this is inside a button role */}
+      <div
         style={{
           fontSize: '20px',
           fontWeight: '500',
@@ -77,9 +77,10 @@ export const PersonaCard: React.FC<PersonaCardProps> = ({
           lineHeight: '1.3',
           margin: '0 0 6px 0'
         }}
+        aria-hidden="true"
       >
         {persona.title}
-      </h3>
+      </div>
 
       {/* Subtitle */}
       <p
