@@ -107,12 +107,29 @@ skip-magic-trailing-comma = false
 docstring-code-format = true
 
 [tool.pytest.ini_options]
-# Duplicate pytest.ini settings here for consistency
+# Primary pytest configuration - pytest.ini defers to this file
 testpaths = ["tests"]
-pythonpath = [".", "skills", ".claude/skills"]
+pythonpath = [".", "skills", ".claude/skills", "shared"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*", "*Tests"]
 python_functions = ["test_*"]
+addopts = "--verbose --strict-markers --tb=short"
+norecursedirs = [
+    ".git",
+    ".github",
+    "dist",
+    "build",
+    "*.egg",
+    "node_modules",
+    "htmlcov",
+    ".venv",
+    "venv"
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning"
+]
 markers = [
     "unit: Unit tests (fast, isolated)",
     "integration: Integration tests",

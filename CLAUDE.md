@@ -103,8 +103,13 @@ claude-usecases/
 │   ├── data/                  # Test data files
 │   └── unit/python/           # Python unit tests
 │
+├── shared/                     # Shared Python utilities
+│   ├── __init__.py            # Package exports
+│   └── config_loader.py       # Centralized config loading
+│
 ├── scripts/                    # Automation scripts
-│   └── validate_skill_structure.py  # Skill structure validator
+│   ├── validate_skill_structure.py  # Skill structure validator
+│   └── consolidate_duplicate_skills.py  # Skill deduplication tool
 │
 ├── config/                     # Configuration files
 │   └── skill-structure-requirements.yaml  # Validation requirements
