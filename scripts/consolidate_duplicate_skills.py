@@ -20,6 +20,7 @@ Usage:
 
 import argparse
 import os
+import platform
 import shutil
 import sys
 from pathlib import Path
@@ -83,8 +84,8 @@ def compare_directories(
         try:
             if user_file.read_bytes() != managed_file.read_bytes():
                 different_files.append(rel_path)
-        except (IOError, OSError):
-            pass
+        except (IOError, OSError) as e:
+            print(f"Warning: Could not compare {user_file}. Error: {e}")
 
     return only_in_user, only_in_managed, different_files
 
@@ -149,6 +150,24 @@ def merge_unique_files(
     return actions
 
 
+def check_symlink_support() -> bool:
+    """Check if the current system supports symlinks without admin privileges."""
+    if platform.system() != "Windows":
+        return True
+
+    # On Windows, try to create a test symlink
+    import tempfile
+    try:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            test_target = Path(tmpdir) / "target"
+            test_link = Path(tmpdir) / "link"
+            test_target.mkdir()
+            test_link.symlink_to(test_target)
+            return True
+    except OSError:
+        return False
+
+
 def create_symlink(skill_name: str, project_root: Path, dry_run: bool = True) -> str:
     """Replace skills/{skill} directory with symlink to .claude/skills/{skill}."""
     user_skill = project_root / "skills" / skill_name
@@ -160,13 +179,30 @@ def create_symlink(skill_name: str, project_root: Path, dry_run: bool = True) ->
     action = f"Symlink: {user_skill} -> {rel_target}"
 
     if not dry_run:
+        # Check Windows symlink support
+        if platform.system() == "Windows" and not check_symlink_support():
+            print(f"\n⚠️  WARNING: Windows symlink creation requires either:")
+            print("    1. Administrator privileges, OR")
+            print("    2. Developer Mode enabled (Settings > Update & Security > For developers)")
+            print(f"\n    Skipping symlink creation for {skill_name}")
+            print(f"    The backup was created at: skills/.{skill_name}.backup")
+            return f"SKIPPED (Windows permissions): {action}"
+
         # Backup and remove the directory
         backup_path = project_root / "skills" / f".{skill_name}.backup"
         if user_skill.exists() and not user_skill.is_symlink():
             shutil.move(user_skill, backup_path)
 
         # Create symlink
-        user_skill.symlink_to(rel_target)
+        try:
+            user_skill.symlink_to(rel_target)
+        except OSError as e:
+            print(f"\n❌ ERROR creating symlink for {skill_name}: {e}")
+            # Restore from backup
+            if backup_path.exists():
+                shutil.move(backup_path, user_skill)
+                print(f"    Restored original directory from backup")
+            return f"FAILED: {action}"
 
     return action
 
@@ -224,7 +260,20 @@ def main():
     print("Skill Consolidation Report")
     print("=" * 60)
     print(f"Project root: {project_root}")
+    print(f"Platform: {platform.system()}")
     print(f"Mode: {'DRY RUN' if dry_run else 'EXECUTE'}")
+
+    # Windows symlink warning
+    if not dry_run and platform.system() == "Windows":
+        if not check_symlink_support():
+            print("\n⚠️  WARNING: Running on Windows without symlink support.")
+            print("    Symlinks require Administrator privileges or Developer Mode.")
+            print("    Files will be merged, but symlinks may fail.")
+            response = input("\n    Continue anyway? [y/N]: ")
+            if response.lower() != 'y':
+                print("    Aborted.")
+                sys.exit(0)
+
     print()
 
     skills_to_process = [args.skill] if args.skill else DUPLICATE_SKILLS

@@ -57,36 +57,9 @@ repos:
 
       - id: check-skill-frontmatter
         name: Check SKILL.md Frontmatter
-        entry: python -c "
-import sys
-import re
-from pathlib import Path
-
-def check_frontmatter(file_path):
-    content = Path(file_path).read_text()
-    if not content.startswith('---'):
-        print(f'Missing frontmatter: {file_path}')
-        return False
-    end = content.find('\\n---', 3)
-    if end == -1:
-        print(f'Unclosed frontmatter: {file_path}')
-        return False
-    frontmatter = content[3:end]
-    required = ['name:', 'version:', 'description:']
-    for field in required:
-        if field not in frontmatter:
-            print(f'Missing {field} in frontmatter: {file_path}')
-            return False
-    return True
-
-files = sys.argv[1:]
-skill_files = [f for f in files if f.endswith('SKILL.md')]
-if skill_files:
-    results = [check_frontmatter(f) for f in skill_files]
-    sys.exit(0 if all(results) else 1)
-"
+        entry: python scripts/check_skill_frontmatter.py
         language: python
-        files: SKILL\.md$
+        files: ^(skills|\.claude/skills)/.*/SKILL\.md$
 
 # Configuration
 default_language_version:

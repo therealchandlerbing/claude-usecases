@@ -14,7 +14,7 @@
     "test:python": "python -m pytest tests/ -v",
     "lint": "npm run lint --workspaces --if-present",
     "type-check": "npm run type-check --workspaces --if-present",
-    "clean": "rm -rf node_modules && npm run clean --workspaces --if-present",
+    "clean": "npx rimraf node_modules && npm run clean --workspaces --if-present",
     "validate-skills": "python scripts/validate_skill_structure.py --verbose",
     "generate-tests": "python scripts/generate_skill_tests.py",
     "generate-docs": "python scripts/generate_skill_docs.py"
