@@ -288,7 +288,7 @@ class TestExternalSignalAnalysis:
 
         # Impact score = weight * opportunity_score
         expected_impact = 0.7 * opportunity_score
-        assert signal.impact_score == expected_impact
+        assert signal.impact_score == pytest.approx(expected_impact)
 
 
 class TestSignalScanning:

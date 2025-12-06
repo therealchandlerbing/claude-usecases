@@ -133,7 +133,7 @@ class TestExecutiveIntelligenceSystem:
         # Expected: 84 * 0.75 = 63
         assert signal is not None
         assert signal.priority == SignalPriority.OPPORTUNITY
-        assert abs(signal.impact_score - 63.0) < 1.0  # Allow small tolerance
+        assert signal.impact_score == pytest.approx(63.0)
 
     def test_critical_signal_detection(self):
         """Test detection of critical signals."""
