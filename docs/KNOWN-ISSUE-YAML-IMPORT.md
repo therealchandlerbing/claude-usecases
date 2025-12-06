@@ -64,7 +64,7 @@ The following files import `yaml` and could trigger this error:
 | `scripts/generate_skill_tests.py` | Yes (lines 29-32) |
 | `scripts/generate_skill_docs.py` | Yes (lines 24-28) |
 | `tests/unit/python/test_skill_structure_validator.py` | **No** (line 13) |
-| `shared/config_loader.py` | No |
+| `shared/config_loader.py` | Yes (lines 26-29) |
 | `skills/990-ez-preparation/src/orchestrator.py` | No |
 
 ## Implemented Fixes
