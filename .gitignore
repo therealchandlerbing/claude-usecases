@@ -65,3 +65,4 @@ coverage_output.txt
 # Logs
 logs/
 *.log
+coverage.xml
