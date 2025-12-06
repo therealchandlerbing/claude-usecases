@@ -86,10 +86,11 @@ class CEOOptimizer:
 
         allocation = {}
         for category, minutes in category_minutes.items():
+            percentage = (minutes / total_minutes * 100) if total_minutes > 0 else 0
             allocation[category] = {
-                'percentage': (minutes / total_minutes * 100) if total_minutes > 0 else 0,
+                'percentage': percentage,
                 'hours_per_week': minutes / 60,
-                'status': self._get_allocation_status(category, (minutes / total_minutes * 100))
+                'status': self._get_allocation_status(category, percentage)
             }
 
         return allocation

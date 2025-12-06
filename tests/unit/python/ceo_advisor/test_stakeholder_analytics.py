@@ -856,6 +856,7 @@ class TestEdgeCases:
             interaction_frequency_days=14,
             key_concerns=[],
             preferred_channels=[],  # Empty
+            relationship_history=[],
             notes=""
         )
 
