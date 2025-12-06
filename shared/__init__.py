@@ -6,5 +6,11 @@ reducing code duplication and ensuring consistent behavior.
 """
 
 from shared.config_loader import ConfigLoader, ConfigurationError
+from shared.base_orchestrator import BaseOrchestrator, OrchestratorError
 
-__all__ = ["ConfigLoader", "ConfigurationError"]
+__all__ = [
+    "ConfigLoader",
+    "ConfigurationError",
+    "BaseOrchestrator",
+    "OrchestratorError",
+]
