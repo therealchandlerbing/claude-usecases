@@ -1,0 +1,13 @@
+# Auto-detect text files and perform LF normalization
+* text=auto
+
+# Symlink handling for skill consolidation
+# These symlinks point from skills/ to .claude/skills/ for backwards compatibility
+skills/ceo-advisor symlink=true
+skills/design-director symlink=true
+skills/executive-impact-presentation-generator symlink=true
+skills/360-client-portfolio-builder symlink=true
+skills/intelligence-extractor symlink=true
+skills/open-deep-research-team symlink=true
+skills/skill-orchestrator symlink=true
+skills/workflow-process-generator symlink=true

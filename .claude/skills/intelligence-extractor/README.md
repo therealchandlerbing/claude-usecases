@@ -1,564 +1,484 @@
-# 360 Partnership & Opportunity Intelligence System
+# Intelligence Extractor
 
-A comprehensive workflow for capturing, structuring, and organizing strategic intelligence about partnerships, funding opportunities, and stakeholders.
+**Category:** Data Intelligence & Quality Monitoring
+**Purpose:** Extract structured partnership, funding, and stakeholder intelligence from meeting transcripts, emails, and conversations with built-in quality tracking and real-time dashboard.
 
----
+## Overview
 
-## What This System Does
+The Intelligence Extractor is a comprehensive system for capturing, structuring, and monitoring intelligence from various types of organizational interactions. It combines:
 
-Transforms unstructured conversations into structured, actionable intelligence:
+1. **10 Meeting-Type Specific Prompt Templates** - Optimized extraction prompts for different contexts
+2. **Live Quality Dashboard** - Real-time web dashboard for monitoring extraction quality
+3. **Automated Quality Tracking** - Confidence scoring, completeness analysis, and improvement feedback loops
 
-**Input:** Meeting transcripts, emails, conversation notes
-**Output:** Organized intelligence in Asana about:
-- **Partnerships** - Organizations, collaboration opportunities, strategic alliances
-- **Funding** - Grants, investors, application strategies
-- **Stakeholders** - Key individuals, communication styles, decision-making patterns
+## Key Features
 
-**Value:** Never lose critical intelligence from important conversations. Build institutional knowledge. Make better strategic decisions.
-
----
-
-## Quick Start (5 Minutes)
-
-### Try It Manually
-
-1. **Find a recent meeting transcript** (any conversation with a partner, funder, or important stakeholder)
-
-2. **Use the intelligence-extractor skill:**
-   ```
-   Open Claude Code, paste your transcript, and say:
-   "Use the intelligence-extractor skill to extract partnership and stakeholder intelligence from this meeting transcript."
-   ```
-
-3. **Review the JSON output** - See what intelligence was captured
-
-4. **Copy relevant insights** to your notes or Asana
-
-That's it! You've extracted intelligence.
-
----
-
-## Full Implementation (4-6 Weeks)
-
-### Phase 1: Manual Intelligence Capture (Week 1-2)
-
-**Goal:** Start using the skill, build the habit
-
-**Steps:**
-1. ✅ Read [SKILL.md](SKILL.md) to understand intelligence schemas
-2. ✅ After important meetings, use skill to extract intelligence
-3. ✅ Review outputs, note what's useful
-4. ✅ Start manually adding intelligence to your notes
-
-**Time:** 5-10 minutes per meeting
-**Benefit:** Immediate intelligence capture
-
----
-
-### Phase 2: Set Up Asana Intelligence Databases (Week 2-3)
-
-**Goal:** Create structured home for intelligence
-
-**Steps:**
-1. ✅ Read [ASANA-SETUP.md](ASANA-SETUP.md)
-2. ✅ Create three Asana projects:
-   - Partnership Intelligence Hub
-   - Funding Opportunity Intelligence
-   - Stakeholder Intelligence Database
-3. ✅ Set up custom fields, sections, templates (detailed in guide)
-4. ✅ Create 5-10 initial tasks to populate system
-
-**Time:** 3-4 hours initial setup
-**Benefit:** Centralized, searchable intelligence repository
-
----
-
-### Phase 3: Integrate Manual Workflow (Week 3-4)
-
-**Goal:** Connect skill output to Asana databases
-
-**Steps:**
-1. ✅ After meetings, use intelligence-extractor skill
-2. ✅ Review JSON output
-3. ✅ Create/update Asana tasks from extracted intelligence
-4. ✅ Populate custom fields
-5. ✅ Build the habit
-
-**Time:** 10-15 minutes per meeting
-**Benefit:** Consistent, comprehensive intelligence capture
-
----
-
-### Phase 4: Automate with Zapier (Week 4-6, Optional)
-
-**Goal:** Hands-free intelligence extraction
-
-**Steps:**
-1. ✅ Read [ZAPIER-INTEGRATION.md](ZAPIER-INTEGRATION.md)
-2. ✅ Set up Zapier workflow:
-   - Trigger: New transcript in Google Drive
-   - Action: Send to Claude API with intelligence-extractor
-   - Action: Parse JSON response
-   - Action: Create/update Asana tasks
-3. ✅ Test with sample transcripts
-4. ✅ Enable for all meetings
-
-**Time:** 4-6 hours initial setup
-**Benefit:** Automatic intelligence capture, 10+ hours saved per month
-
----
-
-## System Components
-
-### 1. Intelligence Extractor Skill
-
-**File:** [SKILL.md](SKILL.md)
-
-**Purpose:** Claude skill that analyzes conversations and extracts structured intelligence
-
-**Includes:**
-- Three intelligence schemas (Partnership, Funding, Stakeholder)
-- Extraction guidelines and quality rules
-- Pattern recognition frameworks
+### Template-Based Extraction
+- **10 specialized templates** for different meeting types
+- Context-specific extraction priorities
 - Cultural intelligence capture
-- Confidence scoring system
+- Pattern recognition guides
+- Confidence calibration
 
-**Use:** Manually via Claude Code or automated via Zapier
+### Quality Monitoring
+- Real-time metrics dashboard
+- Completeness scoring
+- Template performance tracking
+- Automated quality analysis
+- Continuous improvement feedback
 
----
+### Data Pipeline
+- Zapier integration for automation
+- Supabase (PostgreSQL) for data storage
+- Real-time updates via subscriptions
+- Asana integration for intelligence tasks
 
-### 2. Extraction Templates
+### Cross-Linking Architecture
+- **Three-System Integration** - Partnership, Funding, and Stakeholder Intelligence work together as an interconnected ecosystem
+- **Task Relationships** - Explicit links between related intelligence items in Asana
+- **Shared Custom Fields** - Consistent fields across all systems for portfolio views
+- **Information Flow Patterns** - Structured workflows for discovery cascades and updates
+- **Dashboard Views** - Cross-system intelligence queries and portfolio management
 
-**Folder:** `templates/`
+See [Cross-Linking Architecture](references/cross-linking-architecture.md) for complete implementation guide.
 
-**Purpose:** Specialized prompts for different meeting types to maximize extraction quality
+## Quick Start
 
-**Available Templates:**
-- `template-1-partnership-new.md` - First partnership meetings
-- `template-2-partnership-existing.md` - Follow-ups with existing partners
-- `template-3-funder-initial.md` - Initial funder conversations
-- `template-4-funder-application.md` - Grant application discussions
-- `template-5-board-meeting.md` - Board/governance meetings
-- `template-6-client-sprint.md` - Client working sessions
-- `template-7-community-stakeholder.md` - Community leader meetings
-- `template-8-international-partner.md` - Cross-cultural contexts
-- `template-9-conference-networking.md` - Brief networking interactions
-- `template-10-crisis-problemsolving.md` - Emergency or conflict meetings
+### 1. Choose the Right Template
 
-**Use:** Reference appropriate template when extracting intelligence for better results
+See [Template Selection Guide](templates/00-template-selection-guide.md) for quick reference:
 
----
+- New partnership meeting → Template 1
+- Existing partnership check-in → Template 2
+- Funder initial contact → Template 3
+- Grant application discussion → Template 4
+- Board/governance meeting → Template 5
+- Client sprint/planning → Template 6
+- Community stakeholder meeting → Template 7
+- International partner meeting → Template 8
+- Conference/networking → Template 9
+- Crisis/problem-solving → Template 10
 
-### 3. Asana Intelligence Databases
+### 2. Extract Intelligence
 
-**File:** [ASANA-SETUP.md](ASANA-SETUP.md)
+1. Get meeting transcript (from Fathom, Zoom, etc.)
+2. Select appropriate template from `templates/`
+3. Fill in meeting context
+4. Paste transcript
+5. Send to Claude
+6. Receive structured JSON output
 
-**Purpose:** Structured projects in Asana to store, organize, and access intelligence
+### 3. Monitor Quality
 
-**Three Projects:**
+Access the [live dashboard](../../intelligence-dashboard/README.md) to:
+- Track extraction quality metrics
+- Monitor template performance
+- Review flagged items
+- Analyze trends over time
 
-#### Partnership Intelligence Hub
-- Track organization relationships
-- Capture decision-making patterns
-- Store strategic positioning approaches
-- Monitor relationship health
-
-#### Funding Opportunity Intelligence
-- Track funding sources and programs
-- Capture application requirements
-- Store decision process intelligence
-- Monitor application pipeline
-
-#### Stakeholder Intelligence Database
-- Profile key individuals
-- Capture communication styles
-- Store decision-making patterns
-- Monitor relationship stages
-
-**Features:**
-- Custom fields for structured data
-- Task templates for consistency
-- Automation rules for workflow efficiency
-- Multiple views for different purposes
-
----
-
-### 4. Zapier Automation Workflow
-
-**File:** [ZAPIER-INTEGRATION.md](ZAPIER-INTEGRATION.md)
-
-**Purpose:** Automate the entire intelligence extraction and storage workflow
-
-**Flow:**
-```
-Meeting happens
-  ↓
-Fathom creates transcript
-  ↓
-Saves to Google Drive
-  ↓
-Zapier detects new file
-  ↓
-Sends to Claude API (intelligence-extractor skill)
-  ↓
-Claude extracts structured intelligence
-  ↓
-Zapier parses JSON response
-  ↓
-Creates/updates Asana tasks automatically
-  ↓
-You review and refine
-```
-
-**Benefits:**
-- Zero manual data entry
-- Consistent intelligence capture
-- Saves 15-20 minutes per meeting
-- Never miss important intelligence
-
----
-
-## File Structure
+## Directory Structure
 
 ```
 intelligence-extractor/
-├── README.md (this file)
-├── SKILL.md (main skill documentation)
-├── ASANA-SETUP.md (Asana project setup guide)
-├── ZAPIER-INTEGRATION.md (automation workflow guide)
+├── README.md                          # This file
+├── INDEX.md                           # Complete file index
 ├── templates/
-│   ├── template-1-partnership-new.md
-│   ├── template-2-partnership-existing.md
-│   ├── template-3-funder-initial.md
-│   └── ... (10 templates total)
+│   ├── 00-template-selection-guide.md # Quick reference for choosing templates
+│   ├── 01-partnership-new.md          # New partnership exploration
+│   ├── 02-partnership-existing.md     # Existing partnership check-in
+│   ├── 03-funder-initial.md           # Funder initial contact
+│   ├── 04-funder-application.md       # Grant application discussion
+│   ├── 05-board-governance.md         # Board/governance meetings
+│   ├── 06-client-sprint.md            # Client engagement sessions
+│   ├── 07-community-stakeholder.md    # Community meetings
+│   ├── 08-international-partner.md    # Cross-cultural meetings
+│   ├── 09-conference-networking.md    # Brief networking interactions
+│   └── 10-crisis-problem-solving.md   # Crisis/conflict meetings
+├── references/
+│   ├── intelligence-schemas.md        # JSON schemas for outputs
+│   ├── cross-linking-architecture.md  # How the three systems interconnect
+│   ├── quality-framework.md           # Quality assessment framework
+│   └── cultural-intelligence.md       # Cross-cultural guidance
 └── examples/
-    └── (sample extractions for reference)
+    ├── partnership-extraction-example.md
+    ├── funder-extraction-example.md
+    └── stakeholder-extraction-example.md
 ```
 
+## Templates Overview
+
+### Template 1: New Partnership Exploration
+**When to Use:** First or second meeting with potential partner organization
+
+**Extraction Priorities:**
+- Organization intelligence (problems, urgency, past attempts)
+- Cultural & communication patterns
+- Fit assessment signals
+- Decision process intelligence
+- Next steps clarity
+
+**Output:** Partnership Intelligence + Stakeholder Intelligence for each participant
+
 ---
 
-## Key Concepts
+### Template 2: Existing Partnership Check-in
+**When to Use:** Follow-up meetings with established partners
 
-### Intelligence Types
+**Extraction Priorities:**
+- Relationship evolution signals
+- Operational intelligence (what's working/not working)
+- Strategic opportunities
+- Changes since last meeting
+- Stakeholder updates
 
-**Partnership Intelligence:**
-- Organizational relationships, not individual people
-- Strategic opportunities and hesitations
+**Output:** Partnership Intelligence (update) + Stakeholder updates
+
+---
+
+### Template 3: Funder Initial Contact
+**When to Use:** First conversation with potential funding source
+
+**Extraction Priorities:**
+- Program fit assessment
+- Decision process intelligence
+- What they really care about
+- Relationship & political intelligence
+- Application strategy intelligence
+
+**Output:** Funding Intelligence + Program Officer stakeholder profile
+
+---
+
+### Template 4: Grant Application Discussion
+**When to Use:** LOI feedback, proposal development, clarification meetings
+
+**Extraction Priorities:**
+- Application intelligence (feedback, guidance)
+- Decision process updates
+- Budget & scope intelligence
+- Strategic positioning updates
+- Relationship development
+
+**Output:** Funding Intelligence (update) + Success likelihood assessment
+
+---
+
+### Template 5: Board or Governance Meeting
+**When to Use:** Board meetings, advisory board meetings, governance discussions
+
+**Extraction Priorities:**
+- Individual board member profiles
+- Board dynamics intelligence
+- Strategic priority signals
+- Decision process observations
+- Governance effectiveness
+
+**Output:** Stakeholder Intelligence for EACH board member + Board dynamics
+
+---
+
+### Template 6: Client Sprint or Planning Session
+**When to Use:** Working sessions with clients, strategic planning, project kickoffs
+
+**Extraction Priorities:**
+- Client organization intelligence
+- Stakeholder deep dive (working styles, decision-making)
+- Engagement intelligence
+- Outcomes & impact focus
+- Sustainability & capacity
+
+**Output:** Partnership Intelligence (update) + Detailed stakeholder profiles
+
+---
+
+### Template 7: Community Stakeholder Meeting
+**When to Use:** Meetings with grassroots leaders, community organizations
+
+**Extraction Priorities:**
+- Community context intelligence
+- Power & trust dynamics
+- Stakeholder profiles (legitimacy, authority)
+- Cultural intelligence
+- Partnership viability assessment
+
+**Output:** Stakeholder Intelligence + Community context patterns
+
+---
+
+### Template 8: International Partner Meeting
+**When to Use:** Cross-cultural contexts (Brazil, Latin America, Europe, Asia-Pacific)
+
+**Extraction Priorities:**
+- Cultural communication intelligence
+- Cross-cultural partnership dynamics
+- Organizational context (local)
+- Strategic alignment & differences
+- Partnership logistics intelligence
+
+**Output:** Partnership Intelligence (with cultural lens) + Cultural stakeholder profiles
+
+---
+
+### Template 9: Conference or Networking Event
+**When to Use:** Brief conversations at conferences, convenings, networking events
+
+**Extraction Priorities:**
+- Initial impression intelligence
+- Work & context intelligence
+- Alignment assessment
+- Networking intelligence
+- Follow-up strategy
+
+**Output:** Lightweight stakeholder profile + Follow-up plan
+
+---
+
+### Template 10: Crisis or Problem-Solving Meeting
+**When to Use:** Emergency meetings, conflict resolution, partnership problems
+
+**Extraction Priorities:**
+- Crisis intelligence (root cause vs. symptoms)
+- Relationship stress dynamics
+- Capacity under pressure
+- Values under pressure
+- Relationship viability assessment
+
+**Output:** Partnership/Stakeholder updates + Crisis assessment
+
+---
+
+## Intelligence Types
+
+The system extracts three types of intelligence:
+
+### 1. Partnership Intelligence
+Information about organizations you partner with:
+- Relationship status and temperature
+- Strategic opportunities
 - Decision-making processes
-- Cultural communication patterns
+- Cultural approaches
+- Opening opportunities
 
-**Funding Intelligence:**
-- Specific funding opportunities or programs
-- Application requirements and strategies
+### 2. Funding Intelligence
+Information about funding sources:
+- Program fit and requirements
 - Decision processes and timelines
-- Program officer relationships
+- Success factors and red flags
+- Positioning strategies
+- Budget considerations
 
-**Stakeholder Intelligence:**
-- Individual people, not organizations
-- Communication styles and preferences
-- Decision-making patterns
-- Power dynamics and influence
+### 3. Stakeholder Intelligence
+Information about individual people:
+- Communication styles
+- Decision-making approaches
+- What they care about
+- Power and influence
+- Relationship dynamics
 
-### Confidence Levels
+### How They Work Together
 
-**High (75-100%):** Multiple clear indicators, enough detail, consistent information
-**Medium (50-74%):** Some indicators, partial information, some ambiguity
-**Low (0-39%):** Minimal information, mostly interpretation, should be reviewed by human
+**Stakeholders are the connective tissue.** Every partnership and funding opportunity involves specific people. Understanding those people (Stakeholder Intelligence) makes you more effective at both partnership development and fundraising.
 
-### Actions
+The three intelligence systems work together as an interconnected ecosystem:
+- **Stakeholder Intelligence (WHO layer)** informs both Partnership and Funding Intelligence
+- **Partnership Intelligence (HOW layer)** and **Funding Intelligence (RESOURCES layer)** inform each other
+- Cross-linking enables portfolio views, relationship health monitoring, and strategic opportunity spotting
 
-**create_new:** New entity not yet in system
-**update_existing:** Updates to existing entity
-**flag_for_review:** Needs human judgment due to ambiguity or sensitivity
+For complete implementation details, see [Cross-Linking Architecture](references/cross-linking-architecture.md).
 
----
+## Quality Framework
 
-## Usage Patterns
+The system includes built-in quality monitoring:
 
-### For New Partnerships
+### Completeness Scoring
+- **Required fields**: 70% weight
+- **Optional fields**: 30% weight
+- Target: >75% overall completeness
 
-1. After first meeting → Extract partnership + stakeholder intelligence
-2. Create Asana tasks in Partnership Hub + Stakeholder DB
-3. Before second meeting → Review intelligence, prepare questions
-4. After second meeting → Update existing tasks with new insights
-5. Build comprehensive profile over multiple interactions
+### Confidence Calibration
+- **High confidence**: >85% completeness, clear signals
+- **Medium confidence**: 60-85% completeness, some ambiguity
+- **Low confidence**: <60% completeness, unclear signals
 
-### For Funding Opportunities
+### Automated Flags
+System automatically flags extractions for review when:
+- Confidence/completeness mismatch detected
+- Critical fields missing
+- Parsing errors occur
+- Multiple warnings present
 
-1. Initial conversation → Extract funding + stakeholder (program officer) intelligence
-2. Create task in Funding Intelligence project
-3. Research phase → Add to intelligence (past grantees, requirements, etc.)
-4. Application phase → Reference intelligence for positioning
-5. Post-decision → Capture lessons learned (win or lose)
+See [Quality Framework](references/quality-framework.md) for details.
 
-### For Stakeholder Profiling
+## Live Dashboard
 
-1. After any meaningful interaction → Extract stakeholder intelligence
-2. Build profile over time (multiple interactions = richer profile)
-3. Before important meeting → Review profile, prepare approach
-4. After interaction → Update with new observations
-5. Reference when planning engagement strategies
+The system includes a professional web dashboard for real-time monitoring:
 
----
+### Dashboard Features
+- **Metrics Cards**: Total extractions, avg completeness, ratings, flags
+- **Quality Trends**: 30-day visualization
+- **Template Performance**: Compare all templates
+- **Recent Activity**: Live extraction feed
+
+### Technology Stack
+- **Frontend**: Next.js 14 + TypeScript + Tailwind CSS
+- **Backend**: Supabase (PostgreSQL with real-time)
+- **Hosting**: Vercel (auto-deploy from GitHub)
+- **Cost**: Free tier available
+
+### Quick Links
+- [Dashboard Documentation](../../intelligence-dashboard/README.md)
+- [Deployment Guide](../../intelligence-dashboard/DEPLOYMENT_GUIDE.md)
+- [Live Dashboard Summary](../../INTELLIGENCE_DASHBOARD_SUMMARY.md)
+
+## Integration Workflow
+
+```
+Meeting Transcript (Fathom/Zoom)
+         ↓
+   Google Drive
+         ↓
+      Zapier ───────→ Claude API (with template)
+         ↓                       ↓
+   Supabase ←──── JSON Output ──┘
+         ↓
+   Dashboard (real-time update)
+         ↓
+   Asana Tasks (intelligence items)
+```
+
+## Usage Examples
+
+### Example 1: New Partnership Meeting
+
+```markdown
+Meeting with InovaEduK (Brazilian EdTech)
+- Used Template 1 (Partnership New)
+- Extracted: 1 Partnership Intelligence, 3 Stakeholder profiles
+- Completeness: 82%
+- Confidence: High
+- Key insights: Strong values alignment, decision involves 2 more people
+```
+
+### Example 2: Funder Call
+
+```markdown
+Call with Imaginable Futures
+- Used Template 3 (Funder Initial)
+- Extracted: 1 Funding Intelligence, 1 Program Officer profile
+- Completeness: 76%
+- Confidence: Medium
+- Key insights: Strong fit for education innovation, competitive process
+```
+
+See [examples/](examples/) for complete extraction examples.
 
 ## Best Practices
 
-### Do's ✅
+### Template Selection
+1. **Match meeting type precisely** - Each template optimized for specific contexts
+2. **When in doubt, use Template 1** - Most general, works for initial meetings
+3. **Combine templates if needed** - E.g., Board Meeting + Crisis for emergency board session
 
-- **Extract immediately after meetings** while details are fresh
-- **Review and edit** extracted intelligence (don't trust blindly)
-- **Update existing profiles** rather than creating duplicates
-- **Capture cultural context** (relationship-building pace, communication norms)
-- **Note what's NOT said** (silences, avoidances, hesitations matter)
-- **Link related entities** (stakeholder → partnership → funder)
-- **Provide feedback** to improve future extractions
+### Context Provision
+1. **Always fill in meeting context** - Helps Claude calibrate extraction
+2. **Specify cultural context** - Especially for international meetings
+3. **Note previous interactions** - Helps with relationship evolution tracking
 
-### Don'ts ❌
+### Quality Review
+1. **Review flagged extractions** - System flags potential issues
+2. **Rate extraction quality** - Helps improve template performance
+3. **Provide feedback** - System learns from corrections
 
-- **Don't fabricate** information that's not in the source
-- **Don't over-interpret** low-confidence signals
-- **Don't skip cultural context** (it drives relationship success)
-- **Don't create duplicate tasks** (search first, update if exists)
-- **Don't ignore red flags** (capture walk-away signals honestly)
-- **Don't let intelligence go stale** (update Last Interaction dates)
+## Advanced Features
 
----
+### A/B Template Testing
+- Run experiments on template variations
+- Track performance metrics
+- Deploy winning versions
+- See dashboard for experiment tracking
 
-## Example Use Cases
+### Automated Analysis
+- Weekly quality summaries
+- Template performance reports
+- Improvement recommendations
+- Trend analysis
 
-### Use Case 1: Brazilian Educational Partnership
+### Cultural Intelligence
+- Cross-cultural communication patterns
+- Power dynamics awareness
+- Relationship-building pace tracking
+- Language and formality indicators
 
-**Situation:** First meeting with potential Brazilian educational partner
-
-**Process:**
-1. Meeting happens (relationship-building focus, warm but formal)
-2. Use intelligence-extractor with "partnership-new" context
-3. Extracts:
-   - Partnership intelligence (relationship-first culture, deliberate timeline, systems-change orientation)
-   - Stakeholder profiles (CEO and Partnerships Director)
-4. Create Asana tasks in both projects
-5. Before second meeting, review intelligence → prepare appropriate relationship-building approach
-6. Result: Culturally appropriate engagement, stronger relationship
-
-### Use Case 2: US Foundation Funding
-
-**Situation:** Program officer call about potential grant
-
-**Process:**
-1. Conversation about program, requirements, decision process
-2. Use intelligence-extractor with "funder-initial" context
-3. Extracts:
-   - Funding opportunity intelligence (competitive, site visit offered, board priorities)
-   - Program officer profile (responsive, helpful, moderate influence)
-4. Create tasks, populate application strategy section
-5. Reference intelligence when writing LOI
-6. Result: Stronger application, 15% → secured funding
-
-### Use Case 3: Board Meeting Intelligence
-
-**Situation:** Quarterly board meeting with multiple decision-makers
-
-**Process:**
-1. Meeting with 8 board members discussing strategy
-2. Use intelligence-extractor with "board-meeting" context
-3. Extracts:
-   - 8 stakeholder profiles (different communication styles, priorities, influence levels)
-   - Board dynamics patterns (decision-making culture, power structure)
-4. Create/update stakeholder profiles for each board member
-5. Before next meeting, review who needs what kind of information
-6. Result: More effective board engagement, better decision outcomes
-
----
-
-## Metrics & ROI
-
-### Time Savings
-
-**Manual Intelligence Capture (before system):**
-- 0-5 minutes (usually forgot to do it)
-- Inconsistent quality
-- Lost intelligence over time
-
-**With Intelligence Extractor:**
-- 10 minutes manual (consistent, comprehensive)
-- 0 minutes automated (if using Zapier)
-- Permanent, searchable, structured
-
-**Monthly Savings (40 meetings):**
-- Manual: 40 × 10 min = ~7 hours/month
-- Automated: Essentially zero time, infinite ROI
-
-### Quality Improvements
-
-- **Consistency:** Every meeting captured the same way
-- **Completeness:** Comprehensive schemas ensure nothing missed
-- **Usability:** Structured data = searchable, filterable, actionable
-- **Learning:** Patterns emerge across partnerships, funders, stakeholders
-- **Institutional knowledge:** Intelligence persists beyond individual memory
-
-### Decision Improvements
-
-- Better partnership positioning (cultural intelligence)
-- Higher funding success rates (application strategy intelligence)
-- More effective stakeholder engagement (communication style intelligence)
-- Faster relationship building (pattern recognition)
-- Fewer costly mistakes (red flags captured early)
-
----
+See [Cultural Intelligence Guide](references/cultural-intelligence.md)
 
 ## Troubleshooting
 
-### "Extraction is too generic"
+### Low Completeness Scores
+- Check if transcript is complete
+- Verify template matches meeting type
+- Ensure context section is filled out
+- Review if meeting covered expected topics
 
-**Problem:** Intelligence lacks specific, actionable details
+### Confidence Mismatches
+- High confidence + low completeness = Template may be over-confident
+- Low confidence + high completeness = Template may be too conservative
+- Flag for template improvement
 
-**Solutions:**
-- Use more specific extraction template for meeting type
-- Include more context in prompt (meeting type, participants, history)
-- Review source transcript - is it detailed enough?
-- Manually add specificity after extraction
+### Missing Intelligence
+- Check template extraction priorities
+- Verify transcript quality
+- Consider if meeting actually covered the topic
+- May need different template
 
-### "Confidence levels seem wrong"
+## Contributing
 
-**Problem:** High confidence for sparse information or low confidence for good information
+### Improving Templates
+1. Review extraction quality metrics
+2. Identify patterns in low-performing extractions
+3. Propose template modifications
+4. A/B test changes
+5. Deploy improvements
 
-**Solutions:**
-- Provide feedback via quality ratings
-- System learns and calibrates over time
-- Adjust confidence thresholds in automation
-- Review confidence scoring guidelines in SKILL.md
+### Adding New Templates
+1. Identify unmet meeting type
+2. Draft template based on standard structure
+3. Test on sample transcripts
+4. Track performance metrics
+5. Iterate based on quality data
 
-### "Creating duplicate tasks"
+## Support
 
-**Problem:** New task created when should have updated existing
+- **Dashboard Issues**: See `intelligence-dashboard/README.md`
+- **Template Questions**: Review template-specific guidance
+- **Integration Help**: Check Zapier integration code
+- **Quality Concerns**: See Quality Framework reference
 
-**Solutions:**
-- Search Asana before creating (manually)
-- Improve Zapier search logic (automated)
-- Use consistent naming conventions
-- Link related tasks in descriptions
+## Version History
 
-### "Missing cultural context"
+- **v1.1** (2025-11-15) - Cross-Linking Architecture Integration
+  - Comprehensive cross-linking architecture documentation
+  - Intelligence schemas for all three intelligence types
+  - Integration patterns and workflow examples
+  - Dashboard views for cross-system intelligence
+  - Implementation roadmap and success metrics
 
-**Problem:** Extraction doesn't capture cultural nuances
+- **v1.0** (2025-01-15) - Initial release with 10 templates and live dashboard
+  - 10 meeting-type specific templates
+  - Real-time quality dashboard
+  - Supabase + Vercel deployment
+  - Automated quality tracking
 
-**Solutions:**
-- Explicitly mention cultural context in prompt
-- Use international partner template for cross-cultural meetings
-- Add cultural context manually after extraction
-- Provide feedback to improve template
+## License
 
----
-
-## Advanced Topics
-
-### Quality Feedback Loop
-
-(See separate documentation when implementing)
-
-- Automated quality scoring
-- User feedback capture
-- Template improvement system
-- A/B testing framework
-
-### Pattern Library Development
-
-As you accumulate intelligence:
-- Extract recurring patterns
-- Document in Pattern Library sections
-- Reference patterns for new situations
-- Build institutional knowledge
-
-### Cross-Referencing Intelligence
-
-Connect related entities:
-- Stakeholder works at Partner organization
-- Funder interested in Partnership
-- Multiple Stakeholders from same organization
-- Overlapping networks
-
-### Custom Field Analytics
-
-Use Asana reporting to analyze:
-- Partnership success rates by type
-- Funding win rates by funder type
-- Relationship temperature trends
-- Decision timeline patterns
+[Add license information]
 
 ---
 
-## Roadmap & Future Enhancements
-
-### Current Version (1.0)
-- ✅ Manual intelligence extraction
-- ✅ Three intelligence schemas
-- ✅ 10 specialized templates
-- ✅ Asana integration (manual)
-- ✅ Zapier automation workflow
-
-### Future Enhancements (1.x)
-- Enhanced multi-language support (Spanish, other languages)
-- CRM integration (link to contacts)
-- Email signature extraction (auto-capture contact info)
-- Calendar integration (auto-context from meeting invites)
-- Voice note intelligence extraction
-
-### Future Enhancements (2.0)
-- Predictive intelligence (suggest next actions based on patterns)
-- Relationship health scoring (automated risk detection)
-- Network mapping (visualize stakeholder connections)
-- Intelligence dashboards (trends, insights, alerts)
-- Team collaboration features (shared intelligence, annotations)
-
----
-
-## Getting Help
-
-### Documentation
-1. Read [SKILL.md](SKILL.md) for extraction details
-2. Read [ASANA-SETUP.md](ASANA-SETUP.md) for database setup
-3. Read [ZAPIER-INTEGRATION.md](ZAPIER-INTEGRATION.md) for automation
-4. Check template files for meeting-specific guidance
-
-### Support
-- Create task in "Intelligence System Improvements" Asana project
-- Document issues, suggestions, questions
-- Share learnings with team
-
-### Contributing
-- Suggest template improvements based on usage
-- Share successful extraction examples
-- Document new patterns discovered
-- Provide feedback on quality and usefulness
-
----
-
-## License & Credits
-
-**Created by:** 360 Social Ventures
-**Version:** 1.0.0
-**Date:** March 2025
-**Powered by:** Claude (Anthropic), Asana, Zapier
-
----
-
-## Final Thoughts
-
-**Intelligence is the difference between reacting and anticipating.**
-
-This system transforms scattered conversation notes into a structured intelligence asset. It helps you:
-
-- **Remember** what matters from every conversation
-- **Recognize** patterns across partnerships, funders, stakeholders
-- **Respond** with culturally appropriate, strategically informed approaches
-- **Build** institutional knowledge that persists beyond individual memory
-
-Start small. Extract intelligence from one meeting. See the value. Build the habit. Scale gradually.
-
-The intelligence you capture today becomes the insight that guides your decisions tomorrow.
-
-**Ready to start? Pick a recent meeting transcript and use the intelligence-extractor skill.**
-
----
-
-*Questions? Ideas? Feedback? Document in Asana or reach out to the team.*
+**Quick Links:**
+- [Template Selection Guide](templates/00-template-selection-guide.md) ← Start here
+- [Complete File Index](INDEX.md)
+- [Live Dashboard](../../intelligence-dashboard/README.md)
+- [Deployment Guide](../../intelligence-dashboard/DEPLOYMENT_GUIDE.md)
+- [Cross-Linking Architecture](references/cross-linking-architecture.md) ⭐ NEW
+- [Intelligence Schemas](references/intelligence-schemas.md) ⭐ NEW
+- [Quality Framework](references/quality-framework.md)
