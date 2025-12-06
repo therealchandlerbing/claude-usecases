@@ -28,11 +28,19 @@ import sys
 scripts_dir = Path(__file__).parent.parent.parent.parent / "scripts"
 sys.path.insert(0, str(scripts_dir))
 
-from validate_skill_structure import (
-    SkillStructureValidator,
-    ValidationResult,
-    SkillValidationSummary
-)
+# Guard the import - validate_skill_structure.py calls sys.exit(2) if yaml is missing
+# which would kill pytest during test collection. We need to prevent that.
+if yaml is not None:
+    from validate_skill_structure import (
+        SkillStructureValidator,
+        ValidationResult,
+        SkillValidationSummary
+    )
+else:
+    # Provide dummy classes so module can load (tests will be skipped anyway)
+    SkillStructureValidator = None  # type: ignore
+    ValidationResult = None  # type: ignore
+    SkillValidationSummary = None  # type: ignore
 
 
 @pytest.fixture

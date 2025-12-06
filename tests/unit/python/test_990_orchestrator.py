@@ -34,7 +34,11 @@ import os
 # Add skills directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "skills" / "990-ez-preparation" / "src"))
 
-from orchestrator import Form990EZOrchestrator
+# Guard the import to prevent issues during test collection if yaml is missing
+if yaml is not None:
+    from orchestrator import Form990EZOrchestrator
+else:
+    Form990EZOrchestrator = None  # type: ignore
 
 
 # ============================================================================
