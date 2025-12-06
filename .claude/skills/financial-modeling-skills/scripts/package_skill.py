@@ -9,8 +9,14 @@ import sys
 import argparse
 import zipfile
 import json
-import yaml
 from pathlib import Path
+
+# Import yaml with guard for helpful error message
+try:
+    import yaml
+except ImportError:
+    print("Error: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
 from datetime import datetime
 import hashlib
 import re

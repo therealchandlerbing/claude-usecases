@@ -103,9 +103,12 @@ Added force reinstall after pip install in all workflows:
 
 ### Fix 4: Import Guards (IMPLEMENTED)
 
-Added import guards to files that were missing them:
+Added import guards to all files that import yaml:
 
-**`tests/unit/python/test_skill_structure_validator.py`:**
+**Test files with pytestmark skipif:**
+- `tests/unit/python/test_skill_structure_validator.py`
+- `tests/unit/python/test_990_orchestrator.py`
+
 ```python
 try:
     import yaml
@@ -118,7 +121,9 @@ pytestmark = pytest.mark.skipif(
 )
 ```
 
-**`skills/990-ez-preparation/src/orchestrator.py`:**
+**Source files with runtime check:**
+- `skills/990-ez-preparation/src/orchestrator.py`
+
 ```python
 try:
     import yaml
@@ -129,6 +134,21 @@ except ImportError:
 if yaml is None:
     raise ImportError("PyYAML is required...")
 ```
+
+**Script files with early exit:**
+- `.claude/skills/financial-modeling-skills/scripts/init_skill.py`
+- `.claude/skills/financial-modeling-skills/scripts/package_skill.py`
+
+```python
+try:
+    import yaml
+except ImportError:
+    print("Error: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
+```
+
+**Conftest fixtures:**
+- `tests/conftest.py` - Added `yaml_available` and `require_yaml` fixtures
 
 **Note:** `shared/config_loader.py` already had proper import guards.
 

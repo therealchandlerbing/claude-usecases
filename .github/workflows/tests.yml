@@ -38,10 +38,6 @@ jobs:
           python -c "import yaml; print(f'PyYAML version: {yaml.__version__}')"
           python -c "import pytest; print(f'pytest version: {pytest.__version__}')"
 
-      - name: Run pytest
-        run: |
-          python -m pytest --verbose --tb=short
-
       - name: Run pytest with coverage
         run: |
           python -m pytest \
