@@ -10,8 +10,13 @@ Date: November 2025
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 from decimal import Decimal
-import yaml
 import json
+
+# Import yaml with guard to provide helpful error message
+try:
+    import yaml
+except ImportError:
+    yaml = None  # type: ignore
 
 
 class Form990EZOrchestrator:
@@ -53,6 +58,11 @@ class Form990EZOrchestrator:
 
     def _load_config(self, filename: str) -> Dict:
         """Load a YAML configuration file."""
+        if yaml is None:
+            raise ImportError(
+                "PyYAML is required for Form 990-EZ preparation. "
+                "Install with: pip install pyyaml"
+            )
         try:
             with open(f"{self.config_path}{filename}", 'r') as f:
                 return yaml.safe_load(f)
