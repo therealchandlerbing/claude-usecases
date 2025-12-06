@@ -1,9 +1,9 @@
 # Known Issue: Intermittent CI Test Failures
 
-**Status**: Under Investigation
+**Status**: Under Investigation (Diagnostics Added)
 **Severity**: Medium
 **First Observed**: 2025-12-06
-**Last Updated**: 2025-12-06
+**Last Updated**: 2025-12-06 (diagnostics commit)
 
 ---
 
@@ -83,10 +83,23 @@ The following CI configuration issues have been identified and fixed:
 
 ## Next Steps
 
-1. **Monitor CI runs** after deploying fixes
-2. **Review CI logs** when failures occur to identify specific errors
-3. **Compare environments** between local and CI if issues persist
-4. **Add more verbose logging** to CI if needed
+1. ✅ **Added verbose diagnostics** to CI workflows (tests.yml, coverage.yml)
+2. **Monitor CI runs** after deploying fixes
+3. **Review CI logs** when failures occur to identify specific errors
+4. **Compare environments** between local and CI if issues persist
+
+## Diagnostic Steps Added
+
+The following diagnostic output has been added to help identify CI issues:
+
+- Python and pip version information
+- List of installed packages (pyyaml, pytest, coverage)
+- YAML import verification
+- Python path information
+- Working directory listing
+- Test collection check before running tests
+- Verbose test output (`-v`)
+- Long tracebacks (`--tb=long`)
 
 ## Workarounds
 
