@@ -24,10 +24,12 @@ except ImportError:
 PROJECT_ROOT = Path(__file__).parent.parent
 SKILLS_DIR = PROJECT_ROOT / "skills"
 CLAUDE_SKILLS_DIR = PROJECT_ROOT / ".claude" / "skills"
+SHARED_DIR = PROJECT_ROOT / "shared"
 
 sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(SKILLS_DIR))
 sys.path.insert(0, str(CLAUDE_SKILLS_DIR))
+sys.path.insert(0, str(SHARED_DIR))
 
 
 # ============================================================================
