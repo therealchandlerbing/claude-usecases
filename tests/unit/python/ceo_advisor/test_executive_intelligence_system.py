@@ -286,8 +286,8 @@ class TestExternalSignalAnalysis:
 
         signal = system._analyze_external_signal('market_dynamics', data, config)
 
-        # Apply confidence factor to opportunity impact score (0.95)
-        expected_impact = 0.7 * opportunity_score * 0.95
+        # Impact score = weight * opportunity_score
+        expected_impact = 0.7 * opportunity_score
         assert signal.impact_score == expected_impact
 
 
