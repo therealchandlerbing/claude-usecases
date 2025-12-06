@@ -12,14 +12,24 @@ from typing import Any, Dict
 
 import pytest
 
+# Check yaml availability at module level for use in fixtures and markers
+try:
+    import yaml
+    YAML_AVAILABLE = True
+except ImportError:
+    yaml = None  # type: ignore
+    YAML_AVAILABLE = False
+
 # Add project root and skill directories to Python path
 PROJECT_ROOT = Path(__file__).parent.parent
 SKILLS_DIR = PROJECT_ROOT / "skills"
 CLAUDE_SKILLS_DIR = PROJECT_ROOT / ".claude" / "skills"
+SHARED_DIR = PROJECT_ROOT / "shared"
 
 sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(SKILLS_DIR))
 sys.path.insert(0, str(CLAUDE_SKILLS_DIR))
+sys.path.insert(0, str(SHARED_DIR))
 
 
 # ============================================================================
@@ -58,6 +68,23 @@ def temp_output_dir(tmp_path) -> Path:
     output_dir = tmp_path / "output"
     output_dir.mkdir(exist_ok=True)
     return output_dir
+
+
+# ============================================================================
+# Dependency Availability Fixtures
+# ============================================================================
+
+@pytest.fixture(scope="session")
+def yaml_available() -> bool:
+    """Check if PyYAML is available for tests that require it."""
+    return YAML_AVAILABLE
+
+
+@pytest.fixture
+def require_yaml():
+    """Skip test if PyYAML is not available."""
+    if not YAML_AVAILABLE:
+        pytest.skip("PyYAML not installed - skipping yaml-dependent test")
 
 
 # ============================================================================

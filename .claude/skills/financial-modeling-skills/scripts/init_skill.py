@@ -9,7 +9,13 @@ import sys
 import argparse
 from datetime import datetime
 from pathlib import Path
-import yaml
+
+# Import yaml with guard for helpful error message
+try:
+    import yaml
+except ImportError:
+    print("Error: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
 
 # Skill template with financial modeling focus
 SKILL_MD_TEMPLATE = """---
