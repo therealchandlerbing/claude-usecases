@@ -470,7 +470,7 @@ See [Cultural Intelligence Guide](references/cultural-intelligence.md)
 
 ## License
 
-[Add license information]
+Copyright © 2025 360 Social Impact Studios. All rights reserved.
 
 ---
 

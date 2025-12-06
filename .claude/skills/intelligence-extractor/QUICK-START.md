@@ -225,7 +225,7 @@ If you've deployed the **intelligence-dashboard**:
 - `references/intelligence-schemas.md` - Complete JSON schema docs
 - `references/cross-linking-architecture.md` - Multi-system integration
 - `references/quality-framework.md` - Quality metrics explained
-- `.claude/skills/intelligence-extractor/ZAPIER-INTEGRATION.md` - Automation setup
+- `ZAPIER-INTEGRATION.md` - Automation setup
 
 **Examples:**
 - `examples/partnership-extraction-example.md`
@@ -318,7 +318,7 @@ Timeline feels slow - she said "We build trust first, then work."
 
 - **Template selection:** See `templates/00-template-selection-guide.md`
 - **Complete schemas:** See `references/intelligence-schemas.md`
-- **Automation setup:** See `.claude/skills/intelligence-extractor/ZAPIER-INTEGRATION.md`
+- **Automation setup:** See `ZAPIER-INTEGRATION.md`
 - **Dashboard deployment:** See `../../intelligence-dashboard/DEPLOYMENT_GUIDE.md`
 - **Full documentation:** Read `SKILL.md` (comprehensive)
 
