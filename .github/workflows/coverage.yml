@@ -31,11 +31,24 @@ jobs:
 
       - name: Verify critical dependencies
         run: |
+          echo "=== Python Environment ==="
+          python --version
+          pip --version
+          echo ""
+          echo "=== Installed Packages ==="
+          pip list | grep -i -E "pyyaml|pytest|coverage" || true
+          echo ""
+          echo "=== YAML Import Test ==="
           python -c "import yaml; print(f'PyYAML version: {yaml.__version__}')"
+          echo ""
+          echo "=== Test Collection Check ==="
+          python -m pytest --collect-only 2>&1 | head -50 || true
 
       - name: Run Python tests with coverage
         run: |
           python -m pytest \
+            -v \
+            --tb=long \
             --cov=skills \
             --cov=.claude/skills \
             --cov-report=xml \
