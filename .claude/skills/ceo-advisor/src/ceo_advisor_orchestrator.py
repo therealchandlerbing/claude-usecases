@@ -22,7 +22,12 @@ class CEOAdvisorOrchestrator:
     """
 
     def __init__(self, config: Dict = None):
-        self.config = config or self._load_default_config()
+        # If config is explicitly an empty dict, keep it empty
+        # Otherwise load defaults
+        if config is not None:
+            self.config = config
+        else:
+            self.config = self._load_default_config()
         self.intelligence_system = None
         self.stakeholder_analytics = None
         self.ceo_optimizer = None
