@@ -90,7 +90,8 @@ All 5 Python orchestrators follow identical patterns:
 **Current State**:
 - **990-ez-preparation**: 99% coverage (1,442 lines of tests)
 - **ceo-advisor**: Comprehensive (3,168 lines across 4 test files)
-- **22 other skills**: No dedicated tests
+- **skill-structure-validator**: Has dedicated tests
+- **21 other unique skills**: No dedicated tests
 
 **Test File Distribution**:
 ```
@@ -107,7 +108,9 @@ tests/unit/python/
 └── test_placeholder.py
 ```
 
-**Gap Analysis**: Only 3 of 33 skills (9%) have Python tests.
+**Gap Analysis**: Only 3 of 24 unique skills (12.5%) have Python tests.
+
+*Note: There are 20 managed skills in `.claude/skills/` and 12 user skills in `skills/`, but 8 are duplicates, resulting in 24 unique skills.*
 
 ### 4. Configuration File Redundancy
 
@@ -177,10 +180,10 @@ class ConfigLoader:
     """Centralized configuration loading with consistent error handling."""
 
     @staticmethod
-    def load_yaml(path: Path, required: bool = True) -> Optional[Dict[str, Any]]:
+    def load_yaml(path: Path, required: bool = True, encoding: str = 'utf-8') -> Optional[Dict[str, Any]]:
         """Load YAML configuration with standardized error handling."""
         try:
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=encoding) as f:
                 return yaml.safe_load(f)
         except FileNotFoundError:
             if required:
@@ -240,7 +243,8 @@ class BaseOrchestrator(ABC):
         if config is not None:
             self.config = config
         elif config_path is not None:
-            self.config = ConfigLoader.load_yaml(config_path)
+            # Fallback to defaults if config file is empty
+            self.config = ConfigLoader.load_yaml(config_path) or self._get_default_config()
         else:
             self.config = self._get_default_config()
 
@@ -632,7 +636,8 @@ Based on analysis of the current skill inventory and common workflow patterns, h
 | Metric | Current | Target |
 |--------|---------|--------|
 | Duplicate skill directories | 8 | 0 |
-| Skills with tests | 3 (9%) | 24 (70%) |
+| Skills with tests | 3 (12.5%) | 17 (70%) |
+| Unique skills (after dedup) | 24 | 24 |
 | Shared utility modules | 0 | 3+ |
 | Documentation templates | 0 | 4 |
 | Agent count | 5 | 11 |

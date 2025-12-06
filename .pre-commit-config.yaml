@@ -1,0 +1,70 @@
+# Pre-commit configuration for claude-usecases
+# See https://pre-commit.com for more information
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: end-of-file-fixer
+        exclude: '\.md$'
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: ['--line-length=127']
+        files: ^(skills|scripts|tests|shared)/.*\.py$
+
+  # Python import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ['--profile=black', '--line-length=127']
+        files: ^(skills|scripts|tests|shared)/.*\.py$
+
+  # Python linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=127', '--extend-ignore=E203,W503']
+        files: ^(skills|scripts|tests|shared)/.*\.py$
+
+  # Local hooks for skill validation
+  - repo: local
+    hooks:
+      - id: validate-skill-structure
+        name: Validate Skill Structure
+        entry: python scripts/validate_skill_structure.py --verbose
+        language: python
+        pass_filenames: false
+        files: ^(skills|\.claude/skills)/.*\.(md|yaml)$
+        additional_dependencies: [pyyaml]
+
+      - id: check-skill-frontmatter
+        name: Check SKILL.md Frontmatter
+        entry: python scripts/check_skill_frontmatter.py
+        language: python
+        files: ^(skills|\.claude/skills)/.*/SKILL\.md$
+
+# Configuration
+default_language_version:
+  python: python3.11
+
+# Skip hooks in CI (they run separately)
+ci:
+  skip: [validate-skill-structure]
